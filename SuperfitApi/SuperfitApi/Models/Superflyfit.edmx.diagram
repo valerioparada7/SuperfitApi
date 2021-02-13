@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="649dac9e0e824d6284a309be6c795c6c" Name="Diagram1">
+        <EntityTypeShape EntityType="SuperflyfitModel.Asesoria_Antropometria" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Clientes" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Cuestionario" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Detalle_rutina" Width="1.5" PointX="11.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Dias" Width="1.5" PointX="9" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Ejercicios" Width="1.5" PointX="9" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Estatus" Width="1.5" PointX="3.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Mensualidad" Width="1.5" PointX="6" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Meses" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Rutinas" Width="1.5" PointX="9" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.TipoEntrenamiento" Width="1.5" PointX="3.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Tiporutina" Width="1.5" PointX="3.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperflyfitModel.Usuarios" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_mensualidad_Asesoria" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_Cliente_cuestionario" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_dia" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_ejercicio" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_mensualidad_detalle" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_rutina" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_estatus" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.FK__Mensualid__Id_Ti__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_mensualidad" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_mes" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperflyfitModel.fk_Id_tiporutina" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

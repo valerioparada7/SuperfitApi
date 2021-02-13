@@ -1,0 +1,191 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using SuperfitApi.Models;
+
+namespace SuperfitApi.Controllers
+{
+    public class LoginController : ApiController
+    {
+        #region Variables 
+        public SuperflyfitEntities Db;
+        public Clientes clientes;
+        public Cuestionario cuestionario;
+        public Mensualidad mensualidad;
+        public Asesoria_Antropometria asesoria_antropometria;
+        //modelos
+        public ClientesModel clientesMdl;
+        public CuestionarioModel cuestionarioMdl;
+        public MensualidadModel mensualidadMdl;
+        public AntropometriaModel asesoria_antropometriaMdl;
+        #endregion
+
+        public LoginController()
+        {
+            Db = new SuperflyfitEntities();
+            clientes = new Clientes();
+            cuestionario = new Cuestionario();
+            mensualidad = new Mensualidad();
+            asesoria_antropometria = new Asesoria_Antropometria();
+            //modelos
+            clientesMdl = new ClientesModel();
+            cuestionarioMdl = new CuestionarioModel();
+            mensualidadMdl = new MensualidadModel();
+            asesoria_antropometriaMdl = new AntropometriaModel();
+        }        
+
+        //Loguearse
+        [HttpGet]
+        public ClientesModel Login(string User,string Pass)
+        {
+            clientesMdl = (from c in Db.Clientes
+                           where c.Contraseña == Pass && c.Clave_Cliente == User
+                           select new ClientesModel()
+                           {
+                               Id_Cliente = c.Id_Cliente,
+                               Nombres = c.Nombres,                               
+                           }).FirstOrDefault();
+            
+            if (clientesMdl != null)
+            {
+                clientesMdl.Validar = true;
+                clientesMdl.Nombres = clientesMdl.Nombres;
+                return clientesMdl;
+            }
+            else
+            {
+                clientesMdl = new ClientesModel();
+                clientesMdl.Validar = false;
+                clientesMdl.Nombres = "No se encontro el Usuario";
+                return clientesMdl;
+            }
+        }
+        
+        //Crear cuenta registrando el cliente
+        [HttpPost]
+        public bool RegistrarCliente(ClientesModel clientesModel)
+        {
+            string Clave = "";
+            Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_Paterno.Substring(0, 3) +
+                    clientesModel.Apellido_Materno.Substring(0, 3);
+            clientes = new Clientes
+            {
+                Clave_Cliente = Clave,
+                Nombres = clientesModel.Nombres,
+                Apellido_Paterno = clientesModel.Apellido_Paterno,
+                Apellido_Materno = clientesModel.Apellido_Materno,
+                Edad = clientesModel.Edad,
+                Telefono = clientesModel.Telefono,
+                Correo_electronico = clientesModel.Correo_electronico,
+                Apodo = clientesModel.Apodo,
+                Contraseña = clientesModel.Contraseña
+            };
+            Db.Clientes.Add(clientes);
+            if (Db.SaveChanges() == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        //registro ,responder su cuestionario
+        [HttpPost]
+        public bool RegistroCuestionario(CuestionarioModel cuestionarioModel)
+        {
+            cuestionario = new Cuestionario
+            {
+                Id_Cliente = cuestionarioModel.Cliente.Id_Cliente,
+                Clave_cuestionario = cuestionarioModel.Clave_cuestionario,
+                Padece_enfermedad = cuestionarioModel.Padece_enfermedad,
+                Medicamento_prescrito_medico = cuestionarioModel.Medicamento_prescrito_medico,
+                lesiones = cuestionarioModel.lesiones,
+                Alguna_recomendacion_lesiones = cuestionarioModel.Alguna_recomendacion_lesiones,
+                Fuma = cuestionarioModel.Fuma,
+                Veces_semana_fuma = cuestionarioModel.Veces_semana_fuma,
+                Alcohol = cuestionarioModel.Alcohol,
+                Veces_semana_alcohol = cuestionarioModel.Veces_semana_alcohol,
+                Actividad_fisica = cuestionarioModel.Actividad_fisica,
+                Tipo_ejercicios = cuestionarioModel.Tipo_ejercicios,
+                Tiempo_dedicado = cuestionarioModel.Tiempo_dedicado,
+                Horario_entreno = cuestionarioModel.Horario_entreno,
+                MetasObjetivos = cuestionarioModel.MetasObjetivos,
+                Compromisos = cuestionarioModel.Compromisos,
+                Comentarios = cuestionarioModel.Comentarios,
+                Fecha_registro = DateTime.Now
+            };
+            Db.Cuestionario.Add(cuestionario);
+            if (Db.SaveChanges() == 1)
+            {
+                return true; 
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //registro de como quiere su mensualidad
+        [HttpPost]
+        public bool RegistrarMensualidad(MensualidadModel mensualidadModel)
+        {
+            mensualidad = new Mensualidad()
+            {
+                Id_Cliente = mensualidadModel.Cliente.Id_Cliente,
+                Id_tiporutina = mensualidadModel.Tiporutina.Id_tiporutina,
+                Id_mes = mensualidadModel.Mes.Id_mes,
+                Id_estatus = mensualidadModel.Estatus.Id_estatus,
+                Id_TipoEntrenamiento = mensualidadModel.TipoEntrenamiento.Id_TipoEntrenamiento,
+                Fecha_inicio = DateTime.Now,
+                Fecha_fin = DateTime.Now.AddMonths(1)
+            };
+            Db.Mensualidad.Add(mensualidad);
+            if (Db.SaveChanges() == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //registro de sus medidas
+        [HttpPost]
+        public bool RegistrarAntropometria(AntropometriaModel antropometriaModel)
+        {
+            asesoria_antropometria = new Asesoria_Antropometria()
+            {
+                    Id_mensualidad = antropometriaModel.Mensualidad.Id_mensualidad,
+                    Peso=antropometriaModel.Peso,
+                    Altura=antropometriaModel.Altura,
+                    IMC=antropometriaModel.IMC,
+                    Brazoderechorelajado=antropometriaModel.Brazoderechorelajado,
+                    Brazoderechofuerza=antropometriaModel.Brazoderechofuerza,
+                    Brazoizquierdorelajado=antropometriaModel.Brazoizquierdorelajado,
+                    Brazoizquierdofuerza=antropometriaModel.Brazoizquierdofuerza,
+                    Cintura=antropometriaModel.Cintura,
+                    Cadera=antropometriaModel.Cadera,
+                    Piernaizquierda=antropometriaModel.Piernaizquierda,
+                    Piernaderecho=antropometriaModel.Piernaderecho,
+                    Pantorrilladerecha=antropometriaModel.Pantorrilladerecha,
+                    Pantorrillaizquierda=antropometriaModel.Pantorrillaizquierda,
+                    Fecha_registro=antropometriaModel.Fecha_registro,
+            };
+            Db.Asesoria_Antropometria.Add(asesoria_antropometria);
+            if (Db.SaveChanges() == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}

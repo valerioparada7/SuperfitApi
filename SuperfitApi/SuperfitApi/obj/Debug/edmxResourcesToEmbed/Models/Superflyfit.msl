@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SuperflyfitModelStoreContainer" CdmEntityContainer="SuperflyfitEntities">
+    <EntitySetMapping Name="Asesoria_Antropometria">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Asesoria_Antropometria">
+        <MappingFragment StoreEntitySet="Asesoria_Antropometria">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Id_mensualidad" ColumnName="Id_mensualidad" />
+          <ScalarProperty Name="Peso" ColumnName="Peso" />
+          <ScalarProperty Name="Altura" ColumnName="Altura" />
+          <ScalarProperty Name="IMC" ColumnName="IMC" />
+          <ScalarProperty Name="Brazoderechorelajado" ColumnName="Brazoderechorelajado" />
+          <ScalarProperty Name="Brazoderechofuerza" ColumnName="Brazoderechofuerza" />
+          <ScalarProperty Name="Brazoizquierdorelajado" ColumnName="Brazoizquierdorelajado" />
+          <ScalarProperty Name="Brazoizquierdofuerza" ColumnName="Brazoizquierdofuerza" />
+          <ScalarProperty Name="Cintura" ColumnName="Cintura" />
+          <ScalarProperty Name="Cadera" ColumnName="Cadera" />
+          <ScalarProperty Name="Piernaizquierda" ColumnName="Piernaizquierda" />
+          <ScalarProperty Name="Piernaderecho" ColumnName="Piernaderecho" />
+          <ScalarProperty Name="Pantorrilladerecha" ColumnName="Pantorrilladerecha" />
+          <ScalarProperty Name="Pantorrillaizquierda" ColumnName="Pantorrillaizquierda" />
+          <ScalarProperty Name="Fecha_registro" ColumnName="Fecha_registro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
+          <ScalarProperty Name="Clave_Cliente" ColumnName="Clave_Cliente" />
+          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
+          <ScalarProperty Name="Apodo" ColumnName="Apodo" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Correo_electronico" ColumnName="Correo_electronico" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cuestionario">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Cuestionario">
+        <MappingFragment StoreEntitySet="Cuestionario">
+          <ScalarProperty Name="Id_cuestionario" ColumnName="Id_cuestionario" />
+          <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
+          <ScalarProperty Name="Clave_cuestionario" ColumnName="Clave_cuestionario" />
+          <ScalarProperty Name="Padece_enfermedad" ColumnName="Padece_enfermedad" />
+          <ScalarProperty Name="Medicamento_prescrito_medico" ColumnName="Medicamento_prescrito_medico" />
+          <ScalarProperty Name="lesiones" ColumnName="lesiones" />
+          <ScalarProperty Name="Alguna_recomendacion_lesiones" ColumnName="Alguna_recomendacion_lesiones" />
+          <ScalarProperty Name="Fuma" ColumnName="Fuma" />
+          <ScalarProperty Name="Veces_semana_fuma" ColumnName="Veces_semana_fuma" />
+          <ScalarProperty Name="Alcohol" ColumnName="Alcohol" />
+          <ScalarProperty Name="Veces_semana_alcohol" ColumnName="Veces_semana_alcohol" />
+          <ScalarProperty Name="Actividad_fisica" ColumnName="Actividad_fisica" />
+          <ScalarProperty Name="Tipo_ejercicios" ColumnName="Tipo_ejercicios" />
+          <ScalarProperty Name="Tiempo_dedicado" ColumnName="Tiempo_dedicado" />
+          <ScalarProperty Name="Horario_entreno" ColumnName="Horario_entreno" />
+          <ScalarProperty Name="MetasObjetivos" ColumnName="MetasObjetivos" />
+          <ScalarProperty Name="Compromisos" ColumnName="Compromisos" />
+          <ScalarProperty Name="Comentarios" ColumnName="Comentarios" />
+          <ScalarProperty Name="Fecha_registro" ColumnName="Fecha_registro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Detalle_rutina">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Detalle_rutina">
+        <MappingFragment StoreEntitySet="Detalle_rutina">
+          <ScalarProperty Name="Id_detallerutina" ColumnName="Id_detallerutina" />
+          <ScalarProperty Name="Id_mensualidad" ColumnName="Id_mensualidad" />
+          <ScalarProperty Name="Id_rutina" ColumnName="Id_rutina" />
+          <ScalarProperty Name="Id_ejercicio" ColumnName="Id_ejercicio" />
+          <ScalarProperty Name="Id_dia" ColumnName="Id_dia" />
+          <ScalarProperty Name="Repeticiones" ColumnName="Repeticiones" />
+          <ScalarProperty Name="Series" ColumnName="Series" />
+          <ScalarProperty Name="Tipo_set" ColumnName="Tipo_set" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dias">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Dias">
+        <MappingFragment StoreEntitySet="Dias">
+          <ScalarProperty Name="Id_dia" ColumnName="Id_dia" />
+          <ScalarProperty Name="Clave_dia" ColumnName="Clave_dia" />
+          <ScalarProperty Name="Dia" ColumnName="Dia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ejercicios">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Ejercicios">
+        <MappingFragment StoreEntitySet="Ejercicios">
+          <ScalarProperty Name="Id_ejercicio" ColumnName="Id_ejercicio" />
+          <ScalarProperty Name="Clave_ejercicio" ColumnName="Clave_ejercicio" />
+          <ScalarProperty Name="Ejercicio" ColumnName="Ejercicio" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="ubicacion_imagen" ColumnName="ubicacion_imagen" />
+          <ScalarProperty Name="Posicion" ColumnName="Posicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estatus">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Estatus">
+        <MappingFragment StoreEntitySet="Estatus">
+          <ScalarProperty Name="Id_estatus" ColumnName="Id_estatus" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mensualidad">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Mensualidad">
+        <MappingFragment StoreEntitySet="Mensualidad">
+          <ScalarProperty Name="Id_mensualidad" ColumnName="Id_mensualidad" />
+          <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
+          <ScalarProperty Name="Id_tiporutina" ColumnName="Id_tiporutina" />
+          <ScalarProperty Name="Id_mes" ColumnName="Id_mes" />
+          <ScalarProperty Name="Id_estatus" ColumnName="Id_estatus" />
+          <ScalarProperty Name="Id_TipoEntrenamiento" ColumnName="Id_TipoEntrenamiento" />
+          <ScalarProperty Name="Fecha_inicio" ColumnName="Fecha_inicio" />
+          <ScalarProperty Name="Fecha_fin" ColumnName="Fecha_fin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Meses">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Meses">
+        <MappingFragment StoreEntitySet="Meses">
+          <ScalarProperty Name="Id_mes" ColumnName="Id_mes" />
+          <ScalarProperty Name="Clave_mes" ColumnName="Clave_mes" />
+          <ScalarProperty Name="Mes" ColumnName="Mes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rutinas">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Rutinas">
+        <MappingFragment StoreEntitySet="Rutinas">
+          <ScalarProperty Name="Id_rutina" ColumnName="Id_rutina" />
+          <ScalarProperty Name="Clave_rutina" ColumnName="Clave_rutina" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoEntrenamiento">
+      <EntityTypeMapping TypeName="SuperflyfitModel.TipoEntrenamiento">
+        <MappingFragment StoreEntitySet="TipoEntrenamiento">
+          <ScalarProperty Name="Id_TipoEntrenamiento" ColumnName="Id_TipoEntrenamiento" />
+          <ScalarProperty Name="Clave_Entrenamiento" ColumnName="Clave_Entrenamiento" />
+          <ScalarProperty Name="Tipo_entrenamiento" ColumnName="Tipo_entrenamiento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tiporutina">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Tiporutina">
+        <MappingFragment StoreEntitySet="Tiporutina">
+          <ScalarProperty Name="Id_tiporutina" ColumnName="Id_tiporutina" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="SuperflyfitModel.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+          <ScalarProperty Name="Clave_Usuario" ColumnName="Clave_Usuario" />
+          <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
