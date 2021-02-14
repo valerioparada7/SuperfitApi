@@ -171,69 +171,69 @@
     </Compile>
     <Compile Include="Models\AntropometriaModel.cs" />
     <Compile Include="Models\Asesoria_Antropometria.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Clientes.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientesModel.cs" />
     <Compile Include="Models\Cuestionario.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CuestionarioModel.cs" />
     <Compile Include="Models\DetallerutinaModel.cs" />
     <Compile Include="Models\Detalle_rutina.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Dias.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DiasModel.cs" />
     <Compile Include="Models\Ejercicios.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EjerciciosModel.cs" />
     <Compile Include="Models\Estatus.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EstatusModel.cs" />
     <Compile Include="Models\Mensualidad.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MensualidadModel.cs" />
     <Compile Include="Models\Meses.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MesesModel.cs" />
     <Compile Include="Models\Rutinas.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RutinasModel.cs" />
-    <Compile Include="Models\Superflyfit.Context.cs">
+    <Compile Include="Models\SuperflyfitModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Superflyfit.Context.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Superflyfit.cs">
+    <Compile Include="Models\SuperflyfitModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Superflyfit.Designer.cs">
+    <Compile Include="Models\SuperflyfitModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Superflyfit.edmx</DependentUpon>
+      <DependentUpon>SuperflyfitModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoEntrenamiento.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoentrenamientoModel.cs" />
     <Compile Include="Models\Tiporutina.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TiporutinaModel.cs" />
     <Compile Include="Models\Usuarios.cs">
-      <DependentUpon>Superflyfit.tt</DependentUpon>
+      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UsuariosModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -247,15 +247,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Superflyfit.Context.tt">
+    <Content Include="Models\SuperflyfitModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Superflyfit.Context.cs</LastGenOutput>
-      <DependentUpon>Superflyfit.edmx</DependentUpon>
+      <DependentUpon>SuperflyfitModel.edmx</DependentUpon>
+      <LastGenOutput>SuperflyfitModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Superflyfit.tt">
+    <Content Include="Models\SuperflyfitModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Superflyfit.edmx</DependentUpon>
-      <LastGenOutput>Superflyfit.cs</LastGenOutput>
+      <DependentUpon>SuperflyfitModel.edmx</DependentUpon>
+      <LastGenOutput>SuperflyfitModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -278,12 +278,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\Superflyfit.edmx">
+    <EntityDeploy Include="Models\SuperflyfitModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Superflyfit.Designer.cs</LastGenOutput>
+      <LastGenOutput>SuperflyfitModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Superflyfit.edmx.diagram">
-      <DependentUpon>Superflyfit.edmx</DependentUpon>
+    <Content Include="Models\SuperflyfitModel.edmx.diagram">
+      <DependentUpon>SuperflyfitModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
