@@ -9,8 +9,8 @@ using SuperfitApi.Models;
 namespace SuperfitApi.Controllers
 {
     public class ClientesController : ApiController
-    {//nuevos
-//config.Formatters.Remove(config.Formatters.XmlFormatter); eso ta en webconfig de app
+    {   
+        //config.Formatters.Remove(config.Formatters.XmlFormatter); eso ta en webconfig de app
         #region Variables 
         public SuperflyfitEntities Db;
         public Clientes clientes;
@@ -137,5 +137,6 @@ namespace SuperfitApi.Controllers
                                     }).ToList();
             return listdetallerutinaMdl;
         }
+        
     }
 }

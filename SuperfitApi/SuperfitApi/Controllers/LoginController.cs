@@ -36,34 +36,117 @@ namespace SuperfitApi.Controllers
             mensualidadMdl = new MensualidadModel();
             asesoria_antropometriaMdl = new AntropometriaModel();
         }        
-
         //Loguearse
         [HttpGet]
-        public ClientesModel Login(string User,string Pass)
-        {
+        public MensualidadModel Login(string User,string Pass)
+        {            
             clientesMdl = (from c in Db.Clientes
                            where c.Contraseña == Pass && c.Clave_Cliente == User
                            select new ClientesModel()
                            {
                                Id_Cliente = c.Id_Cliente,
-                               Nombres = c.Nombres,                               
+                               Nombres = c.Nombres,
                            }).FirstOrDefault();
-            
+
             if (clientesMdl != null)
             {
-                clientesMdl.Validar = true;
-                clientesMdl.Nombres = clientesMdl.Nombres;
-                return clientesMdl;
+                var list = Db.Mensualidad.Where(p => p.Id_Cliente == clientesMdl.Id_Cliente).ToList();
+                var mensualidad = list.OrderByDescending(p => p.Fecha_fin).FirstOrDefault();
+                if (mensualidad != null)
+                {
+                    int id = mensualidad.Id_mensualidad;
+                    mensualidadMdl = (from m in Db.Mensualidad   
+                                      join t in Db.Tiporutina
+                                      on m.Id_tiporutina equals t.Id_tiporutina
+                                      join te in Db.TipoEntrenamiento
+                                      on m.Id_TipoEntrenamiento equals te.Id_TipoEntrenamiento
+                                      join mes in Db.Meses
+                                      on m.Id_mes equals mes.Id_mes
+                                      join es in Db.Estatus
+                                      on m.Id_estatus equals es.Id_estatus                                      
+                                      where m.Id_mensualidad == id
+                                      select new MensualidadModel()
+                                      {
+                                          Id_mensualidad = m.Id_mensualidad,                                          
+                                          Tiporutina = new TiporutinaModel
+                                          {
+                                              Id_tiporutina = t.Id_tiporutina,
+                                              Tipo = t.Tipo
+                                          },
+                                          TipoEntrenamiento = new TipoentrenamientoModel
+                                          {
+                                              Id_TipoEntrenamiento = (int)te.Id_TipoEntrenamiento,
+                                              Clave_Entrenamiento = te.Clave_Entrenamiento,
+                                              Tipo_entrenamiento = te.Tipo_entrenamiento
+                                          },
+                                          Mes = new MesesModel
+                                          {
+                                              Id_mes = mes.Id_mes,
+                                              Clave_mes = mes.Clave_mes,
+                                              Mes = mes.Mes
+                                          },
+                                          Estatus = new EstatusModel
+                                          {
+                                              Id_estatus=es.Id_estatus,
+                                              Descripcion =es.Descripcion
+                                          },
+                                          Fecha_inicio = (DateTime)m.Fecha_inicio,
+                                          Fecha_fin = (DateTime)m.Fecha_fin,
+                                      }).FirstOrDefault();
+                    
+                    if (mensualidadMdl != null)
+                    {                                                
+                        mensualidadMdl.Cliente = new ClientesModel() 
+                        {
+                            Id_Cliente = clientesMdl.Id_Cliente,
+                            Validar = true,
+                            Nombres = clientesMdl.Nombres                            
+                        };                                                                                                             
+                        return mensualidadMdl;
+                    }
+                    else
+                    {
+                        mensualidadMdl = new MensualidadModel
+                        {
+                            Cliente = new ClientesModel()
+                        };
+                        clientesMdl.Id_Cliente = clientesMdl.Id_Cliente;
+                        clientesMdl.Validar = true;
+                        clientesMdl.Nombres = clientesMdl.Nombres;
+                        mensualidadMdl.Cliente = clientesMdl;
+                        return mensualidadMdl;
+                    }
+                }
+                else
+                {
+                    mensualidadMdl = new MensualidadModel
+                    {
+                        Cliente = new ClientesModel()
+                    };
+                    clientesMdl.Id_Cliente = clientesMdl.Id_Cliente;
+                    clientesMdl.Validar = true;
+                    clientesMdl.Nombres = clientesMdl.Nombres;
+                    mensualidadMdl.Cliente = clientesMdl;
+                    return mensualidadMdl;
+                }
+
             }
             else
             {
-                clientesMdl = new ClientesModel();
-                clientesMdl.Validar = false;
-                clientesMdl.Nombres = "No se encontro el Usuario";
-                return clientesMdl;
+                mensualidadMdl = new MensualidadModel
+                {
+                    Cliente = new ClientesModel(),
+                };
+                clientesMdl = new ClientesModel
+                {
+                    Id_Cliente = clientesMdl.Id_Cliente,
+                    Validar = false,
+                    Nombres = "No se encontro el Usuario"
+                };
+                mensualidadMdl.Cliente = clientesMdl;
+                return mensualidadMdl;
             }
-        }
-        
+        }        
         //Crear cuenta registrando el cliente
         [HttpPost]
         public bool RegistrarCliente(ClientesModel clientesModel)
@@ -92,8 +175,7 @@ namespace SuperfitApi.Controllers
             {
                 return false;
             }
-        }
-        
+        }        
         //registro ,responder su cuestionario
         [HttpPost]
         public bool RegistroCuestionario(CuestionarioModel cuestionarioModel)
@@ -129,7 +211,6 @@ namespace SuperfitApi.Controllers
                 return false;
             }
         }
-
         //registro de como quiere su mensualidad
         [HttpPost]
         public bool RegistrarMensualidad(MensualidadModel mensualidadModel)
@@ -154,7 +235,6 @@ namespace SuperfitApi.Controllers
                 return false;
             }
         }
-
         //registro de sus medidas
         [HttpPost]
         public bool RegistrarAntropometria(AntropometriaModel antropometriaModel)
