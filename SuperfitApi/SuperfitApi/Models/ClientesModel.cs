@@ -17,7 +17,6 @@ namespace SuperfitApi.Models
         public string Correo_electronico { get; set; }
         public string Apodo { get; set; }
         public string Contraseña { get; set; }
-        public bool Validar { get; set; }
-        public virtual CuestionarioModel Cuestionario { get; set; }
+        public bool Validar { get; set; }        
     }
 }
