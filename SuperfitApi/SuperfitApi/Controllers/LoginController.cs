@@ -149,6 +149,7 @@ namespace SuperfitApi.Controllers
         }        
         //Crear cuenta registrando el cliente
         [HttpPost]
+        [Route("api/Login/RegistrarCliente")]
         public bool RegistrarCliente(ClientesModel clientesModel)
         {
             string Clave = "";
@@ -178,6 +179,7 @@ namespace SuperfitApi.Controllers
         }        
         //registro ,responder su cuestionario
         [HttpPost]
+        [Route("api/Login/RegistroCuestionario")]
         public bool RegistroCuestionario(CuestionarioModel cuestionarioModel)
         {
             cuestionario = new Cuestionario
@@ -213,6 +215,7 @@ namespace SuperfitApi.Controllers
         }
         //registro de como quiere su mensualidad
         [HttpPost]
+        [Route("api/Login/RegistrarMensualidad")]
         public bool RegistrarMensualidad(MensualidadModel mensualidadModel)
         {
             mensualidad = new Mensualidad()
@@ -237,6 +240,7 @@ namespace SuperfitApi.Controllers
         }
         //registro de sus medidas
         [HttpPost]
+        [Route("api/Login/RegistrarAntropometria")]
         public bool RegistrarAntropometria(AntropometriaModel antropometriaModel)
         {
             asesoria_antropometria = new Asesoria_Antropometria()
