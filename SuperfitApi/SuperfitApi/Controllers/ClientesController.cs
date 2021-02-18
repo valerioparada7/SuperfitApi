@@ -121,7 +121,9 @@ namespace SuperfitApi.Controllers
                                     on d.Id_ejercicio equals e.Id_ejercicio
                                     join m in Db.Mensualidad
                                     on d.Id_mensualidad equals m.Id_mensualidad
-                                    where  m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa && d.Tipo_set== TipoSet
+                                    join r in Db.Rutinas 
+                                    on d.Id_rutina equals r.Id_rutina
+                                    where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa && d.Tipo_set== TipoSet
                                     select new DetallerutinaModel()
                                     {      
                                        Id_detallerutina = d.Id_detallerutina,   
@@ -133,7 +135,15 @@ namespace SuperfitApi.Controllers
                                            Descripcion = e.Descripcion,
                                            Posicion = e.Posicion,
                                            ubicacion_imagen=e.ubicacion_imagen
-                                       }
+                                       },
+                                       Rutinas = new RutinasModel
+                                       {
+                                           Id_rutina=r.Id_rutina,
+                                           Clave_rutina=r.Clave_rutina,
+                                           Descripcion=r.Descripcion
+                                       },
+                                       Repeticiones=d.Repeticiones,
+                                       Series=d.Series
                                     }).ToList();
             return listdetallerutinaMdl;
         }

@@ -133,17 +133,10 @@ namespace SuperfitApi.Controllers
             }
             else
             {
-                mensualidadMdl = new MensualidadModel
-                {
-                    Cliente = new ClientesModel(),
-                };
-                clientesMdl = new ClientesModel
-                {
-                    Id_Cliente = clientesMdl.Id_Cliente,
-                    Validar = false,
-                    Nombres = "No se encontro el Usuario"
-                };
-                mensualidadMdl.Cliente = clientesMdl;
+                mensualidadMdl = new MensualidadModel();
+                mensualidadMdl.Cliente = new ClientesModel();                               
+                mensualidadMdl.Cliente.Validar = false;
+                mensualidadMdl.Cliente.Nombres = "Usuario y/o contraseña Incorrectos";                
                 return mensualidadMdl;
             }
         }        
