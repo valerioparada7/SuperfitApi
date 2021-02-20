@@ -158,7 +158,8 @@ namespace SuperfitApi.Controllers
                 Telefono = clientesModel.Telefono,
                 Correo_electronico = clientesModel.Correo_electronico,
                 Apodo = clientesModel.Apodo,
-                Contraseña = clientesModel.Contraseña
+                Contraseña = clientesModel.Contraseña,
+                Estado = true
             };
             Db.Clientes.Add(clientes);
             if (Db.SaveChanges() == 1)
