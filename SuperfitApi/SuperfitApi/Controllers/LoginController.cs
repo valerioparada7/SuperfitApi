@@ -21,6 +21,7 @@ namespace SuperfitApi.Controllers
         public CuestionarioModel cuestionarioMdl;
         public MensualidadModel mensualidadMdl;
         public AntropometriaModel asesoria_antropometriaMdl;
+        public AlertasModel alertasModel;
         #endregion
 
         public LoginController()
@@ -35,6 +36,7 @@ namespace SuperfitApi.Controllers
             cuestionarioMdl = new CuestionarioModel();
             mensualidadMdl = new MensualidadModel();
             asesoria_antropometriaMdl = new AntropometriaModel();
+            alertasModel = new AlertasModel();
         }        
         //Loguearse
         [HttpGet]
@@ -143,7 +145,7 @@ namespace SuperfitApi.Controllers
         //Crear cuenta registrando el cliente
         [HttpPost]
         [Route("api/Login/RegistrarCliente")]
-        public Boolean RegistrarCliente(ClientesModel clientesModel)
+        public AlertasModel RegistrarCliente(ClientesModel clientesModel)
         {
             string Clave = "";
             Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_Paterno.Substring(0, 3) +
@@ -164,17 +166,21 @@ namespace SuperfitApi.Controllers
             Db.Clientes.Add(clientes);
             if (Db.SaveChanges() == 1)
             {
-                return true;
+                alertasModel.Result = true;
+                alertasModel.Mensaje = "Se realizo correctamente el registro";
+                return alertasModel;
             }
             else
             {
-                return false;
+                alertasModel.Result = false;
+                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasModel;
             }
         }        
         //registro ,responder su cuestionario
         [HttpPost]
         [Route("api/Login/RegistroCuestionario")]
-        public Boolean RegistroCuestionario(CuestionarioModel cuestionarioModel)
+        public AlertasModel RegistroCuestionario(CuestionarioModel cuestionarioModel)
         {
             cuestionario = new Cuestionario
             {
@@ -200,17 +206,21 @@ namespace SuperfitApi.Controllers
             Db.Cuestionario.Add(cuestionario);
             if (Db.SaveChanges() == 1)
             {
-                return true; 
+                alertasModel.Result = true;
+                alertasModel.Mensaje = "Se realizo correctamente el registro";
+                return alertasModel;
             }
             else
             {
-                return false;
+                alertasModel.Result = false;
+                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasModel;
             }
         }
         //registro de como quiere su mensualidad
         [HttpPost]
         [Route("api/Login/RegistrarMensualidad")]
-        public Boolean RegistrarMensualidad(MensualidadModel mensualidadModel)
+        public AlertasModel RegistrarMensualidad(MensualidadModel mensualidadModel)
         {
             mensualidad = new Mensualidad()
             {
@@ -225,17 +235,21 @@ namespace SuperfitApi.Controllers
             Db.Mensualidad.Add(mensualidad);
             if (Db.SaveChanges() == 1)
             {
-                return true;
+                alertasModel.Result = true;
+                alertasModel.Mensaje = "Se realizo correctamente el registro";
+                return alertasModel;
             }
             else
             {
-                return false;
+                alertasModel.Result = false;
+                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasModel;
             }
         }
         //registro de sus medidas
         [HttpPost]
         [Route("api/Login/RegistrarAntropometria")]
-        public Boolean RegistrarAntropometria(AntropometriaModel antropometriaModel)
+        public AlertasModel RegistrarAntropometria(AntropometriaModel antropometriaModel)
         {
             asesoria_antropometria = new Asesoria_Antropometria()
             {
@@ -258,11 +272,15 @@ namespace SuperfitApi.Controllers
             Db.Asesoria_Antropometria.Add(asesoria_antropometria);
             if (Db.SaveChanges() == 1)
             {
-                return true;
+                alertasModel.Result = true;
+                alertasModel.Mensaje = "Se realizo correctamente el registro";
+                return alertasModel;
             }
             else
             {
-                return false;
+                alertasModel.Result = false;
+                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasModel;
             }
         }
     }

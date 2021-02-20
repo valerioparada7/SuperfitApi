@@ -170,6 +170,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AlertasModel.cs" />
     <Compile Include="Models\AntropometriaModel.cs" />
     <Compile Include="Models\Asesoria_Antropometria.cs">
       <DependentUpon>SuperflyfitModel.tt</DependentUpon>
