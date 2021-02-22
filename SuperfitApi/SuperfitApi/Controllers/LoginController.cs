@@ -147,33 +147,46 @@ namespace SuperfitApi.Controllers
         [Route("api/Login/RegistrarCliente")]
         public AlertasModel RegistrarCliente(ClientesModel clientesModel)
         {
-            string Clave = "";
-            Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_Paterno.Substring(0, 3) +
-                    clientesModel.Apellido_Materno.Substring(0, 3);
-            clientes = new Clientes
+            var cliente = Db.Clientes.Where(p => p.Correo_electronico == clientesModel.Correo_electronico
+                                        || p.Telefono == clientesModel.Telefono).FirstOrDefault();
+
+            if (cliente == null) 
             {
-                Clave_Cliente = Clave,
-                Nombres = clientesModel.Nombres,
-                Apellido_Paterno = clientesModel.Apellido_Paterno,
-                Apellido_Materno = clientesModel.Apellido_Materno,
-                Edad = clientesModel.Edad,
-                Telefono = clientesModel.Telefono,
-                Correo_electronico = clientesModel.Correo_electronico,
-                Apodo = clientesModel.Apodo,
-                Contraseña = clientesModel.Contraseña,
-                Estado = true
-            };
-            Db.Clientes.Add(clientes);
-            if (Db.SaveChanges() == 1)
-            {
-                alertasModel.Result = true;
-                alertasModel.Mensaje = "Se realizo correctamente el registro";
-                return alertasModel;
+                string Clave = "";
+                Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_Paterno.Substring(0, 3) +
+                        clientesModel.Apellido_Materno.Substring(0, 3);
+                clientes = new Clientes
+                {
+                    Clave_Cliente = Clave,
+                    Nombres = clientesModel.Nombres,
+                    Apellido_Paterno = clientesModel.Apellido_Paterno,
+                    Apellido_Materno = clientesModel.Apellido_Materno,
+                    Edad = clientesModel.Edad,
+                    Telefono = clientesModel.Telefono,
+                    Correo_electronico = clientesModel.Correo_electronico,
+                    Apodo = clientesModel.Apodo,
+                    Contraseña = clientesModel.Contraseña,
+                    Estado = true
+                };
+                Db.Clientes.Add(clientes);
+                if (Db.SaveChanges() == 1)
+                {
+                    alertasModel.Id = clientes.Id_Cliente;
+                    alertasModel.Result = true;
+                    alertasModel.Mensaje = "Se realizo correctamente el registro";
+                    return alertasModel;
+                }
+                else
+                {
+                    alertasModel.Result = false;
+                    alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                    return alertasModel;
+                }
             }
             else
             {
                 alertasModel.Result = false;
-                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                alertasModel.Mensaje = "Ya hay un Usuario registrado con el mismo correo y/o telefono";
                 return alertasModel;
             }
         }        
@@ -182,10 +195,11 @@ namespace SuperfitApi.Controllers
         [Route("api/Login/RegistroCuestionario")]
         public AlertasModel RegistroCuestionario(CuestionarioModel cuestionarioModel)
         {
+            var clave = Db.Clientes.Where(p => p.Id_Cliente == cuestionarioModel.Cliente.Id_Cliente).FirstOrDefault();
             cuestionario = new Cuestionario
             {
                 Id_Cliente = cuestionarioModel.Cliente.Id_Cliente,
-                Clave_cuestionario = cuestionarioModel.Clave_cuestionario,
+                Clave_cuestionario = "Cues" + clave.Clave_Cliente,
                 Padece_enfermedad = cuestionarioModel.Padece_enfermedad,
                 Medicamento_prescrito_medico = cuestionarioModel.Medicamento_prescrito_medico,
                 lesiones = cuestionarioModel.lesiones,
@@ -226,8 +240,8 @@ namespace SuperfitApi.Controllers
             {
                 Id_Cliente = mensualidadModel.Cliente.Id_Cliente,
                 Id_tiporutina = mensualidadModel.Tiporutina.Id_tiporutina,
-                Id_mes = mensualidadModel.Mes.Id_mes,
-                Id_estatus = mensualidadModel.Estatus.Id_estatus,
+                Id_mes = DateTime.Now.Month,
+                Id_estatus = 1,
                 Id_TipoEntrenamiento = mensualidadModel.TipoEntrenamiento.Id_TipoEntrenamiento,
                 Fecha_inicio = DateTime.Now,
                 Fecha_fin = DateTime.Now.AddMonths(1)
@@ -235,6 +249,7 @@ namespace SuperfitApi.Controllers
             Db.Mensualidad.Add(mensualidad);
             if (Db.SaveChanges() == 1)
             {
+                alertasModel.Id = mensualidad.Id_mensualidad;
                 alertasModel.Result = true;
                 alertasModel.Mensaje = "Se realizo correctamente el registro";
                 return alertasModel;

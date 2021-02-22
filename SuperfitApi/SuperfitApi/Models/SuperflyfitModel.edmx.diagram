@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="superflyfitModel.Meses" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="superflyfitModel.Rutinas" Width="1.5" PointX="9" PointY="15.875" IsExpanded="true" />
         <EntityTypeShape EntityType="superflyfitModel.TipoEntrenamiento" Width="1.5" PointX="3.75" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Tiporutina" Width="1.5" PointX="3.75" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="superflyfitModel.Usuarios" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="superflyfitModel.fk_Id_mensualidad_Asesoria" ManuallyRouted="false" />
         <AssociationConnector Association="superflyfitModel.fk_Id_Cliente" ManuallyRouted="false" />
@@ -29,7 +28,8 @@
         <AssociationConnector Association="superflyfitModel.FK__Mensualid__Id_Ti__70DDC3D8" ManuallyRouted="false" />
         <AssociationConnector Association="superflyfitModel.fk_Id_mensualidad" ManuallyRouted="false" />
         <AssociationConnector Association="superflyfitModel.fk_Id_mes" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_tiporutina" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="superflyfitModel.Tiporutina" Width="1.5" PointX="6.375" PointY="0.875" />
+        <AssociationConnector Association="superflyfitModel.fk_Id_tiporutina" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

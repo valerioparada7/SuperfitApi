@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="superflyfitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="superflyfitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Asesoria_Antropometria">
           <Key>
             <PropertyRef Name="Id" />
@@ -148,6 +148,7 @@
           </Key>
           <Property Name="Id_tiporutina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tipo" Type="varchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -368,8 +369,7 @@
             <End Role="Mensualidad" EntitySet="Mensualidad" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="superflyfitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -504,7 +504,7 @@
           <NavigationProperty Name="Mensualidad1" Relationship="Self.fk_Id_mensualidad" FromRole="Mensualidad" ToRole="Mensualidad1" />
           <NavigationProperty Name="Mensualidad2" Relationship="Self.fk_Id_mensualidad" FromRole="Mensualidad1" ToRole="Mensualidad" />
           <NavigationProperty Name="Meses" Relationship="Self.fk_Id_mes" FromRole="Mensualidad" ToRole="Meses" />
-          <NavigationProperty Name="Tiporutina" Relationship="Self.fk_Id_tiporutina" FromRole="Mensualidad" ToRole="Tiporutina" />
+          <NavigationProperty Name="Tiporutina" Relationship="superflyfitModel.fk_Id_tiporutina" FromRole="Mensualidad" ToRole="Tiporutina" />
         </EntityType>
         <EntityType Name="Meses">
           <Key>
@@ -532,14 +532,6 @@
           <Property Name="Clave_Entrenamiento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Tipo_entrenamiento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Mensualidad" Relationship="Self.FK__Mensualid__Id_Ti__70DDC3D8" FromRole="TipoEntrenamiento" ToRole="Mensualidad" />
-        </EntityType>
-        <EntityType Name="Tiporutina">
-          <Key>
-            <PropertyRef Name="Id_tiporutina" />
-          </Key>
-          <Property Name="Id_tiporutina" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Mensualidad" Relationship="Self.fk_Id_tiporutina" FromRole="Tiporutina" ToRole="Mensualidad" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -685,18 +677,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Id_tiporutina">
-          <End Role="Tiporutina" Type="Self.Tiporutina" Multiplicity="1" />
-          <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tiporutina">
-              <PropertyRef Name="Id_tiporutina" />
-            </Principal>
-            <Dependent Role="Mensualidad">
-              <PropertyRef Name="Id_tiporutina" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="superflyfitEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Asesoria_Antropometria" EntityType="Self.Asesoria_Antropometria" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" />
@@ -709,7 +689,6 @@
           <EntitySet Name="Meses" EntityType="Self.Meses" />
           <EntitySet Name="Rutinas" EntityType="Self.Rutinas" />
           <EntitySet Name="TipoEntrenamiento" EntityType="Self.TipoEntrenamiento" />
-          <EntitySet Name="Tiporutina" EntityType="Self.Tiporutina" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="fk_Id_mensualidad_Asesoria" Association="Self.fk_Id_mensualidad_Asesoria">
             <End Role="Mensualidad" EntitySet="Mensualidad" />
@@ -755,11 +734,33 @@
             <End Role="Meses" EntitySet="Meses" />
             <End Role="Mensualidad" EntitySet="Mensualidad" />
           </AssociationSet>
-          <AssociationSet Name="fk_Id_tiporutina" Association="Self.fk_Id_tiporutina">
+          <EntitySet Name="Tiporutina" EntityType="superflyfitModel.Tiporutina" />
+          <AssociationSet Name="fk_Id_tiporutina" Association="superflyfitModel.fk_Id_tiporutina">
             <End Role="Tiporutina" EntitySet="Tiporutina" />
             <End Role="Mensualidad" EntitySet="Mensualidad" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Tiporutina">
+          <Key>
+            <PropertyRef Name="Id_tiporutina" />
+          </Key>
+          <Property Name="Id_tiporutina" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Mensualidad" Relationship="superflyfitModel.fk_Id_tiporutina" FromRole="Tiporutina" ToRole="Mensualidad" />
+        </EntityType>
+        <Association Name="fk_Id_tiporutina">
+          <End Type="superflyfitModel.Tiporutina" Role="Tiporutina" Multiplicity="1" />
+          <End Type="superflyfitModel.Mensualidad" Role="Mensualidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tiporutina">
+              <PropertyRef Name="Id_tiporutina" />
+            </Principal>
+            <Dependent Role="Mensualidad">
+              <PropertyRef Name="Id_tiporutina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -914,14 +915,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tiporutina">
-            <EntityTypeMapping TypeName="superflyfitModel.Tiporutina">
-              <MappingFragment StoreEntitySet="Tiporutina">
-                <ScalarProperty Name="Id_tiporutina" ColumnName="Id_tiporutina" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="superflyfitModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
@@ -932,6 +925,15 @@
                 <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
                 <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tiporutina">
+            <EntityTypeMapping TypeName="superflyfitModel.Tiporutina">
+              <MappingFragment StoreEntitySet="Tiporutina">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Id_tiporutina" ColumnName="Id_tiporutina" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

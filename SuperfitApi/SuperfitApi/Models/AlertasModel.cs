@@ -9,5 +9,6 @@ namespace SuperfitApi.Models
     {
         public string Mensaje { get; set; }
         public bool Result { get; set; }
+        public int Id { get; set; }
     }
 }

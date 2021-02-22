@@ -149,14 +149,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Tiporutina">
-      <EntityTypeMapping TypeName="superflyfitModel.Tiporutina">
-        <MappingFragment StoreEntitySet="Tiporutina">
-          <ScalarProperty Name="Id_tiporutina" ColumnName="Id_tiporutina" />
-          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Usuarios">
       <EntityTypeMapping TypeName="superflyfitModel.Usuarios">
         <MappingFragment StoreEntitySet="Usuarios">
@@ -167,6 +159,15 @@
           <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
           <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tiporutina">
+      <EntityTypeMapping TypeName="superflyfitModel.Tiporutina">
+        <MappingFragment StoreEntitySet="Tiporutina">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Id_tiporutina" ColumnName="Id_tiporutina" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

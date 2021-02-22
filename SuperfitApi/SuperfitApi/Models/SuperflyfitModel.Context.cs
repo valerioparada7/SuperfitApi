@@ -36,7 +36,7 @@ namespace SuperfitApi.Models
         public virtual DbSet<Meses> Meses { get; set; }
         public virtual DbSet<Rutinas> Rutinas { get; set; }
         public virtual DbSet<TipoEntrenamiento> TipoEntrenamiento { get; set; }
-        public virtual DbSet<Tiporutina> Tiporutina { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Tiporutina> Tiporutina { get; set; }
     }
 }

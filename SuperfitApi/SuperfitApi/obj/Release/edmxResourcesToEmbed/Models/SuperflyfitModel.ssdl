@@ -143,6 +143,7 @@
     </Key>
     <Property Name="Id_tiporutina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Tipo" Type="varchar" MaxLength="50" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="Usuarios">
     <Key>
