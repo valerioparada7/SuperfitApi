@@ -36,6 +36,8 @@
     <Property Name="Correo_electronico" Type="varchar" MaxLength="50" />
     <Property Name="Estado" Type="bit" />
     <Property Name="Contraseña" Type="varchar" MaxLength="20" />
+    <Property Name="Fotoperfil" Type="varchar" MaxLength="300" />
+    <Property Name="Sexo" Type="varchar" MaxLength="15" />
   </EntityType>
   <EntityType Name="Cuestionario">
     <Key>

@@ -41,15 +41,34 @@ namespace SuperfitApi.Controllers
         //Loguearse
         [HttpGet]
         public MensualidadModel Login(string User,string Pass)
-        {            
-            clientesMdl = (from c in Db.Clientes
-                           where c.Contraseña == Pass && c.Clave_Cliente == User
-                           select new ClientesModel()
-                           {
-                               Id_Cliente = c.Id_Cliente,
-                               Nombres = c.Nombres,
-                           }).FirstOrDefault();
-
+        {
+            if (User.Contains("@"))
+            {
+                clientesMdl = (from c in Db.Clientes
+                               where c.Correo_electronico == User
+                               && c.Contraseña == Pass
+                               select new ClientesModel()
+                               {
+                                   Id_Cliente = c.Id_Cliente,
+                                   Nombres = c.Nombres,
+                                   Fotoperfil=c.Fotoperfil
+                               }).FirstOrDefault();
+            }
+            else
+            {
+                decimal celular = 0;
+                celular = decimal.Parse(User);
+                clientesMdl = (from c in Db.Clientes
+                               where c.Telefono == celular
+                               && c.Contraseña == Pass
+                               select new ClientesModel()
+                               {
+                                   Id_Cliente = c.Id_Cliente,
+                                   Nombres = c.Nombres,
+                                   Fotoperfil = c.Fotoperfil
+                               }).FirstOrDefault();                
+            }
+                       
             if (clientesMdl != null)
             {
                 var list = Db.Mensualidad.Where(p => p.Id_Cliente == clientesMdl.Id_Cliente).ToList();
@@ -102,7 +121,8 @@ namespace SuperfitApi.Controllers
                         {
                             Id_Cliente = clientesMdl.Id_Cliente,
                             Validar = true,
-                            Nombres = clientesMdl.Nombres                            
+                            Nombres = clientesMdl.Nombres,
+                            Fotoperfil = clientesMdl.Fotoperfil
                         };                                                                                                             
                         return mensualidadMdl;
                     }
@@ -115,6 +135,7 @@ namespace SuperfitApi.Controllers
                         clientesMdl.Id_Cliente = clientesMdl.Id_Cliente;
                         clientesMdl.Validar = true;
                         clientesMdl.Nombres = clientesMdl.Nombres;
+                        clientesMdl.Fotoperfil = clientesMdl.Fotoperfil;
                         mensualidadMdl.Cliente = clientesMdl;
                         return mensualidadMdl;
                     }
@@ -128,6 +149,7 @@ namespace SuperfitApi.Controllers
                     clientesMdl.Id_Cliente = clientesMdl.Id_Cliente;
                     clientesMdl.Validar = true;
                     clientesMdl.Nombres = clientesMdl.Nombres;
+                    clientesMdl.Fotoperfil = clientesMdl.Fotoperfil;
                     mensualidadMdl.Cliente = clientesMdl;
                     return mensualidadMdl;
                 }
@@ -154,7 +176,9 @@ namespace SuperfitApi.Controllers
             {
                 string Clave = "";
                 Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_Paterno.Substring(0, 3) +
-                        clientesModel.Apellido_Materno.Substring(0, 3);
+                        clientesModel.Apellido_Materno.Substring(0, 3);  
+                string fotoperfil= "Imagenes/Clientes/"+clientesModel.Nombres + clientesModel.Apellido_Paterno +
+                        clientesModel.Apellido_Materno;
                 clientes = new Clientes
                 {
                     Clave_Cliente = Clave,
@@ -166,6 +190,8 @@ namespace SuperfitApi.Controllers
                     Correo_electronico = clientesModel.Correo_electronico,
                     Apodo = clientesModel.Apodo,
                     Contraseña = clientesModel.Contraseña,
+                    Fotoperfil = fotoperfil,
+                    Sexo= clientesModel.Sexo,
                     Estado = true
                 };
                 Db.Clientes.Add(clientes);
@@ -220,6 +246,7 @@ namespace SuperfitApi.Controllers
             Db.Cuestionario.Add(cuestionario);
             if (Db.SaveChanges() == 1)
             {
+                alertasModel.Id = cuestionarioModel.Cliente.Id_Cliente;
                 alertasModel.Result = true;
                 alertasModel.Mensaje = "Se realizo correctamente el registro";
                 return alertasModel;
