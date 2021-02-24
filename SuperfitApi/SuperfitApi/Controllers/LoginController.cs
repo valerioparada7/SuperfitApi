@@ -309,7 +309,7 @@ namespace SuperfitApi.Controllers
                     Piernaderecho=antropometriaModel.Piernaderecho,
                     Pantorrilladerecha=antropometriaModel.Pantorrilladerecha,
                     Pantorrillaizquierda=antropometriaModel.Pantorrillaizquierda,
-                    Fecha_registro=antropometriaModel.Fecha_registro,
+                    Fecha_registro=DateTime.Now
             };
             Db.Asesoria_Antropometria.Add(asesoria_antropometria);
             if (Db.SaveChanges() == 1)
