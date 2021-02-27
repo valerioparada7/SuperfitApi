@@ -23,7 +23,7 @@ namespace SuperfitApi.Controllers
         public AntropometriaModel asesoria_antropometriaMdl;
         public AlertasModel alertasModel;
         #endregion
-
+        //
         public LoginController()
         {
             Db = new SuperflyfitEntities();
