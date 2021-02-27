@@ -23,23 +23,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Clientes">
-      <EntityTypeMapping TypeName="superflyfitModel.Clientes">
-        <MappingFragment StoreEntitySet="Clientes">
-          <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
-          <ScalarProperty Name="Clave_Cliente" ColumnName="Clave_Cliente" />
-          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
-          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
-          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
-          <ScalarProperty Name="Apodo" ColumnName="Apodo" />
-          <ScalarProperty Name="Edad" ColumnName="Edad" />
-          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-          <ScalarProperty Name="Correo_electronico" ColumnName="Correo_electronico" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Cuestionario">
       <EntityTypeMapping TypeName="superflyfitModel.Cuestionario">
         <MappingFragment StoreEntitySet="Cuestionario">
@@ -149,14 +132,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Tiporutina">
-      <EntityTypeMapping TypeName="superflyfitModel.Tiporutina">
-        <MappingFragment StoreEntitySet="Tiporutina">
-          <ScalarProperty Name="Id_tiporutina" ColumnName="Id_tiporutina" />
-          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Usuarios">
       <EntityTypeMapping TypeName="superflyfitModel.Usuarios">
         <MappingFragment StoreEntitySet="Usuarios">
@@ -167,6 +142,34 @@
           <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
           <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tiporutina">
+      <EntityTypeMapping TypeName="superflyfitModel.Tiporutina">
+        <MappingFragment StoreEntitySet="Tiporutina">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Id_tiporutina" ColumnName="Id_tiporutina" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="superflyfitModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+          <ScalarProperty Name="Fotoperfil" ColumnName="Fotoperfil" />
+          <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Correo_electronico" ColumnName="Correo_electronico" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Apodo" ColumnName="Apodo" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
+          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+          <ScalarProperty Name="Clave_Cliente" ColumnName="Clave_Cliente" />
+          <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

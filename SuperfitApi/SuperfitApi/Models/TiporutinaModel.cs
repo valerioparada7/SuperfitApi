@@ -9,5 +9,7 @@ namespace SuperfitApi.Models
     {
         public int Id_tiporutina { get; set; }
         public string Tipo { get; set; }
+        public string Descripcion { get; set; }
+        
     }
 }

@@ -32,7 +32,6 @@ namespace SuperfitApi.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asesoria_Antropometria> Asesoria_Antropometria { get; set; }
-        public virtual Clientes Clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Detalle_rutina> Detalle_rutina { get; set; }
         public virtual Estatus Estatus { get; set; }
@@ -41,5 +40,6 @@ namespace SuperfitApi.Models
         public virtual Mensualidad Mensualidad2 { get; set; }
         public virtual Meses Meses { get; set; }
         public virtual Tiporutina Tiporutina { get; set; }
+        public virtual Clientes Clientes { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\equipo\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\Models\SuperflyfitModel.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\Models\SuperflyfitModel.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

@@ -26,7 +26,6 @@ namespace SuperfitApi.Models
         }
     
         public virtual DbSet<Asesoria_Antropometria> Asesoria_Antropometria { get; set; }
-        public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<Cuestionario> Cuestionario { get; set; }
         public virtual DbSet<Detalle_rutina> Detalle_rutina { get; set; }
         public virtual DbSet<Dias> Dias { get; set; }
@@ -36,7 +35,8 @@ namespace SuperfitApi.Models
         public virtual DbSet<Meses> Meses { get; set; }
         public virtual DbSet<Rutinas> Rutinas { get; set; }
         public virtual DbSet<TipoEntrenamiento> TipoEntrenamiento { get; set; }
-        public virtual DbSet<Tiporutina> Tiporutina { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Tiporutina> Tiporutina { get; set; }
+        public virtual DbSet<Clientes> Clientes { get; set; }
     }
 }

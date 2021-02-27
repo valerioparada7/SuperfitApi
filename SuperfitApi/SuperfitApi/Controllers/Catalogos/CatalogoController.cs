@@ -36,6 +36,7 @@ namespace SuperfitApi.Controllers.Catalogos
         public EjerciciosModel ejercicios;
         public EstatusModel estatus;
         public RutinasModel rutinas;
+        public TiporutinaModel tiporutinas;
         public TipoentrenamientoModel tipoentrena;
 
         public List<DiasModel> listdias;
@@ -43,6 +44,7 @@ namespace SuperfitApi.Controllers.Catalogos
         public List<EjerciciosModel> listejercicios;
         public List<EstatusModel> listestatus;
         public List<RutinasModel> listrutinas;
+        public List<TiporutinaModel> listtiporutinas;
         public List<TipoentrenamientoModel> listtipoentrena;
 
         #endregion
@@ -190,6 +192,34 @@ namespace SuperfitApi.Controllers.Catalogos
                                Descripcion = r.Descripcion
                            }).FirstOrDefault();
             return rutinas;
+        }
+
+        //Obtener tIPO Rutinas
+        [HttpGet]
+        [Route("api/Catalogo/GetTypeRutines")]
+        public List<TiporutinaModel> GetTypeRutines()
+        {
+            listtiporutinas = (from r in Db.Tiporutina
+                           select new TiporutinaModel()
+                           {
+                               Id_tiporutina = r.Id_tiporutina,
+                               Tipo = r.Tipo,
+                               Descripcion = r.Descripcion
+                           }).ToList();
+            return listtiporutinas;
+        }
+        [HttpGet]
+        public TiporutinaModel GetTypeRutines(int IdTypeRutine)
+        {
+            tiporutinas = (from r in Db.Tiporutina
+                               where r.Id_tiporutina== IdTypeRutine
+                               select new TiporutinaModel()
+                               {
+                                   Id_tiporutina = r.Id_tiporutina,
+                                   Tipo = r.Tipo,
+                                   Descripcion = r.Descripcion
+                               }).FirstOrDefault();
+            return tiporutinas;
         }
 
         //Obtener Tipoentrenamiento

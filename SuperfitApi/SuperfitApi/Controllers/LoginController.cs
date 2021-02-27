@@ -21,6 +21,7 @@ namespace SuperfitApi.Controllers
         public CuestionarioModel cuestionarioMdl;
         public MensualidadModel mensualidadMdl;
         public AntropometriaModel asesoria_antropometriaMdl;
+        public AlertasModel alertasModel;
         #endregion
 
         public LoginController()
@@ -35,19 +36,39 @@ namespace SuperfitApi.Controllers
             cuestionarioMdl = new CuestionarioModel();
             mensualidadMdl = new MensualidadModel();
             asesoria_antropometriaMdl = new AntropometriaModel();
+            alertasModel = new AlertasModel();
         }        
         //Loguearse
         [HttpGet]
         public MensualidadModel Login(string User,string Pass)
-        {            
-            clientesMdl = (from c in Db.Clientes
-                           where c.Contraseña == Pass && c.Clave_Cliente == User
-                           select new ClientesModel()
-                           {
-                               Id_Cliente = c.Id_Cliente,
-                               Nombres = c.Nombres,
-                           }).FirstOrDefault();
-
+        {
+            if (User.Contains("@"))
+            {
+                clientesMdl = (from c in Db.Clientes
+                               where c.Correo_electronico == User
+                               && c.Contraseña == Pass
+                               select new ClientesModel()
+                               {
+                                   Id_Cliente = c.Id_Cliente,
+                                   Nombres = c.Nombres,
+                                   Fotoperfil=c.Fotoperfil
+                               }).FirstOrDefault();
+            }
+            else
+            {
+                decimal celular = 0;
+                celular = decimal.Parse(User);
+                clientesMdl = (from c in Db.Clientes
+                               where c.Telefono == celular
+                               && c.Contraseña == Pass
+                               select new ClientesModel()
+                               {
+                                   Id_Cliente = c.Id_Cliente,
+                                   Nombres = c.Nombres,
+                                   Fotoperfil = c.Fotoperfil
+                               }).FirstOrDefault();                
+            }
+                       
             if (clientesMdl != null)
             {
                 var list = Db.Mensualidad.Where(p => p.Id_Cliente == clientesMdl.Id_Cliente).ToList();
@@ -100,7 +121,8 @@ namespace SuperfitApi.Controllers
                         {
                             Id_Cliente = clientesMdl.Id_Cliente,
                             Validar = true,
-                            Nombres = clientesMdl.Nombres                            
+                            Nombres = clientesMdl.Nombres,
+                            Fotoperfil = clientesMdl.Fotoperfil
                         };                                                                                                             
                         return mensualidadMdl;
                     }
@@ -113,6 +135,7 @@ namespace SuperfitApi.Controllers
                         clientesMdl.Id_Cliente = clientesMdl.Id_Cliente;
                         clientesMdl.Validar = true;
                         clientesMdl.Nombres = clientesMdl.Nombres;
+                        clientesMdl.Fotoperfil = clientesMdl.Fotoperfil;
                         mensualidadMdl.Cliente = clientesMdl;
                         return mensualidadMdl;
                     }
@@ -126,6 +149,7 @@ namespace SuperfitApi.Controllers
                     clientesMdl.Id_Cliente = clientesMdl.Id_Cliente;
                     clientesMdl.Validar = true;
                     clientesMdl.Nombres = clientesMdl.Nombres;
+                    clientesMdl.Fotoperfil = clientesMdl.Fotoperfil;
                     mensualidadMdl.Cliente = clientesMdl;
                     return mensualidadMdl;
                 }
@@ -143,43 +167,65 @@ namespace SuperfitApi.Controllers
         //Crear cuenta registrando el cliente
         [HttpPost]
         [Route("api/Login/RegistrarCliente")]
-        public bool RegistrarCliente(ClientesModel clientesModel)
+        public AlertasModel RegistrarCliente(ClientesModel clientesModel)
         {
-            string Clave = "";
-            Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_Paterno.Substring(0, 3) +
-                    clientesModel.Apellido_Materno.Substring(0, 3);
-            clientes = new Clientes
+            var cliente = Db.Clientes.Where(p => p.Correo_electronico == clientesModel.Correo_electronico
+                                        || p.Telefono == clientesModel.Telefono).FirstOrDefault();
+
+            if (cliente == null) 
             {
-                Clave_Cliente = Clave,
-                Nombres = clientesModel.Nombres,
-                Apellido_Paterno = clientesModel.Apellido_Paterno,
-                Apellido_Materno = clientesModel.Apellido_Materno,
-                Edad = clientesModel.Edad,
-                Telefono = clientesModel.Telefono,
-                Correo_electronico = clientesModel.Correo_electronico,
-                Apodo = clientesModel.Apodo,
-                Contraseña = clientesModel.Contraseña,
-                Estado=true,                
-            };
-            Db.Clientes.Add(clientes);
-            if (Db.SaveChanges() == 1)
-            {
-                return true;
+                string Clave = "";
+                Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_Paterno.Substring(0, 3) +
+                        clientesModel.Apellido_Materno.Substring(0, 3);  
+                string fotoperfil= "Imagenes/Clientes/"+clientesModel.Nombres + clientesModel.Apellido_Paterno +
+                        clientesModel.Apellido_Materno;
+                clientes = new Clientes
+                {
+                    Clave_Cliente = Clave,
+                    Nombres = clientesModel.Nombres,
+                    Apellido_Paterno = clientesModel.Apellido_Paterno,
+                    Apellido_Materno = clientesModel.Apellido_Materno,
+                    Edad = clientesModel.Edad,
+                    Telefono = clientesModel.Telefono,
+                    Correo_electronico = clientesModel.Correo_electronico,
+                    Apodo = clientesModel.Apodo,
+                    Contraseña = clientesModel.Contraseña,
+                    Fotoperfil = fotoperfil,
+                    Sexo= clientesModel.Sexo,
+                    Estado = true
+                };
+                Db.Clientes.Add(clientes);
+                if (Db.SaveChanges() == 1)
+                {
+                    alertasModel.Id = clientes.Id_Cliente;
+                    alertasModel.Result = true;
+                    alertasModel.Mensaje = "Se realizo correctamente el registro";
+                    return alertasModel;
+                }
+                else
+                {
+                    alertasModel.Result = false;
+                    alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                    return alertasModel;
+                }
             }
             else
             {
-                return false;
+                alertasModel.Result = false;
+                alertasModel.Mensaje = "Ya hay un Usuario registrado con el mismo correo y/o telefono";
+                return alertasModel;
             }
         }        
         //registro ,responder su cuestionario
         [HttpPost]
         [Route("api/Login/RegistroCuestionario")]
-        public bool RegistroCuestionario(CuestionarioModel cuestionarioModel)
+        public AlertasModel RegistroCuestionario(CuestionarioModel cuestionarioModel)
         {
+            var clave = Db.Clientes.Where(p => p.Id_Cliente == cuestionarioModel.Cliente.Id_Cliente).FirstOrDefault();
             cuestionario = new Cuestionario
             {
                 Id_Cliente = cuestionarioModel.Cliente.Id_Cliente,
-                Clave_cuestionario = cuestionarioModel.Clave_cuestionario,
+                Clave_cuestionario = "Cues" + clave.Clave_Cliente,
                 Padece_enfermedad = cuestionarioModel.Padece_enfermedad,
                 Medicamento_prescrito_medico = cuestionarioModel.Medicamento_prescrito_medico,
                 lesiones = cuestionarioModel.lesiones,
@@ -200,24 +246,29 @@ namespace SuperfitApi.Controllers
             Db.Cuestionario.Add(cuestionario);
             if (Db.SaveChanges() == 1)
             {
-                return true; 
+                alertasModel.Id = cuestionarioModel.Cliente.Id_Cliente;
+                alertasModel.Result = true;
+                alertasModel.Mensaje = "Se realizo correctamente el registro";
+                return alertasModel;
             }
             else
             {
-                return false;
+                alertasModel.Result = false;
+                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasModel;
             }
         }
         //registro de como quiere su mensualidad
         [HttpPost]
         [Route("api/Login/RegistrarMensualidad")]
-        public bool RegistrarMensualidad(MensualidadModel mensualidadModel)
+        public AlertasModel RegistrarMensualidad(MensualidadModel mensualidadModel)
         {
             mensualidad = new Mensualidad()
             {
                 Id_Cliente = mensualidadModel.Cliente.Id_Cliente,
                 Id_tiporutina = mensualidadModel.Tiporutina.Id_tiporutina,
-                Id_mes = mensualidadModel.Mes.Id_mes,
-                Id_estatus = mensualidadModel.Estatus.Id_estatus,
+                Id_mes = DateTime.Now.Month,
+                Id_estatus = 1,
                 Id_TipoEntrenamiento = mensualidadModel.TipoEntrenamiento.Id_TipoEntrenamiento,
                 Fecha_inicio = DateTime.Now,
                 Fecha_fin = DateTime.Now.AddMonths(1)
@@ -225,17 +276,22 @@ namespace SuperfitApi.Controllers
             Db.Mensualidad.Add(mensualidad);
             if (Db.SaveChanges() == 1)
             {
-                return true;
+                alertasModel.Id = mensualidad.Id_mensualidad;
+                alertasModel.Result = true;
+                alertasModel.Mensaje = "Se realizo correctamente el registro";
+                return alertasModel;
             }
             else
             {
-                return false;
+                alertasModel.Result = false;
+                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasModel;
             }
         }
         //registro de sus medidas
         [HttpPost]
         [Route("api/Login/RegistrarAntropometria")]
-        public bool RegistrarAntropometria(AntropometriaModel antropometriaModel)
+        public AlertasModel RegistrarAntropometria(AntropometriaModel antropometriaModel)
         {
             asesoria_antropometria = new Asesoria_Antropometria()
             {
@@ -253,16 +309,20 @@ namespace SuperfitApi.Controllers
                     Piernaderecho=antropometriaModel.Piernaderecho,
                     Pantorrilladerecha=antropometriaModel.Pantorrilladerecha,
                     Pantorrillaizquierda=antropometriaModel.Pantorrillaizquierda,
-                    Fecha_registro=antropometriaModel.Fecha_registro,
+                    Fecha_registro=DateTime.Now
             };
             Db.Asesoria_Antropometria.Add(asesoria_antropometria);
             if (Db.SaveChanges() == 1)
             {
-                return true;
+                alertasModel.Result = true;
+                alertasModel.Mensaje = "Se realizo correctamente el registro";
+                return alertasModel;
             }
             else
             {
-                return false;
+                alertasModel.Result = false;
+                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasModel;
             }
         }
     }

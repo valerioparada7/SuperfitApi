@@ -170,6 +170,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AlertasModel.cs" />
     <Compile Include="Models\AntropometriaModel.cs" />
     <Compile Include="Models\Asesoria_Antropometria.cs">
       <DependentUpon>SuperflyfitModel.tt</DependentUpon>
@@ -286,6 +287,8 @@
     <Content Include="Models\SuperflyfitModel.edmx.diagram">
       <DependentUpon>SuperflyfitModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
