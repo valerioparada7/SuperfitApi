@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <title>SuperfitWeb</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+
+    <style>
+        .formulario {
+            height: 400px;
+            margin-top: 100px;
+            margin-bottom: auto;
+            margin-left: auto;
+            margin-right: auto;
+            width: 400px;
+            background-color: white;
+            border-color: #0A497B;
+            border-style: solid;
+            border-width: 5px 5px 5px 5px;
+            border-radius: 20px 20px;
+            align-content: center;
+        }
+
+        .login {
+            width:300px;
+            height:200px;
+            margin-top: 25%;
+            margin-left:20%;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="formulario">
+        @using (Html.BeginForm("LoginWeb", "LoginWeb", FormMethod.Post, new { @id = "FormLogin" }))
+                {
+                    <div class="login">
+                            <div class="row" style="background-color: yellow">
+                                <div class="col" style="margin-left:20%">
+                                    <h3 style="color:#0A497B;font-family:Arial">SUPERFITWEB</h3>
+                                </div>
+                            </div>
+                            <div class="row" style="background-color: blue">
+                                <div class="col" style="margin-left:20%">
+                                    <input id="IdUsuario" class="form-control" placeholder="Correo eléctronico o celular" style="border-color:#0A497B" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row" style="background-color: orange">
+                                <div class="col" style="margin-left:20%">
+                                    <input id="IdPassword" class="form-control" placeholder="Contraseña" style="border-color: #0A497B"/>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row" style="background-color: brown">
+                                <div class="col"  style="padding-left:50%">
+                                    <button type="submit" id="Iniciarsesion" class="btn btn-primary" style="background-color:#0A497B">Iniciar sesión</button>
+                                </div>
+                            </div>
+                    </div>
+                }            
+    </div>
+</body>
+</html>
