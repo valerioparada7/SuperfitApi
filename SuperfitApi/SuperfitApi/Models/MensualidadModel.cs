@@ -15,5 +15,7 @@ namespace SuperfitApi.Models
         public TipoentrenamientoModel TipoEntrenamiento { get; set; }
         public DateTime Fecha_inicio { get; set; }
         public DateTime Fecha_fin { get; set; }
+        public string SinfechaAsignadaI { get; set; }
+        public string SinfechaAsignadaF { get; set; }
     }
 }

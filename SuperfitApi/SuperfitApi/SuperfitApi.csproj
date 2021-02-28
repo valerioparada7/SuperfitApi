@@ -166,9 +166,11 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Catalogos\CatalogoController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\ClientesWebController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoginWebController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -727,6 +729,9 @@
     <Content Include="Scripts\umd\popper.js.flow" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Views\ClientesWeb\Perfil.cshtml" />
+    <Content Include="Views\Shared\Diseño.cshtml" />
+    <Content Include="Views\ClientesWeb\Rutinas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
