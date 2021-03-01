@@ -97,3 +97,7 @@ C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\obj\Releas
 C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.csproj.CopyComplete
 C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.dll
 C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.pdb
+C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\bin\FontAwesome5.dll
+C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\bin\FontAwesome5.Net.dll
+C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\bin\FontAwesome5.xml
+C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\bin\FontAwesome5.Net.xml

@@ -86,7 +86,7 @@ namespace SuperfitApi.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Error", "Shared", new { error = ex.Message });
+                return RedirectToAction("Error", "Shared", new { Error = ex.Message });
             }
         }
     }

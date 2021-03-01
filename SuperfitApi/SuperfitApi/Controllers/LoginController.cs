@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -167,7 +168,7 @@ namespace SuperfitApi.Controllers
         [HttpPost]
         [Route("api/Login/RegistrarCliente")]
         public AlertasModel RegistrarCliente(ClientesModel clientesModel)
-        {
+        {            
             var cliente = Db.Clientes.Where(p => p.Correo_electronico == clientesModel.Correo_electronico
                                         || p.Telefono == clientesModel.Telefono).FirstOrDefault();
 
@@ -176,8 +177,10 @@ namespace SuperfitApi.Controllers
                 string Clave = "";
                 Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_Paterno.Substring(0, 3) +
                         clientesModel.Apellido_Materno.Substring(0, 3);  
-                string fotoperfil= "Imagenes/Clientes/"+clientesModel.Nombres + clientesModel.Apellido_Paterno +
+                string Name = clientesModel.Nombres + clientesModel.Apellido_Paterno +
                         clientesModel.Apellido_Materno;
+                Name = Name.Replace(" ", "_");
+                string fotoperfil = "Imagenes/Clientes/" + Name;
                 clientes = new Clientes
                 {
                     Clave_Cliente = Clave,
@@ -196,6 +199,8 @@ namespace SuperfitApi.Controllers
                 Db.Clientes.Add(clientes);
                 if (Db.SaveChanges() == 1)
                 {
+                    DirectoryInfo di = Directory.CreateDirectory(fotoperfil);
+                   // clientesModel.Imagen.SaveAs("");
                     alertasModel.Id = clientes.Id_Cliente;
                     alertasModel.Result = true;
                     alertasModel.Mensaje = "Se realizo correctamente el registro";

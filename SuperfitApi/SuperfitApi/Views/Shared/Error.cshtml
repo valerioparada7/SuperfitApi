@@ -8,11 +8,10 @@
 <body>
     <hgroup>
         <h1>Error.</h1>
-        <h2>Error al procesar la solicitud.</h2>
+        <h2>@ViewBag.error</h2>
     </hgroup>
     @if (ViewBag.error != null)
-    {
-        Layout = null;
+    {        
         <div class="alert alert-danger">
             @ViewBag.error
         </div>

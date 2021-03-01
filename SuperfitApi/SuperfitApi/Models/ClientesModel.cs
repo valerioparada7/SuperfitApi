@@ -20,5 +20,6 @@ namespace SuperfitApi.Models
         public string Fotoperfil { get; set; }
         public string Sexo { get; set; }
         public bool Validar { get; set; }        
+        public HttpPostedFileBase Imagen { get; set; }
     }
 }

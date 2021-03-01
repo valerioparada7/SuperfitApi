@@ -49,78 +49,95 @@ namespace SuperfitApi.Controllers
 
         public ActionResult Perfil()
         {
-            string Id = Session["Id_Cliente"].ToString();
-            int IdCliente= int.Parse(Id);
+            try
+            {            
+                string Id = Session["Id_Cliente"].ToString();
+                int IdCliente= int.Parse(Id);
 
-            clientesMdl = (from c in Db.Clientes
-                           where c.Id_Cliente == IdCliente
-                           select new ClientesModel()
-                           {
-                               Id_Cliente = c.Id_Cliente,
-                               Nombres = c.Nombres,
-                               Fotoperfil = c.Fotoperfil
-                           }).FirstOrDefault();
+                clientesMdl = (from c in Db.Clientes
+                               where c.Id_Cliente == IdCliente
+                               select new ClientesModel()
+                               {
+                                   Id_Cliente = c.Id_Cliente,
+                                   Nombres = c.Nombres,
+                                   Fotoperfil = c.Fotoperfil
+                               }).FirstOrDefault();
 
-            var list = Db.Mensualidad.Where(p => p.Id_Cliente == IdCliente).ToList();
-            var mensualidad = list.OrderByDescending(p => p.Fecha_fin).FirstOrDefault();
-            if (mensualidad != null)
-            {
-                int id = mensualidad.Id_mensualidad;
-                mensualidadMdl = (from m in Db.Mensualidad
-                                  join t in Db.Tiporutina
-                                  on m.Id_tiporutina equals t.Id_tiporutina
-                                  join te in Db.TipoEntrenamiento
-                                  on m.Id_TipoEntrenamiento equals te.Id_TipoEntrenamiento
-                                  join mes in Db.Meses
-                                  on m.Id_mes equals mes.Id_mes
-                                  join es in Db.Estatus
-                                  on m.Id_estatus equals es.Id_estatus
-                                  where m.Id_mensualidad == id
-                                  select new MensualidadModel()
-                                  {
-                                      Id_mensualidad = m.Id_mensualidad,
-                                      Tiporutina = new TiporutinaModel
-                                      {
-                                          Id_tiporutina = t.Id_tiporutina,
-                                          Tipo = t.Tipo
-                                      },
-                                      TipoEntrenamiento = new TipoentrenamientoModel
-                                      {
-                                          Id_TipoEntrenamiento = (int)te.Id_TipoEntrenamiento,
-                                          Clave_Entrenamiento = te.Clave_Entrenamiento,
-                                          Tipo_entrenamiento = te.Tipo_entrenamiento
-                                      },
-                                      Mes = new MesesModel
-                                      {
-                                          Id_mes = mes.Id_mes,
-                                          Clave_mes = mes.Clave_mes,
-                                          Mes = mes.Mes
-                                      },
-                                      Estatus = new EstatusModel
-                                      {
-                                          Id_estatus = es.Id_estatus,
-                                          Descripcion = es.Descripcion
-                                      },
-                                      Fecha_inicio = (DateTime)m.Fecha_inicio,
-                                      Fecha_fin = (DateTime)m.Fecha_fin,
-                                  }).FirstOrDefault();
-
-                if (mensualidadMdl != null)
+                var list = Db.Mensualidad.Where(p => p.Id_Cliente == IdCliente).ToList();
+                var mensualidad = list.OrderByDescending(p => p.Fecha_fin).FirstOrDefault();
+                if (mensualidad != null)
                 {
-                    mensualidadMdl.Cliente = new ClientesModel()
+                    int id = mensualidad.Id_mensualidad;
+                    mensualidadMdl = (from m in Db.Mensualidad
+                                      join t in Db.Tiporutina
+                                      on m.Id_tiporutina equals t.Id_tiporutina
+                                      join te in Db.TipoEntrenamiento
+                                      on m.Id_TipoEntrenamiento equals te.Id_TipoEntrenamiento
+                                      join mes in Db.Meses
+                                      on m.Id_mes equals mes.Id_mes
+                                      join es in Db.Estatus
+                                      on m.Id_estatus equals es.Id_estatus
+                                      where m.Id_mensualidad == id
+                                      select new MensualidadModel()
+                                      {
+                                          Id_mensualidad = m.Id_mensualidad,
+                                          Tiporutina = new TiporutinaModel
+                                          {
+                                              Id_tiporutina = t.Id_tiporutina,
+                                              Tipo = t.Tipo
+                                          },
+                                          TipoEntrenamiento = new TipoentrenamientoModel
+                                          {
+                                              Id_TipoEntrenamiento = (int)te.Id_TipoEntrenamiento,
+                                              Clave_Entrenamiento = te.Clave_Entrenamiento,
+                                              Tipo_entrenamiento = te.Tipo_entrenamiento
+                                          },
+                                          Mes = new MesesModel
+                                          {
+                                              Id_mes = mes.Id_mes,
+                                              Clave_mes = mes.Clave_mes,
+                                              Mes = mes.Mes
+                                          },
+                                          Estatus = new EstatusModel
+                                          {
+                                              Id_estatus = es.Id_estatus,
+                                              Descripcion = es.Descripcion
+                                          },
+                                          Fecha_inicio = (DateTime)m.Fecha_inicio,
+                                          Fecha_fin = (DateTime)m.Fecha_fin,
+                                      }).FirstOrDefault();
+
+                    if (mensualidadMdl != null)
                     {
-                        Id_Cliente = clientesMdl.Id_Cliente,
-                        Validar = true,
-                        Nombres = clientesMdl.Nombres,
-                        Fotoperfil = clientesMdl.Fotoperfil
-                    };
-                    return View(mensualidadMdl);
+                        mensualidadMdl.Cliente = new ClientesModel()
+                        {
+                            Id_Cliente = clientesMdl.Id_Cliente,
+                            Validar = true,
+                            Nombres = clientesMdl.Nombres,
+                            Fotoperfil = clientesMdl.Fotoperfil
+                        };
+                        return View(mensualidadMdl);
+                    }
+                    else
+                    {
+                        mensualidadMdl = new MensualidadModel
+                        {
+                            Cliente = new ClientesModel(),                        
+                        };
+                        ViewBag.TipoRutina = "No asignado";
+                        ViewBag.TipoEntrenamiento = "No asignado";
+                        ViewBag.FechaI = "No asignado";
+                        ViewBag.FechaF = "No asignado";
+                        clientesMdl.Validar = true;
+                        mensualidadMdl.Cliente = clientesMdl;
+                        return View(mensualidadMdl);
+                    }
                 }
                 else
-                {
+                {                
                     mensualidadMdl = new MensualidadModel
                     {
-                        Cliente = new ClientesModel(),                        
+                        Cliente = new ClientesModel(),                    
                     };
                     ViewBag.TipoRutina = "No asignado";
                     ViewBag.TipoEntrenamiento = "No asignado";
@@ -131,21 +148,10 @@ namespace SuperfitApi.Controllers
                     return View(mensualidadMdl);
                 }
             }
-            else
-            {                
-                mensualidadMdl = new MensualidadModel
-                {
-                    Cliente = new ClientesModel(),                    
-                };
-                ViewBag.TipoRutina = "No asignado";
-                ViewBag.TipoEntrenamiento = "No asignado";
-                ViewBag.FechaI = "No asignado";
-                ViewBag.FechaF = "No asignado";
-                clientesMdl.Validar = true;
-                mensualidadMdl.Cliente = clientesMdl;
-                return View(mensualidadMdl);
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Shared", new { Error = ex.Message });
             }
-            
         }
 
         public ActionResult Rutinas()

@@ -12,25 +12,25 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#0A497B">
-        <div class="container">
+        <div class="container">            
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Editar Perfil", "Perfil", "ClientesWeb", new { @class = "navbar-brand" })
-                
-            </div> 
+            </div>            
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Rutinas", "Rutinas", "ClientesWeb", new { @class = "navbar-brand" })       </li>
-                    <li>@Html.ActionLink("Mensualidad", "Perfil", "ClientesWeb", new { @class = "navbar-brand" })   </li>
-                    <li>@Html.ActionLink("Mis medidas", "Perfil", "ClientesWeb", new { @class = "navbar-brand" })   </li>
-                    <li>@Html.ActionLink("Cuestionario", "Perfil", "ClientesWeb", new { @class = "navbar-brand" })  </li>
-                    <li>@Html.ActionLink("Alimentacion", "Perfil", "ClientesWeb", new { @class = "navbar-brand" })  </li>
-                    <li>@Html.ActionLink("Rutinas DEMO", "Perfil", "ClientesWeb", new { @class = "navbar-brand" })  </li>
-                    <li>@Html.ActionLink("Salir", "Perfil", "ClientesWeb", new { @class = "navbar-brand" })         </li>
+                    <li>@Html.ActionLink("Home", "Perfil", "ClientesWeb", new { @class = "navbar-brand" ,style="color:white" })       </li>
+                    <li>@Html.ActionLink("Editar perfil", "Rutinas", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })       </li>
+                    <li>@Html.ActionLink("Rutinas", "Rutinas", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })       </li>
+                    <li>@Html.ActionLink("Mensualidad", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })   </li>
+                    <li>@Html.ActionLink("Mis medidas", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })   </li>
+                    <li>@Html.ActionLink("Cuestionario", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })  </li>
+                    <li>@Html.ActionLink("Alimentacion", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })  </li>
+                    <li>@Html.ActionLink("Rutinas DEMO", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })  </li>
+                    <li>@Html.ActionLink("Salir", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })         </li>
                 </ul>
             </div>
         </div>
@@ -48,5 +48,7 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
 
 

@@ -10,83 +10,95 @@
     @Styles.Render("~/Content/css")
 
     <style>
-        .formulario {
-            height: 400px;
+        .card {
             margin-top: 100px;
-            margin-bottom: auto;
-            margin-left: auto;
-            margin-right: auto;
             width: 400px;
-            background-color: white;
+            height: 500px;
             border-color: #0A497B;
             border-style: solid;
-            border-width: 5px 5px 5px 5px;
+            border-width: 1px 1px 1px 1px;
             border-radius: 20px 20px;
-            align-content: center;
-            
         }
-
-        .login {
-            width:300px;
-            height:200px;
-            margin-top: 25%;
-            margin-left:10%;
-            background-color: white;
+        .card-header {
+            background-color: transparent;
+            border-color: transparent;
         }
+        .card-body{
+            background-color:transparent;
+            margin-top:100px
+        }
+        .card-footer {
+            margin-top:50px;
+            border-color: transparent;
+        }        
     </style>
 </head>
 <body>
-    <div class="formulario">
-        @using (Html.BeginForm("LoginWeb", "LoginWeb", FormMethod.Post, new { @id = "FormLogin" }))
-        {
-            <div class="login">
-                <div class="row">
-                    <div class="col">
-                        <h2 style="color:#0A497B;margin-left:35%">Superfit</h2>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col" style="margin-left:10%">
-                        @Html.TextBox("User", null, new { @class = "form-control", id = "User", placeholder = "Correo eléctronico o celular", style = "color:black;border-color:#0A497B" })
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col" style="margin-left:10%">
-                        @Html.TextBox("Pass", null, new { @class = "form-control", id = "Pass", type = "password", placeholder = "Contraseña", style = "color:black;border-color: #0A497B" })
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col" style="margin-left:35%">
-                        <button type="submit" id="Iniciarsesion" class="btn btn-primary" style="background-color:#0A497B">Iniciar sesión</button>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col" style="margin-left:37%">
-                        @Html.ActionLink("Registrarse", "LoginWeb", null, new
-                        {
-                            @class = "btn btn-outline-dark",
-                       style = "color:#0A497B;border-color: #0A497B;border-style:solid;border-width: 3px 3px 3px 3px;border-radius: 20px 20px;"
-                        })
-                        <!-- <button type="submit" id="Registrarse" class="btn btn-outline-dark">Registrarse</button>-->
-                    </div>
-                </div>
-            </div>
-        }
+   <div class="d-flex justify-content-center h-100">
+       <div class="card">
+           <div class="card-header">
+               <div class="col-12 text-center">
+                   <h3>
+                       Superfit
+                   </h3>
+               </div>
+           </div>                  
+       <div class="card-body">
+           @using (Html.BeginForm("LoginWeb", "LoginWeb", FormMethod.Post, new { @id = "FormLogin" }))
+           {
+           <form>
+               <div class="row">
+                   <div class="col-12">
+                       @Html.TextBox("User", null, new { @class = "form-control", id = "User", placeholder = "Correo eléctronico o celular", style = "color:black;border-color:#0A497B" })
+                   </div>
+               </div>
+               <br />
+               <div class="row">
+                   <div class="col-12">
+                       @Html.TextBox("Pass", null, new { @class = "form-control", id = "Pass", type = "password", placeholder = "Contraseña", style = "color:black;border-color: #0A497B" })
+                   </div>
+               </div>
+               <br />
+               <div class="row justify-content-center">
+                   <div class="col-5">
+                       <button type="submit" id="Iniciarsesion" class="btn btn-primary" style="max-height:100%;background-color:#0A497B">Iniciar sesión</button>
+                   </div>
+               </div>
+               <br />
+               <div class="row justify-content-center">
+                   <div class="col-5">
+                       @Html.ActionLink("Registrarse", "LoginWeb", null, new
+                  {
+                      @class = "btn btn-outline-dark",
+                      style = "max-height:100%;color:#0A497B;border-color: #0A497B;border-style:solid;border-width: 3px 3px 3px 3px;border-radius: 20px 20px;"
+                  })
+                       <!-- <button type="submit" id="Registrarse" class="btn btn-outline-dark">Registrarse</button>-->
+                   </div>
+               </div>
+               <br />
+               <br />
+               <div class="row justify-content-center">
+                   <div class="col-6">
+                       <label style="max-height:100%">Olveide mi contraseña</label>
+                   </div>
+               </div>
+               <br />               
+               <div class="row" style="max-height: 100%;">
+                   <div class="col-12">
+                       @if (ViewBag.Mensaje != null)
+                       {
+                           <div class="alert alert-danger">
+                               @ViewBag.Mensaje
+                           </div>
+                       }
+                   </div>
+               </div>
+           </form>
+           }
+       </div>
+       <div class="card-footer">                      
+       </div>
     </div>
-    <br />
-    <div class="row" style="width: 400px;margin-left: auto;margin-right: auto;">
-        <div class="col">
-            @if (ViewBag.Mensaje != null)
-            {
-                <div class="alert alert-danger">
-                    @ViewBag.Mensaje
-                </div>
-            }
-        </div>
-    </div>
+   </div>
 </body>
 </html>
