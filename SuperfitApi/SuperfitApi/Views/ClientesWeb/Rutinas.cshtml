@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Rutinas";
+    Layout = "~/Views/Shared/Diseño.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2 style="text-align:center">Rutina de la semana</h2>
+        </div>
+    </div>
+    <hr />        
+    <div class="table-responsive">
+        <table id="tabladias" class="table table-condensed table-striped table-hover sortable">
+            <thead>
+                <tr>                    
+                    <th style="text-align:center"><h3>Elige tu dia a entrenar</h3></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    string[] dias = { "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" };
+                    for (int i = 1; i <= dias.Length - 1; i++)
+                    {
+                        <tr>                            
+                            <td style="text-align:center;height:50px">                            
+                            @Html.ActionLink(dias[i], "GetDetalleRutinaSets", "ClientesWeb", new { @class = "btn btn-primary",style= "width:250px;text-align:center;height:50px" })</td>
+                            
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>    
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tabladias").DataTable();
+    });
+</script>
+
+
