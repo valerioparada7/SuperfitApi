@@ -25,6 +25,7 @@ namespace SuperfitApi.Controllers
         public DetallerutinaModel detallerutinaMdl;
         //listas de modelos
         public List<DetallerutinaModel> listdetallerutinaMdl;
+        public List<MensualidadModel> listmensualidadMdl;
         #endregion
         public ClientesController()
         {
@@ -38,6 +39,7 @@ namespace SuperfitApi.Controllers
             detallerutinaMdl = new DetallerutinaModel();
             //listas de modelos
             listdetallerutinaMdl = new List<DetallerutinaModel>();
+            listmensualidadMdl = new List<MensualidadModel>();
         }
 
         //Obtener los datos para su perfil del cliente
@@ -148,5 +150,56 @@ namespace SuperfitApi.Controllers
             return listdetallerutinaMdl;
         }
         
+        //Obtener mi mensualidad
+        [HttpGet]
+        [Route("api/Clientes/GetMensualidad")]
+        public List<MensualidadModel> GetMensualidad(int IdCliente)
+        {
+            listmensualidadMdl = (from m in Db.Mensualidad
+                                  join c in Db.Clientes
+                                  on m.Id_Cliente equals c.Id_Cliente
+                                  join t in Db.Tiporutina
+                                  on m.Id_tiporutina equals t.Id_tiporutina
+                                  join mes in Db.Meses
+                                  on m.Id_mes equals mes.Id_mes
+                                  join es in Db.Estatus
+                                  on m.Id_estatus equals es.Id_estatus
+                                  join te in Db.TipoEntrenamiento
+                                  on m.Id_TipoEntrenamiento equals te.Id_TipoEntrenamiento
+                                  where m.Id_Cliente==IdCliente
+                                  select new MensualidadModel()
+                                  {
+                                      Id_mensualidad = m.Id_mensualidad,
+                                      Tiporutina = new TiporutinaModel
+                                      {
+                                          Id_tiporutina = t.Id_tiporutina,
+                                          Tipo = t.Tipo
+                                      },
+                                      TipoEntrenamiento = new TipoentrenamientoModel
+                                      {
+                                          Id_TipoEntrenamiento = (int)te.Id_TipoEntrenamiento,
+                                          Clave_Entrenamiento = te.Clave_Entrenamiento,
+                                          Tipo_entrenamiento = te.Tipo_entrenamiento
+                                      },
+                                      Mes = new MesesModel
+                                      {
+                                          Id_mes = mes.Id_mes,
+                                          Clave_mes = mes.Clave_mes,
+                                          Mes = mes.Mes
+                                      },
+                                      Estatus = new EstatusModel
+                                      {
+                                          Id_estatus = es.Id_estatus,
+                                          Descripcion = es.Descripcion
+                                      },
+                                      Fecha_inicio = (DateTime)m.Fecha_inicio,
+                                      Fecha_fin = (DateTime)m.Fecha_fin,
+
+                                  }).ToList();
+            if (listmensualidadMdl == null)
+            {                
+            }
+            return listmensualidadMdl;
+        }
     }
 }

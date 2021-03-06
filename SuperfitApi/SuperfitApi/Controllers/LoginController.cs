@@ -55,7 +55,7 @@ namespace SuperfitApi.Controllers
                                }).FirstOrDefault();
             }
             else
-            {
+            {                
                 decimal celular = 0;
                 celular = decimal.Parse(User);
                 clientesMdl = (from c in Db.Clientes
@@ -67,8 +67,7 @@ namespace SuperfitApi.Controllers
                                    Nombres = c.Nombres,
                                    Fotoperfil = c.Fotoperfil
                                }).FirstOrDefault();                
-            }
-                       
+            }                       
             if (clientesMdl != null)
             {
                 var list = Db.Mensualidad.Where(p => p.Id_Cliente == clientesMdl.Id_Cliente).ToList();
