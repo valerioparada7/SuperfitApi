@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Web.Http;
 using SuperfitApi.Models;
 
@@ -41,8 +42,8 @@ namespace SuperfitApi.Controllers
         //Loguearse
         [HttpGet]
         public MensualidadModel Login(string User,string Pass)
-        {
-            if (User.Contains("@"))
+        {            
+            if (ValidacionUser(User)==true)
             {
                 clientesMdl = (from c in Db.Clientes
                                where c.Correo_electronico == User
@@ -55,20 +56,25 @@ namespace SuperfitApi.Controllers
                                }).FirstOrDefault();
             }
             else
-            {                
-                decimal celular = 0;
-                celular = decimal.Parse(User);
-                clientesMdl = (from c in Db.Clientes
-                               where c.Telefono == celular
-                               && c.Contraseña == Pass
-                               select new ClientesModel()
-                               {
-                                   Id_Cliente = c.Id_Cliente,
-                                   Nombres = c.Nombres,
-                                   Fotoperfil = c.Fotoperfil
-                               }).FirstOrDefault();                
-            }                       
-            if (clientesMdl != null)
+            {
+                if (ValidarCelular(User) == true)
+                {
+                    decimal celular = 0;
+                    celular = decimal.Parse(User);
+                    clientesMdl = (from c in Db.Clientes
+                                   where c.Telefono == celular
+                                   && c.Contraseña == Pass
+                                   select new ClientesModel()
+                                   {
+                                       Id_Cliente = c.Id_Cliente,
+                                       Nombres = c.Nombres,
+                                       Fotoperfil = c.Fotoperfil
+                                   }).FirstOrDefault();
+                }
+            }
+            
+            
+            if (clientesMdl.Id_Cliente != 0)
             {
                 var list = Db.Mensualidad.Where(p => p.Id_Cliente == clientesMdl.Id_Cliente).ToList();
                 var mensualidad = list.OrderByDescending(p => p.Fecha_fin).FirstOrDefault();
@@ -162,7 +168,40 @@ namespace SuperfitApi.Controllers
                 mensualidadMdl.Cliente.Nombres = "Usuario y/o contraseña Incorrectos";                
                 return mensualidadMdl;
             }
-        }        
+        }
+        public bool ValidacionUser(string email)
+        {
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
+            {
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool ValidarCelular(string strNumber)
+        {
+            Regex regex = new Regex(@"\A[0-9]{7,10}\z");
+            Match match = regex.Match(strNumber);
+            if (match.Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         //Crear cuenta registrando el cliente
         [HttpPost]
         [Route("api/Login/RegistrarCliente")]

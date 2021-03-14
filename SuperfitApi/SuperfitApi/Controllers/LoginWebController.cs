@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using SuperfitApi.Models;
@@ -45,8 +46,8 @@ namespace SuperfitApi.Controllers
         public ActionResult LoginWeb(string User, string Pass)
         {
             try
-            {           
-                if(User.Contains("@"))
+            {
+                if (ValidacionUser(User) == true)
                 {
                     clientesMdl = (from c in Db.Clientes
                                    where c.Correo_electronico == User
@@ -60,20 +61,23 @@ namespace SuperfitApi.Controllers
                 }
                 else
                 {
-                    decimal celular = 0;
-                    celular = decimal.Parse(User);
-                    clientesMdl = (from c in Db.Clientes
-                                   where c.Telefono == celular
-                                   && c.Contraseña == Pass
-                                   select new ClientesModel()
-                                   {
-                                       Id_Cliente = c.Id_Cliente,
-                                       Nombres = c.Nombres,
-                                       Fotoperfil = c.Fotoperfil
-                                   }).FirstOrDefault();
+                    if (ValidarCelular(User) == true)
+                    {
+                        decimal celular = 0;
+                        celular = decimal.Parse(User);
+                        clientesMdl = (from c in Db.Clientes
+                                       where c.Telefono == celular
+                                       && c.Contraseña == Pass
+                                       select new ClientesModel()
+                                       {
+                                           Id_Cliente = c.Id_Cliente,
+                                           Nombres = c.Nombres,
+                                           Fotoperfil = c.Fotoperfil
+                                       }).FirstOrDefault();
+                    }
                 }
 
-                if (clientesMdl != null)
+                if (clientesMdl.Id_Cliente != 0)
                 {
                     Session["Id_Cliente"] = clientesMdl.Id_Cliente;
                     return RedirectToAction("Perfil", "ClientesWeb");
@@ -87,6 +91,39 @@ namespace SuperfitApi.Controllers
             catch (Exception ex)
             {
                 return RedirectToAction("Error", "Shared", new { Error = ex.Message });
+            }
+        }
+        public bool ValidacionUser(string email)
+        {
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
+            {
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool ValidarCelular(string strNumber)
+        {
+            Regex regex = new Regex(@"\A[0-9]{7,10}\z");
+            Match match = regex.Match(strNumber);
+            if (match.Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
