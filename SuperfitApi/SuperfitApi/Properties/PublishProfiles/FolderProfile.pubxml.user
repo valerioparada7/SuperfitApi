@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\valerio.parada\Downloads\SuperflifitApiPublicsh</_PublishTargetUrl>
-    <History>True|2021-03-12T15:18:56.8913010Z;</History>
+    <History>True|2021-03-14T22:57:47.1850185Z;True|2021-03-12T09:18:56.8913010-06:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/HelpPage/HelpPage.css">
@@ -276,10 +276,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:56</publishTime>
     </File>
     <File Include="bin/SuperfitApi.dll">
-      <publishTime>03/12/2021 09:18:34</publishTime>
+      <publishTime>03/14/2021 16:57:43</publishTime>
     </File>
     <File Include="bin/SuperfitApi.pdb">
-      <publishTime>03/12/2021 09:18:34</publishTime>
+      <publishTime>03/14/2021 16:57:43</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>03/11/2021 21:29:56</publishTime>
@@ -1674,7 +1674,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/12/2021 09:18:35</publishTime>
+      <publishTime>03/14/2021 16:57:45</publishTime>
     </File>
   </ItemGroup>
 </Project>

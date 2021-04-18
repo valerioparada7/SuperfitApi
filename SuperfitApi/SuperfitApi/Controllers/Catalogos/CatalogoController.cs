@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SuperfitApi.Models;
+using SuperfitApi.Models.Entity;
 
 
 namespace SuperfitApi.Controllers.Catalogos
@@ -13,7 +14,7 @@ namespace SuperfitApi.Controllers.Catalogos
     {
         public CatalogoController()
         {
-            Db = new SuperflyfitEntities();
+            Db = new SuperfitEntities();
             listdias = new List<DiasModel>();
             listmeses = new List<MesesModel>();
             listejercicios = new List<EjerciciosModel>();
@@ -29,7 +30,7 @@ namespace SuperfitApi.Controllers.Catalogos
             tipoentrena = new TipoentrenamientoModel();
         }
         #region Variables
-        public SuperflyfitEntities Db;
+        public SuperfitEntities Db;
 
         public DiasModel dias;
         public MesesModel meses;
@@ -118,7 +119,7 @@ namespace SuperfitApi.Controllers.Catalogos
                          Ejercicio =e.Ejercicio,
                          Descripcion =e.Descripcion,
                          Posicion=e.Posicion,
-                         ubicacion_imagen=e.ubicacion_imagen
+                         ubicacion_imagen=e.Ubicacion_imagen
                      }).ToList();
             return listejercicios;
         }
@@ -135,7 +136,7 @@ namespace SuperfitApi.Controllers.Catalogos
                                   Ejercicio = e.Ejercicio,
                                   Descripcion = e.Descripcion,
                                   Posicion = e.Posicion,
-                                  ubicacion_imagen = e.ubicacion_imagen
+                                  ubicacion_imagen = e.Ubicacion_imagen
                               }).FirstOrDefault();
             return ejercicios;
         }
@@ -199,10 +200,10 @@ namespace SuperfitApi.Controllers.Catalogos
         [Route("api/Catalogo/GetTypeRutines")]
         public List<TiporutinaModel> GetTypeRutines()
         {
-            listtiporutinas = (from r in Db.Tiporutina
+            listtiporutinas = (from r in Db.Tipo_rutina
                            select new TiporutinaModel()
                            {
-                               Id_tiporutina = r.Id_tiporutina,
+                               Id_tiporutina = r.Id_tipo_rutina,
                                Tipo = r.Tipo,
                                Descripcion = r.Descripcion
                            }).ToList();
@@ -211,11 +212,11 @@ namespace SuperfitApi.Controllers.Catalogos
         [HttpGet]
         public TiporutinaModel GetTypeRutines(int IdTypeRutine)
         {
-            tiporutinas = (from r in Db.Tiporutina
-                               where r.Id_tiporutina== IdTypeRutine
+            tiporutinas = (from r in Db.Tipo_rutina
+                               where r.Id_tipo_rutina== IdTypeRutine
                                select new TiporutinaModel()
                                {
-                                   Id_tiporutina = r.Id_tiporutina,
+                                   Id_tiporutina = r.Id_tipo_rutina,
                                    Tipo = r.Tipo,
                                    Descripcion = r.Descripcion
                                }).FirstOrDefault();
@@ -227,29 +228,27 @@ namespace SuperfitApi.Controllers.Catalogos
         [Route("api/Catalogo/GetTypeTraining")]
         public List<TipoentrenamientoModel> GetTypeTraining()
         {
-            listtipoentrena = (from t in Db.TipoEntrenamiento                       
+            listtipoentrena = (from t in Db.Tipo_entrenamiento                       
                        select new TipoentrenamientoModel()
                        {
-                           Id_TipoEntrenamiento=t.Id_TipoEntrenamiento,
-                           Clave_Entrenamiento =t.Clave_Entrenamiento,
-                           Tipo_entrenamiento=t.Tipo_entrenamiento
+                           Id_TipoEntrenamiento=t.Id_tipo_entrenamiento,
+                           Clave_Entrenamiento =t.Clave_entrenamiento,
+                           Tipo_entrenamiento=t.Tipo_entrenamientos
                        }).ToList();
             return listtipoentrena;
         }
         [HttpGet]
         public TipoentrenamientoModel GetTypeTraining(int IdTypeRutine)
         {
-            tipoentrena = (from t in Db.TipoEntrenamiento
-                               where t.Id_TipoEntrenamiento==IdTypeRutine
+            tipoentrena = (from t in Db.Tipo_entrenamiento
+                           where t.Id_tipo_entrenamiento == IdTypeRutine
                                select new TipoentrenamientoModel()
                                {
-                                   Id_TipoEntrenamiento = t.Id_TipoEntrenamiento,
-                                   Clave_Entrenamiento = t.Clave_Entrenamiento,
-                                   Tipo_entrenamiento = t.Tipo_entrenamiento
+                                   Id_TipoEntrenamiento = t.Id_tipo_entrenamiento,
+                                   Clave_Entrenamiento = t.Clave_entrenamiento,
+                                   Tipo_entrenamiento = t.Tipo_entrenamientos
                                }).FirstOrDefault();
             return tipoentrena;
         }
-        
-        
     }
 }

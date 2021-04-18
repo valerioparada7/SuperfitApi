@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/bundles/datatablescss")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fontawesome")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/popper")
+    @Scripts.Render("~/bundles/chart")
+    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+</head>
+<body>    
+    <nav class="navbar navbar-expand-lg" style="background-color:#0A497B">               
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("Usuarios", "establecimientoCatalogos", null, null)">                        
+                        <span class="menu-collapsed text-white">Usuarios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminClientesWeb", "AdministracionWebHome", null, null)">                        
+                        <span class="menu-collapsed text-white">Clientes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminTiporutinaWeb", "AdministracionWebHome", null, null)">                        
+                        <span class="menu-collapsed text-white">Tipo rutina</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminTipoentrenamientoWeb", "AdministracionWebHome", null, null)">                        
+                        <span class="menu-collapsed text-white">Tipo entrenamiento</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminRutinasWeb", "AdministracionWebHome", null, null)">                        
+                        <span class="menu-collapsed text-white">Rutinas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminEjerciciosWeb", "AdministracionWebHome", null, null)">                       
+                        <span class="menu-collapsed text-white">Ejercicios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminEstatusWeb", "AdministracionWebHome", null, null)">                        
+                        <span class="menu-collapsed text-white">Estatus</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminMensualidadWeb", "AdministracionWebHome", null, null)">                        
+                        <span class="menu-collapsed text-white">Mensualidad</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("Asesoriaantropometria", "AdministracionWebHome", null, null)">                        
+                        <span class="menu-collapsed text-white">Asesoria antropometria</span>
+                    </a>
+                </li>
+            </ul>           
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Superfly</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

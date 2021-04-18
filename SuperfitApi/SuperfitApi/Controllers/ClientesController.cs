@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SuperfitApi.Models;
+using SuperfitApi.Models.Entity;
 
 namespace SuperfitApi.Controllers
 {
@@ -12,11 +13,11 @@ namespace SuperfitApi.Controllers
     {   
         //config.Formatters.Remove(config.Formatters.XmlFormatter); eso ta en webconfig de app
         #region Variables 
-        public SuperflyfitEntities Db;
+        public SuperfitEntities Db;
         public Clientes clientes;
         public Cuestionario cuestionario;
         public Mensualidad mensualidad;
-        public Asesoria_Antropometria asesoria_antropometria;
+        public Asesoria_antropometria asesoria_antropometria;
         //modelos
         public ClientesModel clientesMdl;
         public CuestionarioModel cuestionarioMdl;
@@ -29,7 +30,7 @@ namespace SuperfitApi.Controllers
         #endregion
         public ClientesController()
         {
-            Db = new SuperflyfitEntities();
+            Db = new SuperfitEntities();
             clientes = new Clientes();
             //modelos
             clientesMdl = new ClientesModel();
@@ -46,18 +47,18 @@ namespace SuperfitApi.Controllers
         [HttpGet]
         public Clientes GetCliente(int IdCliente)
         {
-            clientes = Db.Clientes.Where(p => p.Id_Cliente == IdCliente).FirstOrDefault();
+            clientes = Db.Clientes.Where(p => p.Id_cliente == IdCliente).FirstOrDefault();
             return clientes;
         }
 
         [HttpPut]
         public bool UpdateCliente(ClientesModel ClientesMdl)
         {
-            int IdCliente = ClientesMdl.Id_Cliente;
-            clientes = Db.Clientes.Where(p => p.Id_Cliente == IdCliente).FirstOrDefault();
+            int IdCliente = ClientesMdl.Id_cliente ;
+            clientes = Db.Clientes.Where(p => p.Id_cliente == IdCliente).FirstOrDefault();
             clientes.Nombres = ClientesMdl.Nombres;
-            clientes.Apellido_Paterno = ClientesMdl.Apellido_Paterno;
-            clientes.Apellido_Materno = ClientesMdl.Apellido_Materno;
+            clientes.Apellido_paterno = ClientesMdl.Apellido_paterno;
+            clientes.Apellido_paterno = ClientesMdl.Apellido_materno;
             clientes.Edad = ClientesMdl.Edad;
             clientes.Telefono = ClientesMdl.Telefono;
             clientes.Correo_electronico = ClientesMdl.Correo_electronico;
@@ -128,7 +129,7 @@ namespace SuperfitApi.Controllers
                                     where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa && d.Tipo_set== TipoSet
                                     select new DetallerutinaModel()
                                     {      
-                                       Id_detallerutina = d.Id_detallerutina,   
+                                       Id_detallerutina = d.Id_detalle_rutina,   
                                        Ejercicios = new EjerciciosModel
                                        {
                                            Id_ejercicio=e.Id_ejercicio,
@@ -136,7 +137,7 @@ namespace SuperfitApi.Controllers
                                            Ejercicio= e.Ejercicio,
                                            Descripcion = e.Descripcion,
                                            Posicion = e.Posicion,
-                                           ubicacion_imagen=e.ubicacion_imagen
+                                           ubicacion_imagen=e.Ubicacion_imagen
                                        },
                                        Rutinas = new RutinasModel
                                        {
@@ -157,29 +158,29 @@ namespace SuperfitApi.Controllers
         {
             listmensualidadMdl = (from m in Db.Mensualidad
                                   join c in Db.Clientes
-                                  on m.Id_Cliente equals c.Id_Cliente
-                                  join t in Db.Tiporutina
-                                  on m.Id_tiporutina equals t.Id_tiporutina
+                                  on m.Id_cliente equals c.Id_cliente
+                                  join t in Db.Tipo_rutina
+                                  on m.Id_tipo_rutina equals t.Id_tipo_rutina
                                   join mes in Db.Meses
                                   on m.Id_mes equals mes.Id_mes
                                   join es in Db.Estatus
                                   on m.Id_estatus equals es.Id_estatus
-                                  join te in Db.TipoEntrenamiento
-                                  on m.Id_TipoEntrenamiento equals te.Id_TipoEntrenamiento
-                                  where m.Id_Cliente==IdCliente
+                                  join te in Db.Tipo_entrenamiento
+                                  on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
+                                  where m.Id_cliente==IdCliente
                                   select new MensualidadModel()
                                   {
                                       Id_mensualidad = m.Id_mensualidad,
                                       Tiporutina = new TiporutinaModel
                                       {
-                                          Id_tiporutina = t.Id_tiporutina,
+                                          Id_tiporutina = t.Id_tipo_rutina,
                                           Tipo = t.Tipo
                                       },
                                       TipoEntrenamiento = new TipoentrenamientoModel
                                       {
-                                          Id_TipoEntrenamiento = (int)te.Id_TipoEntrenamiento,
-                                          Clave_Entrenamiento = te.Clave_Entrenamiento,
-                                          Tipo_entrenamiento = te.Tipo_entrenamiento
+                                          Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
+                                          Clave_Entrenamiento = te.Clave_entrenamiento,
+                                          Tipo_entrenamiento = te.Tipo_entrenamientos
                                       },
                                       Mes = new MesesModel
                                       {

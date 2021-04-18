@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web.Http;
+using SuperfitApi.Models.Entity;
 using SuperfitApi.Models;
 
 namespace SuperfitApi.Controllers
@@ -13,11 +14,11 @@ namespace SuperfitApi.Controllers
     public class LoginController : ApiController
     {
         #region Variables 
-        public SuperflyfitEntities Db;
+        public SuperfitEntities Db;
         public Clientes clientes;
         public Cuestionario cuestionario;
         public Mensualidad mensualidad;
-        public Asesoria_Antropometria asesoria_antropometria;
+        public Asesoria_antropometria asesoria_antropometria;
         //modelos
         public ClientesModel clientesMdl;
         public CuestionarioModel cuestionarioMdl;
@@ -27,11 +28,11 @@ namespace SuperfitApi.Controllers
         #endregion       
         public LoginController()
         {
-            Db = new SuperflyfitEntities();
+            Db = new SuperfitEntities();
             clientes = new Clientes();
             cuestionario = new Cuestionario();
             mensualidad = new Mensualidad();
-            asesoria_antropometria = new Asesoria_Antropometria();
+            asesoria_antropometria = new Asesoria_antropometria();
             //modelos
             clientesMdl = new ClientesModel();
             cuestionarioMdl = new CuestionarioModel();
@@ -50,9 +51,9 @@ namespace SuperfitApi.Controllers
                                && c.Contraseña == Pass
                                select new ClientesModel()
                                {
-                                   Id_Cliente = c.Id_Cliente,
+                                   Id_cliente = c.Id_cliente,
                                    Nombres = c.Nombres,
-                                   Fotoperfil=c.Fotoperfil
+                                   Foto_perfil=c.Foto_perfil
                                }).FirstOrDefault();
             }
             else
@@ -66,28 +67,28 @@ namespace SuperfitApi.Controllers
                                    && c.Contraseña == Pass
                                    select new ClientesModel()
                                    {
-                                       Id_Cliente = c.Id_Cliente,
+                                       Id_cliente = c.Id_cliente,
                                        Nombres = c.Nombres,
-                                       Fotoperfil = c.Fotoperfil
+                                       Foto_perfil = c.Foto_perfil
                                    }).FirstOrDefault();
                 }
             }
             
             
-            if (clientesMdl.Id_Cliente != 0)
+            if (clientesMdl.Id_cliente != 0)
             {
-                var list = Db.Mensualidad.Where(p => p.Id_Cliente == clientesMdl.Id_Cliente).ToList();
+                var list = Db.Mensualidad.Where(p => p.Id_cliente  == clientesMdl.Id_cliente).ToList();
                 var mensualidad = list.OrderByDescending(p => p.Fecha_fin).FirstOrDefault();
                 if (mensualidad != null)
                 {
                     int id = mensualidad.Id_mensualidad;
                     mensualidadMdl = (from m in Db.Mensualidad   
-                                      join t in Db.Tiporutina
-                                      on m.Id_tiporutina equals t.Id_tiporutina
-                                      join te in Db.TipoEntrenamiento
-                                      on m.Id_TipoEntrenamiento equals te.Id_TipoEntrenamiento
-                                      join mes in Db.Meses
-                                      on m.Id_mes equals mes.Id_mes
+                                      join t in Db.Tipo_rutina
+                                      on m.Id_tipo_rutina equals t.Id_tipo_rutina
+                                      join te in Db.Tipo_entrenamiento
+                                      on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
+                                      join meses in Db.Meses 
+                                      on m.Id_mes equals meses.Id_mes
                                       join es in Db.Estatus
                                       on m.Id_estatus equals es.Id_estatus                                      
                                       where m.Id_mensualidad == id
@@ -96,20 +97,20 @@ namespace SuperfitApi.Controllers
                                           Id_mensualidad = m.Id_mensualidad,                                          
                                           Tiporutina = new TiporutinaModel
                                           {
-                                              Id_tiporutina = t.Id_tiporutina,
+                                              Id_tiporutina = t.Id_tipo_rutina,
                                               Tipo = t.Tipo
                                           },
                                           TipoEntrenamiento = new TipoentrenamientoModel
                                           {
-                                              Id_TipoEntrenamiento = (int)te.Id_TipoEntrenamiento,
-                                              Clave_Entrenamiento = te.Clave_Entrenamiento,
-                                              Tipo_entrenamiento = te.Tipo_entrenamiento
+                                              Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
+                                              Clave_Entrenamiento = te.Clave_entrenamiento,
+                                              Tipo_entrenamiento = te.Tipo_entrenamientos 
                                           },
                                           Mes = new MesesModel
                                           {
-                                              Id_mes = mes.Id_mes,
-                                              Clave_mes = mes.Clave_mes,
-                                              Mes = mes.Mes
+                                              Id_mes = meses.Id_mes,
+                                              Clave_mes = meses.Clave_mes,
+                                              Mes = meses.Mes 
                                           },
                                           Estatus = new EstatusModel
                                           {
@@ -124,10 +125,10 @@ namespace SuperfitApi.Controllers
                     {                                                
                         mensualidadMdl.Cliente = new ClientesModel() 
                         {
-                            Id_Cliente = clientesMdl.Id_Cliente,
+                            Id_cliente = clientesMdl.Id_cliente,
                             Validar = true,
                             Nombres = clientesMdl.Nombres,
-                            Fotoperfil = clientesMdl.Fotoperfil
+                            Foto_perfil = clientesMdl.Foto_perfil
                         };                                                                                                             
                         return mensualidadMdl;
                     }
@@ -137,10 +138,10 @@ namespace SuperfitApi.Controllers
                         {
                             Cliente = new ClientesModel()
                         };
-                        clientesMdl.Id_Cliente = clientesMdl.Id_Cliente;
+                        clientesMdl.Id_cliente = clientesMdl.Id_cliente;
                         clientesMdl.Validar = true;
                         clientesMdl.Nombres = clientesMdl.Nombres;
-                        clientesMdl.Fotoperfil = clientesMdl.Fotoperfil;
+                        clientesMdl.Foto_perfil = clientesMdl.Foto_perfil;
                         mensualidadMdl.Cliente = clientesMdl;
                         return mensualidadMdl;
                     }
@@ -151,10 +152,10 @@ namespace SuperfitApi.Controllers
                     {
                         Cliente = new ClientesModel()
                     };
-                    clientesMdl.Id_Cliente = clientesMdl.Id_Cliente;
+                    clientesMdl.Id_cliente = clientesMdl.Id_cliente;
                     clientesMdl.Validar = true;
                     clientesMdl.Nombres = clientesMdl.Nombres;
-                    clientesMdl.Fotoperfil = clientesMdl.Fotoperfil;
+                    clientesMdl.Foto_perfil = clientesMdl.Foto_perfil;
                     mensualidadMdl.Cliente = clientesMdl;
                     return mensualidadMdl;
                 }
@@ -213,33 +214,33 @@ namespace SuperfitApi.Controllers
             if (cliente == null) 
             {
                 string Clave = "";
-                Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_Paterno.Substring(0, 3) +
-                        clientesModel.Apellido_Materno.Substring(0, 3);  
-                string Name = clientesModel.Nombres + clientesModel.Apellido_Paterno +
-                        clientesModel.Apellido_Materno;
+                Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_paterno.Substring(0, 3) +
+                        clientesModel.Apellido_materno.Substring(0, 3);  
+                string Name = clientesModel.Nombres + clientesModel.Apellido_paterno +
+                        clientesModel.Apellido_materno;
                 Name = Name.Replace(" ", "_");
-                string fotoperfil = "Imagenes/Clientes/" + Name;
+                string Foto_perfil = "Imagenes/Clientes/" + Name;
                 clientes = new Clientes
                 {
-                    Clave_Cliente = Clave,
+                    Clave_cliente = Clave,
                     Nombres = clientesModel.Nombres,
-                    Apellido_Paterno = clientesModel.Apellido_Paterno,
-                    Apellido_Materno = clientesModel.Apellido_Materno,
+                    Apellido_paterno = clientesModel.Apellido_paterno,
+                    Apellido_materno = clientesModel.Apellido_materno,
                     Edad = clientesModel.Edad,
                     Telefono = clientesModel.Telefono,
                     Correo_electronico = clientesModel.Correo_electronico,
                     Apodo = clientesModel.Apodo,
                     Contraseña = clientesModel.Contraseña,
-                    Fotoperfil = fotoperfil,
+                    Foto_perfil = Foto_perfil,
                     Sexo= clientesModel.Sexo,
                     Estado = true
                 };
                 Db.Clientes.Add(clientes);
                 if (Db.SaveChanges() == 1)
                 {
-                    DirectoryInfo di = Directory.CreateDirectory(fotoperfil);
+                    DirectoryInfo di = Directory.CreateDirectory(Foto_perfil);
                    // clientesModel.Imagen.SaveAs("");
-                    alertasModel.Id = clientes.Id_Cliente;
+                    alertasModel.Id = clientes.Id_cliente;
                     alertasModel.Result = true;
                     alertasModel.Mensaje = "Se realizo correctamente el registro";
                     return alertasModel;
@@ -263,11 +264,11 @@ namespace SuperfitApi.Controllers
         [Route("api/Login/RegistroCuestionario")]
         public AlertasModel RegistroCuestionario(CuestionarioModel cuestionarioModel)
         {
-            var clave = Db.Clientes.Where(p => p.Id_Cliente == cuestionarioModel.Cliente.Id_Cliente).FirstOrDefault();
+            var clave = Db.Clientes.Where(p => p.Id_cliente == cuestionarioModel.Cliente.Id_cliente).FirstOrDefault();
             cuestionario = new Cuestionario
             {
-                Id_Cliente = cuestionarioModel.Cliente.Id_Cliente,
-                Clave_cuestionario = "Cues" + clave.Clave_Cliente,
+                Id_cliente = cuestionarioModel.Cliente.Id_cliente,
+                Clave_cuestionario = "Cues" + clave.Clave_cliente,
                 Padece_enfermedad = cuestionarioModel.Padece_enfermedad,
                 Medicamento_prescrito_medico = cuestionarioModel.Medicamento_prescrito_medico,
                 lesiones = cuestionarioModel.lesiones,
@@ -288,7 +289,7 @@ namespace SuperfitApi.Controllers
             Db.Cuestionario.Add(cuestionario);
             if (Db.SaveChanges() == 1)
             {
-                alertasModel.Id = cuestionarioModel.Cliente.Id_Cliente;
+                alertasModel.Id = cuestionarioModel.Cliente.Id_cliente;
                 alertasModel.Result = true;
                 alertasModel.Mensaje = "Se realizo correctamente el registro";
                 return alertasModel;
@@ -307,11 +308,11 @@ namespace SuperfitApi.Controllers
         {
             mensualidad = new Mensualidad()
             {
-                Id_Cliente = mensualidadModel.Cliente.Id_Cliente,
-                Id_tiporutina = mensualidadModel.Tiporutina.Id_tiporutina,
+                Id_cliente = mensualidadModel.Cliente.Id_cliente,
+                Id_tipo_rutina = mensualidadModel.Tiporutina.Id_tiporutina,
                 Id_mes = DateTime.Now.Month,
                 Id_estatus = 1,
-                Id_TipoEntrenamiento = mensualidadModel.TipoEntrenamiento.Id_TipoEntrenamiento,
+                Id_tipo_entrenamiento = mensualidadModel.TipoEntrenamiento.Id_TipoEntrenamiento,
                 Fecha_inicio = DateTime.Now,
                 Fecha_fin = DateTime.Now.AddMonths(1)
             };
@@ -335,25 +336,25 @@ namespace SuperfitApi.Controllers
         [Route("api/Login/RegistrarAntropometria")]
         public AlertasModel RegistrarAntropometria(AntropometriaModel antropometriaModel)
         {
-            asesoria_antropometria = new Asesoria_Antropometria()
+            asesoria_antropometria = new Asesoria_antropometria()
             {
                     Id_mensualidad = antropometriaModel.Mensualidad.Id_mensualidad,
                     Peso=antropometriaModel.Peso,
                     Altura=antropometriaModel.Altura,
                     IMC=antropometriaModel.IMC,
-                    Brazoderechorelajado=antropometriaModel.Brazoderechorelajado,
-                    Brazoderechofuerza=antropometriaModel.Brazoderechofuerza,
-                    Brazoizquierdorelajado=antropometriaModel.Brazoizquierdorelajado,
-                    Brazoizquierdofuerza=antropometriaModel.Brazoizquierdofuerza,
+                    Brazo_derecho_relajado=antropometriaModel.Brazoderechorelajado,
+                    Brazo_derecho_fuerza=antropometriaModel.Brazoderechofuerza,
+                    Brazo_izquierdo_relajado=antropometriaModel.Brazoizquierdorelajado,
+                    Brazo_izquierdo_fuerza=antropometriaModel.Brazoizquierdofuerza,
                     Cintura=antropometriaModel.Cintura,
                     Cadera=antropometriaModel.Cadera,
-                    Piernaizquierda=antropometriaModel.Piernaizquierda,
-                    Piernaderecho=antropometriaModel.Piernaderecho,
-                    Pantorrilladerecha=antropometriaModel.Pantorrilladerecha,
-                    Pantorrillaizquierda=antropometriaModel.Pantorrillaizquierda,
+                    Pierna_izquierda=antropometriaModel.Piernaizquierda,
+                    Pierna_derecho=antropometriaModel.Piernaderecho,
+                    Pantorrilla_derecha=antropometriaModel.Pantorrilladerecha,
+                    Pantorrilla_izquierda=antropometriaModel.Pantorrillaizquierda,
                     Fecha_registro=DateTime.Now
             };
-            Db.Asesoria_Antropometria.Add(asesoria_antropometria);
+            Db.Asesoria_antropometria.Add(asesoria_antropometria);
             if (Db.SaveChanges() == 1)
             {
                 alertasModel.Result = true;

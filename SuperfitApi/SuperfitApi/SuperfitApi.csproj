@@ -170,6 +170,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AdministracionWeb\AdministracionWebHomeController.cs" />
     <Compile Include="Controllers\Catalogos\CatalogoController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ClientesWebController.cs" />
@@ -183,71 +184,71 @@
     </Compile>
     <Compile Include="Models\AlertasModel.cs" />
     <Compile Include="Models\AntropometriaModel.cs" />
-    <Compile Include="Models\Asesoria_Antropometria.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Clientes.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ClientesModel.cs" />
-    <Compile Include="Models\Cuestionario.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CuestionarioModel.cs" />
     <Compile Include="Models\DetallerutinaModel.cs" />
-    <Compile Include="Models\Detalle_rutina.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Dias.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DiasModel.cs" />
-    <Compile Include="Models\Ejercicios.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EjerciciosModel.cs" />
-    <Compile Include="Models\Estatus.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
+    <Compile Include="Models\Entity\Asesoria_antropometria.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Clientes.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Cuestionario.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Detalle_rutina.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Dias.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Ejercicios.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Estatus.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Mensualidad.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Meses.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Rutina.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SuperfitEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SuperfitEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SuperfitEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SuperfitEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SuperfitEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Tipo_entrenamiento.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Tipo_rutina.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Usuarios.cs">
+      <DependentUpon>SuperfitEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EstatusModel.cs" />
-    <Compile Include="Models\Mensualidad.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MensualidadModel.cs" />
-    <Compile Include="Models\Meses.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MesesModel.cs" />
-    <Compile Include="Models\Rutinas.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\RutinasModel.cs" />
-    <Compile Include="Models\SuperflyfitModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SuperflyfitModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SuperflyfitModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SuperflyfitModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SuperflyfitModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TipoEntrenamiento.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TipoentrenamientoModel.cs" />
-    <Compile Include="Models\Tiporutina.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TiporutinaModel.cs" />
-    <Compile Include="Models\Usuarios.cs">
-      <DependentUpon>SuperflyfitModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\UsuariosModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -259,8 +260,6 @@
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap-sortable.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Chart.css" />
@@ -462,16 +461,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\SuperflyfitModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SuperflyfitModel.edmx</DependentUpon>
-      <LastGenOutput>SuperflyfitModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\SuperflyfitModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SuperflyfitModel.edmx</DependentUpon>
-      <LastGenOutput>SuperflyfitModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -491,13 +480,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\SuperflyfitModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SuperflyfitModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\SuperflyfitModel.edmx.diagram">
-      <DependentUpon>SuperflyfitModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-chosen.less" />
     <Content Include="Content\bootstrap-chosen.scss" />
     <Content Include="Content\bootstrap-grid.css.map" />
@@ -515,8 +497,25 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <EntityDeploy Include="Models\Entity\SuperfitEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SuperfitEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Entity\SuperfitEntities.edmx.diagram">
+      <DependentUpon>SuperfitEntities.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <Content Include="Models\Entity\SuperfitEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SuperfitEntities.edmx</DependentUpon>
+      <LastGenOutput>SuperfitEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Entity\SuperfitEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SuperfitEntities.edmx</DependentUpon>
+      <LastGenOutput>SuperfitEntities.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap-sortable.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -738,6 +737,17 @@
     <Content Include="Views\ClientesWeb\Perfil.cshtml" />
     <Content Include="Views\Shared\Diseño.cshtml" />
     <Content Include="Views\ClientesWeb\Rutinas.cshtml" />
+    <Content Include="Views\LoginWeb\LoginAdministradorWeb.cshtml" />
+    <Content Include="Views\Shared\DiseñoAdmin.cshtml" />
+    <Content Include="Views\AdministracionWebHome\AdministracionWebHome.cshtml" />
+    <Content Include="Views\AdministracionWebHome\AdminClientesWeb.cshtml" />
+    <Content Include="Views\AdministracionWebHome\AdminTiporutinaWeb.cshtml" />
+    <Content Include="Views\AdministracionWebHome\AdminTipoentrenamientoWeb.cshtml" />
+    <Content Include="Views\AdministracionWebHome\AdminRutinasWeb.cshtml" />
+    <Content Include="Views\AdministracionWebHome\AdminEjerciciosWeb.cshtml" />
+    <Content Include="Views\AdministracionWebHome\AdminEstatusWeb.cshtml" />
+    <Content Include="Views\AdministracionWebHome\AdminMensualidadWeb.cshtml" />
+    <Content Include="Views\AdministracionWebHome\Asesoriaantropometria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -749,12 +759,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css.map" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

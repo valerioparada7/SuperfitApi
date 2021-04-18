@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <title>Superfit Administrador Web </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/datatablescss")
+    @Styles.Render("~/Content/sweetalert")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fontawesome")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/popper")
+    @Scripts.Render("~/bundles/chart")
+    @Styles.Render("~/bundles/chosen")
+    @Scripts.Render("~/bundles/gauge")
+    <style>
+        .card {
+            margin-top: 100px;
+            width: 400px;
+            height: 500px;
+            border-color: #0A497B;
+            border-style: solid;
+            border-width: 1px 1px 1px 1px;
+            border-radius: 20px 20px;
+        }
+
+        .card-header {
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        .card-body {
+            background-color: transparent;
+            margin-top: 70px
+        }
+
+        .card-footer {
+            margin-top: 50px;
+            border-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col text-center">
+                        <h3>
+                            Superfit para administradores
+                        </h3>
+                    </div>
+                </div>                
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("LoginAdministradorWeb", "LoginWeb", FormMethod.Post, new { @id = "FormLogin" }))
+                {
+                <form>
+                    <div class="row">
+                        <div class="col-12">
+                            @Html.TextBox("User", null, new { @class = "form-control", id = "User", placeholder = "Correo eléctronico o celular", style = "color:black;border-color:#0A497B" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12">
+                            @Html.TextBox("Pass", null, new { @class = "form-control", id = "Pass", type = "password", placeholder = "Contraseña", style = "color:black;border-color: #0A497B" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row justify-content-center">
+                        <div class="col-5">
+                            <button type="submit" id="Iniciarsesion" class="btn btn-primary" style="max-height:100%">Iniciar sesión</button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row justify-content-center">
+                        <div class="col-5">
+                            @Html.ActionLink("Registrarse", "LoginWeb", null, new
+                       {
+                           @class = "btn btn-outline-dark",
+                           style = "max-height:100%;color:#0A497B;border-color: #0A497B;border-style:solid;border-width: 3px 3px 3px 3px;border-radius: 20px 20px;"
+                       })
+                            <!-- <button type="submit" id="Registrarse" class="btn btn-outline-dark">Registrarse</button>-->
+                        </div>
+                    </div>
+                    <div class="row justify-content-center" style="margin-top:10px">
+                        <div class="col-5">
+                            @Html.ActionLink("Soy un cliente", "LoginWeb", "LoginWeb", new
+                            {
+                           
+                               @class = "btn btn-primary",
+                               style = "text-align:center"
+                           })
+                       
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row justify-content-center">
+                        <div class="col-6">
+                            <label style="max-height:100%">Olveide mi contraseña</label>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" style="max-height: 100%;">
+                        <div class="col-12">
+                            @if (ViewBag.Mensaje != null)
+                            {
+                                <div class="alert alert-danger">
+                                    @ViewBag.Mensaje
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </form>
+                }
+            </div>
+            <div class="card-footer">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

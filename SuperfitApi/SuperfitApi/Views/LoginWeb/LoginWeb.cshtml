@@ -8,7 +8,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
-
+    @Styles.Render("~/bundles/datatablescss")
+    @Styles.Render("~/Content/sweetalert")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fontawesome")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/popper")
+    @Scripts.Render("~/bundles/chart")
+    @Styles.Render("~/bundles/chosen")
+    @Scripts.Render("~/bundles/gauge")
     <style>
         .card {
             margin-top: 100px;
@@ -19,18 +28,21 @@
             border-width: 1px 1px 1px 1px;
             border-radius: 20px 20px;
         }
+
         .card-header {
             background-color: transparent;
             border-color: transparent;
         }
-        .card-body{
-            background-color:transparent;
-            margin-top:100px
+
+        .card-body {
+            background-color: transparent;
+            margin-top: 100px
         }
+
         .card-footer {
-            margin-top:50px;
+            margin-top: 50px;
             border-color: transparent;
-        }        
+        }
     </style>
 </head>
 <body>
@@ -61,7 +73,7 @@
                <br />
                <div class="row justify-content-center">
                    <div class="col-5">
-                       <button type="submit" id="Iniciarsesion" class="btn btn-primary" style="max-height:100%;background-color:#0A497B">Iniciar sesión</button>
+                       <button type="submit" id="Iniciarsesion" class="btn btn-primary" style="max-height:100%">Iniciar sesión</button>
                    </div>
                </div>
                <br />
@@ -74,6 +86,15 @@
                   })
                        <!-- <button type="submit" id="Registrarse" class="btn btn-outline-dark">Registrarse</button>-->
                    </div>
+               </div>               
+               <div class="row justify-content-center" style="margin-top:10px">
+                   <div class="col-7">                       
+                       @Html.ActionLink("Soy un administrador", "LoginAdministradorWeb", "LoginWeb", new
+                        {       
+                            @class = "btn btn-primary",
+                            style = "text-align:center"
+                        })
+                   </div>
                </div>
                <br />
                <br />
@@ -82,7 +103,10 @@
                        <label style="max-height:100%">Olveide mi contraseña</label>
                    </div>
                </div>
-               <br />               
+               <div>
+
+               </div>
+               <br />
                <div class="row" style="max-height: 100%;">
                    <div class="col-12">
                        @if (ViewBag.Mensaje != null)

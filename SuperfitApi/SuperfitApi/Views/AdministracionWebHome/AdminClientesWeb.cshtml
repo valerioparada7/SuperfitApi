@@ -1,0 +1,414 @@
+﻿@using SuperfitApi.Models
+@model List<ClientesModel>
+
+@{
+    Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3><i class="fa fa-address-book"></i>  Clientes </h3>
+        <hr id="line" />
+        <span class="float-right" style="margin-top:-65px">
+            <button type="button" class="btn btn-primary" onclick="Ver()">Nuevo cliente</button>
+        </span>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover" id="tabla">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Editar</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Celular</th>
+                        <th>Correo</th>
+                        <th>Estado</th>
+                        <th>Sexo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id_cliente</td>
+                            <td><button type="button" class="btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_cliente)"></button></td>
+                            <td>@item.Nombres @item.Apellido_paterno @item.Apellido_materno</td>
+                            <td>@item.Edad</td>
+                            <td>@item.Telefono</td>
+                            <td>@item.Correo_electronico </td>
+                            <td>@if (item.Estado == true)
+                            {<label>Activo</label> }
+                            else
+                            { <label>Baja</label>}
+                            <td>@item.Sexo</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Agregar--->
+<div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Nuevo cliente</h3>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdNombre" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApeP" placeholder="Apellido paterno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApeM" placeholder="Apellido materno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApodo" placeholder="Alias" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdEdad" placeholder="Edad" maxlength="2" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdTelefono" placeholder="Celular" maxlength="10" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="email" class="form-control" id="IdCorreo" placeholder="Correo elctronico" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="password" class="form-control" id="IdContraseña" placeholder="Contraseña" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <select class="form-control" id="IdSexo" name="Sexo">
+                                <option value="Mujer">Mujer</option>
+                                <option value="Hombre">Hombre</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Agregar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Editar--->
+<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Cliente</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <input id="idcliente" style="display:none"/>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdNombreE" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApePE" placeholder="Apellido paterno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApeME" placeholder="Apellido materno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApodoE" placeholder="Alias" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdEdadE" placeholder="Edad" maxlength="2" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdTelefonoE" placeholder="Celular" maxlength="10" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="email" class="form-control" id="IdCorreoE" placeholder="Correo elctronico" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="password" class="form-control" id="IdContraseñaE" placeholder="Contraseña" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <select class="form-control" id="IdSexoE" name="Sexo">
+                                <option value="Mujer">Mujer</option>
+                                <option value="Hombre">Hombre</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Editar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var url = '@Url.Action("AgregarCliente", "AdministracionWebHome")';
+    var urleditar = '@Url.Action("EditarCliente", "AdministracionWebHome")';
+
+    function Ver() {
+        $('#ModalAgregar').modal('show');
+    }    
+
+    function Agregar() {
+        var parametros = {};
+        parametros.Nombres = $('#IdNombre').val().trim();
+        parametros.Apellido_paterno = $('#IdApeP').val().trim();
+        parametros.Apellido_materno = $('#IdApeM').val().trim();
+        parametros.Apodo = $('#IdApodo').val().trim();
+        parametros.Edad = $('#IdEdad').val();
+        parametros.Telefono = $('#IdTelefono').val();
+        parametros.Correo_electronico = $('#IdCorreo').val().trim();
+        parametros.Contraseña = $('#IdContraseña').val().trim();
+        parametros.Sexo = $('#IdSexo').val();
+        var clientesModel = parametros;
+        if (parametros.Nombres != "")
+        {
+            if (parametros.Nombres.length >= 3)
+            {
+                if (parametros.Apellido_paterno != "")
+                {
+                    if (parametros.Apellido_paterno.length >= 3)
+                    {
+                        if (parametros.Apellido_materno != "")
+                        {
+                            if (parametros.Apellido_materno.length >= 3)
+                            {
+                                if (parametros.Edad != "")
+                                {
+                                    if (parametros.Telefono != "" || parametros.Correo_electronico != "")
+                                    {
+                                        if (parametros.Contraseña != "")
+                                        {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: url,
+                                                data: clientesModel,
+                                                success: function (data) {
+                                                    if (data == "True") {
+                                                        location.reload();
+                                                    }
+                                                    else {
+                                                        location.reload();
+                                                    }
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                                    alert("Ocurrio un error verifique su conexion");
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            document.getElementById("IdContraseña").style.borderColor = "red";
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("IdCorreo").style.borderColor = "red";
+                                        document.getElementById("IdTelefono").style.borderColor = "red";
+                                    }
+                                }
+                                else {
+                                    document.getElementById("IdEdad").style.borderColor = "red";
+                                    }
+                            }
+                            else {
+                                document.getElementById("IdApeM").style.borderColor = "red";
+                            }
+                        }
+                        else {
+                            document.getElementById("IdApeM").style.borderColor = "red";
+                            }
+                    }
+                    else {
+                        document.getElementById("IdApeP").style.borderColor = "red";
+                    }
+                }
+                else {
+                    document.getElementById("IdApeP").style.borderColor = "red";
+                    }
+            }
+            else {
+                document.getElementById("IdNombre").style.borderColor = "red";
+            }
+        }
+        else {
+            document.getElementById("IdNombre").style.borderColor = "red";
+        }
+    }
+
+    function VerEditar(Id) {
+        $.ajax({
+            type: "GET",
+            url: urleditar,
+            data: { "Id_cliente": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                document.getElementById('idcliente').value = data["Id_cliente"];
+                document.getElementById('IdNombreE').value = data["Nombres"];
+                document.getElementById('IdApePE').value = data["Apellido_paterno"];
+                document.getElementById('IdApeME').value = data["Apellido_materno"];
+                document.getElementById('IdApodoE').value = data["Apodo"];
+                document.getElementById('IdEdadE').value = data["Edad"];
+                document.getElementById('IdTelefonoE').value = data["Telefono"];
+                document.getElementById('IdCorreoE').value = data["Correo_electronico"];
+                document.getElementById('IdContraseñaE').value = data["Contraseña"];
+                document.getElementById('IdSexoE').value = data["Sexo"];
+                $('#ModalEditar').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    function Editar() {
+        var parametros = {};
+        parametros.Id_cliente =         $('#idcliente').val().trim();
+        parametros.Nombres =            $('#IdNombreE').val().trim();
+        parametros.Apellido_paterno =   $('#IdApePE').val().trim();
+        parametros.Apellido_materno =   $('#IdApeME').val().trim();
+        parametros.Apodo =              $('#IdApodoE').val().trim();
+        parametros.Edad =               $('#IdEdadE').val();
+        parametros.Telefono =           $('#IdTelefonoE').val();
+        parametros.Correo_electronico = $('#IdCorreoE').val().trim();
+        parametros.Contraseña =         $('#IdContraseñaE').val().trim();
+        parametros.Sexo =               $('#IdSexoE').val();
+        var clientesModel = parametros;
+        if (parametros.Nombres != "") {
+            if (parametros.Nombres.length >= 3) {
+                if (parametros.Apellido_paterno != "") {
+                    if (parametros.Apellido_paterno.length >= 3) {
+                        if (parametros.Apellido_materno != "") {
+                            if (parametros.Apellido_materno.length >= 3) {
+                                if (parametros.Edad != "") {
+                                    if (parametros.Telefono != "" || parametros.Correo_electronico != "") {
+                                        if (parametros.Contraseña != "") {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: urleditar,
+                                                data: clientesModel,
+                                                success: function (data) {
+                                                    if (data == "True") {
+                                                        location.reload();
+                                                    }
+                                                    else {
+                                                        location.reload();
+                                                    }
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                                    alert("Ocurrio un error verifique su conexion");
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            document.getElementById("IdContraseña").style.borderColor = "red";
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("IdCorreo").style.borderColor = "red";
+                                        document.getElementById("IdTelefono").style.borderColor = "red";
+                                    }
+                                }
+                                else {
+                                    document.getElementById("IdEdad").style.borderColor = "red";
+                                }
+                            }
+                            else {
+                                document.getElementById("IdApeM").style.borderColor = "red";
+                            }
+                        }
+                        else {
+                            document.getElementById("IdApeM").style.borderColor = "red";
+                        }
+                    }
+                    else {
+                        document.getElementById("IdApeP").style.borderColor = "red";
+                    }
+                }
+                else {
+                    document.getElementById("IdApeP").style.borderColor = "red";
+                }
+            }
+            else {
+                document.getElementById("IdNombre").style.borderColor = "red";
+            }
+        }
+        else {
+            document.getElementById("IdNombre").style.borderColor = "red";
+        }
+    }
+
+</script>

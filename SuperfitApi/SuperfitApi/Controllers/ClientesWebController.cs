@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SuperfitApi.Models.Entity;
 using SuperfitApi.Models;
 
 namespace SuperfitApi.Controllers
@@ -10,11 +11,11 @@ namespace SuperfitApi.Controllers
     public class ClientesWebController : Controller
     {
         #region Variables 
-        public SuperflyfitEntities Db;
+        public SuperfitEntities Db;
         public Clientes clientes;
         public Cuestionario cuestionario;
         public Mensualidad mensualidad;
-        public Asesoria_Antropometria asesoria_antropometria;
+        public Asesoria_antropometria asesoria_antropometria;
         //modelos
         public ClientesModel clientesMdl;
         public CuestionarioModel cuestionarioMdl;
@@ -27,11 +28,11 @@ namespace SuperfitApi.Controllers
 
         public ClientesWebController()
         {
-            Db = new SuperflyfitEntities();
+            Db = new SuperfitEntities ();
             clientes = new Clientes();
             cuestionario = new Cuestionario();
             mensualidad = new Mensualidad();
-            asesoria_antropometria = new Asesoria_Antropometria();
+            asesoria_antropometria = new Asesoria_antropometria();
             //modelos
             clientesMdl = new ClientesModel();
             cuestionarioMdl = new CuestionarioModel();
@@ -55,24 +56,24 @@ namespace SuperfitApi.Controllers
                 int IdCliente= int.Parse(Id);
 
                 clientesMdl = (from c in Db.Clientes
-                               where c.Id_Cliente == IdCliente
+                               where c.Id_cliente == IdCliente
                                select new ClientesModel()
                                {
-                                   Id_Cliente = c.Id_Cliente,
+                                   Id_cliente = c.Id_cliente,
                                    Nombres = c.Nombres,
-                                   Fotoperfil = c.Fotoperfil
+                                   Foto_perfil = c.Foto_perfil
                                }).FirstOrDefault();
 
-                var list = Db.Mensualidad.Where(p => p.Id_Cliente == IdCliente).ToList();
+                var list = Db.Mensualidad.Where(p => p.Id_cliente == IdCliente).ToList();
                 var mensualidad = list.OrderByDescending(p => p.Fecha_fin).FirstOrDefault();
                 if (mensualidad != null)
                 {
                     int id = mensualidad.Id_mensualidad;
                     mensualidadMdl = (from m in Db.Mensualidad
-                                      join t in Db.Tiporutina
-                                      on m.Id_tiporutina equals t.Id_tiporutina
-                                      join te in Db.TipoEntrenamiento
-                                      on m.Id_TipoEntrenamiento equals te.Id_TipoEntrenamiento
+                                      join t in Db.Tipo_rutina 
+                                      on m.Id_tipo_rutina  equals t.Id_tipo_rutina 
+                                      join te in Db.Tipo_entrenamiento 
+                                      on m.Id_tipo_entrenamiento  equals te.Id_tipo_entrenamiento
                                       join mes in Db.Meses
                                       on m.Id_mes equals mes.Id_mes
                                       join es in Db.Estatus
@@ -83,14 +84,14 @@ namespace SuperfitApi.Controllers
                                           Id_mensualidad = m.Id_mensualidad,
                                           Tiporutina = new TiporutinaModel
                                           {
-                                              Id_tiporutina = t.Id_tiporutina,
+                                              Id_tiporutina = t.Id_tipo_rutina ,
                                               Tipo = t.Tipo
                                           },
                                           TipoEntrenamiento = new TipoentrenamientoModel
                                           {
-                                              Id_TipoEntrenamiento = (int)te.Id_TipoEntrenamiento,
-                                              Clave_Entrenamiento = te.Clave_Entrenamiento,
-                                              Tipo_entrenamiento = te.Tipo_entrenamiento
+                                              Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
+                                              Clave_Entrenamiento = te.Clave_entrenamiento   ,
+                                              Tipo_entrenamiento = te.Tipo_entrenamientos 
                                           },
                                           Mes = new MesesModel
                                           {
@@ -111,10 +112,10 @@ namespace SuperfitApi.Controllers
                     {
                         mensualidadMdl.Cliente = new ClientesModel()
                         {
-                            Id_Cliente = clientesMdl.Id_Cliente,
+                            Id_cliente = clientesMdl.Id_cliente,
                             Validar = true,
                             Nombres = clientesMdl.Nombres,
-                            Fotoperfil = clientesMdl.Fotoperfil
+                            Foto_perfil = clientesMdl.Foto_perfil
                         };
                         return View(mensualidadMdl);
                     }
@@ -214,7 +215,7 @@ namespace SuperfitApi.Controllers
                                     where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa && d.Tipo_set == TipoSet
                                     select new DetallerutinaModel()
                                     {
-                                        Id_detallerutina = d.Id_detallerutina,
+                                        Id_detallerutina = d.Id_detalle_rutina,
                                         Ejercicios = new EjerciciosModel
                                         {
                                             Id_ejercicio = e.Id_ejercicio,
@@ -222,7 +223,7 @@ namespace SuperfitApi.Controllers
                                             Ejercicio = e.Ejercicio,
                                             Descripcion = e.Descripcion,
                                             Posicion = e.Posicion,
-                                            ubicacion_imagen = e.ubicacion_imagen
+                                            ubicacion_imagen = e.Ubicacion_imagen
                                         },
                                         Rutinas = new RutinasModel
                                         {
