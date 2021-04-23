@@ -42,7 +42,7 @@ namespace SuperfitApi
                        "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/datatablesjs").Include(
-                 "~/Scripts/datatables.js"));
+                  "~/Scripts/datatables.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/datatablescss").Include(
                         "~/Content/datatables.css"));

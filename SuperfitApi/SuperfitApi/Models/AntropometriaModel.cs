@@ -22,6 +22,9 @@ namespace SuperfitApi.Models
         public double Piernaderecho { get; set; }
         public double Pantorrilladerecha { get; set; }
         public double Pantorrillaizquierda { get; set; }
+        public string Fotofrontal { get; set; }
+        public string Fotoperfil { get; set; }
+        public string Fotoposterior { get; set; }
         public DateTime Fecha_registro { get; set; }
     }
 }

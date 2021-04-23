@@ -119,7 +119,7 @@ namespace SuperfitApi.Controllers.Catalogos
                          Ejercicio =e.Ejercicio,
                          Descripcion =e.Descripcion,
                          Posicion=e.Posicion,
-                         ubicacion_imagen=e.Ubicacion_imagen
+                         Ubicacion_imagen=e.Ubicacion_imagen
                      }).ToList();
             return listejercicios;
         }
@@ -136,7 +136,7 @@ namespace SuperfitApi.Controllers.Catalogos
                                   Ejercicio = e.Ejercicio,
                                   Descripcion = e.Descripcion,
                                   Posicion = e.Posicion,
-                                  ubicacion_imagen = e.Ubicacion_imagen
+                                  Ubicacion_imagen = e.Ubicacion_imagen
                               }).FirstOrDefault();
             return ejercicios;
         }

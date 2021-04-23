@@ -747,11 +747,12 @@
     <Content Include="Views\AdministracionWebHome\AdminEjerciciosWeb.cshtml" />
     <Content Include="Views\AdministracionWebHome\AdminEstatusWeb.cshtml" />
     <Content Include="Views\AdministracionWebHome\AdminMensualidadWeb.cshtml" />
-    <Content Include="Views\AdministracionWebHome\Asesoriaantropometria.cshtml" />
+    <Content Include="Views\AdministracionWebHome\AdminAsesoriaantropometriaWeb.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Imagenes\Clientes\" />
+    <Folder Include="Imagenes\Definicion\" />
+    <Folder Include="Imagenes\Volumen\" />
     <Folder Include="Views\Catalogo\" />
   </ItemGroup>
   <ItemGroup>

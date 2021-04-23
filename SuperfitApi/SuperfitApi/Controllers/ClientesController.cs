@@ -137,7 +137,7 @@ namespace SuperfitApi.Controllers
                                            Ejercicio= e.Ejercicio,
                                            Descripcion = e.Descripcion,
                                            Posicion = e.Posicion,
-                                           ubicacion_imagen=e.Ubicacion_imagen
+                                           Ubicacion_imagen=e.Ubicacion_imagen
                                        },
                                        Rutinas = new RutinasModel
                                        {
