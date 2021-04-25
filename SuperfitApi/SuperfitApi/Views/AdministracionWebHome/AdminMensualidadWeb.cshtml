@@ -191,17 +191,17 @@
                     <div>
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Peso" placeholder="Peso" onkeypress="Imc()" class="form-control"/>
+                                <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control"/>
                             </div>
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Altura" placeholder="Altura" onkeypress="Imc()" class="form-control" />
+                                <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="IMC" class="form-control" readonly="true"/>
+                                <input type="text" id="IMC" class="form-control" readonly="true"/>
                             </div>
                         </div><br />
                         <div class="row">
@@ -228,7 +228,7 @@
                             <div class="col">
                                 <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
                             </div>
-                        </div>
+                        </div><br />
                         <div class="row">
                             <div class="col">
                                 <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
@@ -385,27 +385,34 @@
 
     }
 
-    function Imc() {        
-        var altura = document.getElementById("Altura").value;
+    $("#Altura").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = value;
         var peso = document.getElementById("Peso").value;
-        var imc;
-        
-        if (altura != "" && peso != "") {
-            if (altura != "0") {
-                altura = altura / 100;
-                altura = altura * altura;
-                imc = peso / altura;
-                if (imc != 0) {
-                    document.getElementById("IMC").value = imc.toFixed(1);                    
-                }
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
             }
         }
-        else {
-            altura = "0";
-            peso = "0";
-            document.getElementById("IMC").value = 0;
+
+    });
+    $("#Peso").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = document.getElementById("Altura").value;
+        var peso = value;
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
+            }
         }
-    }
+
+    });
 
 
 </script>

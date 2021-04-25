@@ -748,6 +748,7 @@
     <Content Include="Views\AdministracionWebHome\AdminEstatusWeb.cshtml" />
     <Content Include="Views\AdministracionWebHome\AdminMensualidadWeb.cshtml" />
     <Content Include="Views\AdministracionWebHome\AdminAsesoriaantropometriaWeb.cshtml" />
+    <Content Include="Views\AdministracionWebHome\ClienteDetalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -790,7 +791,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49930</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49931/</IISUrl>
+          <IISUrl>http://localhost:49951/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

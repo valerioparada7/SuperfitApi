@@ -1,0 +1,986 @@
+﻿@{
+    Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Perfil Cliente</title>
+</head>
+<body>
+    <div id="content">
+        <div class="container-fluid">
+            <div id="Cliente">
+                <h3>Cliente</h3>
+                <div class="container">
+                    <input id="idcliente" style="display:none" />
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="IdNombreE" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="IdApePE" placeholder="Apellido paterno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="IdApeME" placeholder="Apellido materno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="IdApodoE" placeholder="Alias" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="IdEdadE" placeholder="Edad" maxlength="2" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="IdTelefonoE" placeholder="Celular" maxlength="10" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="email" class="form-control" id="IdCorreoE" placeholder="Correo elctronico" onkeypress="style.borderColor='gray'" />
+                        </div>
+                        <div class="col-4">
+                            <input type="password" class="form-control" id="IdContraseñaE" placeholder="Contraseña" onkeypress="style.borderColor='gray'" />
+                        </div>
+                        <div class="col-4">
+                            <select class="form-control" id="IdSexoE" name="Sexo">
+                                <option value="Mujer">Mujer</option>
+                                <option value="Hombre">Hombre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-success" onclick="document.getElementById('BtnEditarCliente').style.visibility='visible'">Editar</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary" id="BtnEditarCliente" style="visibility:hidden" onclick="EditarCliente()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <br />
+            <div id="Cuestionario">
+                <h3>Cuestionario</h3>                
+                    <div class="container">
+                        <h3 id="nameClienteDetalle"></h3>
+                        <input id="idclientecuestionario" style="display:none" />
+                        <div class="row">
+                            <div class="col">
+                                <label>¿Padece alguna enfermedad?</label>
+                                <input type="checkbox" class="form-check-input" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()" />
+                                <Label class="form-check-label pt-1" for="Padece_enfermedadChk">
+                                    ¿Si?
+                                </Label>
+                                <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="style.borderColor='gray'" style="display:none" />
+                            </div>
+                            <div class="col">
+                                <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
+                                <input type="checkbox" class="form-check-input" id="lesionesChk" onchange="lesionesChk()" />
+                                <Label class="form-check-label pt-1" for="lesionesChk">
+                                    ¿Si?
+                                </Label>
+                                <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="style.borderColor='gray'" style="display:none" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
+                                <input type="checkbox" class="form-check-input" id="AlcoholChk" onchange="AlcoholChk()" />
+                                <Label class="form-check-label pt-1" for="AlcoholChk">
+                                    ¿Si?
+                                </Label>
+                                <input type="text" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="style.borderColor='gray'" style="display:none" />
+                            </div>
+                            <div class="col">
+                                <label>¿Acostumbra a Fumar?</label>
+                                <input type="checkbox" class="form-check-input" id="FumaChk" onchange="FumaChk()" />
+                                <Label class="form-check-label pt-1" for="FumaChk">
+                                    ¿Si?
+                                </Label>
+                                <input type="text" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="style.borderColor='gray'" style="display:none" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <label>¿Actualmente realizas alguna actividad física?</label>
+                                <input type="checkbox" class="form-check-input" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
+                                <Label class="form-check-label pt-1" for="Actividad_fisicaChk">
+                                    ¿Si?
+                                </Label>
+                            </div>
+                        </div>
+                        <br />
+                        <div id="cuestionarioTime" style="display:none">
+                            <div class="row">
+                                <div class="col">
+                                    <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>
+                                    <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="style.borderColor='gray'" />
+                                </div>
+                                <div class="col">
+                                    <label>¿Cuánto tiempo llevas realizando dicha actividad de manera constante?</label>
+                                    <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="style.borderColor='gray'" />
+                                </div>
+                                <div class="col">
+                                    <label>¿En qué horario entrenas?</label>
+                                    <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="style.borderColor='gray'" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>¿Cuáles son tus metas u objetivos para lograr?</label>
+                            </div>
+                            <div class="col">
+                                <label>¿Qué compromiso tienes contigo mismo?</label>
+                            </div>
+                            <div class="col">
+                                <label>¿Algún comentario adicional, antes de poder seguir y comenzar?</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" id="MetasObjetivosTxt" placeholder="Ej: mejorar condicion... aumentar masa muscular" onkeypress="style.borderColor='gray'" />
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="CompromisosTxt" placeholder="Ej: Ser diciplinado... constante" onkeypress="style.borderColor='gray'" />
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="ComentariosTxt" placeholder="..." onkeypress="style.borderColor='gray'" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-success" onclick="document.getElementById('BtnEditarCuestionario').style.visibility='visible'">Editar</button>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" id="BtnEditarCuestionario" style="visibility:hidden" onclick="GuardarCuestionario()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>                               
+            </div>
+            <hr />
+            <div id="mensualidad">
+                <h3>Mensualidades</h3>
+                <div class="container" style="overflow-y:auto;height:500px">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad()">Nueva Mensualidad</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-hover" id="tabla">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Medidas/Detalle rutina</th>
+                                    <th>Tipo rutina</th>
+                                    <th>Mes</th>
+                                    <th>Estatus</th>
+                                    <th>Fecha inicio</th>
+                                    <th>Fecha fin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<!--MODAL PARA Mensualidad--->
+<div class="modal fade" id="ModalMensualidad" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Mensualidad</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h3 id="nameCliente"></h3>
+                    <input id="idclienteMensualidad" style="display:none" />
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" id="Tiporutina">
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" id="Meses">
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" id="Estatus">
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" id="Tipoentrenamientolist">
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="MensualidadGuardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA medidas --->
+<div class="modal fade" id="ModalMedidas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Medidas</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="overflow-y:auto;height:500px">
+                    <h3 id="nameClienteDetalle"></h3>
+                    <input id="idMensualidadMedidas" style="display:none" />
+                    <div>
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" id="IMC" class="form-control" readonly="true" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <label>Foto frontal</label>
+                                <input type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <label>Foto perfil</label>
+                                <input type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <label>Foto posterior</label>
+                                <input type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarMedidas()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA detalle Mensualidad--->
+<div class="modal fade" id="ModalMensualidadDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="overflow-y:auto;height:500px">
+                    <h3 id="nameClienteDetalle"></h3>
+                    <input id="idclienteMensualidadDetalle" style="display:none" />
+                    <br />
+                    <div id="=asignacion">
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Rutinas">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Dias">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Ejercicios">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" id="Repeticiones" class="form-control" placeholder="Repeticiones" onkeypress="style.borderColor='gray'" />
+                            </div>
+                            <div class="col">
+                                <input type="text" id="Series" class="form-control" placeholder="Series" onkeypress="style.borderColor='gray'" />
+                            </div>
+                            <div class="col">
+                                <input type="text" id="Set" class="form-control" placeholder="Set" onkeypress="style.borderColor='gray'" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-5">
+                                <button type="button" id="AgregarRutina" class="btn btn-success" onclick="AgregarRutina()">Agregar a la rutina</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <h4>Rutina</h4>
+                    <br />
+                    <div id="rutinas">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-striped table-hover" id="ListaEjercicios">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Dia</th>
+                                        <th>Rutina</th>
+                                        <th>Ejercicio</th>
+                                        <th>Series</th>
+                                        <th>Repeticiones</th>
+                                        <th>Set</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="Cuestionario(document.getElementById('idcliente').value)">Cuestionario</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="VerEditar(document.getElementById('idcliente').value)">Cliente</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad(document.getElementById('idcliente').value)">Mensualidad</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        VerCliente();
+        VerCuestionario();
+        VerMensualidad();
+    });
+    $(document).ready(function () {
+        CargarCombos();
+    });
+
+    var url = '@Url.Action("AgregarCliente", "AdministracionWebHome")';
+    var urleditar = '@Url.Action("EditarCliente", "AdministracionWebHome")';
+    var urlmensualidad = '@Url.Action("AgregarMensualidad", "AdministracionWebHome")';
+    var urlvermensualidad = '@Url.Action("VerMensualidad", "AdministracionWebHome")';
+    var urldetallRutina = '@Url.Action("DetallRutina", "AdministracionWebHome")';
+    var urlcuestionario = '@Url.Action("AgregarCuestionario", "AdministracionWebHome")';
+    var urlvercuestionario = '@Url.Action("VerCuestionario", "AdministracionWebHome")';
+    var urlmedidas = '@Url.Action("AgregarAsesoriaantropometria", "AdministracionWebHome")';
+
+    //Cliente
+    function VerCliente() {
+        var Id = @ViewBag.idcliente
+        document.getElementById('idclientecuestionario').value = Id;
+        $.ajax({
+            type: "GET",
+            url: urleditar,
+            data: { "Id_cliente": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                document.getElementById('idcliente').value = data["Id_cliente"];
+                document.getElementById('IdNombreE').value = data["Nombres"];
+                document.getElementById('IdApePE').value = data["Apellido_paterno"];
+                document.getElementById('IdApeME').value = data["Apellido_materno"];
+                document.getElementById('IdApodoE').value = data["Apodo"];
+                document.getElementById('IdEdadE').value = data["Edad"];
+                document.getElementById('IdTelefonoE').value = data["Telefono"];
+                document.getElementById('IdCorreoE').value = data["Correo_electronico"];
+                document.getElementById('IdContraseñaE').value = data["Contraseña"];
+                document.getElementById('IdSexoE').value = data["Sexo"];
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Cliente)");
+            }
+        });
+    }
+
+    function GuardarCliente() {
+        var parametros = {};
+        parametros.Id_cliente = $('#idcliente').val().trim();
+        parametros.Nombres = $('#IdNombreE').val().trim();
+        parametros.Apellido_paterno = $('#IdApePE').val().trim();
+        parametros.Apellido_materno = $('#IdApeME').val().trim();
+        parametros.Apodo = $('#IdApodoE').val().trim();
+        parametros.Edad = $('#IdEdadE').val();
+        parametros.Telefono = $('#IdTelefonoE').val();
+        parametros.Correo_electronico = $('#IdCorreoE').val().trim();
+        parametros.Contraseña = $('#IdContraseñaE').val().trim();
+        parametros.Sexo = $('#IdSexoE').val();
+        var clientesModel = parametros;
+        if (parametros.Nombres != "") {
+            if (parametros.Nombres.length >= 3) {
+                if (parametros.Apellido_paterno != "") {
+                    if (parametros.Apellido_paterno.length >= 3) {
+                        if (parametros.Apellido_materno != "") {
+                            if (parametros.Apellido_materno.length >= 3) {
+                                if (parametros.Edad != "") {
+                                    if (parametros.Telefono != "" || parametros.Correo_electronico != "") {
+                                        if (parametros.Contraseña != "") {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: urleditar,
+                                                data: clientesModel,
+                                                success: function (data) {
+                                                    if (data == "True") {
+                                                        location.reload();
+                                                    }
+                                                    else {
+                                                        location.reload();
+                                                    }
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                                    alert("Ocurrio un error verifique su conexion");
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            document.getElementById("IdContraseña").style.borderColor = "red";
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("IdCorreo").style.borderColor = "red";
+                                        document.getElementById("IdTelefono").style.borderColor = "red";
+                                    }
+                                }
+                                else {
+                                    document.getElementById("IdEdad").style.borderColor = "red";
+                                }
+                            }
+                            else {
+                                document.getElementById("IdApeM").style.borderColor = "red";
+                            }
+                        }
+                        else {
+                            document.getElementById("IdApeM").style.borderColor = "red";
+                        }
+                    }
+                    else {
+                        document.getElementById("IdApeP").style.borderColor = "red";
+                    }
+                }
+                else {
+                    document.getElementById("IdApeP").style.borderColor = "red";
+                }
+            }
+            else {
+                document.getElementById("IdNombre").style.borderColor = "red";
+            }
+        }
+        else {
+            document.getElementById("IdNombre").style.borderColor = "red";
+        }
+    }
+
+    //Cuestionario
+    function VerCuestionario() {
+        var Id = @ViewBag.idcliente       
+        document.getElementById("idclientecuestionario").value = Id;
+        $.ajax({
+            type: "GET",
+            url: urlvercuestionario,
+            data: { "Id_cliente": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                document.getElementById('Padece_enfermedadChk').value = data["Padece_enfermedad"];
+                document.getElementById('Medicamento_prescrito_medicoTxt').value = data["Medicamento_prescrito_medico"];
+                document.getElementById('lesionesChk').value = data["lesiones"];
+                document.getElementById('Alguna_recomendacion_lesionesTxt').value = data["Alguna_recomendacion_lesiones"];
+                document.getElementById('FumaChk').value = data["Fuma"];
+                document.getElementById('Veces_semana_fumaTxt').value = data["Veces_semana_fuma"];
+                document.getElementById('AlcoholChk').value = data["Alcohol"];
+                document.getElementById('Veces_semana_alcoholTxt').value = data["Veces_semana_alcohol"];
+                document.getElementById('Actividad_fisicaChk').value = data["Actividad_fisica"];
+                document.getElementById('Tipo_ejerciciosTxt').value = data["Tipo_ejercicios"];
+                document.getElementById('Tiempo_dedicadoTxt').value = data["Tiempo_dedicado"];
+                document.getElementById('Horario_entrenoTxt').value = data["Horario_entreno"];
+                document.getElementById('MetasObjetivosTxt').value = data["MetasObjetivos"];
+                document.getElementById('CompromisosTxt').value = data["Compromisos"];
+                document.getElementById('ComentariosTxt').value = data["Comentarios"];
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Cuestionario)");
+            }
+        });
+    }
+
+    function GuardarCuestionario() {
+        var parametros = {};
+        var Cliente = {};
+        Cliente.Id_cliente = $("#idclientecuestionario").val();
+        parametros.Cliente = Cliente;
+        parametros.Padece_enfermedad = $("#Padece_enfermedadChk").val();
+        parametros.Medicamento_prescrito_medico = $("#Medicamento_prescrito_medicoTxt").val();
+        parametros.lesiones = $("#lesionesChk").val();
+        parametros.Alguna_recomendacion_lesiones = $("#Alguna_recomendacion_lesionesTxt").val();
+        parametros.Fuma = $("#FumaChk").val();
+        parametros.Veces_semana_fuma = $("#Veces_semana_fumaTxt").val();
+        parametros.Alcohol = $("#AlcoholChk").val();
+        parametros.Veces_semana_alcohol = $("#Veces_semana_alcoholTxt").val();
+        parametros.Actividad_fisica = $("#Actividad_fisicaChk").val();
+        parametros.Tipo_ejercicios = $("#Tipo_ejerciciosTxt").val();
+        parametros.Tiempo_dedicado = $("#Tiempo_dedicadoTxt").val();
+        parametros.Horario_entreno = $("#Horario_entrenoTxt").val();
+        parametros.MetasObjetivos = $("#MetasObjetivosTxt").val();
+        parametros.Compromisos = $("#CompromisosTxt").val();
+        parametros.Comentarios = $("#ComentariosTxt").val();
+
+        var modelo = parametros;
+
+        $.ajax({
+            type: "POST",
+            url: urlcuestionario,
+            data: modelo,
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    //Mensualidad
+    function VerMensualidad() {
+        var Id = @ViewBag.idcliente
+        document.getElementById("idclienteMensualidad").value = Id;    
+        $.ajax({
+            type: "GET",
+            url: urlvermensualidad,
+            data: { "Id_cliente": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var Tiporutina = data[i].Tiporutina;
+                    var Mes = data[i].Mes;
+                    var Estatus = data[i].Mes;
+                    var html = '';
+                    html += '<tr id="fila' + c + '">';
+                    html += '<td>' + data[i].Id_mensualidad + '</td>';
+                    html += '<td><button type="button" class="btn btn-primary" onclick="MensualidadDetalle(' + data[i].Id_mensualidad + ')">Rutina</button></td> ';
+                    html += '<td><button type="button" class="btn btn-primary" onclick="VerMedidas(' + data[i].Id_mensualidad + ')">Medidas</button></td> ';
+                    html += '<td>' + Tiporutina[i].Tipo + '</td>';
+                    html += '<td>'+Mes[i].Mes+'</td>';
+                    html += '<td>'+Estatus[i].Descripcion+'</td>';
+                    html += '<td>' + data[i].Fecha_inicio+'</td>';
+                    html += '<td>' + data[i].Fecha_fin + '</td>';
+                    html += '</tr>';
+                    $('#ListaEjercicios tbody').append(html);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Mensualidad)");
+            }
+        });
+    }
+
+    function Mensualidad() {        
+        $('#ModalMensualidad').modal('show');
+    }
+
+    function GuardarMensualidad() {
+        var parametros = {};
+        var Tiporutina = {};
+        var Mes = {};
+        var Estatus = {};
+        var TipoEntrenamiento = {};
+        var Cliente = {};
+        Tiporutina.Id_tiporutina = $("#Tiporutina").val();
+        Mes.Id_mes = $("#Meses").val();
+        Estatus.Id_estatus = $("#Estatus").val();
+        TipoEntrenamiento.Id_TipoEntrenamiento = $("#Tipoentrenamientolist").val();
+        Cliente.Id_cliente = $("#idclienteMensualidad").val();
+        parametros.Tiporutina = Tiporutina;
+        parametros.Mes = Mes;
+        parametros.Estatus = Estatus;
+        parametros.TipoEntrenamiento = TipoEntrenamiento;
+        parametros.Cliente = Cliente;
+        var model = parametros;
+        $.ajax({
+            type: "POST",
+            url: urlmensualidad,
+            data: model,
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    //Medidas
+    function VerMedidas(idmes) {
+        document.getElementById("idMensualidadMedidas").value = idmes;
+        $('#ModalMedidas').modal('show');
+    }
+
+    function GuardarMedidas() {
+        var parametros = {};
+        var Mensualidad = {};
+        Mensualidad.Id_mensualidad = $("#idMensualidadMedidas").val();
+        parametros.Peso = $("#Peso").val();
+        parametros.Altura = $("#Altura").val();
+        parametros.IMC = $("#IMC").val();
+        parametros.Brazoderechorelajado = $("#Brazo_derecho_relajado").val();
+        parametros.Brazoderechofuerza = $("#Brazo_derecho_fuerza").val();
+        parametros.Brazoizquierdorelajado = $("#Brazo_izquierdo_relajado").val();
+        parametros.Brazoizquierdofuerza = $("#Brazo_izquierdo_fuerza").val();
+        parametros.Cintura = $("#Cintura").val();
+        parametros.Cadera = $("#Cadera").val();
+        parametros.Piernaizquierda = $("#Pierna_izquierda").val();
+        parametros.Piernaderecho = $("#Pierna_derecho").val();
+        parametros.Pantorrilladerecha = $("#Pantorrilla_derecha").val();
+        parametros.Pantorrillaizquierda = $("#Pantorrilla_izquierda").val();
+        parametros.Mensualidad = Mensualidad;
+        //Foto_frontal
+        //Foto_perfil
+        //Foto_posterior
+
+        var modelo = parametros;
+        $.ajax({
+            type: "POST",
+            url: urlmedidas,
+            data: modelo,
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    //Detalle de rutina
+    function MensualidadDetalle(Id) {
+        document.getElementById("idclienteMensualidadDetalle").value = Id;
+        $('#ModalMensualidadDetalle').modal('show');
+    }
+
+    function AgregarRutina() {
+
+        var ser = $('#Series').val();
+        var rep = $('#Repeticiones').val();
+        var set = $('#Set').val();
+        if (ser == "" && rep == "" && set == "") {
+            document.getElementById("Set").style.borderColor = "red";
+            document.getElementById("Repeticiones").style.borderColor = "red";
+            document.getElementById("Series").style.borderColor = "red";
+        }
+
+        if (ser != "") {
+            if (rep != "") {
+                if (set != "") {
+                    var i = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
+                    var c = i.length - 1;
+                    var rutina = document.getElementById("Rutinas");
+                    var dia = document.getElementById("Dias");
+                    var ejercicio = document.getElementById("Ejercicios");
+                    var html = '';
+                    html += '<tr id="fila' + c + '">';
+                    html += '<td><label id="idmensualidad" style="display:block">' + $('#idclienteMensualidadDetalle').val() + '</label>' + c + '</td> ';
+                    html += '<td> <label id="iddia' + c + '" style="display:block">' + $('#Dias').val() + '</label>' + dia.options[dia.selectedIndex].text + '</td> ';
+                    html += '<td> <label id="idrutina' + c + '" style="display:block">' + $('#Rutinas').val() + '</label>' + rutina.options[rutina.selectedIndex].text + '</td> ';
+                    html += '<td> <label id="idejercicio' + c + '" style="display:block">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text + '</td> ';
+                    html += '<td> <label id="idserie' + c + '">' + $('#Series').val() + '</label></td> ';
+                    html += '<td> <label id="idrepeticion' + c + '">' + $('#Repeticiones').val() + '</label></td> ';
+                    html += '<td> <label id="idset' + c + '">' + $('#Set').val() + '</label></td> ';
+                    html += '<td><button type="button" class="btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
+                    html += '</tr>';
+                    $('#ListaEjercicios tbody').append(html);
+                    document.getElementById("Set").value = "";
+                    document.getElementById("Repeticiones").value = "";
+                    document.getElementById("Series").value = "";
+                }
+                else {
+                    document.getElementById("Set").style.borderColor = "red";
+                }
+            }
+            else {
+                document.getElementById("Repeticiones").style.borderColor = "red";
+            }
+        }
+        else {
+            document.getElementById("Series").style.borderColor = "red";
+        }
+    }
+
+    function EliminaFila(Id) {
+        document.getElementById("fila" + Id).style.display = "none";
+    }
+
+    function GuardarRutina() {
+        var detallerutinaModels = [];
+        var l = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
+        var c = l.length - 2;
+        for (var i = 1; i <= c; i++) {
+            var fila = document.getElementById("fila" + i).style.display;
+            if (fila != "none") {
+                var model = {};
+                var Dias = {};
+                var Ejercicios = {};
+                var Mensualidad = {};
+                var Rutinas = {};
+
+                Dias.Id_dia = document.getElementById("iddia" + i).innerHTML;
+                Ejercicios.Id_ejercicio = document.getElementById('idejercicio' + i).innerHTML;
+                Mensualidad.Id_mensualidad = document.getElementById('idclienteMensualidadDetalle').value;
+                Rutinas.Id_rutina = document.getElementById('idrutina' + i).innerHTML;
+                model.Dias = Dias;
+                model.Ejercicios = Ejercicios;
+                model.Mensualidad = Mensualidad;
+                model.Rutinas = Rutinas;
+                model.Repeticiones = document.getElementById('idrepeticion' + i).innerHTML;
+                model.Series = document.getElementById('idserie' + i).innerHTML;
+                model.Tipo_set = document.getElementById('idset' + i).innerHTML;
+                detallerutinaModels.push(model);
+            }
+        }
+
+        $.ajax({
+            type: "POST",
+            url: urldetallRutina,
+            data: JSON.stringify(detallerutinaModels),
+            contentType: "application/json",
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+
+    }
+
+    /*Cuestionario*/
+    function Padece_enfermedadChk() {
+        var value = document.getElementById("Padece_enfermedadChk").checked;
+        if (value == true) {
+            document.getElementById("Medicamento_prescrito_medicoTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Medicamento_prescrito_medicoTxt").style.display = "none";
+            document.getElementById("Medicamento_prescrito_medicoTxt").value = "";
+        }
+
+    }
+    function lesionesChk() {
+        var value = document.getElementById("lesionesChk").checked;
+        if (value == true) {
+            document.getElementById("Alguna_recomendacion_lesionesTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Alguna_recomendacion_lesionesTxt").style.display = "none";
+            document.getElementById("Alguna_recomendacion_lesionesTxt").value = "";
+        }
+
+    }
+    function FumaChk() {
+        var value = document.getElementById("FumaChk").checked;
+        if (value == true) {
+            document.getElementById("Veces_semana_fumaTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Veces_semana_fumaTxt").style.display = "none";
+            document.getElementById("Veces_semana_fumaTxt").value = "";
+        }
+    }
+    function AlcoholChk() {
+        var value = document.getElementById("AlcoholChk").checked;
+        if (value == true) {
+            document.getElementById("Veces_semana_alcoholTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Veces_semana_alcoholTxt").style.display = "none";
+            document.getElementById("Veces_semana_alcoholTxt").value = "";
+        }
+    }
+    function Actividad_fisicaChk() {
+        var value = document.getElementById("Actividad_fisicaChk").checked;
+        if (value == true) {
+            document.getElementById("cuestionarioTime").style.display = "block";
+        }
+        else {
+            document.getElementById("cuestionarioTime").style.display = "none";
+            document.getElementById("Tipo_ejerciciosTxt").value = "";
+            document.getElementById("Tiempo_dedicadoTxt").value = "";
+            document.getElementById("Horario_entrenoTxt").value = "";
+        }
+    }
+
+    function CargarCombos() {
+        var listaTiporutina =  @Html.Raw(Json.Encode(ViewBag.Tiporutina));
+        var listaMes = @Html.Raw(Json.Encode(ViewBag.Mes));
+        var listaEstatus = @Html.Raw(Json.Encode(ViewBag.Estatus));
+        var listaTipoEntrenamiento = @Html.Raw(Json.Encode(ViewBag.TipoEntrenamiento));
+
+        var listRutinas=@Html.Raw(Json.Encode(ViewBag.Rutinas));
+        var listDias=@Html.Raw(Json.Encode(ViewBag.Dias));
+        var listEjercicios =@Html.Raw(Json.Encode(ViewBag.Ejercicios));
+
+        for (var i = 0; i<listaTiporutina.length; i++) {
+            $("#Tiporutina").append("<option value='" + listaTiporutina[i].Id_tiporutina + "'>" + listaTiporutina[i].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var j = 0; j<listaMes.length; j++) {
+            $("#Meses").append("<option value='" + listaMes[j].Id_mes + "'>" + listaMes[j].Mes.toUpperCase() + "</option>");
+        }
+        for (var k = 0; k < listaEstatus.length; k++) {
+            $("#Estatus").append("<option value='" + listaEstatus[k].Id_estatus + "'>" + listaEstatus[k].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listaTipoEntrenamiento.length; l++) {
+            $("#Tipoentrenamientolist").append("<option value='" + listaTipoEntrenamiento[l].Id_TipoEntrenamiento + "'>" + listaTipoEntrenamiento[l].Tipo_entrenamiento.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listRutinas.length; l++) {
+            $("#Rutinas").append("<option value='" + listRutinas[l].Id_rutina + "'>" + listRutinas[l].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listDias.length; l++) {
+            $("#Dias").append("<option value='" + listDias[l].Id_dia + "'>" + listDias[l].Dia.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listEjercicios.length; l++) {
+            $("#Ejercicios").append("<option value='" + listEjercicios[l].Id_ejercicio + "'>" + listEjercicios[l].Ejercicio.toUpperCase() + "</option>");
+        }
+
+    }
+</script>

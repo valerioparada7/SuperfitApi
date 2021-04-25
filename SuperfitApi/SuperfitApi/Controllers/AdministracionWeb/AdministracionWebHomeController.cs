@@ -230,6 +230,14 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 return false;
             }            
         }
+
+        //Detalle Cliente
+        public ActionResult ClienteDetalle(int Id_cliente)
+        {
+            GetList();
+            ViewBag.idcliente = Id_cliente;
+            return View();
+        }
         #endregion
 
         #region Usuarios
@@ -726,6 +734,73 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             return View(listmensualidadMdl);
         }
 
+        public JsonResult VerMensualidad(int Id_cliente)
+        {
+            listmensualidadMdl = (from m in Db.Mensualidad
+                                  join c in Db.Clientes
+                                  on m.Id_cliente equals c.Id_cliente
+                                  join t in Db.Tipo_rutina
+                                  on m.Id_tipo_rutina equals t.Id_tipo_rutina
+                                  join mes in Db.Meses
+                                  on m.Id_mes equals mes.Id_mes
+                                  join es in Db.Estatus
+                                  on m.Id_estatus equals es.Id_estatus
+                                  join te in Db.Tipo_entrenamiento
+                                  on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
+                                  where m.Id_cliente == Id_cliente
+                                  select new MensualidadModel()
+                                  {
+                                      Id_mensualidad = m.Id_mensualidad,
+                                      Fecha_inicio = (DateTime)m.Fecha_inicio,
+                                      Fecha_fin = (DateTime)m.Fecha_fin,
+                                      Tiporutina = new TiporutinaModel
+                                      {
+                                          Id_tiporutina = t.Id_tipo_rutina,
+                                          Tipo = t.Tipo
+                                      },
+                                      TipoEntrenamiento = new TipoentrenamientoModel
+                                      {
+                                          Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
+                                          Clave_Entrenamiento = te.Clave_entrenamiento,
+                                          Tipo_entrenamiento = te.Tipo_entrenamientos
+                                      },
+                                      Mes = new MesesModel
+                                      {
+                                          Id_mes = mes.Id_mes,
+                                          Clave_mes = mes.Clave_mes,
+                                          Mes = mes.Mes
+                                      },
+                                      Estatus = new EstatusModel
+                                      {
+                                          Id_estatus = es.Id_estatus,
+                                          Descripcion = es.Descripcion
+                                      },
+                                      Cliente = new ClientesModel
+                                      {
+                                          Id_cliente = c.Id_cliente,
+                                          Clave_cliente = c.Clave_cliente,
+                                          Nombres = c.Nombres,
+                                          Apellido_paterno = c.Apellido_paterno,
+                                          Apellido_materno = c.Apellido_materno,
+                                          Apodo = c.Apodo,
+                                          Edad = c.Edad,
+                                          Telefono = (decimal)c.Telefono,
+                                          Correo_electronico = c.Correo_electronico,
+                                          Estado = c.Estado,
+                                          Contraseña = c.Contraseña,
+                                          Foto_perfil = c.Foto_perfil,
+                                          Sexo = c.Sexo
+                                      }
+                                  }).ToList();
+
+            if (listmensualidadMdl == null || listmensualidadMdl.Count==0)
+            {
+                listmensualidadMdl = new List<MensualidadModel>();
+            }
+
+            return Json(listmensualidadMdl,JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public bool AgregarMensualidad(MensualidadModel mensualidadModel)
         {
@@ -964,6 +1039,43 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         #endregion
 
         #region Cuestionario 
+        public JsonResult VerCuestionario(int Id_cliente)
+        {
+
+            cuestionarioMdl = (from c in Db.Cuestionario
+                               where c.Id_cliente == Id_cliente
+                               select new CuestionarioModel()
+                               {
+                                   Id_cuestionario =c.Id_cuestionario,
+                                    Cliente = new ClientesModel
+                                    {
+                                        Id_cliente =(int)c.Id_cliente
+                                    },
+                                    Clave_cuestionario= c.Clave_cuestionario,
+                                    Padece_enfermedad= (bool)c.Padece_enfermedad,
+                                    Medicamento_prescrito_medico= c.Medicamento_prescrito_medico   ,
+                                    lesiones= (bool)c.lesiones,
+                                    Alguna_recomendacion_lesiones= c.Alguna_recomendacion_lesiones  ,
+                                    Fuma= (bool)c.Fuma,
+                                    Veces_semana_fuma= (int)c.Veces_semana_fuma,
+                                    Alcohol= (bool)c.Alcohol,
+                                    Veces_semana_alcohol= (int)c.Veces_semana_alcohol,
+                                    Actividad_fisica= (bool)c.Actividad_fisica,
+                                    Tipo_ejercicios= c.Tipo_ejercicios,
+                                    Tiempo_dedicado= c.Tiempo_dedicado,
+                                    Horario_entreno= c.Horario_entreno,
+                                    MetasObjetivos= c.MetasObjetivos,
+                                    Compromisos= c.Compromisos,
+                                    Comentarios= c.Comentarios,
+                                    Fecha_registro= (DateTime)c.Fecha_registro
+                               }).FirstOrDefault();
+            if (cuestionarioMdl == null)
+            {
+                cuestionarioMdl = new CuestionarioModel();
+            }
+            return Json(cuestionarioMdl, JsonRequestBehavior.AllowGet);
+        }
+
         public bool AgregarCuestionario(CuestionarioModel cuestionarioModel)
         {
             bool result = false;
@@ -997,6 +1109,39 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
             return result;
         }
+
+        public bool ActualizarCuestionario(CuestionarioModel cuestionarioModel)
+        {
+            bool result = false;
+            cuestionario = Db.Cuestionario.Where(y => y.Id_cuestionario == cuestionarioModel.Id_cuestionario).FirstOrDefault();
+            if (cuestionario != null)
+            {
+                cuestionario = new Cuestionario
+                {
+                    Padece_enfermedad = cuestionarioModel.Padece_enfermedad == null ? false : cuestionarioModel.Padece_enfermedad,
+                    Medicamento_prescrito_medico = cuestionarioModel.Medicamento_prescrito_medico == null ? "" : cuestionarioModel.Medicamento_prescrito_medico,
+                    lesiones = cuestionarioModel.lesiones == null ? false : cuestionarioModel.lesiones,
+                    Alguna_recomendacion_lesiones = cuestionarioModel.Alguna_recomendacion_lesiones == null ? "" : cuestionarioModel.Alguna_recomendacion_lesiones,
+                    Fuma = cuestionarioModel.Fuma == null ? false : cuestionarioModel.Fuma,
+                    Veces_semana_fuma = cuestionarioModel.Veces_semana_fuma == null ? 0 : cuestionarioModel.Veces_semana_fuma,
+                    Alcohol = cuestionarioModel.Alcohol == null ? false : cuestionarioModel.Alcohol,
+                    Veces_semana_alcohol = cuestionarioModel.Veces_semana_alcohol == null ? 0 : cuestionarioModel.Veces_semana_alcohol,
+                    Actividad_fisica = cuestionarioModel.Actividad_fisica == null ? false : cuestionarioModel.Actividad_fisica,
+                    Tipo_ejercicios = cuestionarioModel.Tipo_ejercicios == null ? "" : cuestionarioModel.Tipo_ejercicios,
+                    Tiempo_dedicado = cuestionarioModel.Tiempo_dedicado == null ? "" : cuestionarioModel.Tiempo_dedicado,
+                    Horario_entreno = cuestionarioModel.Horario_entreno == null ? "" : cuestionarioModel.Horario_entreno,
+                    MetasObjetivos = cuestionarioModel.MetasObjetivos == null ? "" : cuestionarioModel.MetasObjetivos,
+                    Compromisos = cuestionarioModel.Compromisos == null ? "" : cuestionarioModel.Compromisos,
+                    Comentarios = cuestionarioModel.Comentarios == null ? "" : cuestionarioModel.Comentarios,
+                    Fecha_registro = DateTime.Now
+                };
+
+                Db.SaveChanges();
+                result =true;
+            }
+
+            return result;
+        }
         #endregion
 
         #region DetalleRutina
@@ -1025,8 +1170,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 {
                     return false;
                 }
-            }
-
+            }           
             return result;
             
 
