@@ -1,56 +1,60 @@
 ﻿@using SuperfitApi.Models
-@model MensualidadModel
+
 @{
     ViewBag.Title = "Perfil";
     Layout = "~/Views/Shared/Diseño.cshtml";
+    MensualidadModel mes = new MensualidadModel();
+    mes = ViewBag.Mes;
 }
 <div class="container">
     <br />    
     <div class="row" style="border-color:#0A497B;border-style: solid;border-radius: 20px 20px;margin-left:10px;margin-right:10px">
         <div class="col-md-12">
-            <h1 style="text-align:center"> @Model.Cliente.Nombres.ToUpper()</h1>
+            <h1 id="ClienteNombres" style="text-align:center">
+                @mes.Cliente.Nombres
+            </h1>
         </div>
     </div>
     <br />
     <div class="jumbotron">
         <h1>AQUI IRA FOTO DE PERFIL</h1>
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-4">
                 <h3>Fecha Inicio</h3>
             </div>
-            <div class="col-sm-2">
-                <h3>
-                    @ViewBag.FechaI
+            <div class="col">
+                <h3 id="FechaI">
+                    @mes.Fechainicio
                 </h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-md-4">
                 <h3>Fecha Fin</h3>
             </div>
-            <div class="col-sm-2">
-                <h3>
-                    @ViewBag.FechaF
+            <div class="col">
+                <h3 id="FechaF">
+                    @mes.Fechafin
                 </h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-md-4">
                 <h3>Tipo Rutina</h3>
             </div>
-            <div class="col-sm-6">
-                <h3>
-                    @ViewBag.TipoRutina
+            <div class="col">
+                <h3 id="TipoRutina">
+                    @mes.Tiporutina.Tipo
                 </h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-md-4">
                 <h3>Tipo entrenamiento</h3>
             </div>
-            <div class="col-sm-6">
-                <h3>
-                    @ViewBag.TipoEntrenamiento
+            <div class="col">
+                <h3 id="TipoEntrenamiento">
+                    @mes.TipoEntrenamiento.Tipo_entrenamiento
                 </h3>
             </div>
         </div>
@@ -75,3 +79,6 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+   
+</script>

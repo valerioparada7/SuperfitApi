@@ -2,7 +2,6 @@
     Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
 }
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -55,12 +54,9 @@
                     </div>
                     <br />
                 </div>
-                <div class="row">
+                <div class="row">                    
                     <div class="col">
-                        <button type="button" class="btn btn-success" onclick="document.getElementById('BtnEditarCliente').style.visibility='visible'">Editar</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-primary" id="BtnEditarCliente" style="visibility:hidden" onclick="EditarCliente()">Guardar</button>
+                        <button type="button" class="btn btn-success" id="BtnEditarCliente" onclick="GuardarCliente()">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -68,115 +64,118 @@
             <br />
             <div id="Cuestionario">
                 <h3>Cuestionario</h3>                
-                    <div class="container">
-                        <h3 id="nameClienteDetalle"></h3>
-                        <input id="idclientecuestionario" style="display:none" />
+                <div class="container">
+                    <h3 id="nameClienteDetalle"></h3>
+                    <input id="idclientecuestionario" style="display:none" />
+                    <input id="idcuestionario" style="display:none" />
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Padece alguna enfermedad?</label>
+                            <input type="checkbox" class="form-check-input" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()" />
+                            <Label class="form-check-label pt-1" for="Padece_enfermedadChk">
+                                ¿Si?
+                            </Label>
+                            <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="style.borderColor='gray'" style="display:none" />
+                        </div>
+                        <div class="col">
+                            <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
+                            <input type="checkbox" class="form-check-input" id="lesionesChk" onchange="lesionesChk()" />
+                            <Label class="form-check-label pt-1" for="lesionesChk">
+                                ¿Si?
+                            </Label>
+                            <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="style.borderColor='gray'" style="display:none" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
+                            <input type="checkbox" class="form-check-input" id="AlcoholChk" onchange="AlcoholChk()" />
+                            <Label class="form-check-label pt-1" for="AlcoholChk">
+                                ¿Si?
+                            </Label>
+                            <input type="number" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="style.borderColor='gray'" style="display:none" />
+                        </div>
+                        <div class="col">
+                            <label>¿Acostumbra a Fumar?</label>
+                            <input type="checkbox" class="form-check-input" id="FumaChk" onchange="FumaChk()" />
+                            <Label class="form-check-label pt-1" for="FumaChk">
+                                ¿Si?
+                            </Label>
+                            <input type="number" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="style.borderColor='gray'" style="display:none" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Actualmente realizas alguna actividad física?</label>
+                            <input type="checkbox" class="form-check-input" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
+                            <Label class="form-check-label pt-1" for="Actividad_fisicaChk">
+                                ¿Si?
+                            </Label>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="cuestionarioTime" style="display:none">
                         <div class="row">
-                            <div class="col">
-                                <label>¿Padece alguna enfermedad?</label>
-                                <input type="checkbox" class="form-check-input" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()" />
-                                <Label class="form-check-label pt-1" for="Padece_enfermedadChk">
-                                    ¿Si?
-                                </Label>
-                                <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="style.borderColor='gray'" style="display:none" />
+                            <div class="col-4">
+                                <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>                                
+                                <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="style.borderColor='gray'" />
                             </div>
-                            <div class="col">
-                                <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
-                                <input type="checkbox" class="form-check-input" id="lesionesChk" onchange="lesionesChk()" />
-                                <Label class="form-check-label pt-1" for="lesionesChk">
-                                    ¿Si?
-                                </Label>
-                                <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="style.borderColor='gray'" style="display:none" />
+                            <div class="col-4">
+                                <label>¿Cuánto tiempo llevas realizando dicha actividad de manera constante?</label>
+                                <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="style.borderColor='gray'" />
+                            </div>
+                            <div class="col-4">
+                                <label>¿En qué horario entrenas?</label>  
+                                <br />
+                                <br />
+                                <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="style.borderColor='gray'" />
                             </div>
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="col">
-                                <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
-                                <input type="checkbox" class="form-check-input" id="AlcoholChk" onchange="AlcoholChk()" />
-                                <Label class="form-check-label pt-1" for="AlcoholChk">
-                                    ¿Si?
-                                </Label>
-                                <input type="text" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="style.borderColor='gray'" style="display:none" />
-                            </div>
-                            <div class="col">
-                                <label>¿Acostumbra a Fumar?</label>
-                                <input type="checkbox" class="form-check-input" id="FumaChk" onchange="FumaChk()" />
-                                <Label class="form-check-label pt-1" for="FumaChk">
-                                    ¿Si?
-                                </Label>
-                                <input type="text" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="style.borderColor='gray'" style="display:none" />
-                            </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Cuáles son tus metas u objetivos para lograr?</label>
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="col">
-                                <label>¿Actualmente realizas alguna actividad física?</label>
-                                <input type="checkbox" class="form-check-input" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
-                                <Label class="form-check-label pt-1" for="Actividad_fisicaChk">
-                                    ¿Si?
-                                </Label>
-                            </div>
+                        <div class="col">
+                            <label>¿Qué compromiso tienes contigo mismo?</label>
                         </div>
-                        <br />
-                        <div id="cuestionarioTime" style="display:none">
-                            <div class="row">
-                                <div class="col">
-                                    <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>
-                                    <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="style.borderColor='gray'" />
-                                </div>
-                                <div class="col">
-                                    <label>¿Cuánto tiempo llevas realizando dicha actividad de manera constante?</label>
-                                    <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="style.borderColor='gray'" />
-                                </div>
-                                <div class="col">
-                                    <label>¿En qué horario entrenas?</label>
-                                    <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="style.borderColor='gray'" />
-                                </div>
-                            </div>
+                        <div class="col">
+                            <label>¿Algún comentario adicional, antes de poder seguir y comenzar?</label>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <label>¿Cuáles son tus metas u objetivos para lograr?</label>
-                            </div>
-                            <div class="col">
-                                <label>¿Qué compromiso tienes contigo mismo?</label>
-                            </div>
-                            <div class="col">
-                                <label>¿Algún comentario adicional, antes de poder seguir y comenzar?</label>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" id="MetasObjetivosTxt" placeholder="Ej: mejorar condicion... aumentar masa muscular" onkeypress="style.borderColor='gray'" />
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" class="form-control" id="MetasObjetivosTxt" placeholder="Ej: mejorar condicion... aumentar masa muscular" onkeypress="style.borderColor='gray'" />
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="CompromisosTxt" placeholder="Ej: Ser diciplinado... constante" onkeypress="style.borderColor='gray'" />
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="ComentariosTxt" placeholder="..." onkeypress="style.borderColor='gray'" />
-                            </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="CompromisosTxt" placeholder="Ej: Ser diciplinado... constante" onkeypress="style.borderColor='gray'" />
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn-success" onclick="document.getElementById('BtnEditarCuestionario').style.visibility='visible'">Editar</button>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-primary" id="BtnEditarCuestionario" style="visibility:hidden" onclick="GuardarCuestionario()">Guardar</button>
-                            </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="ComentariosTxt" placeholder="..." onkeypress="style.borderColor='gray'" />
                         </div>
-                    </div>                               
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-success" id="BtnEditarCuestionarioEditar" style="display:none" onclick="GuardarCuestionario()">Guardar</button>
+                            <button type="button" class="btn btn-success" id="BtnEditarCuestionario" style="display:none" onclick="GuardarCuestionario()">Guardar</button>
+                        </div>
+                    </div>
+                </div>                               
             </div>
             <hr />
             <div id="mensualidad">
-                <h3>Mensualidades</h3>
+                <h3>Mensualidades</h3>                
                 <div class="container" style="overflow-y:auto;height:500px">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad()">Nueva Mensualidad</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="Mensualidad()">Nueva Mensualidad</button>
                         </div>
                     </div>
+                    <br />
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-hover" id="tabla">
                             <thead>
@@ -248,7 +247,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="MensualidadGuardar()">Guardar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarMensualidad()">Guardar</button>
             </div>
         </div>
     </div>
@@ -269,6 +268,7 @@
                 <div class="container" style="overflow-y:auto;height:500px">
                     <h3 id="nameClienteDetalle"></h3>
                     <input id="idMensualidadMedidas" style="display:none" />
+                    <input id="idMMedidas" style="display:none" />
                     <div>
                         <div class="row">
                             <div class="col">
@@ -277,22 +277,22 @@
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
+                                <input type="number" id="Altura" placeholder="Altura (cm)"  class="form-control"/>
                             </div>
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="text" id="IMC" class="form-control" readonly="true" />
+                                <input type="text" id="IMC" class="form-control"  readonly/>
                             </div>
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
+                                <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado"  class="form-control"/>
                             </div>
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
+                                <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza"  class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
@@ -302,7 +302,7 @@
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
+                                <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza"  class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
@@ -367,7 +367,7 @@
 
 <!--MODAL PARA detalle Mensualidad--->
 <div class="modal fade" id="ModalMensualidadDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
@@ -377,88 +377,91 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container" style="overflow-y:auto;height:500px">
-                    <h3 id="nameClienteDetalle"></h3>
-                    <input id="idclienteMensualidadDetalle" style="display:none" />
-                    <br />
-                    <div id="=asignacion">
-                        <div class="row">
-                            <div class="col">
-                                <select class="form-control" id="Rutinas">
-                                </select>
+                <div class="container">
+                    <input id="idclienteMensualidadDetalle" style="display:none" />                    
+                    <div id="=asignacion" class="row">
+                        <div id="primera" class="col-4">
+                            <div class="row">
+                                <div class="col">
+                                    <select class="form-control" id="Rutinas">
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <select class="form-control" id="Dias">
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <select class="form-control" id="Ejercicios">
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" id="Repeticiones" class="form-control" placeholder="Repeticiones" onkeypress="style.borderColor='gray'" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" id="Series" class="form-control" placeholder="Series" onkeypress="style.borderColor='gray'" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" id="Set" class="form-control" placeholder="Set" onkeypress="style.borderColor='gray'" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" id="AgregarRutina" class="btn btn-success" onclick="AgregarRutina()">Agregar a la rutina</button>
+                                </div>
                             </div>
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="col">
-                                <select class="form-control" id="Dias">
-                                </select>
+                        <div id="segunda" class="col-8">
+                            <h4>Rutina</h4>
+                            <div id="rutinas" class="container" style="overflow-y:auto;height:400px">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-striped table-hover" id="ListaEjercicios">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Dia</th>
+                                                <th>Rutina</th>
+                                                <th>Ejercicio</th>
+                                                <th>Series</th>
+                                                <th>Repeticiones</th>
+                                                <th>Set</th>
+                                                <th>Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="col">
-                                <select class="form-control" id="Ejercicios">
-                                </select>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" id="Repeticiones" class="form-control" placeholder="Repeticiones" onkeypress="style.borderColor='gray'" />
-                            </div>
-                            <div class="col">
-                                <input type="text" id="Series" class="form-control" placeholder="Series" onkeypress="style.borderColor='gray'" />
-                            </div>
-                            <div class="col">
-                                <input type="text" id="Set" class="form-control" placeholder="Set" onkeypress="style.borderColor='gray'" />
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-5">
-                                <button type="button" id="AgregarRutina" class="btn btn-success" onclick="AgregarRutina()">Agregar a la rutina</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br />
-                    <h4>Rutina</h4>
-                    <br />
-                    <div id="rutinas">
-                        <div class="table-responsive">
-                            <table class="table table-condensed table-striped table-hover" id="ListaEjercicios">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Dia</th>
-                                        <th>Rutina</th>
-                                        <th>Ejercicio</th>
-                                        <th>Series</th>
-                                        <th>Repeticiones</th>
-                                        <th>Set</th>
-                                        <th>Eliminar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    </div>                                       
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="Cuestionario(document.getElementById('idcliente').value)">Cuestionario</button>
-                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="VerEditar(document.getElementById('idcliente').value)">Cliente</button>
-                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad(document.getElementById('idcliente').value)">Mensualidad</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary" onclick="GuardarRutina()">Guardar</button>
             </div>
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -588,7 +591,7 @@
 
     //Cuestionario
     function VerCuestionario() {
-        var Id = @ViewBag.idcliente       
+        var Id = @ViewBag.idcliente
         document.getElementById("idclientecuestionario").value = Id;
         $.ajax({
             type: "GET",
@@ -597,21 +600,48 @@
             contentType: "application/json; charset=utf-8",
             datatype: "json",
             success: function (data) {
-                document.getElementById('Padece_enfermedadChk').value = data["Padece_enfermedad"];
+                var id = data["Id_cuestionario"];
+                if (id != 0) {
+                    document.getElementById('idcuestionario').value = id;
+                    document.getElementById('BtnEditarCuestionarioEditar').style.display = "block";
+                    document.getElementById('BtnEditarCuestionario').style.display = "none";
+                }
+                else {
+                    document.getElementById('idcuestionario').value = 0;
+                    document.getElementById('BtnEditarCuestionarioEditar').style.display = "none";
+                    document.getElementById('BtnEditarCuestionario').style.display = "block";
+                }
+                document.getElementById('Padece_enfermedadChk').checked = data["Padece_enfermedad"];
                 document.getElementById('Medicamento_prescrito_medicoTxt').value = data["Medicamento_prescrito_medico"];
-                document.getElementById('lesionesChk').value = data["lesiones"];
+                document.getElementById('lesionesChk').checked = data["lesiones"];
                 document.getElementById('Alguna_recomendacion_lesionesTxt').value = data["Alguna_recomendacion_lesiones"];
-                document.getElementById('FumaChk').value = data["Fuma"];
+                document.getElementById('FumaChk').checked = data["Fuma"];
                 document.getElementById('Veces_semana_fumaTxt').value = data["Veces_semana_fuma"];
-                document.getElementById('AlcoholChk').value = data["Alcohol"];
+                document.getElementById('AlcoholChk').checked = data["Alcohol"];
                 document.getElementById('Veces_semana_alcoholTxt').value = data["Veces_semana_alcohol"];
-                document.getElementById('Actividad_fisicaChk').value = data["Actividad_fisica"];
+                document.getElementById('Actividad_fisicaChk').checked = data["Actividad_fisica"];
                 document.getElementById('Tipo_ejerciciosTxt').value = data["Tipo_ejercicios"];
                 document.getElementById('Tiempo_dedicadoTxt').value = data["Tiempo_dedicado"];
                 document.getElementById('Horario_entrenoTxt').value = data["Horario_entreno"];
                 document.getElementById('MetasObjetivosTxt').value = data["MetasObjetivos"];
                 document.getElementById('CompromisosTxt').value = data["Compromisos"];
                 document.getElementById('ComentariosTxt').value = data["Comentarios"];
+                if (data["Padece_enfermedad"] == true) {
+                    document.getElementById('Medicamento_prescrito_medicoTxt').style.display = "block";
+                }
+                if (data["lesiones"] == true) {
+                    document.getElementById('Alguna_recomendacion_lesionesTxt').style.display = "block";
+                }
+                if (data["Fuma"] == true) {
+                    document.getElementById('Veces_semana_fumaTxt').style.display = "block";
+                }
+                if (data["Alcohol"]) {
+                    document.getElementById('Veces_semana_alcoholTxt').style.display = "block";
+                }
+                if (data["Actividad_fisica"] == true) {
+                    document.getElementById("cuestionarioTime").style.display = "block";
+                }
+
             },
             error: function (xhr, status, error) {
                 console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -625,22 +655,26 @@
         var Cliente = {};
         Cliente.Id_cliente = $("#idclientecuestionario").val();
         parametros.Cliente = Cliente;
-        parametros.Padece_enfermedad = $("#Padece_enfermedadChk").val();
+        parametros.Padece_enfermedad = document.getElementById("Padece_enfermedadChk").checked;
         parametros.Medicamento_prescrito_medico = $("#Medicamento_prescrito_medicoTxt").val();
-        parametros.lesiones = $("#lesionesChk").val();
+        parametros.lesiones = document.getElementById("lesionesChk").checked;
         parametros.Alguna_recomendacion_lesiones = $("#Alguna_recomendacion_lesionesTxt").val();
-        parametros.Fuma = $("#FumaChk").val();
+        parametros.Fuma = document.getElementById("FumaChk").checked;
         parametros.Veces_semana_fuma = $("#Veces_semana_fumaTxt").val();
-        parametros.Alcohol = $("#AlcoholChk").val();
+        parametros.Alcohol = document.getElementById("AlcoholChk").checked;
         parametros.Veces_semana_alcohol = $("#Veces_semana_alcoholTxt").val();
-        parametros.Actividad_fisica = $("#Actividad_fisicaChk").val();
+        parametros.Actividad_fisica = document.getElementById("Actividad_fisicaChk").checked;
         parametros.Tipo_ejercicios = $("#Tipo_ejerciciosTxt").val();
         parametros.Tiempo_dedicado = $("#Tiempo_dedicadoTxt").val();
         parametros.Horario_entreno = $("#Horario_entrenoTxt").val();
         parametros.MetasObjetivos = $("#MetasObjetivosTxt").val();
         parametros.Compromisos = $("#CompromisosTxt").val();
         parametros.Comentarios = $("#ComentariosTxt").val();
-
+        var id = $("#idcuestionario").val();
+        if (id != 0) {
+            parametros.Id_cuestionario = id;
+            urlcuestionario = '@Url.Action("ActualizarCuestionario", "AdministracionWebHome")';
+        }
         var modelo = parametros;
 
         $.ajax({
@@ -665,7 +699,7 @@
     //Mensualidad
     function VerMensualidad() {
         var Id = @ViewBag.idcliente
-        document.getElementById("idclienteMensualidad").value = Id;    
+        document.getElementById("idclienteMensualidad").value = Id;
         $.ajax({
             type: "GET",
             url: urlvermensualidad,
@@ -674,21 +708,22 @@
             datatype: "json",
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
+                    var sum = i + 1;
                     var Tiporutina = data[i].Tiporutina;
                     var Mes = data[i].Mes;
-                    var Estatus = data[i].Mes;
+                    var Estatus = data[i].Estatus;
                     var html = '';
-                    html += '<tr id="fila' + c + '">';
-                    html += '<td>' + data[i].Id_mensualidad + '</td>';
-                    html += '<td><button type="button" class="btn btn-primary" onclick="MensualidadDetalle(' + data[i].Id_mensualidad + ')">Rutina</button></td> ';
-                    html += '<td><button type="button" class="btn btn-primary" onclick="VerMedidas(' + data[i].Id_mensualidad + ')">Medidas</button></td> ';
-                    html += '<td>' + Tiporutina[i].Tipo + '</td>';
-                    html += '<td>'+Mes[i].Mes+'</td>';
-                    html += '<td>'+Estatus[i].Descripcion+'</td>';
-                    html += '<td>' + data[i].Fecha_inicio+'</td>';
-                    html += '<td>' + data[i].Fecha_fin + '</td>';
+                    html += '<tr id="fila' + i + '">';
+                    html += '<td>' + sum + '</td>';
+                    html += '<td><button type="button" class="btn btn-success" onclick="MensualidadDetalle(' + data[i].Id_mensualidad + ')">Rutina</button>';
+                    html += '<button type="button" class="btn btn-success" onclick="VerMedidas(' + data[i].Id_mensualidad + ')">Medidas</button></td>';
+                    html += '<td>' + Tiporutina.Tipo + '</td>';
+                    html += '<td>'+Mes.Mes+'</td>';
+                    html += '<td>' + Estatus.Descripcion +'</td>';
+                    html += '<td>' + data[i].Fechainicio+'</td>';
+                    html += '<td>' + data[i].Fechafin + '</td>';
                     html += '</tr>';
-                    $('#ListaEjercicios tbody').append(html);
+                    $('#tabla tbody').append(html);
                 }
             },
             error: function (xhr, status, error) {
@@ -698,7 +733,7 @@
         });
     }
 
-    function Mensualidad() {        
+    function Mensualidad() {
         $('#ModalMensualidad').modal('show');
     }
 
@@ -742,10 +777,44 @@
     //Medidas
     function VerMedidas(idmes) {
         document.getElementById("idMensualidadMedidas").value = idmes;
+        var url = '@Url.Action("EditarAsesoriaantropometria", "AdministracionWebHome")';
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: { "Id": idmes },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data["Id"] != 0) {
+                    document.getElementById("idMMedidas").value = data["Id"];
+                    document.getElementById("Peso").value = data["Peso"];
+                    document.getElementById("Altura").value = data["Altura"];
+                    document.getElementById("IMC").value = data["IMC"];
+                    document.getElementById("Brazo_derecho_relajado").value = data["Brazoderechorelajado"];
+                    document.getElementById("Brazo_derecho_fuerza").value = data["Brazoderechofuerza"];
+                    document.getElementById("Brazo_izquierdo_relajado").value = data["Brazoizquierdorelajado"];
+                    document.getElementById("Brazo_izquierdo_fuerza").value = data["Brazoizquierdofuerza"];
+                    document.getElementById("Cintura").value = data["Cintura"];
+                    document.getElementById("Cadera").value = data["Cadera"];
+                    document.getElementById("Pierna_izquierda").value= data["Piernaizquierda"];
+                    document.getElementById("Pierna_derecho").value = data["Piernaderecho"];
+                    document.getElementById("Pantorrilla_derecha").value = data["Pantorrilladerecha"];
+                    document.getElementById("Pantorrilla_izquierda").value= data["Pantorrillaizquierda"];
+                }
+                else { document.getElementById("idMMedidas").value=0}
+
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Cliente)");
+            }
+        });
         $('#ModalMedidas').modal('show');
     }
 
     function GuardarMedidas() {
+        var id = document.getElementById("idMMedidas").value;
+
         var parametros = {};
         var Mensualidad = {};
         Mensualidad.Id_mensualidad = $("#idMensualidadMedidas").val();
@@ -766,7 +835,10 @@
         //Foto_frontal
         //Foto_perfil
         //Foto_posterior
-
+        if (id != 0) {
+            urlmedidas = '@Url.Action("EditarAsesoriaantropometria", "AdministracionWebHome")';
+            parametros.Id = id;
+        }
         var modelo = parametros;
         $.ajax({
             type: "POST",
@@ -790,6 +862,68 @@
     //Detalle de rutina
     function MensualidadDetalle(Id) {
         document.getElementById("idclienteMensualidadDetalle").value = Id;
+        var url ='@Url.Action("VerDetalleRutina", "AdministracionWebHome")';
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: { "Id_mensualidad": Id},
+            success: function (data) {
+                var detalle = data;
+                if (detalle.length != 0) {
+                    var f = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
+                    var c = f.length - 1;
+                    for (var i = 0; i < data.length; i++) {
+                        var mensualidad = data[i].Mensualidad;
+                        var Rutinas = data[i].Rutinas;
+                        var Ejercicios = data[i].Ejercicios;
+                        var Dias = data[i].Dias;
+                        var html = '';
+                        html += '<tr id="fila' + c + '">';
+                        html += '<td><label id="idmensualidad" style="display:none">' + mensualidad.Id_mensualidad + '</label>' + c + '</td> ';
+                        html += '<td> <label id="iddia' + c + '" style="display:none">' + Dias.Id_dia + '</label>' + Dias.Dia + '</td> ';
+                        html += '<td> <label id="idrutina' + c + '" style="display:none">' + Rutinas.Id_rutina + '</label>' + Rutinas.Descripcion + '</td> ';
+                        html += '<td> <label id="idejercicio' + c + '" style="display:none">' + Ejercicios.Id_ejercicio + '</label>' + Ejercicios.Ejercicio + '</td> ';
+                        html += '<td> <label id="idserie' + c + '">' + data[i].Series + '</label></td> ';
+                        html += '<td> <label id="idrepeticion' + c + '">' + data[i].Repeticiones + '</label></td> ';
+                        html += '<td> <label id="idset' + c + '">' + data[i].Tipo_set + '</label></td> ';
+                        html += '<td><button type="button" class="btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
+                        html += '</tr>';
+                        $('#ListaEjercicios tbody').append(html);
+                        c++;
+                    }
+                }
+                else {
+
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Detalle rutina)");
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: urleditar,
+            data: { "Id_cliente": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                document.getElementById('idcliente').value = data["Id_cliente"];
+                document.getElementById('IdNombreE').value = data["Nombres"];
+                document.getElementById('IdApePE').value = data["Apellido_paterno"];
+                document.getElementById('IdApeME').value = data["Apellido_materno"];
+                document.getElementById('IdApodoE').value = data["Apodo"];
+                document.getElementById('IdEdadE').value = data["Edad"];
+                document.getElementById('IdTelefonoE').value = data["Telefono"];
+                document.getElementById('IdCorreoE').value = data["Correo_electronico"];
+                document.getElementById('IdContraseñaE').value = data["Contraseña"];
+                document.getElementById('IdSexoE').value = data["Sexo"];
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Cliente)");
+            }
+        });
         $('#ModalMensualidadDetalle').modal('show');
     }
 
@@ -814,10 +948,10 @@
                     var ejercicio = document.getElementById("Ejercicios");
                     var html = '';
                     html += '<tr id="fila' + c + '">';
-                    html += '<td><label id="idmensualidad" style="display:block">' + $('#idclienteMensualidadDetalle').val() + '</label>' + c + '</td> ';
-                    html += '<td> <label id="iddia' + c + '" style="display:block">' + $('#Dias').val() + '</label>' + dia.options[dia.selectedIndex].text + '</td> ';
-                    html += '<td> <label id="idrutina' + c + '" style="display:block">' + $('#Rutinas').val() + '</label>' + rutina.options[rutina.selectedIndex].text + '</td> ';
-                    html += '<td> <label id="idejercicio' + c + '" style="display:block">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text + '</td> ';
+                    html += '<td><label id="idmensualidad" style="display:none">' + $('#idclienteMensualidadDetalle').val() + '</label>' + c + '</td> ';
+                    html += '<td> <label id="iddia' + c + '" style="display:none">' + $('#Dias').val() + '</label>' + dia.options[dia.selectedIndex].text + '</td> ';
+                    html += '<td> <label id="idrutina' + c + '" style="display:none">' + $('#Rutinas').val() + '</label>' + rutina.options[rutina.selectedIndex].text + '</td> ';
+                    html += '<td> <label id="idejercicio' + c + '" style="display:none">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text + '</td> ';
                     html += '<td> <label id="idserie' + c + '">' + $('#Series').val() + '</label></td> ';
                     html += '<td> <label id="idrepeticion' + c + '">' + $('#Repeticiones').val() + '</label></td> ';
                     html += '<td> <label id="idset' + c + '">' + $('#Set').val() + '</label></td> ';
@@ -849,49 +983,49 @@
         var detallerutinaModels = [];
         var l = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
         var c = l.length - 2;
-        for (var i = 1; i <= c; i++) {
-            var fila = document.getElementById("fila" + i).style.display;
-            if (fila != "none") {
-                var model = {};
-                var Dias = {};
-                var Ejercicios = {};
-                var Mensualidad = {};
-                var Rutinas = {};
+        if (c > 0) {
+            for (var i = 1; i <= c; i++) {
+                var fila = document.getElementById("fila" + i).style.display;
+                if (fila != "none") {
+                    var model = {};
+                    var Dias = {};
+                    var Ejercicios = {};
+                    var Mensualidad = {};
+                    var Rutinas = {};
 
-                Dias.Id_dia = document.getElementById("iddia" + i).innerHTML;
-                Ejercicios.Id_ejercicio = document.getElementById('idejercicio' + i).innerHTML;
-                Mensualidad.Id_mensualidad = document.getElementById('idclienteMensualidadDetalle').value;
-                Rutinas.Id_rutina = document.getElementById('idrutina' + i).innerHTML;
-                model.Dias = Dias;
-                model.Ejercicios = Ejercicios;
-                model.Mensualidad = Mensualidad;
-                model.Rutinas = Rutinas;
-                model.Repeticiones = document.getElementById('idrepeticion' + i).innerHTML;
-                model.Series = document.getElementById('idserie' + i).innerHTML;
-                model.Tipo_set = document.getElementById('idset' + i).innerHTML;
-                detallerutinaModels.push(model);
+                    Dias.Id_dia = document.getElementById("iddia" + i).innerHTML;
+                    Ejercicios.Id_ejercicio = document.getElementById('idejercicio' + i).innerHTML;
+                    Mensualidad.Id_mensualidad = document.getElementById('idclienteMensualidadDetalle').value;
+                    Rutinas.Id_rutina = document.getElementById('idrutina' + i).innerHTML;
+                    model.Dias = Dias;
+                    model.Ejercicios = Ejercicios;
+                    model.Mensualidad = Mensualidad;
+                    model.Rutinas = Rutinas;
+                    model.Repeticiones = document.getElementById('idrepeticion' + i).innerHTML;
+                    model.Series = document.getElementById('idserie' + i).innerHTML;
+                    model.Tipo_set = document.getElementById('idset' + i).innerHTML;
+                    detallerutinaModels.push(model);
+                }
             }
+            $.ajax({
+                type: "POST",
+                url: urldetallRutina,
+                data: JSON.stringify(detallerutinaModels),
+                contentType: "application/json",
+                success: function (data) {
+                    if (data == "True") {
+                        location.reload();
+                    }
+                    else {
+                        location.reload();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    alert("Ocurrio un error verifique su conexion");
+                }
+            });
         }
-
-        $.ajax({
-            type: "POST",
-            url: urldetallRutina,
-            data: JSON.stringify(detallerutinaModels),
-            contentType: "application/json",
-            success: function (data) {
-                if (data == "True") {
-                    location.reload();
-                }
-                else {
-                    location.reload();
-                }
-            },
-            error: function (xhr, status, error) {
-                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                alert("Ocurrio un error verifique su conexion");
-            }
-        });
-
     }
 
     /*Cuestionario*/
@@ -983,4 +1117,34 @@
         }
 
     }
+
+
+    $("#Altura").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = value;
+        var peso = document.getElementById("Peso").value;
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
+            }
+        }
+
+    });
+    $("#Peso").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = document.getElementById("Altura").value;
+        var peso = value;
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
+            }
+        }
+
+    });
 </script>

@@ -6,35 +6,52 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @Styles.Render("~/bundles/datatablescss")
+    @Styles.Render("~/Content/fontawesome")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/popper")
+    @Scripts.Render("~/bundles/chart")
+
     <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#0A497B">
-        <div class="container">            
-            <div class="navbar-header">
-                <button type="button" class="fa fa-bars" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>            
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Perfil", "ClientesWeb", new { @class = "navbar-brand" ,style="color:white" })       </li>
-                    <li>@Html.ActionLink("Editar perfil", "Rutinas", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })       </li>
-                    <li>@Html.ActionLink("Rutinas", "Rutinas", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })       </li>
-                    <li>@Html.ActionLink("Mensualidad", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })   </li>
-                    <li>@Html.ActionLink("Mis medidas", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })   </li>
-                    <li>@Html.ActionLink("Cuestionario", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })  </li>
-                    <li>@Html.ActionLink("Alimentacion", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })  </li>
-                    <li>@Html.ActionLink("Rutinas DEMO", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })  </li>
-                    <li>@Html.ActionLink("Salir", "Perfil", "ClientesWeb", new { @class = "navbar-brand", style = "color:white" })         </li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg" style="background-color:#0A497B">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler btn btn-outline-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="fa fa-navicon"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("Perfil", "ClientesWeb", null, null)">
+                        <span class="menu-collapsed text-white">Perfil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("Rutinas", "ClientesWeb", null, null)">
+                        <span class="menu-collapsed text-white">Mis rutinas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminTiporutinaWeb", "AdministracionWebHome", null, null)">
+                        <span class="menu-collapsed text-white">Mensualidad</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminTipoentrenamientoWeb", "AdministracionWebHome", null, null)">
+                        <span class="menu-collapsed text-white">Medidas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("AdminRutinasWeb", "AdministracionWebHome", null, null)">
+                        <span class="menu-collapsed text-white">Cuestionario</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-    </div>
+    </nav>
     <div class="container-fluid body-content">
         @RenderBody()
         <hr />
@@ -43,6 +60,7 @@
         </footer>
     </div>
 
+    @Scripts.Render("~/bundles/datatablesjs")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

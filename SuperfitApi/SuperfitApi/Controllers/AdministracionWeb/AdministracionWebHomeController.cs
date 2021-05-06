@@ -752,7 +752,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                   {
                                       Id_mensualidad = m.Id_mensualidad,
                                       Fecha_inicio = (DateTime)m.Fecha_inicio,
-                                      Fecha_fin = (DateTime)m.Fecha_fin,
+                                      Fecha_fin = (DateTime)m.Fecha_fin,                                      
                                       Tiporutina = new TiporutinaModel
                                       {
                                           Id_tiporutina = t.Id_tipo_rutina,
@@ -796,6 +796,14 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             if (listmensualidadMdl == null || listmensualidadMdl.Count==0)
             {
                 listmensualidadMdl = new List<MensualidadModel>();
+            }
+            else
+            {              
+                for(int i=0;i< listmensualidadMdl.Count; i++)
+                {
+                    listmensualidadMdl[i].Fechainicio = listmensualidadMdl[i].Fecha_inicio.ToString("dd/MM/yyyy");
+                    listmensualidadMdl[i].Fechafin = listmensualidadMdl[i].Fecha_fin.ToString("dd/MM/yyyy");
+                }
             }
 
             return Json(listmensualidadMdl,JsonRequestBehavior.AllowGet);
@@ -999,6 +1007,10 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                  Fotoposterior = a.Foto_posterior,
                                  Fecha_registro = a.Fecha_registro
                              }).FirstOrDefault();
+            if (asesoria_antropometriaMdl == null)
+            {
+                asesoria_antropometriaMdl = new AntropometriaModel();
+            }
 
             return Json(asesoria_antropometriaMdl, JsonRequestBehavior.AllowGet);
         }
@@ -1007,29 +1019,33 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public bool EditarAsesoriaantropometria(AntropometriaModel antropometriaModel)
         {
             asesoria_antropometria = Db.Asesoria_antropometria.Where(t => t.Id == antropometriaModel.Id).FirstOrDefault();
-
-            asesoria_antropometria.Peso = antropometriaModel.Peso;
-            asesoria_antropometria.Id_mensualidad = antropometriaModel.Mensualidad.Id_mensualidad;
-            asesoria_antropometria.Altura = antropometriaModel.Altura;
-            asesoria_antropometria.IMC = antropometriaModel.IMC;
-            asesoria_antropometria.Brazo_derecho_relajado = antropometriaModel.Brazoderechorelajado;
-            asesoria_antropometria.Brazo_derecho_fuerza = antropometriaModel.Brazoderechofuerza;
-            asesoria_antropometria.Brazo_izquierdo_relajado = antropometriaModel.Brazoizquierdorelajado;
-            asesoria_antropometria.Brazo_izquierdo_fuerza = antropometriaModel.Brazoizquierdofuerza;
-            asesoria_antropometria.Cintura = antropometriaModel.Cintura;
-            asesoria_antropometria.Cadera = antropometriaModel.Cadera;
-            asesoria_antropometria.Pierna_izquierda = antropometriaModel.Piernaizquierda;
-            asesoria_antropometria.Pierna_derecho = antropometriaModel.Piernaderecho;
-            asesoria_antropometria.Pantorrilla_derecha = antropometriaModel.Pantorrilladerecha;
-            asesoria_antropometria.Pantorrilla_izquierda = antropometriaModel.Pantorrillaizquierda;
-            asesoria_antropometria.Foto_frontal = antropometriaModel.Fotofrontal;
-            asesoria_antropometria.Foto_perfil = antropometriaModel.Fotoperfil;
-            asesoria_antropometria.Foto_posterior = antropometriaModel.Fotoposterior;
-            asesoria_antropometria.Fecha_registro = antropometriaModel.Fecha_registro;
-
-            if (Db.SaveChanges() == 1)
+            if (asesoria_antropometria != null)
             {
-                return true;
+                asesoria_antropometria.Peso = antropometriaModel.Peso;
+                asesoria_antropometria.Id_mensualidad = antropometriaModel.Mensualidad.Id_mensualidad;
+                asesoria_antropometria.Altura = antropometriaModel.Altura;
+                asesoria_antropometria.IMC = antropometriaModel.IMC;
+                asesoria_antropometria.Brazo_derecho_relajado = antropometriaModel.Brazoderechorelajado;
+                asesoria_antropometria.Brazo_derecho_fuerza = antropometriaModel.Brazoderechofuerza;
+                asesoria_antropometria.Brazo_izquierdo_relajado = antropometriaModel.Brazoizquierdorelajado;
+                asesoria_antropometria.Brazo_izquierdo_fuerza = antropometriaModel.Brazoizquierdofuerza;
+                asesoria_antropometria.Cintura = antropometriaModel.Cintura;
+                asesoria_antropometria.Cadera = antropometriaModel.Cadera;
+                asesoria_antropometria.Pierna_izquierda = antropometriaModel.Piernaizquierda;
+                asesoria_antropometria.Pierna_derecho = antropometriaModel.Piernaderecho;
+                asesoria_antropometria.Pantorrilla_derecha = antropometriaModel.Pantorrilladerecha;
+                asesoria_antropometria.Pantorrilla_izquierda = antropometriaModel.Pantorrillaizquierda;
+                asesoria_antropometria.Foto_frontal = antropometriaModel.Fotofrontal;
+                asesoria_antropometria.Foto_perfil = antropometriaModel.Fotoperfil;
+                asesoria_antropometria.Foto_posterior = antropometriaModel.Fotoposterior;
+                if (Db.SaveChanges() == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -1061,8 +1077,8 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                     Alcohol= (bool)c.Alcohol,
                                     Veces_semana_alcohol= (int)c.Veces_semana_alcohol,
                                     Actividad_fisica= (bool)c.Actividad_fisica,
-                                    Tipo_ejercicios= c.Tipo_ejercicios,
-                                    Tiempo_dedicado= c.Tiempo_dedicado,
+                                    Tipo_ejercicios= c.Tipo_ejercicios,                                    
+                                    Tiempo_dedicado = c.Tiempo_dedicado,
                                     Horario_entreno= c.Horario_entreno,
                                     MetasObjetivos= c.MetasObjetivos,
                                     Compromisos= c.Compromisos,
@@ -1116,26 +1132,22 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             cuestionario = Db.Cuestionario.Where(y => y.Id_cuestionario == cuestionarioModel.Id_cuestionario).FirstOrDefault();
             if (cuestionario != null)
             {
-                cuestionario = new Cuestionario
-                {
-                    Padece_enfermedad = cuestionarioModel.Padece_enfermedad == null ? false : cuestionarioModel.Padece_enfermedad,
-                    Medicamento_prescrito_medico = cuestionarioModel.Medicamento_prescrito_medico == null ? "" : cuestionarioModel.Medicamento_prescrito_medico,
-                    lesiones = cuestionarioModel.lesiones == null ? false : cuestionarioModel.lesiones,
-                    Alguna_recomendacion_lesiones = cuestionarioModel.Alguna_recomendacion_lesiones == null ? "" : cuestionarioModel.Alguna_recomendacion_lesiones,
-                    Fuma = cuestionarioModel.Fuma == null ? false : cuestionarioModel.Fuma,
-                    Veces_semana_fuma = cuestionarioModel.Veces_semana_fuma == null ? 0 : cuestionarioModel.Veces_semana_fuma,
-                    Alcohol = cuestionarioModel.Alcohol == null ? false : cuestionarioModel.Alcohol,
-                    Veces_semana_alcohol = cuestionarioModel.Veces_semana_alcohol == null ? 0 : cuestionarioModel.Veces_semana_alcohol,
-                    Actividad_fisica = cuestionarioModel.Actividad_fisica == null ? false : cuestionarioModel.Actividad_fisica,
-                    Tipo_ejercicios = cuestionarioModel.Tipo_ejercicios == null ? "" : cuestionarioModel.Tipo_ejercicios,
-                    Tiempo_dedicado = cuestionarioModel.Tiempo_dedicado == null ? "" : cuestionarioModel.Tiempo_dedicado,
-                    Horario_entreno = cuestionarioModel.Horario_entreno == null ? "" : cuestionarioModel.Horario_entreno,
-                    MetasObjetivos = cuestionarioModel.MetasObjetivos == null ? "" : cuestionarioModel.MetasObjetivos,
-                    Compromisos = cuestionarioModel.Compromisos == null ? "" : cuestionarioModel.Compromisos,
-                    Comentarios = cuestionarioModel.Comentarios == null ? "" : cuestionarioModel.Comentarios,
-                    Fecha_registro = DateTime.Now
-                };
-
+                cuestionario.Padece_enfermedad = cuestionarioModel.Padece_enfermedad == null ? false : cuestionarioModel.Padece_enfermedad;
+                cuestionario.Medicamento_prescrito_medico = cuestionarioModel.Medicamento_prescrito_medico == null ? "" : cuestionarioModel.Medicamento_prescrito_medico;
+                cuestionario.lesiones = cuestionarioModel.lesiones == null ? false : cuestionarioModel.lesiones;
+                cuestionario.Alguna_recomendacion_lesiones = cuestionarioModel.Alguna_recomendacion_lesiones == null ? "" : cuestionarioModel.Alguna_recomendacion_lesiones;
+                cuestionario.Fuma = cuestionarioModel.Fuma == null ? false : cuestionarioModel.Fuma;
+                cuestionario.Veces_semana_fuma = cuestionarioModel.Veces_semana_fuma == null ? 0 : cuestionarioModel.Veces_semana_fuma;
+                cuestionario.Alcohol = cuestionarioModel.Alcohol == null ? false : cuestionarioModel.Alcohol;
+                cuestionario.Veces_semana_alcohol = cuestionarioModel.Veces_semana_alcohol == null ? 0 : cuestionarioModel.Veces_semana_alcohol;
+                cuestionario.Actividad_fisica = cuestionarioModel.Actividad_fisica == null ? false : cuestionarioModel.Actividad_fisica;
+                cuestionario.Tipo_ejercicios = cuestionarioModel.Tipo_ejercicios == null ? "" : cuestionarioModel.Tipo_ejercicios;
+                cuestionario.Tiempo_dedicado = cuestionarioModel.Tiempo_dedicado == null ? "" : cuestionarioModel.Tiempo_dedicado;
+                cuestionario.Horario_entreno = cuestionarioModel.Horario_entreno == null ? "" : cuestionarioModel.Horario_entreno;
+                cuestionario.MetasObjetivos = cuestionarioModel.MetasObjetivos == null ? "" : cuestionarioModel.MetasObjetivos;
+                cuestionario.Compromisos = cuestionarioModel.Compromisos == null ? "" : cuestionarioModel.Compromisos;
+                cuestionario.Comentarios = cuestionarioModel.Comentarios == null ? "" : cuestionarioModel.Comentarios;
+                cuestionario.Fecha_registro = DateTime.Now;
                 Db.SaveChanges();
                 result =true;
             }
@@ -1145,10 +1157,65 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         #endregion
 
         #region DetalleRutina
+        //Consultar
+        [HttpGet]
+        public JsonResult VerDetalleRutina(int Id_mensualidad)
+        {
+            listdetallerutinaMdl = (from d in Db.Detalle_rutina
+                                where d.Id_mensualidad == Id_mensualidad
+                                select new DetallerutinaModel()
+                                {
+                                    Id_detallerutina = d.Id_detalle_rutina,
+                                    Mensualidad = new MensualidadModel
+                                    {
+                                        Id_mensualidad= d.Mensualidad.Id_mensualidad }
+                                    ,
+                                    Rutinas = new RutinasModel
+                                    {
+                                        Id_rutina = d.Rutinas.Id_rutina,
+                                        Descripcion = d.Rutinas.Descripcion
+                                    },
+                                    Ejercicios = new EjerciciosModel
+                                    {
+                                        Id_ejercicio = d.Ejercicios.Id_ejercicio,
+                                        Descripcion = d.Ejercicios.Descripcion,
+                                        Ejercicio = d.Ejercicios.Ejercicio
+                                    },
+                                    Dias = new DiasModel
+                                    {
+                                        Id_dia = d.Dias.Id_dia,
+                                        Dia = d.Dias.Dia
+                                    },
+                                    Repeticiones = d.Repeticiones,
+                                    Series = d.Series,
+                                    Tipo_set = d.Tipo_set,
+                                    
+                                }).ToList();
+            if (listdetallerutinaMdl == null || listdetallerutinaMdl.Count==0)
+            {
+                listdetallerutinaMdl = new List<DetallerutinaModel>();
+            }
+
+            return Json(listdetallerutinaMdl, JsonRequestBehavior.AllowGet);
+        }
+        
+        //Agregar
         [HttpPost]
         public bool DetallRutina(List<DetallerutinaModel> detallerutinaModels)
         {
             bool result = false;
+            int id = detallerutinaModels[0].Mensualidad.Id_mensualidad;
+            var detalle = Db.Detalle_rutina.Where(p => p.Id_mensualidad == id).ToList();
+            if (detalle.Count > 0)
+            {
+                foreach(var item in detalle)
+                {
+                    detalle_Rutina = new Detalle_rutina();
+                    detalle_Rutina = Db.Detalle_rutina.Where(p => p.Id_detalle_rutina == item.Id_detalle_rutina).FirstOrDefault();
+                    Db.Detalle_rutina.Remove(detalle_Rutina);
+                    Db.SaveChanges();
+                }
+            }
             foreach(DetallerutinaModel detalle_ in detallerutinaModels)
             {
                 detalle_Rutina = new Detalle_rutina

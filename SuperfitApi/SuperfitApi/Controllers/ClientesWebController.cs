@@ -53,7 +53,7 @@ namespace SuperfitApi.Controllers
             try
             {            
                 string Id = Session["Id_Cliente"].ToString();
-                int IdCliente= int.Parse(Id);
+                int IdCliente = int.Parse(Id);
 
                 clientesMdl = (from c in Db.Clientes
                                where c.Id_cliente == IdCliente
@@ -70,10 +70,10 @@ namespace SuperfitApi.Controllers
                 {
                     int id = mensualidad.Id_mensualidad;
                     mensualidadMdl = (from m in Db.Mensualidad
-                                      join t in Db.Tipo_rutina 
-                                      on m.Id_tipo_rutina  equals t.Id_tipo_rutina 
-                                      join te in Db.Tipo_entrenamiento 
-                                      on m.Id_tipo_entrenamiento  equals te.Id_tipo_entrenamiento
+                                      join t in Db.Tipo_rutina
+                                      on m.Id_tipo_rutina equals t.Id_tipo_rutina
+                                      join te in Db.Tipo_entrenamiento
+                                      on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
                                       join mes in Db.Meses
                                       on m.Id_mes equals mes.Id_mes
                                       join es in Db.Estatus
@@ -81,17 +81,17 @@ namespace SuperfitApi.Controllers
                                       where m.Id_mensualidad == id
                                       select new MensualidadModel()
                                       {
-                                          Id_mensualidad = m.Id_mensualidad,
+                                          Id_mensualidad = m.Id_mensualidad,                                          
                                           Tiporutina = new TiporutinaModel
                                           {
-                                              Id_tiporutina = t.Id_tipo_rutina ,
+                                              Id_tiporutina = t.Id_tipo_rutina,
                                               Tipo = t.Tipo
                                           },
                                           TipoEntrenamiento = new TipoentrenamientoModel
                                           {
                                               Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
-                                              Clave_Entrenamiento = te.Clave_entrenamiento   ,
-                                              Tipo_entrenamiento = te.Tipo_entrenamientos 
+                                              Clave_Entrenamiento = te.Clave_entrenamiento,
+                                              Tipo_entrenamiento = te.Tipo_entrenamientos
                                           },
                                           Mes = new MesesModel
                                           {
@@ -108,52 +108,36 @@ namespace SuperfitApi.Controllers
                                           Fecha_fin = (DateTime)m.Fecha_fin,
                                       }).FirstOrDefault();
 
-                    if (mensualidadMdl != null)
-                    {
-                        mensualidadMdl.Cliente = new ClientesModel()
-                        {
-                            Id_cliente = clientesMdl.Id_cliente,
-                            Validar = true,
-                            Nombres = clientesMdl.Nombres,
-                            Foto_perfil = clientesMdl.Foto_perfil
-                        };
-                        return View(mensualidadMdl);
-                    }
-                    else
-                    {
-                        mensualidadMdl = new MensualidadModel
-                        {
-                            Cliente = new ClientesModel(),                        
-                        };
-                        ViewBag.TipoRutina = "No asignado";
-                        ViewBag.TipoEntrenamiento = "No asignado";
-                        ViewBag.FechaI = "No asignado";
-                        ViewBag.FechaF = "No asignado";
-                        clientesMdl.Validar = true;
-                        mensualidadMdl.Cliente = clientesMdl;
-                        return View(mensualidadMdl);
-                    }
+                    Session["Mensualdiad"] = mensualidadMdl.Id_mensualidad;
+                    Session["EstatusMensualdiad"] = mensualidadMdl.Estatus.Id_estatus;
+                    mensualidadMdl.Cliente = new ClientesModel();
+                    mensualidadMdl.Cliente = clientesMdl;
+                    mensualidadMdl.Fechafin = mensualidadMdl.Fecha_fin.ToString("dd/MM/yyyy");
+                    mensualidadMdl.Fechainicio = mensualidadMdl.Fecha_inicio.ToString("dd/MM/yyyy");
                 }
                 else
-                {                
-                    mensualidadMdl = new MensualidadModel
+                {
+                    mensualidadMdl = new MensualidadModel()
                     {
-                        Cliente = new ClientesModel(),                    
+                        Cliente = new ClientesModel(),
+                        Tiporutina = new TiporutinaModel(),
+                        TipoEntrenamiento = new TipoentrenamientoModel()
                     };
-                    ViewBag.TipoRutina = "No asignado";
-                    ViewBag.TipoEntrenamiento = "No asignado";
-                    ViewBag.FechaI = "No asignado";
-                    ViewBag.FechaF = "No asignado";
-                    clientesMdl.Validar = true;
+                    Session["Mensualdiad"] = 0;
                     mensualidadMdl.Cliente = clientesMdl;
-                    return View(mensualidadMdl);
+                    mensualidadMdl.Tiporutina.Tipo = "No asignado";
+                    mensualidadMdl.TipoEntrenamiento.Tipo_entrenamiento = "No asignado";
+                    mensualidadMdl.Fechafin = "Sin fecha asignada";
+                    mensualidadMdl.Fechainicio = "Sin fecha asignada";
                 }
+                ViewBag.Mes = mensualidadMdl;
+                return View();
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Error", "Shared", new { Error = ex.Message });
+                return View(ex.Message);
             }
-        }
+        }        
 
         public ActionResult Rutinas()
         {
@@ -161,9 +145,8 @@ namespace SuperfitApi.Controllers
         }
         //Obtener los sets a realizar por dia
         [HttpGet]
-        public ActionResult GetDetalleRutinaSets()
-        {
-            int IdMensualidad=0,  IdEstatusMes=0,  IdDIa=0;
+        public JsonResult GetDetalleRutinaSets(int IdMensualidad = 0, int IdEstatusMes = 0,int IdDIa=0)
+        {            
             listdetallerutinaMdl = (from d in Db.Detalle_rutina
                                     join m in Db.Mensualidad
                                    on d.Id_mensualidad equals m.Id_mensualidad
@@ -172,7 +155,6 @@ namespace SuperfitApi.Controllers
                                     {
                                         Tipo_set = d.Tipo_set
                                     }).Distinct().ToList();
-
             foreach (DetallerutinaModel detalle in listdetallerutinaMdl)
             {
                 if (detalle.Tipo_set == 1)
@@ -196,15 +178,14 @@ namespace SuperfitApi.Controllers
                     detalle.TipoSet = "Ultimo set";
                 }
             }
-
-            return View(listdetallerutinaMdl);
+            return Json(listdetallerutinaMdl,JsonRequestBehavior.AllowGet);
         }
 
         //Obtener ejercicios por set
         [HttpGet]
-        public ActionResult GetDetalleRutinaEjercicios()
+        public JsonResult GetDetalleRutinaEjercicios(int IdMensualidad = 0, int IdEstatusMes = 0, int IdDIa = 0, int TipoSet = 0)
         {
-            int IdMensualidad=0,  IdEstatusMes=0, IdDIa=0, TipoSet=0;
+            
             listdetallerutinaMdl = (from d in Db.Detalle_rutina
                                     join e in Db.Ejercicios
                                     on d.Id_ejercicio equals e.Id_ejercicio
@@ -235,7 +216,7 @@ namespace SuperfitApi.Controllers
                                         Series = d.Series
                                     }).ToList();
 
-            return View(listdetallerutinaMdl);
+            return Json(listdetallerutinaMdl, JsonRequestBehavior.AllowGet);
         }
 
     }

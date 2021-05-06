@@ -7,7 +7,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/bundles/datatablescss")
-    @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/fontawesome")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
@@ -54,6 +53,11 @@
                 <li class="nav-item">
                     <a class="navbar-brand" href="@Url.Action("AdminEstatusWeb", "AdministracionWebHome", null, null)">
                         <span class="menu-collapsed text-white">Estatus</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="@Url.Action("LoginWeb", "LoginWeb", null, null)">
+                        <span class="menu-collapsed text-white">Salir</span>
                     </a>
                 </li>
             </ul>
