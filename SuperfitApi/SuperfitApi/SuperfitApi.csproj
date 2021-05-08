@@ -170,6 +170,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Autetication\Validation.cs" />
     <Compile Include="Controllers\AdministracionWeb\AdministracionWebHomeController.cs" />
     <Compile Include="Controllers\Catalogos\CatalogoController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Models\EstatusModel.cs" />
     <Compile Include="Models\MensualidadModel.cs" />
     <Compile Include="Models\MesesModel.cs" />
+    <Compile Include="Models\RegistroCliente.cs" />
     <Compile Include="Models\RutinasModel.cs" />
     <Compile Include="Models\TipoentrenamientoModel.cs" />
     <Compile Include="Models\TiporutinaModel.cs" />
@@ -749,9 +751,11 @@
     <Content Include="Views\AdministracionWebHome\AdminMensualidadWeb.cshtml" />
     <Content Include="Views\AdministracionWebHome\AdminAsesoriaantropometriaWeb.cshtml" />
     <Content Include="Views\AdministracionWebHome\ClienteDetalle.cshtml" />
+    <Content Include="Views\LoginWeb\RegistrarCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Imagenes\Clientes\" />
     <Folder Include="Imagenes\Definicion\" />
     <Folder Include="Imagenes\Volumen\" />
     <Folder Include="Views\Catalogo\" />

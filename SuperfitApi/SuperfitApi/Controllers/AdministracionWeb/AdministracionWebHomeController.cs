@@ -6,10 +6,11 @@ using SuperfitApi.Models.Entity;
 using SuperfitApi.Models;
 using System.Web.Mvc;
 using System.IO;
-using System.Drawing;
+using SuperfitApi.Autetication;
 
 namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 {
+    [Validation]
     public class AdministracionWebHomeController : Controller
     {
         #region Variables
@@ -39,12 +40,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public AntropometriaModel antropometriaMdl;
         public RutinasModel rutinasMdl;
         public DetallerutinaModel detallerutinaMdl;
-        
+
 
         //listas 
         public List<ClientesModel> listclientesMdl;
         public List<MensualidadModel> listmensualidadMdl;
-        public List<TiporutinaModel> listtiporutinaMdl;        
+        public List<TiporutinaModel> listtiporutinaMdl;
         public List<TipoentrenamientoModel> listtipoentrenamientoMdl;
         public List<EjerciciosModel> listejerciciosMdl;
         public List<EstatusModel> listestatusMdl;
@@ -106,9 +107,9 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             ViewBag.Mes = (from t in Db.Meses select new MesesModel() { Id_mes = t.Id_mes, Mes = t.Mes }).ToList();
             ViewBag.Estatus = (from t in Db.Estatus select new EstatusModel() { Id_estatus = t.Id_estatus, Descripcion = t.Descripcion }).ToList();
             ViewBag.TipoEntrenamiento = (from t in Db.Tipo_entrenamiento select new TipoentrenamientoModel() { Id_TipoEntrenamiento = t.Id_tipo_entrenamiento, Tipo_entrenamiento = t.Tipo_entrenamientos }).ToList();
-            ViewBag.Rutinas=(from t in Db.Rutinas select new RutinasModel() { Id_rutina = t.Id_rutina, Descripcion = t.Descripcion }).ToList();
-            ViewBag.Dias= (from t in Db.Dias select new DiasModel() { Id_dia = t.Id_dia, Dia = t.Dia }).ToList();
-            ViewBag.Ejercicios= (from t in Db.Ejercicios select new EjerciciosModel() { Id_ejercicio = t.Id_ejercicio, Ejercicio = t.Ejercicio }).ToList();
+            ViewBag.Rutinas = (from t in Db.Rutinas select new RutinasModel() { Id_rutina = t.Id_rutina, Descripcion = t.Descripcion }).ToList();
+            ViewBag.Dias = (from t in Db.Dias select new DiasModel() { Id_dia = t.Id_dia, Dia = t.Dia }).ToList();
+            ViewBag.Ejercicios = (from t in Db.Ejercicios select new EjerciciosModel() { Id_ejercicio = t.Id_ejercicio, Ejercicio = t.Ejercicio }).ToList();
         }
         #endregion
 
@@ -116,26 +117,26 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public ActionResult AdminClientesWeb()
         {
             listclientesMdl = (from l in Db.Clientes
-                                   select new ClientesModel()
-                                   {
-                                       Id_cliente = l.Id_cliente,
-                                       Clave_cliente = l.Clave_cliente,
-                                       Nombres = l.Nombres,
-                                       Apellido_paterno = l.Apellido_paterno,
-                                       Apellido_materno = l.Apellido_materno,
-                                       Apodo = l.Apodo,
-                                       Edad = l.Edad,
-                                       Telefono = (decimal)l.Telefono,
-                                       Correo_electronico = l.Correo_electronico,
-                                       Estado = l.Estado,
-                                       Contraseña = l.Contraseña,
-                                       Foto_perfil = l.Foto_perfil,
-                                       Sexo = l.Sexo
-                                   }).ToList();
+                               select new ClientesModel()
+                               {
+                                   Id_cliente = l.Id_cliente,
+                                   Clave_cliente = l.Clave_cliente,
+                                   Nombres = l.Nombres,
+                                   Apellido_paterno = l.Apellido_paterno,
+                                   Apellido_materno = l.Apellido_materno,
+                                   Apodo = l.Apodo,
+                                   Edad = l.Edad,
+                                   Telefono = (decimal)l.Telefono,
+                                   Correo_electronico = l.Correo_electronico,
+                                   Estado = l.Estado,
+                                   Contraseña = l.Contraseña,
+                                   Foto_perfil = l.Foto_perfil,
+                                   Sexo = l.Sexo
+                               }).ToList();
             GetList();
             return View(listclientesMdl);
         }
-        
+
         [HttpPost]
         public bool AgregarCliente(ClientesModel clientesModel)
         {
@@ -148,7 +149,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 string Clave = "";
                 Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_paterno.Substring(0, 3) +
                         clientesModel.Apellido_materno.Substring(0, 3);
-                string Name = clientesModel.Nombres +" "+ clientesModel.Apellido_paterno +" "+
+                string Name = clientesModel.Nombres + " " + clientesModel.Apellido_paterno + " " +
                         clientesModel.Apellido_materno;
                 Name = Name.Replace(" ", "_");
                 string fotoperfil = "Imagenes/Clientes/" + Name;
@@ -159,7 +160,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                     Apellido_paterno = clientesModel.Apellido_paterno,
                     Apellido_materno = clientesModel.Apellido_materno,
                     Edad = clientesModel.Edad,
-                    Telefono = clientesModel.Telefono == null  ? 0 : clientesModel.Telefono,
+                    Telefono = clientesModel.Telefono == null ? 0 : clientesModel.Telefono,
                     Correo_electronico = clientesModel.Correo_electronico == null ? "" : clientesModel.Correo_electronico,
                     Apodo = clientesModel.Apodo == null ? "" : clientesModel.Apodo,
                     Contraseña = clientesModel.Contraseña,
@@ -170,7 +171,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 Db.Clientes.Add(clientes);
                 if (Db.SaveChanges() == 1)
                 {
-                    result=  true;
+                    result = true;
                 }
                 else
                 {
@@ -211,16 +212,16 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         [HttpPost]
         public bool EditarCliente(ClientesModel clientesModel)
         {
-            clientes = Db.Clientes.Where(p => p.Id_cliente == clientesModel.Id_cliente).FirstOrDefault();                        
-            clientes.Nombres            = clientesModel.Nombres;
-            clientes.Apellido_paterno   = clientesModel.Apellido_paterno;
-            clientes.Apellido_materno   = clientesModel.Apellido_materno;
-            clientes.Apodo              = clientesModel.Apodo == null ? "" : clientesModel.Apodo;
-            clientes.Edad               = clientesModel.Edad;
+            clientes = Db.Clientes.Where(p => p.Id_cliente == clientesModel.Id_cliente).FirstOrDefault();
+            clientes.Nombres = clientesModel.Nombres;
+            clientes.Apellido_paterno = clientesModel.Apellido_paterno;
+            clientes.Apellido_materno = clientesModel.Apellido_materno;
+            clientes.Apodo = clientesModel.Apodo == null ? "" : clientesModel.Apodo;
+            clientes.Edad = clientesModel.Edad;
             clientes.Telefono = clientesModel.Telefono == null ? 0 : clientesModel.Telefono;
-            clientes.Correo_electronico = clientesModel.Correo_electronico == null ? "" : clientesModel.Correo_electronico;            
-            clientes.Contraseña         = clientesModel.Contraseña;            
-            clientes.Sexo               = clientesModel.Sexo;            
+            clientes.Correo_electronico = clientesModel.Correo_electronico == null ? "" : clientesModel.Correo_electronico;
+            clientes.Contraseña = clientesModel.Contraseña;
+            clientes.Sexo = clientesModel.Sexo;
             if (Db.SaveChanges() == 1)
             {
                 return true;
@@ -228,7 +229,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             else
             {
                 return false;
-            }            
+            }
         }
 
         //Detalle Cliente
@@ -237,6 +238,72 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             GetList();
             ViewBag.idcliente = Id_cliente;
             return View();
+        }
+
+        [HttpPost]
+        public bool UpImagenCliente(string Tipo, HttpPostedFileBase Imagen)
+        {
+            string Clave_ejercicio = TempData["Clave_ejercicio"].ToString();
+            bool result = false;
+            ejercicios = Db.Ejercicios.Where(y => y.Clave_ejercicio == Clave_ejercicio).FirstOrDefault();
+            if (Imagen == null)
+            {
+                return true;
+            }
+            if (Tipo == "Definicion")
+            {
+                ejercicios.Ubicacion_imagen = "/Imagenes/Definicion/" + Imagen.FileName.ToString();
+                if (Db.SaveChanges() == 1)
+                {
+                    Imagen.SaveAs(Server.MapPath("~/Imagenes/Definicion/" + Imagen.FileName.ToString()));
+                    result = true;
+                }
+
+            }
+            if (Tipo == "Volumen")
+            {
+                ejercicios.Ubicacion_imagen = "/Imagenes/Volumen/" + Imagen.FileName.ToString();
+                if (Db.SaveChanges() == 1)
+                {
+                    Imagen.SaveAs(Server.MapPath("~/Imagenes/Volumen/" + Imagen.FileName.ToString()));
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        [HttpPost]
+        public bool UpImagenActualizarCliente(string Tipo, HttpPostedFileBase Imagen)
+        {
+            string Clave_ejercicio = TempData["Clave_ejercicio"].ToString();
+            bool result = false;
+            ejercicios = Db.Ejercicios.Where(y => y.Clave_ejercicio == Clave_ejercicio).FirstOrDefault();
+            if (Imagen == null)
+            {
+                return true;
+            }
+            var file = Path.Combine(HttpContext.Server.MapPath("~" + ejercicios.Ubicacion_imagen));
+            System.IO.File.Delete(file);
+            if (Tipo == "Definicion")
+            {
+                ejercicios.Ubicacion_imagen = "/Imagenes/Definicion/" + Imagen.FileName.ToString();
+                if (Db.SaveChanges() == 1)
+                {
+                    Imagen.SaveAs(Server.MapPath("~/Imagenes/Definicion/" + Imagen.FileName.ToString()));
+                    result = true;
+                }
+
+            }
+            if (Tipo == "Volumen")
+            {
+                ejercicios.Ubicacion_imagen = "/Imagenes/Volumen/" + Imagen.FileName.ToString();
+                if (Db.SaveChanges() == 1)
+                {
+                    Imagen.SaveAs(Server.MapPath("~/Imagenes/Volumen/" + Imagen.FileName.ToString()));
+                    result = true;
+                }
+            }
+            return result;
         }
         #endregion
 
@@ -248,16 +315,16 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public ActionResult AdminTiporutinaWeb()
         {
             listtiporutinaMdl = (from l in Db.Tipo_rutina
-                                select new TiporutinaModel()
-                                {
-                                    Id_tiporutina = l.Id_tipo_rutina ,
-                                    Descripcion = l.Descripcion,
-                                    Tipo = l.Tipo,
-                                }).ToList();
+                                 select new TiporutinaModel()
+                                 {
+                                     Id_tiporutina = l.Id_tipo_rutina,
+                                     Descripcion = l.Descripcion,
+                                     Tipo = l.Tipo,
+                                 }).ToList();
 
             return View(listtiporutinaMdl);
         }
-        
+
         [HttpPost]
         public bool AgregarTiporutina(TiporutinaModel tiporutinaModel)
         {
@@ -265,7 +332,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             tipo_Rutina = new Tipo_rutina
             {
                 Descripcion = tiporutinaModel.Descripcion,
-                Tipo = tiporutinaModel.Tipo,                
+                Tipo = tiporutinaModel.Tipo,
             };
             Db.Tipo_rutina.Add(tipo_Rutina);
             if (Db.SaveChanges() == 1)
@@ -279,13 +346,13 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public JsonResult EditarTiporutina(int Id_tipo_rutina)
         {
             tiporutinaMdl = (from t in Db.Tipo_rutina
-                           where t.Id_tipo_rutina == Id_tipo_rutina
+                             where t.Id_tipo_rutina == Id_tipo_rutina
                              select new TiporutinaModel()
-                           {
-                               Id_tiporutina =t.Id_tipo_rutina,
-                               Descripcion = t.Descripcion,
-                               Tipo = t.Tipo
-                            }).FirstOrDefault();
+                             {
+                                 Id_tiporutina = t.Id_tipo_rutina,
+                                 Descripcion = t.Descripcion,
+                                 Tipo = t.Tipo
+                             }).FirstOrDefault();
 
             return Json(tiporutinaMdl, JsonRequestBehavior.AllowGet);
         }
@@ -305,7 +372,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             else
             {
                 return false;
-            }            
+            }
         }
         #endregion
 
@@ -313,12 +380,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public ActionResult AdminTipoentrenamientoWeb()
         {
             listtipoentrenamientoMdl = (from l in Db.Tipo_entrenamiento
-                                 select new TipoentrenamientoModel ()
-                                 {
-                                     Id_TipoEntrenamiento = l.Id_tipo_entrenamiento,
-                                     Clave_Entrenamiento = l.Clave_entrenamiento,
-                                     Tipo_entrenamiento = l.Tipo_entrenamientos
-                                 }).ToList();
+                                        select new TipoentrenamientoModel()
+                                        {
+                                            Id_TipoEntrenamiento = l.Id_tipo_entrenamiento,
+                                            Clave_Entrenamiento = l.Clave_entrenamiento,
+                                            Tipo_entrenamiento = l.Tipo_entrenamientos
+                                        }).ToList();
 
             return View(listtipoentrenamientoMdl);
         }
@@ -328,7 +395,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         {
             bool result = false;
             tipo_Entrenamiento = new Tipo_entrenamiento
-            {                
+            {
                 Clave_entrenamiento = tipoentrenamientoModel.Clave_Entrenamiento,
                 Tipo_entrenamientos = tipoentrenamientoModel.Tipo_entrenamiento,
             };
@@ -344,13 +411,13 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public JsonResult EditarTipoentrenamiento(int Id_tipo_entrenamiento)
         {
             tipoentrenamientoMdl = (from l in Db.Tipo_entrenamiento
-                             where l.Id_tipo_entrenamiento == Id_tipo_entrenamiento
-                             select new TipoentrenamientoModel()
-                             {
-                                 Id_TipoEntrenamiento = l.Id_tipo_entrenamiento,
-                                 Clave_Entrenamiento = l.Clave_entrenamiento,
-                                 Tipo_entrenamiento = l.Tipo_entrenamientos
-                             }).FirstOrDefault();
+                                    where l.Id_tipo_entrenamiento == Id_tipo_entrenamiento
+                                    select new TipoentrenamientoModel()
+                                    {
+                                        Id_TipoEntrenamiento = l.Id_tipo_entrenamiento,
+                                        Clave_Entrenamiento = l.Clave_entrenamiento,
+                                        Tipo_entrenamiento = l.Tipo_entrenamientos
+                                    }).FirstOrDefault();
 
             return Json(tipoentrenamientoMdl, JsonRequestBehavior.AllowGet);
         }
@@ -358,8 +425,8 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         [HttpPost]
         public bool EditarTipoentrenamiento(TipoentrenamientoModel tipoentrenamientoModel)
         {
-            tipo_Entrenamiento = Db.Tipo_entrenamiento.Where(t => t.Id_tipo_entrenamiento == tipoentrenamientoModel.Id_TipoEntrenamiento).FirstOrDefault();            
-            if(tipo_Entrenamiento==null)
+            tipo_Entrenamiento = Db.Tipo_entrenamiento.Where(t => t.Id_tipo_entrenamiento == tipoentrenamientoModel.Id_TipoEntrenamiento).FirstOrDefault();
+            if (tipo_Entrenamiento == null)
             {
                 return true;
             }
@@ -381,12 +448,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public ActionResult AdminRutinasWeb()
         {
             listrutinasMdl = (from l in Db.Rutinas
-                                 select new RutinasModel()
-                                 {
-                                     Id_rutina = l.Id_rutina,
-                                     Clave_rutina = l.Clave_rutina,
-                                     Descripcion = l.Descripcion,
-                                 }).ToList();
+                              select new RutinasModel()
+                              {
+                                  Id_rutina = l.Id_rutina,
+                                  Clave_rutina = l.Clave_rutina,
+                                  Descripcion = l.Descripcion,
+                              }).ToList();
 
             return View(listrutinasMdl);
         }
@@ -394,7 +461,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         [HttpPost]
         public bool AgregarRutinas(RutinasModel rutinasModel)
         {
-            bool result = false;            
+            bool result = false;
             rutina = new Rutina
             {
                 Clave_rutina = rutinasModel.Clave_rutina,
@@ -412,13 +479,13 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public JsonResult EditarRutinas(int Id_rutina)
         {
             rutinasMdl = (from l in Db.Rutinas
-                             where l.Id_rutina == Id_rutina
-                             select new RutinasModel()
-                             {
-                                 Id_rutina = l.Id_rutina,
-                                 Clave_rutina = l.Clave_rutina,
-                                 Descripcion = l.Descripcion
-                             }).FirstOrDefault();
+                          where l.Id_rutina == Id_rutina
+                          select new RutinasModel()
+                          {
+                              Id_rutina = l.Id_rutina,
+                              Clave_rutina = l.Clave_rutina,
+                              Descripcion = l.Descripcion
+                          }).FirstOrDefault();
 
             return Json(rutinasMdl, JsonRequestBehavior.AllowGet);
         }
@@ -446,7 +513,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public ActionResult AdminEjerciciosWeb()
         {
             listejerciciosMdl = (from l in Db.Ejercicios
-                                 select new EjerciciosModel ()
+                                 select new EjerciciosModel()
                                  {
                                      Id_ejercicio = l.Id_ejercicio,
                                      Clave_ejercicio = l.Clave_ejercicio,
@@ -454,7 +521,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                      Descripcion = l.Descripcion,
                                      Posicion = l.Posicion,
                                      Ubicacion_imagen = l.Ubicacion_imagen
-                                 }).ToList();                       
+                                 }).ToList();
 
             return View(listejerciciosMdl);
         }
@@ -484,7 +551,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             if (Db.SaveChanges() == 1)
             {
                 TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
-                result = true;               
+                result = true;
             }
 
             return result;
@@ -508,7 +575,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                     Imagen.SaveAs(Server.MapPath("~/Imagenes/Definicion/" + Imagen.FileName.ToString()));
                     result = true;
                 }
-                
+
             }
             if (Tipo == "Volumen")
             {
@@ -517,7 +584,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 {
                     Imagen.SaveAs(Server.MapPath("~/Imagenes/Volumen/" + Imagen.FileName.ToString()));
                     result = true;
-                }                   
+                }
             }
             return result;
         }
@@ -547,33 +614,40 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             {
                 TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
                 return true;
-            }            
+            }
 
             ejercicios = Db.Ejercicios.Where(t => t.Id_ejercicio == ejerciciosModel.Id_ejercicio).FirstOrDefault();
             var exercise = Db.Ejercicios.Where(t => t.Clave_ejercicio == ejerciciosModel.Clave_ejercicio).FirstOrDefault();
-            if (ejercicios.Id_ejercicio != exercise.Id_ejercicio)
+            if (exercise != null)
             {
-                return false;
+                if (ejercicios.Id_ejercicio != exercise.Id_ejercicio)
+                {
+                    return false;
+                }
+                else
+                {
+                    ejercicios.Clave_ejercicio = ejerciciosModel.Clave_ejercicio;
+                    ejercicios.Ejercicio = ejerciciosModel.Ejercicio;
+                    ejercicios.Descripcion = ejerciciosModel.Descripcion;
+                    ejercicios.Posicion = ejerciciosModel.Posicion;
+                    Db.SaveChanges();
+                    TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
+                    return true;
+                    //if (Db.SaveChanges() == 1)
+                    //{
+
+                    //}
+                    //else
+                    //{
+                    //    TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
+                    //    return false;
+                    //}
+                }
             }
             else
             {
-                ejercicios.Clave_ejercicio = ejerciciosModel.Clave_ejercicio;
-                ejercicios.Ejercicio = ejerciciosModel.Ejercicio;
-                ejercicios.Descripcion = ejerciciosModel.Descripcion;
-                ejercicios.Posicion = ejerciciosModel.Posicion;
-                Db.SaveChanges();
-                TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
-                return true;
-                //if (Db.SaveChanges() == 1)
-                //{
-                   
-                //}
-                //else
-                //{
-                //    TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
-                //    return false;
-                //}
-            }
+                return false;
+            }            
             return result;            
         }
 
@@ -1243,5 +1317,19 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
         }
         #endregion
+
+        //cerrar sesion
+        public ActionResult OutWeb()
+        {
+            try
+            {
+                Session["sesion"] = null;
+                return RedirectToAction("LoginWeb", "LoginWeb");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Shared", new { Error = ex.Message });
+            }
+        }
     }
 }

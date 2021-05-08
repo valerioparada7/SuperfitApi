@@ -7,10 +7,10 @@
 
 <div id="content">
     <div class="container-fluid">
-        <h3><i class="fa fa-address-book"></i> Tipo rutina </h3>
+        <h3 class="letracolor"><i class="fa fa-address-book"></i> Tipo rutina </h3>
         <hr id="line" />
         <span class="float-right" style="margin-top:-65px">
-            <button type="button" class="btn btn-primary" onclick="Ver()">Nueva tipo rutina</button>
+            <button type="button" class="color btn btn-primary" onclick="Ver()">Nueva tipo rutina</button>
         </span>
         <br />
         <div class="table-responsive">
@@ -28,7 +28,7 @@
                     {
                         <tr>
                             <td>@item.Id_tiporutina</td>
-                            <td><button type="button" class="btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_tiporutina)"></button></td>
+                            <td><button type="button" class="color btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_tiporutina)"></button></td>
                             <td>@item.Tipo </td>
                             <td>@item.Descripcion</td>
                         </tr>
@@ -77,8 +77,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Tipo rutina</h3>
-                <h5></h5>
+                <h3 class="modal-title" id="exampleModalLongTitle">Tipo rutina</h3>                
                 <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

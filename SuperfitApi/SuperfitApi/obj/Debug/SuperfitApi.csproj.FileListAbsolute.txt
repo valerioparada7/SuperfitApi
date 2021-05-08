@@ -200,8 +200,6 @@ C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\bin\FontAw
 C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\bin\FontAwesome5.Net.dll
 C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\bin\FontAwesome5.xml
 C:\Users\GMHS1\Documents\ReposApi\SuperfitApi\SuperfitApi\SuperfitApi\bin\FontAwesome5.Net.xml
-C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.csprojAssemblyReference.cache
-C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.csproj.CoreCompileInputs.cache
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\SuperfitApi.dll.config
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\SuperfitApi.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\SuperfitApi.pdb
@@ -300,6 +298,8 @@ C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\Super
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\es\System.Web.WebPages.resources.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.csproj.CoreCompileInputs.cache
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.csproj.CopyComplete
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.pdb
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.csprojAssemblyReference.cache

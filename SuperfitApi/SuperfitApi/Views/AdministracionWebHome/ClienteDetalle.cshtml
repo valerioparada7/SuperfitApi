@@ -5,13 +5,13 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Perfil Cliente</title>
+    <title>Perfil Cliente</title>    
 </head>
 <body>
     <div id="content">
         <div class="container-fluid">
             <div id="Cliente">
-                <h3>Cliente</h3>
+                <h3 class="letracolor">Cliente</h3 class="letracolor">
                 <div class="container">
                     <input id="idcliente" style="display:none" />
                     <div class="row">
@@ -63,26 +63,23 @@
             <hr />
             <br />
             <div id="Cuestionario">
-                <h3>Cuestionario</h3>                
+                <h3 class="letracolor">Cuestionario</h3 class="letracolor">   
+                <h6>Marque la casilla en caso de que sea si para cada pregunta</h6>
+                <br />
+                <hr />
                 <div class="container">
-                    <h3 id="nameClienteDetalle"></h3>
+                    <h3 class="letracolor" id="nameClienteDetalle"></h3 class="letracolor">
                     <input id="idclientecuestionario" style="display:none" />
                     <input id="idcuestionario" style="display:none" />
                     <div class="row">
                         <div class="col">
-                            <label>¿Padece alguna enfermedad?</label>
-                            <input type="checkbox" class="form-check-input" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()" />
-                            <Label class="form-check-label pt-1" for="Padece_enfermedadChk">
-                                ¿Si?
-                            </Label>
+                            <label>¿Padece alguna enfermedad?</label>                                                 
+                            <input type="checkbox" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()">                                                      
                             <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="style.borderColor='gray'" style="display:none" />
                         </div>
                         <div class="col">
                             <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
-                            <input type="checkbox" class="form-check-input" id="lesionesChk" onchange="lesionesChk()" />
-                            <Label class="form-check-label pt-1" for="lesionesChk">
-                                ¿Si?
-                            </Label>
+                            <input type="checkbox" id="lesionesChk" onchange="lesionesChk()" />
                             <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="style.borderColor='gray'" style="display:none" />
                         </div>
                     </div>
@@ -90,18 +87,12 @@
                     <div class="row">
                         <div class="col">
                             <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
-                            <input type="checkbox" class="form-check-input" id="AlcoholChk" onchange="AlcoholChk()" />
-                            <Label class="form-check-label pt-1" for="AlcoholChk">
-                                ¿Si?
-                            </Label>
+                            <input type="checkbox" id="AlcoholChk" onchange="AlcoholChk()" />
                             <input type="number" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="style.borderColor='gray'" style="display:none" />
                         </div>
                         <div class="col">
                             <label>¿Acostumbra a Fumar?</label>
-                            <input type="checkbox" class="form-check-input" id="FumaChk" onchange="FumaChk()" />
-                            <Label class="form-check-label pt-1" for="FumaChk">
-                                ¿Si?
-                            </Label>
+                            <input type="checkbox" id="FumaChk" onchange="FumaChk()" />
                             <input type="number" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="style.borderColor='gray'" style="display:none" />
                         </div>
                     </div>
@@ -109,10 +100,7 @@
                     <div class="row">
                         <div class="col">
                             <label>¿Actualmente realizas alguna actividad física?</label>
-                            <input type="checkbox" class="form-check-input" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
-                            <Label class="form-check-label pt-1" for="Actividad_fisicaChk">
-                                ¿Si?
-                            </Label>
+                            <input type="checkbox" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
                         </div>
                     </div>
                     <br />
@@ -168,7 +156,7 @@
             </div>
             <hr />
             <div id="mensualidad">
-                <h3>Mensualidades</h3>                
+                <h3 class="letracolor">Mensualidades</h3 class="letracolor">                
                 <div class="container" style="overflow-y:auto;height:500px">
                     <div class="row">
                         <div class="col">
@@ -181,7 +169,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Medidas/Detalle rutina</th>
+                                    <th>Medidas</th>
+                                    <th>Detalle rutina</th>
                                     <th>Tipo rutina</th>
                                     <th>Mes</th>
                                     <th>Estatus</th>
@@ -204,15 +193,15 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Mensualidad</h3>
+                <h3 class="letracolor" class="modal-title" id="exampleModalLongTitle">Mensualidad</h3 class="letracolor">
                 <h5></h5>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <h3 id="nameCliente"></h3>
+                    <h3 class="letracolor" id="nameCliente"></h3 class="letracolor">
                     <input id="idclienteMensualidad" style="display:none" />
                     <br />
                     <div class="row">
@@ -246,8 +235,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="GuardarMensualidad()">Guardar</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="GuardarMensualidad()">Guardar</button>
             </div>
         </div>
     </div>
@@ -258,15 +247,15 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Medidas</h3>
+                <h3 class="letracolor" class="modal-title" id="exampleModalLongTitle">Medidas</h3 class="letracolor">
                 <h5></h5>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="container" style="overflow-y:auto;height:500px">
-                    <h3 id="nameClienteDetalle"></h3>
+                    <h3 class="letracolor" id="nameClienteDetalle"></h3 class="letracolor">
                     <input id="idMensualidadMedidas" style="display:none" />
                     <input id="idMMedidas" style="display:none" />
                     <div>
@@ -358,8 +347,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="GuardarMedidas()">Guardar</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="GuardarMedidas()">Guardar</button>
             </div>
         </div>
     </div>
@@ -370,9 +359,9 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
+                <h3 class="letracolor" class="modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3 class="letracolor">
                 <h5></h5>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -455,8 +444,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
             </div>
         </div>
     </div>
@@ -715,8 +704,8 @@
                     var html = '';
                     html += '<tr id="fila' + i + '">';
                     html += '<td>' + sum + '</td>';
-                    html += '<td><button type="button" class="btn btn-success" onclick="MensualidadDetalle(' + data[i].Id_mensualidad + ')">Rutina</button>';
-                    html += '<button type="button" class="btn btn-success" onclick="VerMedidas(' + data[i].Id_mensualidad + ')">Medidas</button></td>';
+                    html += '<td><button type="button" class="btn btn-success" onclick="MensualidadDetalle(' + data[i].Id_mensualidad + ')">Rutina</button></td>';
+                    html += '<td><button type="button" class="btn btn-success" onclick="VerMedidas(' + data[i].Id_mensualidad + ')">Medidas</button></td>';
                     html += '<td>' + Tiporutina.Tipo + '</td>';
                     html += '<td>'+Mes.Mes+'</td>';
                     html += '<td>' + Estatus.Descripcion +'</td>';
@@ -831,10 +820,7 @@
         parametros.Piernaderecho = $("#Pierna_derecho").val();
         parametros.Pantorrilladerecha = $("#Pantorrilla_derecha").val();
         parametros.Pantorrillaizquierda = $("#Pantorrilla_izquierda").val();
-        parametros.Mensualidad = Mensualidad;
-        //Foto_frontal
-        //Foto_perfil
-        //Foto_posterior
+        parametros.Mensualidad = Mensualidad;        
         if (id != 0) {
             urlmedidas = '@Url.Action("EditarAsesoriaantropometria", "AdministracionWebHome")';
             parametros.Id = id;
@@ -886,7 +872,7 @@
                         html += '<td> <label id="idserie' + c + '">' + data[i].Series + '</label></td> ';
                         html += '<td> <label id="idrepeticion' + c + '">' + data[i].Repeticiones + '</label></td> ';
                         html += '<td> <label id="idset' + c + '">' + data[i].Tipo_set + '</label></td> ';
-                        html += '<td><button type="button" class="btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
+                        html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
                         html += '</tr>';
                         $('#ListaEjercicios tbody').append(html);
                         c++;
@@ -955,7 +941,7 @@
                     html += '<td> <label id="idserie' + c + '">' + $('#Series').val() + '</label></td> ';
                     html += '<td> <label id="idrepeticion' + c + '">' + $('#Repeticiones').val() + '</label></td> ';
                     html += '<td> <label id="idset' + c + '">' + $('#Set').val() + '</label></td> ';
-                    html += '<td><button type="button" class="btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
+                    html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
                     html += '</tr>';
                     $('#ListaEjercicios tbody').append(html);
                     document.getElementById("Set").value = "";

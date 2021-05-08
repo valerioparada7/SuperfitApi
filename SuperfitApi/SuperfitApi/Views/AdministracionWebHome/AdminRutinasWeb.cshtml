@@ -7,10 +7,10 @@
 
 <div id="content">
     <div class="container-fluid">
-        <h3><i class="fa fa-address-book"></i> Rutinas </h3>
+        <h3 class="letracolor"><i class="fa fa-address-book"></i> Rutinas </h3>
         <hr id="line" />
         <span class="float-right" style="margin-top:-65px">
-            <button type="button" class="btn btn-primary" onclick="Ver()">Nuevo Rutina</button>
+            <button type="button" class="color btn btn-primary" onclick="Ver()">Nuevo Rutina</button>
         </span>
         <br />
         <div class="table-responsive">
@@ -28,7 +28,7 @@
                     {
                         <tr>
                             <td>@item.Id_rutina</td>
-                            <td><button type="button" class="btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_rutina)"></button></td>
+                            <td><button type="button" class="color btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_rutina)"></button></td>
                             <td>@item.Clave_rutina</td>
                             <td>@item.Descripcion</td>
                         </tr>

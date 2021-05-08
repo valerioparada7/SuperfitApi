@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using SuperfitApi.Models.Entity;
 using SuperfitApi.Models;
+using SuperfitApi.Autetication;
 
 namespace SuperfitApi.Controllers
 {
+    [Validation]
     public class ClientesWebController : Controller
     {
         #region Variables 
@@ -130,6 +132,7 @@ namespace SuperfitApi.Controllers
                     mensualidadMdl.Fechafin = "Sin fecha asignada";
                     mensualidadMdl.Fechainicio = "Sin fecha asignada";
                 }
+                string fto = mensualidadMdl.Cliente.Foto_perfil;
                 ViewBag.Mes = mensualidadMdl;
                 return View();
             }

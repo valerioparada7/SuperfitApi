@@ -1,0 +1,875 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Registro</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/datatablescss")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fontawesome")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/popper")
+    @Scripts.Render("~/bundles/chart")
+    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+    <style>
+        .color {
+            background-color: #007bff;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+
+        h3 {
+            color: #007bff;
+        }
+
+        .navegadorbtn {
+            color: white;
+            background-color: #007bff;
+            width: 100px;
+        }
+
+        #Datospersonales {
+            margin-top: 10px;
+        }
+
+        #Cuestionario {
+            margin-top: 10px;
+        }
+
+        #Mensualidad {
+            margin-top: 200px;
+            height: 300px;
+        }
+
+        #Medidas {
+            margin-top: 10px;            
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align:left;margin-left:50px;margin-top:10px;">
+        <button type="button" style="color:red" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">Salir</button>
+    </div>
+    <div class="d-flex justify-content-center h-100">
+        <div class="container">
+            <div class="navegador" style="text-align:center">
+                <div id="Datospersonales">
+                    <div style="text-align:center;">
+                        <h3>
+                            Datos personales
+                        </h3>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="text" class="form-control" id="IdNombre" placeholder="Nombre(s)" onkeypress="style.borderColor='gray';return soloLetras(event)" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="text" class="form-control" id="IdApeP" placeholder="Apellido paterno" onkeypress="style.borderColor='gray';return soloLetras(event)" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="text" class="form-control" id="IdApeM" placeholder="Apellido materno" onkeypress="style.borderColor='gray';return soloLetras(event)" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="text" class="form-control" id="IdApodo" placeholder="Alias" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="text" class="form-control" id="IdEdad" placeholder="Edad" maxlength="2" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="text" class="form-control" id="IdTelefono" placeholder="Celular" maxlength="10" onkeypress="style.borderColor='gray';" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="email" class="form-control" id="IdCorreo" placeholder="Correo elctronico" onkeypress="style.borderColor='gray';"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="password" class="form-control" id="IdContraseña" placeholder="Contraseña" onkeypress="style.borderColor='gray';" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <select class="form-control" id="IdSexo" name="Sexo">
+                                    <option value="Mujer">Mujer</option>
+                                    <option value="Hombre">Hombre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            
+                        </div>
+                        <div class="row">                            
+                            <div class="col-md-6 offset-md-3">
+                                <label>Seleccione foto de perfil</label>
+                                <input value="Foto perfil" title="Foto perfil" type="file" data-maxsize="4200000" id="Foto_cliente_perfil" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Cuestionario" style="display:none">
+                    <div class="container" style="text-align:center">
+                        <h3>Cuestionario</h3>
+                        <h6>Marque la casilla en caso de que sea si para cada pregunta</h6>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <label>¿Padece alguna enfermedad?</label>
+                                <input type="checkbox" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()">
+                                <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="" style="display:none" />
+                            </div>
+                            <div class="col-md-6 offset-md-3">
+                                <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
+                                <input type="checkbox" id="lesionesChk" onchange="lesionesChk()" />
+                                <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="" style="display:none" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
+                                <input type="checkbox" id="AlcoholChk" onchange="AlcoholChk()" />
+                                <input type="number" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="" style="display:none" />
+                            </div>
+                            <div class="col-md-6 offset-md-3">
+                                <label>¿Acostumbra a Fumar?</label>
+                                <input type="checkbox" id="FumaChk" onchange="FumaChk()" />
+                                <input type="number" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="" style="display:none" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <label>¿Actualmente realizas alguna actividad física?</label>
+                                <input type="checkbox" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
+                            </div>
+                        </div>
+
+                        <div id="cuestionarioTime" style="display:none">
+                            <div class="row">
+                                <div class="col-md-6 offset-md-3">
+                                    <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>
+                                    <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="" />
+                                </div>
+                                <div class="col-md-6 offset-md-3">
+                                    <label>¿Cuánto tiempo llevas realizando dicha actividad de manera constante?</label>
+                                    <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="" />
+                                </div>
+                                <div class="col-md-6 offset-md-3">
+                                    <label>¿En qué horario entrenas?</label>
+                                    <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <label>¿Cuáles son tus metas u objetivos para lograr?</label>
+                                <input type="text" class="form-control" id="MetasObjetivosTxt" placeholder="Ej: mejorar condicion... aumentar masa muscular" onkeypress="" />
+                            </div>
+                            <div class="col-md-6 offset-md-3">
+                                <label>¿Qué compromiso tienes contigo mismo?</label>
+                                <input type="text" class="form-control" id="CompromisosTxt" placeholder="Ej: Ser diciplinado... constante" onkeypress="" />
+                            </div>
+                            <div class="col-md-6 offset-md-3">
+                                <label>¿Algún comentario adicional, antes de poder seguir y comenzar?</label>
+                                <input type="text" class="form-control" id="ComentariosTxt" placeholder="..." onkeypress="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Mensualidad" style="display:none">
+                    <div class="container" style="text-align:center">
+                        <h3>Mensualidad</h3>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <h6>Tipo rutina</h6>
+                                <select class="form-control" id="Tiporutina">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <h6>Tipo entrenamiento</h6>
+                                <select class="form-control" id="Tipoentrenamientolist">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Medidas" style="display:none">
+                    <div class="container" style="overflow-y:auto;height:500px;text-align:center;">
+                        <h3>Medidas</h3>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control" onkeypress="style.borderColor = 'gray'; ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="text" id="IMC" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Cintura" placeholder="Cintura" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Cadera" placeholder="Cadera" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" onkeypress="style.borderColor='gray';ValidarMedidas();" onblur="ValidarMedidas()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <label>Foto frontal</label>
+                                <input type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <label>Foto perfil</label>
+                                <input type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <label>Foto posterior</label>
+                                <input type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div class="flechas">
+                <div class="row">
+                    <div class="izquierda" style="text-align:left;flex:1;margin-left: 30px;">
+                        <button id="izq" type="button" class="navegadorbtn btn btn-dark" style="display:none" onclick="Atras()">Atras</button>
+                    </div>
+                    <div class="derecha" style="text-align:right;margin-right: 30px;">
+                        <button id="der" type="button" class="navegadorbtn btn btn-dark" style="display:block" onclick="Siguiente()">Siguiente</button>
+                        <button id="btnregistro" type="button" class="btn btn-success" onclick="GuardarRegistro()" style="visibility:hidden">Guardar Registro</button>
+                    </div>
+                </div>
+            </div>
+            <footer style="margin-top:100px">
+                <hr />
+                <p>&copy; @DateTime.Now.Year - Software's Valerio Parada</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Desea salir</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Seguro que quiere salir perdera todo su progreso
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="color btn btn-primary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="Salir()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Respuesta -->
+    <div class="modal fade" id="ModalRespuesta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Superfit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="MensajeAlerta">
+                    </h5>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="color btn btn-primary" data-dismiss="modal">Ok</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            CargarCombos();
+            ValidarMedidas();
+        });
+        var pagactual = 1;
+        /*Navegar entre paginas*/
+        function Atras() {
+            var siguiente = pagactual;
+            if (siguiente > 1) {
+                siguiente--;
+                if (siguiente == 1) {
+                    document.getElementById("izq").style.display = "none";
+                    document.getElementById("Datospersonales").style.display = "block";
+                    document.getElementById("Cuestionario").style.display = "none";
+                }
+                else if (siguiente ==2) {
+                    document.getElementById("Cuestionario").style.display = "block";
+                    document.getElementById("Mensualidad").style.display = "none";
+                }
+                else {
+                    document.getElementById("der").style.display = "block";
+                    document.getElementById("Mensualidad").style.display = "block";
+                    document.getElementById("Medidas").style.display = "none";
+                }
+                pagactual = siguiente;
+            }
+
+        }
+
+        function Siguiente() {
+            var siguiente = pagactual;
+            if (siguiente < 4) {
+                siguiente++;
+                if (siguiente == 2) {
+                    var result = ValidarCliente();
+                    if (result == true) {
+                        document.getElementById("izq").style.display = "block";
+                        document.getElementById("Datospersonales").style.display = "none";
+                        document.getElementById("Cuestionario").style.display = "block";
+                    }
+                    else {
+                        siguiente--;
+                    }
+                }
+                else if (siguiente == 3) {
+                    document.getElementById("Cuestionario").style.display = "none";
+                    document.getElementById("Mensualidad").style.display = "block";
+                }
+                else {
+                        document.getElementById("der").style.display = "none";
+                        document.getElementById("Mensualidad").style.display = "none";
+                        document.getElementById("Medidas").style.display = "block";
+                }
+                pagactual = siguiente;
+            }
+
+        }
+
+        function Salir() {
+            window.location.href = '@Url.Action("LoginWeb", "LoginWeb")';
+        }
+
+        function GuardarRegistro() {
+            document.body.style.cursor = 'wait';
+            var urlregistro = '@Url.Action("RegistrarCliente", "LoginWeb")';
+            var urlup='@Url.Action("UpdateImagenes", "LoginWeb")';
+            var result = ValidarMedidas();            
+            if (result == true) {
+                var objeto = {};
+                var Cliente = {};
+                var Cuestionario = {};
+                var Mensualidad = {};
+                var Medidas = {};
+                var TipoEntrenamiento = {};
+                var Tiporutina = {};                
+                var formdata = new FormData();
+
+                //Cliente
+                Cliente.Nombres = $('#IdNombre').val().trim();
+                Cliente.Apellido_paterno = $('#IdApeP').val().trim();
+                Cliente.Apellido_materno = $('#IdApeM').val().trim();
+                Cliente.Apodo = $('#IdApodo').val().trim();
+                Cliente.Edad = $('#IdEdad').val();
+                Cliente.Telefono = $('#IdTelefono').val();
+                Cliente.Correo_electronico = $('#IdCorreo').val().trim();
+                Cliente.Contraseña = $('#IdContraseña').val().trim();
+                Cliente.Sexo = $('#IdSexo').val();
+
+                //Cuestionario
+                Cuestionario.Padece_enfermedad = document.getElementById("Padece_enfermedadChk").checked;
+                Cuestionario.Medicamento_prescrito_medico = $("#Medicamento_prescrito_medicoTxt").val();
+                Cuestionario.lesiones = document.getElementById("lesionesChk").checked;
+                Cuestionario.Alguna_recomendacion_lesiones = $("#Alguna_recomendacion_lesionesTxt").val();
+                Cuestionario.Fuma = document.getElementById("FumaChk").checked;
+                Cuestionario.Veces_semana_fuma = $("#Veces_semana_fumaTxt").val();
+                Cuestionario.Alcohol = document.getElementById("AlcoholChk").checked;
+                Cuestionario.Veces_semana_alcohol = $("#Veces_semana_alcoholTxt").val();
+                Cuestionario.Actividad_fisica = document.getElementById("Actividad_fisicaChk").checked;
+                Cuestionario.Tipo_ejercicios = $("#Tipo_ejerciciosTxt").val();
+                Cuestionario.Tiempo_dedicado = $("#Tiempo_dedicadoTxt").val();
+                Cuestionario.Horario_entreno = $("#Horario_entrenoTxt").val();
+                Cuestionario.MetasObjetivos = $("#MetasObjetivosTxt").val();
+                Cuestionario.Compromisos = $("#CompromisosTxt").val();
+                Cuestionario.Comentarios = $("#ComentariosTxt").val();
+
+                //Mensualidad
+                TipoEntrenamiento.Id_TipoEntrenamiento = $("#Tipoentrenamientolist").val();
+                Tiporutina.Id_tiporutina = $("#Tiporutina").val();
+                Mensualidad.TipoEntrenamiento = TipoEntrenamiento;
+                Mensualidad.Tiporutina = Tiporutina;
+
+                //Medidas
+                Medidas.Peso = $("#Peso").val();
+                Medidas.Altura = $("#Altura").val();
+                Medidas.IMC = $("#IMC").val();
+                Medidas.Brazoderechorelajado = $("#Brazo_derecho_relajado").val();
+                Medidas.Brazoderechofuerza = $("#Brazo_derecho_fuerza").val();
+                Medidas.Brazoizquierdorelajado = $("#Brazo_izquierdo_relajado").val();
+                Medidas.Brazoizquierdofuerza = $("#Brazo_izquierdo_fuerza").val();
+                Medidas.Cintura = $("#Cintura").val();
+                Medidas.Cadera = $("#Cadera").val();
+                Medidas.Piernaizquierda = $("#Pierna_izquierda").val();
+                Medidas.Piernaderecho = $("#Pierna_derecho").val();
+                Medidas.Pantorrilladerecha = $("#Pantorrilla_derecha").val();
+                Medidas.Pantorrillaizquierda = $("#Pantorrilla_izquierda").val();
+
+                objeto.Cliente = Cliente;
+                objeto.Cuestionario = Cuestionario;
+                objeto.Mensualidad = Mensualidad;
+                objeto.Medidas = Medidas;
+
+
+                //imagenes
+                var fotoperfil = $("#Foto_cliente_perfil")[0];
+                var fotofrontal = $("#Foto_frontal")[0];
+                var fotolateral = $("#Foto_perfil")[0];
+                var fotoposterior = $("#Foto_posterior")[0];
+                var imagen = fotoperfil.files[0];  
+                var imagen1 = fotofrontal.files[0];  
+                var imagen2 = fotolateral.files[0];  
+                var imagen3 = fotoposterior.files[0];  
+                formdata.append("fotoperfil", imagen);
+                formdata.append("fotofrontal", imagen1);
+                formdata.append("fotolateral", imagen2);
+                formdata.append("fotoposterior", imagen3);
+
+
+                $.ajax({
+                    type: "POST",
+                    url: urlregistro,
+                    data: objeto,
+                    success: function (data) {
+                        if (data == "True") {
+                            $.ajax({
+                                type: "POST",
+                                url: urlup,
+                                data: formdata,
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    if (data == "True") {
+                                        document.getElementById("MensajeAlerta").innerHTML = 'Registro exito,espera tu respuesta a tu correo o celular que proporcionaste';
+                                        $('#ModalRespuesta').modal('show');
+                                        setTimeout("afterFiveSeconds()", 5000);
+                                    }
+                                    else {
+                                        $('#ModalRespuesta').modal('show');
+                                        document.getElementById("MensajeAlerta").innerHTML = '@Session["Error"]';
+                                        alert("@Session["Error"]");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                    alert("Ocurrio un error verifique su conexion updateimagen");
+                                }
+                            });
+
+                            document.getElementById("MensajeAlerta").innerHTML = 'Registro exito,espera tu respuesta a tu correo o celular que proporcionaste';
+                            $('#ModalRespuesta').modal('show');
+                            setTimeout("afterFiveSeconds()", 5000);
+
+                        }
+                        else {
+                            $('#ModalRespuesta').modal('show');
+                            document.getElementById("MensajeAlerta").innerHTML = '@Session["Error"]';
+                            alert("@Session["Error"]");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                        alert("Ocurrio un error verifique su conexion");
+                    }
+                });
+            }
+            document.body.style.cursor = 'default';
+        }
+
+        function afterFiveSeconds() {
+            window.location.href = '@Url.Action("LoginWeb","LoginWeb")';
+        }
+
+        function soloLetras(e) {
+            key = e.keyCode || e.which;
+            tecla = String.fromCharCode(key).toLowerCase();
+            letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+            especiales = [8, 37, 39, 46];
+
+            tecla_especial = false
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            if (letras.indexOf(tecla) == -1 && !tecla_especial)
+                return false;
+        }
+
+        function ValidarCliente() {
+            var parametros = {};
+            parametros.Nombres = $('#IdNombre').val().trim();
+            parametros.Apellido_paterno = $('#IdApeP').val().trim();
+            parametros.Apellido_materno = $('#IdApeM').val().trim();
+            parametros.Apodo = $('#IdApodo').val().trim();
+            parametros.Edad = $('#IdEdad').val();
+            parametros.Telefono = $('#IdTelefono').val();
+            parametros.Correo_electronico = $('#IdCorreo').val().trim();
+            parametros.Contraseña = $('#IdContraseña').val().trim();
+            parametros.Sexo = $('#IdSexo').val();
+            if (parametros.Nombres != "") {
+                if (parametros.Nombres.length >= 3) {
+                    if (parametros.Apellido_paterno != "") {
+                        if (parametros.Apellido_paterno.length >= 3) {
+                            if (parametros.Apellido_materno != "") {
+                                if (parametros.Apellido_materno.length >= 3) {
+                                    if (parametros.Edad != "") {
+                                        if (parametros.Telefono != "" || parametros.Correo_electronico != "") {
+                                            if (parametros.Contraseña != "") {
+                                                return true;
+                                            }
+                                            else {
+                                                document.getElementById("IdContraseña").style.borderColor = "red";
+                                                return false;
+                                            }
+                                        }
+                                        else {
+                                            document.getElementById("IdCorreo").style.borderColor = "red";
+                                            document.getElementById("IdTelefono").style.borderColor = "red";
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("IdEdad").style.borderColor = "red";
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    document.getElementById("IdApeM").style.borderColor = "red";
+                                    return false;
+                                }
+                            }
+                            else {
+                                document.getElementById("IdApeM").style.borderColor = "red";
+                                return false;
+                            }
+                        }
+                        else {
+                            document.getElementById("IdApeP").style.borderColor = "red";
+                            return false;
+                        }
+                    }
+                    else {
+                        document.getElementById("IdApeP").style.borderColor = "red";
+                        return false;
+                    }
+                }
+                else {
+                    document.getElementById("IdNombre").style.borderColor = "red";
+                    return false;
+                }
+            }
+            else {
+                document.getElementById("IdNombre").style.borderColor = "red";
+                return false;
+            }
+        }
+
+        function ValidarMedidas() {
+            var parametros = {};
+            var Mensualidad = {};
+            Mensualidad.Id_mensualidad = $("#idMensualidadMedidas").val();
+            parametros.Peso = $("#Peso").val();
+            parametros.Altura = $("#Altura").val();
+            parametros.IMC = $("#IMC").val();
+            parametros.Brazoderechorelajado = $("#Brazo_derecho_relajado").val();
+            parametros.Brazoderechofuerza = $("#Brazo_derecho_fuerza").val();
+            parametros.Brazoizquierdorelajado = $("#Brazo_izquierdo_relajado").val();
+            parametros.Brazoizquierdofuerza = $("#Brazo_izquierdo_fuerza").val();
+            parametros.Cintura = $("#Cintura").val();
+            parametros.Cadera = $("#Cadera").val();
+            parametros.Piernaizquierda = $("#Pierna_izquierda").val();
+            parametros.Piernaderecho = $("#Pierna_derecho").val();
+            parametros.Pantorrilladerecha = $("#Pantorrilla_derecha").val();
+            parametros.Pantorrillaizquierda = $("#Pantorrilla_izquierda").val();
+            parametros.Mensualidad = Mensualidad;
+            if (parametros.Peso!="") {
+                if (parametros.Altura != "") {
+                    if (parametros.Brazoderechorelajado != "") {
+                        if (parametros.Brazoderechofuerza != "") {
+                            if (parametros.Brazoizquierdorelajado != "") {
+                                if (parametros.Brazoizquierdofuerza != "") {
+                                    if (parametros.Cintura != "") {
+                                        if (parametros.Cadera != "") {
+                                            if (parametros.Piernaizquierda != "") {
+                                                if (parametros.Piernaderecho != "") {
+                                                    if (parametros.Pantorrilladerecha != "") {
+                                                        if (parametros.Pantorrillaizquierda != "") {
+                                                            document.getElementById("btnregistro").style.visibility = "visible";
+                                                            return true;
+                                                        }
+                                                        else {
+                                                            document.getElementById("Pantorrilla_izquierda").style.borderColor = "red";
+                                                            document.getElementById("btnregistro").style.visibility = "hidden";
+                                                            return false;
+                                                        }
+                                                    }
+                                                    else {
+                                                        document.getElementById("Pantorrilla_derecha").style.borderColor = "red";
+                                                        document.getElementById("btnregistro").style.visibility = "hidden";
+                                                        return false;
+                                                    }
+                                                }
+                                                else {
+                                                    document.getElementById("Pierna_derecho").style.borderColor = "red";
+                                                    document.getElementById("btnregistro").style.visibility = "hidden";
+                                                    return false;
+                                                }
+                                            }
+                                            else {
+                                                document.getElementById("Pierna_izquierda").style.borderColor = "red";
+                                                document.getElementById("btnregistro").style.visibility = "hidden";
+                                                return false;
+                                            }
+                                        }
+                                        else {
+                                            document.getElementById("Cadera").style.borderColor = "red";
+                                            document.getElementById("btnregistro").style.visibility = "hidden";
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("Cintura").style.borderColor = "red";
+                                        document.getElementById("btnregistro").style.visibility = "hidden";
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    document.getElementById("Brazo_izquierdo_fuerza").style.borderColor = "red";
+                                    document.getElementById("btnregistro").style.visibility = "hidden";
+                                    return false;
+                                }
+                            }
+                            else {
+                                document.getElementById("Brazo_izquierdo_relajado").style.borderColor = "red";
+                                document.getElementById("btnregistro").style.visibility = "hidden";
+                                return false;
+                            }
+                        }
+                        else {
+                            document.getElementById("Brazo_derecho_fuerza").style.borderColor = "red";
+                            document.getElementById("btnregistro").style.visibility = "hidden";
+                            return false;
+                        }
+                    }
+                    else {
+                        document.getElementById("Brazo_derecho_relajado").style.borderColor = "red";
+                        document.getElementById("btnregistro").style.visibility = "hidden";
+                        return false;
+                    }
+                }
+                else {
+                    document.getElementById("Altura").style.borderColor = "red";
+                    document.getElementById("btnregistro").style.visibility = "hidden";
+                    return false;
+                }
+            }
+            else {
+                document.getElementById("Peso").style.borderColor = "red";
+                document.getElementById("btnregistro").style.visibility = "hidden";
+                return false;
+            }
+        }
+
+        /*Cuestionario*/
+        function Padece_enfermedadChk() {
+            var value = document.getElementById("Padece_enfermedadChk").checked;
+            if (value == true) {
+                document.getElementById("Medicamento_prescrito_medicoTxt").style.display = "block";
+            }
+            else {
+                document.getElementById("Medicamento_prescrito_medicoTxt").style.display = "none";
+                document.getElementById("Medicamento_prescrito_medicoTxt").value = "";
+            }
+
+        }
+        function lesionesChk() {
+            var value = document.getElementById("lesionesChk").checked;
+            if (value == true) {
+                document.getElementById("Alguna_recomendacion_lesionesTxt").style.display = "block";
+            }
+            else {
+                document.getElementById("Alguna_recomendacion_lesionesTxt").style.display = "none";
+                document.getElementById("Alguna_recomendacion_lesionesTxt").value = "";
+            }
+
+        }
+        function FumaChk() {
+            var value = document.getElementById("FumaChk").checked;
+            if (value == true) {
+                document.getElementById("Veces_semana_fumaTxt").style.display = "block";
+            }
+            else {
+                document.getElementById("Veces_semana_fumaTxt").style.display = "none";
+                document.getElementById("Veces_semana_fumaTxt").value = "";
+            }
+        }
+        function AlcoholChk() {
+            var value = document.getElementById("AlcoholChk").checked;
+            if (value == true) {
+                document.getElementById("Veces_semana_alcoholTxt").style.display = "block";
+            }
+            else {
+                document.getElementById("Veces_semana_alcoholTxt").style.display = "none";
+                document.getElementById("Veces_semana_alcoholTxt").value = "";
+            }
+        }
+        function Actividad_fisicaChk() {
+            var value = document.getElementById("Actividad_fisicaChk").checked;
+            if (value == true) {
+                document.getElementById("cuestionarioTime").style.display = "block";
+            }
+            else {
+                document.getElementById("cuestionarioTime").style.display = "none";
+                document.getElementById("Tipo_ejerciciosTxt").value = "";
+                document.getElementById("Tiempo_dedicadoTxt").value = "";
+                document.getElementById("Horario_entrenoTxt").value = "";
+            }
+        }
+
+        function CargarCombos() {
+        var listaTiporutina =  @Html.Raw(Json.Encode(ViewBag.Tiporutina));
+        var listaTipoEntrenamiento = @Html.Raw(Json.Encode(ViewBag.TipoEntrenamiento));
+        for (var i = 0; i<listaTiporutina.length; i++) {
+            $("#Tiporutina").append("<option value='" + listaTiporutina[i].Id_tiporutina + "'>" + listaTiporutina[i].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listaTipoEntrenamiento.length; l++) {
+            $("#Tipoentrenamientolist").append("<option value='" + listaTipoEntrenamiento[l].Id_TipoEntrenamiento + "'>" + listaTipoEntrenamiento[l].Tipo_entrenamiento.toUpperCase() + "</option>");
+        }
+
+    }
+
+
+    $("#Altura").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = value;
+        var peso = document.getElementById("Peso").value;
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
+            }
+        }
+
+    });
+    $("#Peso").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = document.getElementById("Altura").value;
+        var peso = value;
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
+            }
+        }
+
+    });
+    </script>
+</body>
+</html>

@@ -14,10 +14,10 @@
 
 <div id="content">
     <div class="container-fluid">
-        <h3><i class="fa fa-address-book"></i> Ejercicios </h3>
+        <h3 class="letracolor"><i class="fa fa-address-book"></i> Ejercicios </h3>
         <hr id="line" />
         <span class="float-right" style="margin-top:-65px">
-            <button type="button" class="btn btn-primary" onclick="Ver()">Nuevo ejercicio</button>
+            <button type="button" class="color btn btn-primary" onclick="Ver()">Nuevo ejercicio</button>
         </span>
         <br />
         <div class="table-responsive">
@@ -38,7 +38,7 @@
                     {
                     <tr>
                         <td>@item.Id_ejercicio</td>
-                        <td><button type="button" class="btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_ejercicio)"></button></td>
+                        <td><button type="button" class="color btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_ejercicio)"></button></td>
                         <td>@item.Clave_ejercicio</td>
                         <td>@item.Ejercicio</td>
                         <td>@item.Descripcion</td>

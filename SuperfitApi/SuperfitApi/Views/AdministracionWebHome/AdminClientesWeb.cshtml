@@ -8,10 +8,10 @@
 
 <div id="content">
     <div class="container-fluid">
-        <h3><i class="fa fa-address-book"></i>  Clientes </h3>
+        <h3 class="letracolor"><i class="fa fa-address-book"></i>  Clientes </h3>
         <hr id="line" />
         <span class="float-right" style="margin-top:-65px">
-            <button type="button" class="btn btn-primary" onclick="Ver()">Nuevo cliente</button>
+            <button type="button" class="color btn btn-primary" onclick="Ver()">Nuevo cliente</button>
         </span>
         <br />
         <div class="table-responsive">
@@ -34,8 +34,8 @@
                         <tr>
                             <td>@item.Id_cliente</td>
                             <td>
-                                @Html.ActionLink("Ver cliente", "ClienteDetalle", "AdministracionWebHome",new { Id_cliente = item.Id_cliente }, new { @class = "btn btn-primary" })
-                                <button type="button" class="btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_cliente)"></button>
+                                @Html.ActionLink("Ver cliente", "ClienteDetalle", "AdministracionWebHome",new { Id_cliente = item.Id_cliente }, new { @class = "color btn btn-primary" })
+                                <button type="button" class="color btn btn-primary" onclick="VerEditar(@item.Id_cliente)">Editar</button>
                             </td>
                             <td>@item.Nombres @item.Apellido_paterno @item.Apellido_materno</td>
                             <td>@item.Edad</td>
@@ -61,8 +61,8 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Nuevo cliente</h3>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Nuevo cliente</h3>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -125,11 +125,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="Agregar()">Guardar</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="Agregar()">Guardar</button>
             </div>
         </div>
     </div>
@@ -140,9 +139,9 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Cliente</h3>
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Cliente</h3>
                 <h5></h5>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -212,8 +211,8 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Cuestionario(document.getElementById('idcliente').value)">Cuestionario</button>
                 <button type="button" class="btn btn-success" data-dismiss="modal" onclick="MensualidadDetalle(document.getElementById('idcliente').value)">Detalle Mensualidad</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad(document.getElementById('idcliente').value)">Mensualidad</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="Editar()">Guardar</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="Editar()">Guardar</button>
             </div>
         </div>
     </div>
@@ -224,9 +223,9 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Mensualidad</h3>
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Mensualidad</h3>
                 <h5></h5>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -269,8 +268,8 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Cuestionario(document.getElementById('idcliente').value)">Cuestionario</button>
                 <button type="button" class="btn btn-success" data-dismiss="modal" onclick="MensualidadDetalle(document.getElementById('idcliente').value)">Detalle Mensualidad</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal" onclick="VerEditar(document.getElementById('idcliente').value)">Cliente</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="MensualidadGuardar()">Guardar</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="MensualidadGuardar()">Guardar</button>
             </div>
         </div>
     </div>
@@ -281,15 +280,15 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
                 <h5></h5>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="container" style="overflow-y:auto;height:500px">
-                    <h3 id="nameClienteDetalle"></h3>
+                    <h3 id="nameClienteDetalle" class="letracolor"></h3>
                     <input id="idclienteMensualidadDetalle" style="display:none" />
                     <br />
                     <div id="=asignacion">
@@ -364,8 +363,8 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Cuestionario(document.getElementById('idcliente').value)">Cuestionario</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal" onclick="VerEditar(document.getElementById('idcliente').value)">Cliente</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad(document.getElementById('idcliente').value)">Mensualidad</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
             </div>
         </div>
     </div>
@@ -376,9 +375,9 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Cuestionario</h3>
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Cuestionario</h3>
                 <h5></h5>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -492,8 +491,8 @@
                 <button type="button" class="btn btn-info" data-dismiss="modal" onclick="VerEditar(document.getElementById('idcliente').value)">Cliente</button>
                 <button type="button" class="btn btn-success" data-dismiss="modal" onclick="MensualidadDetalle(document.getElementById('idcliente').value)">Detalle Mensualidad</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad(document.getElementById('idcliente').value)">Mensualidad</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="GuardarCuestionario()">Guardar</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="GuardarCuestionario()">Guardar</button>
             </div>
         </div>
     </div>
