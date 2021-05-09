@@ -55,7 +55,7 @@
     </style>
 </head>
 <body>
-    <div style="text-align:left;margin-left:50px;margin-top:10px;">
+    <div style="text-align:left;margin-left:50px;margin-top:10px;">        
         <button type="button" style="color:red" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">Salir</button>
     </div>
     <div class="d-flex justify-content-center h-100">
@@ -115,7 +115,6 @@
                                 <input type="password" class="form-control" id="IdContraseña" placeholder="Contraseña" onkeypress="style.borderColor='gray';" />
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
                                 <select class="form-control" id="IdSexo" name="Sexo">
@@ -130,7 +129,10 @@
                         <div class="row">                            
                             <div class="col-md-6 offset-md-3">
                                 <label>Seleccione foto de perfil</label>
-                                <input value="Foto perfil" title="Foto perfil" type="file" data-maxsize="4200000" id="Foto_cliente_perfil" class="form-control-file my-2 check-image-size">
+                                <label for="Foto_cliente_perfil" style="cursor:pointer;margin-left:10px">
+                                    <i class="fa fa-camera" style="display: inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                </label>
+                                <input style="display:none" value="Foto perfil" title="Foto perfil" type="file" data-maxsize="4200000" id="Foto_cliente_perfil" class="form-control-file my-2 check-image-size">
                             </div>
                         </div>
                     </div>
@@ -298,19 +300,28 @@
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
                                 <label>Foto frontal</label>
-                                <input type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
+                                <label for="Foto_frontal" style="cursor:pointer;margin-left:10px">
+                                    <i class="fa fa-camera" style="display: inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                </label>
+                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
                                 <label>Foto perfil</label>
-                                <input type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
+                                <label for="Foto_frontal" style="cursor:pointer;margin-left:10px">
+                                    <i class="fa fa-camera" style="display: inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                </label>
+                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
                                 <label>Foto posterior</label>
-                                <input type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                                <label for="Foto_frontal" style="cursor:pointer;margin-left:10px">
+                                    <i class="fa fa-camera" style="display: inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                </label>
+                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
                             </div>
                         </div>
 
@@ -321,10 +332,12 @@
             <div class="flechas">
                 <div class="row">
                     <div class="izquierda" style="text-align:left;flex:1;margin-left: 30px;">
-                        <button id="izq" type="button" class="navegadorbtn btn btn-dark" style="display:none" onclick="Atras()">Atras</button>
+                        <button id="izq" type="button" class="navegadorbtn btn btn-dark" style="display:none" onclick="Atras()">                            
+                        Anterior</button>
                     </div>
                     <div class="derecha" style="text-align:right;margin-right: 30px;">
-                        <button id="der" type="button" class="navegadorbtn btn btn-dark" style="display:block" onclick="Siguiente()">Siguiente</button>
+                        <button id="der" type="button" class="navegadorbtn btn btn-dark" style="display:block" onclick="Siguiente()">                            
+                        Siguiente</button>
                         <button id="btnregistro" type="button" class="btn btn-success" onclick="GuardarRegistro()" style="visibility:hidden">Guardar Registro</button>
                     </div>
                 </div>

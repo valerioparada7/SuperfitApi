@@ -8,8 +8,14 @@
         .mobile {
             width: 310px;
             height:40px;
-        }             
+        }
+        .imagenes {
+            width: 200px;
+            height: 200px;
+        }
+
     }
+    
 </style>
 <div class="row">
     <div class="col">
@@ -43,12 +49,12 @@
         </div>
     </div>
 
-    <hr />
+    <hr />    
     <div class="row">
         <div class="col">
-            <h5>Ejercicios</h5>
+            <h5>Ejercicios</h5>            
             <br />
-            <div id="rutinas">
+            <div id="rutinas" class="tablarutinas">
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-hover" id="ListaEjercicios">
                         <thead>
@@ -68,7 +74,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 </div>
    
 
@@ -143,7 +149,7 @@
                     html += '<tr>';
                     html += '<td>' + n + '</td> ';
                     html += '<td>' + diaob.options[diaob.selectedIndex].text+ '</td> ';
-                    html += '<td><img src="' + ejercicio.Ubicacion_imagen +'" width="200" height="200"/></td> ';
+                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen +' width="200" height="200""/></td> ';
                     html += '<td>'+ ejercicio.Ejercicio+'</td>';
                     html += '<td>' + data[i].Series+'</td> ';
                     html += '<td>' + data[i].Repeticiones+'</td> ';
@@ -225,7 +231,7 @@
                     html += '<tr>';
                     html += '<td>' + n + '</td> ';
                     html += '<td>' + diaob.options[diaob.selectedIndex].text+ '</td> ';
-                    html += '<td><img src="' + ejercicio.Ubicacion_imagen +'" width="200" height="200"/></td> ';
+                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen +'" width="200" height="200" /></td> ';
                     html += '<td>'+ ejercicio.Ejercicio+'</td>';
                     html += '<td>' + data[i].Series+'</td> ';
                     html += '<td>' + data[i].Repeticiones+'</td> ';

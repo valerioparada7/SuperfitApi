@@ -26,6 +26,7 @@ namespace SuperfitApi.Models
         public string Fotoperfil { get; set; }
         public string Fotoposterior { get; set; }
         public DateTime Fecha_registro { get; set; }
+        public string Fecharegistro { get; set; }
         public string Medidas_actualizadas { get; set; }
     }
 }

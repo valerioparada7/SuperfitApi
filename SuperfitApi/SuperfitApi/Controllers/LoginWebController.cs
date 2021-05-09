@@ -232,7 +232,7 @@ namespace SuperfitApi.Controllers
                     string Name = Registro.Cliente.Nombres + " " + Registro.Cliente.Apellido_paterno + " " +
                             Registro.Cliente.Apellido_materno;
                     Name = Name.Replace(" ", "_");
-                    string fotoperfil = "Imagenes/Clientes/" + Name;                    
+                    string fotoperfil = "/Imagenes/Clientes/" + Name;                    
                     clientes = new Clientes
                     {
                         Clave_cliente = Clave,

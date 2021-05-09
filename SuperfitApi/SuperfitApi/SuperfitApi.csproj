@@ -752,6 +752,7 @@
     <Content Include="Views\AdministracionWebHome\AdminAsesoriaantropometriaWeb.cshtml" />
     <Content Include="Views\AdministracionWebHome\ClienteDetalle.cshtml" />
     <Content Include="Views\LoginWeb\RegistrarCliente.cshtml" />
+    <Content Include="Views\ClientesWeb\Mensualidades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,13 +5,13 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Perfil Cliente</title>    
+    <title>Perfil Cliente</title>
 </head>
 <body>
     <div id="content">
         <div class="container-fluid">
             <div id="Cliente">
-                <h3 class="letracolor">Cliente</h3 class="letracolor">
+                <h3 class="letracolor">Cliente</h3>
                 <div class="container">
                     <input id="idcliente" style="display:none" />
                     <div class="row">
@@ -54,7 +54,7 @@
                     </div>
                     <br />
                 </div>
-                <div class="row">                    
+                <div class="row">
                     <div class="col">
                         <button type="button" class="btn btn-success" id="BtnEditarCliente" onclick="GuardarCliente()">Guardar</button>
                     </div>
@@ -63,18 +63,18 @@
             <hr />
             <br />
             <div id="Cuestionario">
-                <h3 class="letracolor">Cuestionario</h3 class="letracolor">   
+                <h3 class="letracolor">Cuestionario</h3>
                 <h6>Marque la casilla en caso de que sea si para cada pregunta</h6>
                 <br />
                 <hr />
                 <div class="container">
-                    <h3 class="letracolor" id="nameClienteDetalle"></h3 class="letracolor">
+                    <h3 class="letracolor" id="nameClienteDetalle"></h3>
                     <input id="idclientecuestionario" style="display:none" />
                     <input id="idcuestionario" style="display:none" />
                     <div class="row">
                         <div class="col">
-                            <label>¿Padece alguna enfermedad?</label>                                                 
-                            <input type="checkbox" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()">                                                      
+                            <label>¿Padece alguna enfermedad?</label>
+                            <input type="checkbox" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()">
                             <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="style.borderColor='gray'" style="display:none" />
                         </div>
                         <div class="col">
@@ -107,7 +107,7 @@
                     <div id="cuestionarioTime" style="display:none">
                         <div class="row">
                             <div class="col-4">
-                                <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>                                
+                                <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>
                                 <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="style.borderColor='gray'" />
                             </div>
                             <div class="col-4">
@@ -115,7 +115,7 @@
                                 <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="style.borderColor='gray'" />
                             </div>
                             <div class="col-4">
-                                <label>¿En qué horario entrenas?</label>  
+                                <label>¿En qué horario entrenas?</label>
                                 <br />
                                 <br />
                                 <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="style.borderColor='gray'" />
@@ -152,11 +152,11 @@
                             <button type="button" class="btn btn-success" id="BtnEditarCuestionario" style="display:none" onclick="GuardarCuestionario()">Guardar</button>
                         </div>
                     </div>
-                </div>                               
+                </div>
             </div>
             <hr />
             <div id="mensualidad">
-                <h3 class="letracolor">Mensualidades</h3 class="letracolor">                
+                <h3 class="letracolor">Mensualidades</h3>
                 <div class="container" style="overflow-y:auto;height:500px">
                     <div class="row">
                         <div class="col">
@@ -169,6 +169,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Mensualidad</th>
                                     <th>Medidas</th>
                                     <th>Detalle rutina</th>
                                     <th>Tipo rutina</th>
@@ -182,18 +183,66 @@
                             </tbody>
                         </table>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-<!--MODAL PARA Mensualidad--->
+<!--Modal actualizar estatus de la mensualidad-->
+<div class="modal" id="MensualidadVerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mensualidad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="mensualidadIdver" type="text" style="visibility:hidden" />
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" id="TiporutinaMensualidad">
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" id="MesesMensualidad">
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" id="EstatusMensualidad">
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" id="TipoentrenamientolistMensualidad">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="ActualizarEstatus()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal para Mensualidad--->
 <div class="modal fade" id="ModalMensualidad" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="letracolor" class="modal-title" id="exampleModalLongTitle">Mensualidad</h3 class="letracolor">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Mensualidad</h3>
                 <h5></h5>
                 <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -201,7 +250,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <h3 class="letracolor" id="nameCliente"></h3 class="letracolor">
+                    <h3 class="letracolor" id="nameCliente"></h3>
                     <input id="idclienteMensualidad" style="display:none" />
                     <br />
                     <div class="row">
@@ -242,12 +291,12 @@
     </div>
 </div>
 
-<!--MODAL PARA medidas --->
+<!--Modal para medidas --->
 <div class="modal fade" id="ModalMedidas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="letracolor" class="modal-title" id="exampleModalLongTitle">Medidas</h3 class="letracolor">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Medidas</h3>
                 <h5></h5>
                 <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -255,7 +304,7 @@
             </div>
             <div class="modal-body">
                 <div class="container" style="overflow-y:auto;height:500px">
-                    <h3 class="letracolor" id="nameClienteDetalle"></h3 class="letracolor">
+                    <h3 class="letracolor" id="nameClienteDetalle"></h3>
                     <input id="idMensualidadMedidas" style="display:none" />
                     <input id="idMMedidas" style="display:none" />
                     <div>
@@ -266,22 +315,22 @@
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Altura" placeholder="Altura (cm)"  class="form-control"/>
+                                <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="text" id="IMC" class="form-control"  readonly/>
+                                <input type="text" id="IMC" class="form-control" readonly />
                             </div>
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado"  class="form-control"/>
+                                <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza"  class="form-control" />
+                                <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
@@ -291,7 +340,7 @@
                         </div><br />
                         <div class="row">
                             <div class="col">
-                                <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza"  class="form-control" />
+                                <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
@@ -354,12 +403,12 @@
     </div>
 </div>
 
-<!--MODAL PARA detalle Mensualidad--->
+<!--Modal para detalle Mensualidad--->
 <div class="modal fade" id="ModalMensualidadDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="letracolor" class="modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3 class="letracolor">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
                 <h5></h5>
                 <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -367,7 +416,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <input id="idclienteMensualidadDetalle" style="display:none" />                    
+                    <input id="idclienteMensualidadDetalle" style="display:none" />
                     <div id="=asignacion" class="row">
                         <div id="primera" class="col-4">
                             <div class="row">
@@ -440,7 +489,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                                       
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -451,12 +500,34 @@
     </div>
 </div>
 
+<!--Modal Respuesta-->
+<div class="modal fade" id="ModalRespuesta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Superfit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 id="MensajeAlerta">
+                </h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="color btn btn-primary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script type="text/javascript">
 
     $(document).ready(function () {
         VerCliente();
         VerCuestionario();
-        VerMensualidad();
+        VerMensualidades();
     });
     $(document).ready(function () {
         CargarCombos();
@@ -466,6 +537,8 @@
     var urleditar = '@Url.Action("EditarCliente", "AdministracionWebHome")';
     var urlmensualidad = '@Url.Action("AgregarMensualidad", "AdministracionWebHome")';
     var urlvermensualidad = '@Url.Action("VerMensualidad", "AdministracionWebHome")';
+    var urlvermensualidadid = '@Url.Action("VerMensualidadId", "AdministracionWebHome")';
+    var urlactualizacion = '@Url.Action("ActualizarEstatus", "AdministracionWebHome")';
     var urldetallRutina = '@Url.Action("DetallRutina", "AdministracionWebHome")';
     var urlcuestionario = '@Url.Action("AgregarCuestionario", "AdministracionWebHome")';
     var urlvercuestionario = '@Url.Action("VerCuestionario", "AdministracionWebHome")';
@@ -686,7 +759,7 @@
     }
 
     //Mensualidad
-    function VerMensualidad() {
+    function VerMensualidades() {
         var Id = @ViewBag.idcliente
         document.getElementById("idclienteMensualidad").value = Id;
         $.ajax({
@@ -704,6 +777,7 @@
                     var html = '';
                     html += '<tr id="fila' + i + '">';
                     html += '<td>' + sum + '</td>';
+                    html += '<td><button type="button" class="btn btn-success" onclick = "VerMensualidad('+data[i].Id_mensualidad +')"> Ver</button></td>';
                     html += '<td><button type="button" class="btn btn-success" onclick="MensualidadDetalle(' + data[i].Id_mensualidad + ')">Rutina</button></td>';
                     html += '<td><button type="button" class="btn btn-success" onclick="VerMedidas(' + data[i].Id_mensualidad + ')">Medidas</button></td>';
                     html += '<td>' + Tiporutina.Tipo + '</td>';
@@ -724,6 +798,33 @@
 
     function Mensualidad() {
         $('#ModalMensualidad').modal('show');
+    }
+
+    function VerMensualidad(Id) {
+        $.ajax({
+            url: urlvermensualidadid,
+            type: "GET",
+            data: { "Id_mensualidad": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                var Idtipo = data["TipoEntrenamiento"].Id_TipoEntrenamiento;
+                var IdMes = data["Mes"].Id_mes;
+                var IdEstatus = data["Estatus"].Id_estatus;
+                var IdRutina = data["Tiporutina"].Id_tiporutina;
+                document.getElementById("TipoentrenamientolistMensualidad").value = Idtipo;
+                document.getElementById("MesesMensualidad").value = IdMes;
+                document.getElementById("EstatusMensualidad").value = IdEstatus;
+                document.getElementById("TiporutinaMensualidad").value = IdRutina;
+                document.getElementById("mensualidadIdver").value = Id
+                $('#MensualidadVerModal').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+
+        });
     }
 
     function GuardarMensualidad() {
@@ -761,6 +862,35 @@
                 alert("Ocurrio un error verifique su conexion");
             }
         });
+    }
+
+    function ActualizarEstatus() {
+        var estatus = document.getElementById("EstatusMensualidad").value;
+        var mes = document.getElementById("mensualidadIdver").value;
+        $.ajax({
+            url: urlactualizacion,
+            type: "POST",
+            data: { "Id_mensualidad": mes, "estatus": estatus},
+            success: function (data) {
+                if (data == "True") {
+                    document.getElementById("MensajeAlerta").innerHTML = 'Actualizacion exitosa';
+                    $('#ModalRespuesta').modal('show');
+                    setTimeout("afterFiveSeconds()", 3000);
+                }
+                else {
+                    $('#ModalRespuesta').modal('show');
+                    document.getElementById("MensajeAlerta").innerHTML = 'Ocurrio un error verifique su conexion';                    
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    function afterFiveSeconds() {
+        location.reload();
     }
 
     //Medidas
@@ -820,7 +950,7 @@
         parametros.Piernaderecho = $("#Pierna_derecho").val();
         parametros.Pantorrilladerecha = $("#Pantorrilla_derecha").val();
         parametros.Pantorrillaizquierda = $("#Pantorrilla_izquierda").val();
-        parametros.Mensualidad = Mensualidad;        
+        parametros.Mensualidad = Mensualidad;
         if (id != 0) {
             urlmedidas = '@Url.Action("EditarAsesoriaantropometria", "AdministracionWebHome")';
             parametros.Id = id;
@@ -1102,8 +1232,21 @@
             $("#Ejercicios").append("<option value='" + listEjercicios[l].Id_ejercicio + "'>" + listEjercicios[l].Ejercicio.toUpperCase() + "</option>");
         }
 
-    }
+        //
+        for (var k = 0; k < listaEstatus.length; k++) {
+            $("#EstatusMensualidad").append("<option value='" + listaEstatus[k].Id_estatus + "'>" + listaEstatus[k].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var i = 0; i < listaTiporutina.length; i++) {
+            $("#TiporutinaMensualidad").append("<option value='" + listaTiporutina[i].Id_tiporutina + "'>" + listaTiporutina[i].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var j = 0; j < listaMes.length; j++) {
+            $("#MesesMensualidad").append("<option value='" + listaMes[j].Id_mes + "'>" + listaMes[j].Mes.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listaTipoEntrenamiento.length; l++) {
+            $("#TipoentrenamientolistMensualidad").append("<option value='" + listaTipoEntrenamiento[l].Id_TipoEntrenamiento + "'>" + listaTipoEntrenamiento[l].Tipo_entrenamiento.toUpperCase() + "</option>");
+        }
 
+    }
 
     $("#Altura").keyup(function () {
         var value = $(this).val().trim();

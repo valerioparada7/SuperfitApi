@@ -883,6 +883,92 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             return Json(listmensualidadMdl,JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult VerMensualidadId(int Id_mensualidad)
+        {
+            mensualidadMdl = (from m in Db.Mensualidad
+                                  join c in Db.Clientes
+                                  on m.Id_cliente equals c.Id_cliente
+                                  join t in Db.Tipo_rutina
+                                  on m.Id_tipo_rutina equals t.Id_tipo_rutina
+                                  join mes in Db.Meses
+                                  on m.Id_mes equals mes.Id_mes
+                                  join es in Db.Estatus
+                                  on m.Id_estatus equals es.Id_estatus
+                                  join te in Db.Tipo_entrenamiento
+                                  on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
+                                  where m.Id_mensualidad == Id_mensualidad
+                                  select new MensualidadModel()
+                                  {
+                                      Id_mensualidad = m.Id_mensualidad,
+                                      Fecha_inicio = (DateTime)m.Fecha_inicio,
+                                      Fecha_fin = (DateTime)m.Fecha_fin,
+                                      Tiporutina = new TiporutinaModel
+                                      {
+                                          Id_tiporutina = t.Id_tipo_rutina,
+                                          Tipo = t.Tipo
+                                      },
+                                      TipoEntrenamiento = new TipoentrenamientoModel
+                                      {
+                                          Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
+                                          Clave_Entrenamiento = te.Clave_entrenamiento,
+                                          Tipo_entrenamiento = te.Tipo_entrenamientos
+                                      },
+                                      Mes = new MesesModel
+                                      {
+                                          Id_mes = mes.Id_mes,
+                                          Clave_mes = mes.Clave_mes,
+                                          Mes = mes.Mes
+                                      },
+                                      Estatus = new EstatusModel
+                                      {
+                                          Id_estatus = es.Id_estatus,
+                                          Descripcion = es.Descripcion
+                                      },
+                                      Cliente = new ClientesModel
+                                      {
+                                          Id_cliente = c.Id_cliente,
+                                          Clave_cliente = c.Clave_cliente,
+                                          Nombres = c.Nombres,
+                                          Apellido_paterno = c.Apellido_paterno,
+                                          Apellido_materno = c.Apellido_materno,
+                                          Apodo = c.Apodo,
+                                          Edad = c.Edad,
+                                          Telefono = (decimal)c.Telefono,
+                                          Correo_electronico = c.Correo_electronico,
+                                          Estado = c.Estado,
+                                          Contraseña = c.Contraseña,
+                                          Foto_perfil = c.Foto_perfil,
+                                          Sexo = c.Sexo
+                                      }
+                                  }).FirstOrDefault();
+
+            if(mensualidadMdl == null)
+            {
+                mensualidadMdl = new MensualidadModel();
+            }
+            else
+            {
+                mensualidadMdl.Fechainicio = mensualidadMdl.Fecha_inicio.ToString("dd/MM/yyyy");
+                mensualidadMdl.Fechafin = mensualidadMdl.Fecha_fin.ToString("dd/MM/yyyy");
+            }
+
+            return Json(mensualidadMdl, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public bool ActualizarEstatus(int Id_mensualidad,int estatus)
+        {
+            mensualidad = Db.Mensualidad.Where(y => y.Id_mensualidad == Id_mensualidad).FirstOrDefault();
+            mensualidad.Id_estatus = estatus;
+            if (Db.SaveChanges() == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         [HttpPost]
         public bool AgregarMensualidad(MensualidadModel mensualidadModel)
         {
@@ -1020,8 +1106,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                  }).ToList();
 
             return View(listantropometriaMdl);
-        }
-
+        }        
         [HttpPost]
         public bool AgregarAsesoriaantropometria(AntropometriaModel antropometriaModel)
         {

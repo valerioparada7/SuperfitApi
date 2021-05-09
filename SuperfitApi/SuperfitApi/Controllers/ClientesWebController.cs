@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SuperfitApi.Models.Entity;
 using SuperfitApi.Models;
 using SuperfitApi.Autetication;
+using System.IO;
 
 namespace SuperfitApi.Controllers
 {
@@ -26,6 +27,8 @@ namespace SuperfitApi.Controllers
         public AlertasModel alertasModel;
         //listas de modelos
         public List<DetallerutinaModel> listdetallerutinaMdl;
+        public List<MensualidadModel> listmensualidadMdl;
+        public List<AntropometriaModel> listantropometriaMdl;
         #endregion       
 
         public ClientesWebController()
@@ -43,6 +46,8 @@ namespace SuperfitApi.Controllers
             alertasModel = new AlertasModel();
             //listas de modelos
             listdetallerutinaMdl = new List<DetallerutinaModel>();
+            listmensualidadMdl = new List<MensualidadModel>();
+            listantropometriaMdl = new List<AntropometriaModel>();
         }
         // GET: ClientesWeb
         public ActionResult Index()
@@ -146,6 +151,124 @@ namespace SuperfitApi.Controllers
         {
             return View();
         }
+
+        public ActionResult Mensualidades()
+        {
+            string Id = Session["Id_Cliente"].ToString();
+            int IdCliente = int.Parse(Id);
+            listmensualidadMdl = (from m in Db.Mensualidad
+                                  join c in Db.Clientes
+                                  on m.Id_cliente equals c.Id_cliente
+                                  join t in Db.Tipo_rutina
+                                  on m.Id_tipo_rutina equals t.Id_tipo_rutina
+                                  join mes in Db.Meses
+                                  on m.Id_mes equals mes.Id_mes
+                                  join es in Db.Estatus
+                                  on m.Id_estatus equals es.Id_estatus
+                                  join te in Db.Tipo_entrenamiento
+                                  on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
+                                  where m.Id_cliente == IdCliente
+                                  select new MensualidadModel()
+                                  {
+                                      Id_mensualidad = m.Id_mensualidad,
+                                      Fecha_inicio = (DateTime)m.Fecha_inicio,
+                                      Fecha_fin = (DateTime)m.Fecha_fin,
+                                      Tiporutina = new TiporutinaModel
+                                      {
+                                          Id_tiporutina = t.Id_tipo_rutina,
+                                          Tipo = t.Tipo
+                                      },
+                                      TipoEntrenamiento = new TipoentrenamientoModel
+                                      {
+                                          Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
+                                          Clave_Entrenamiento = te.Clave_entrenamiento,
+                                          Tipo_entrenamiento = te.Tipo_entrenamientos
+                                      },
+                                      Mes = new MesesModel
+                                      {
+                                          Id_mes = mes.Id_mes,
+                                          Clave_mes = mes.Clave_mes,
+                                          Mes = mes.Mes
+                                      },
+                                      Estatus = new EstatusModel
+                                      {
+                                          Id_estatus = es.Id_estatus,
+                                          Descripcion = es.Descripcion
+                                      },
+                                      Cliente = new ClientesModel
+                                      {
+                                          Id_cliente = c.Id_cliente,
+                                          Clave_cliente = c.Clave_cliente,
+                                          Nombres = c.Nombres,
+                                          Apellido_paterno = c.Apellido_paterno,
+                                          Apellido_materno = c.Apellido_materno,
+                                          Apodo = c.Apodo,
+                                          Edad = c.Edad,
+                                          Telefono = (decimal)c.Telefono,
+                                          Correo_electronico = c.Correo_electronico,
+                                          Estado = c.Estado,
+                                          Contraseña = c.Contraseña,
+                                          Foto_perfil = c.Foto_perfil,
+                                          Sexo = c.Sexo
+                                      }
+                                  }).ToList();
+
+            if (listmensualidadMdl == null || listmensualidadMdl.Count == 0)
+            {
+                listmensualidadMdl = new List<MensualidadModel>();
+            }
+            else
+            {
+                for (int i = 0; i < listmensualidadMdl.Count; i++)
+                {
+                    listmensualidadMdl[i].Fechainicio = listmensualidadMdl[i].Fecha_inicio.ToString("dd/MM/yyyy");
+                    listmensualidadMdl[i].Fechafin = listmensualidadMdl[i].Fecha_fin.ToString("dd/MM/yyyy");
+                }
+            }
+            return View(listmensualidadMdl);
+        }
+
+        public bool UpdateFoto(HttpPostedFileBase imagen)
+        {
+            string Id = Session["Id_Cliente"].ToString();
+            int IdCliente = int.Parse(Id);
+            clientes = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
+            var file = HttpContext.Server.MapPath("~"+ clientes.Foto_perfil);
+            System.IO.File.Delete(file);
+            string name = clientes.Nombres;
+            string ruta = clientes.Foto_perfil;
+            int j = 0;
+            string newruta = string.Empty;
+            for(int i = 0; i < ruta.Length; i++)
+            {
+                string c = ruta.Substring(i, 1);
+                if (c == "/")
+                {
+                    newruta += c;
+                    j++;
+                }
+                else
+                {
+                    newruta += c;
+                }
+                if (j == 4)
+                {
+                    break;
+                }
+            }
+            newruta += imagen.FileName.ToString();
+            clientes.Foto_perfil = newruta;
+            if (Db.SaveChanges() == 1)
+            {
+                imagen.SaveAs(Server.MapPath("~" + clientes.Foto_perfil));
+                return true;
+            }
+            else
+            {
+                return false ;
+            }
+        }
+
         //Obtener los sets a realizar por dia
         [HttpGet]
         public JsonResult GetDetalleRutinaSets(int IdMensualidad = 0, int IdEstatusMes = 0,int IdDIa=0)
@@ -220,6 +343,42 @@ namespace SuperfitApi.Controllers
                                     }).ToList();
 
             return Json(listdetallerutinaMdl, JsonRequestBehavior.AllowGet);
+        }
+
+        //Obtener mis medidas
+        [HttpGet]
+        public JsonResult ListAsesoriaantropometria(int Id_mensualidad)
+        {
+            listantropometriaMdl = (from a in Db.Asesoria_antropometria
+                                    where a.Id_mensualidad == Id_mensualidad
+                                    select new AntropometriaModel()
+                                    {
+                                        Id = a.Id,
+                                        Peso = a.Peso,
+                                        Altura = a.Altura,
+                                        IMC = a.IMC,
+                                        Brazoderechorelajado = a.Brazo_derecho_relajado,
+                                        Brazoderechofuerza = a.Brazo_derecho_fuerza,
+                                        Brazoizquierdorelajado = a.Brazo_izquierdo_relajado,
+                                        Brazoizquierdofuerza = a.Brazo_izquierdo_fuerza,
+                                        Cintura = a.Cintura,
+                                        Cadera = a.Cadera,
+                                        Piernaizquierda = a.Pierna_izquierda,
+                                        Piernaderecho = a.Pierna_derecho,
+                                        Pantorrilladerecha = a.Pantorrilla_derecha,
+                                        Pantorrillaizquierda = a.Pantorrilla_izquierda,
+                                        Fotofrontal = a.Foto_frontal,
+                                        Fotoperfil = a.Foto_perfil,
+                                        Fotoposterior = a.Foto_posterior,
+                                        Fecha_registro = a.Fecha_registro
+                                    }).ToList();
+
+            foreach(var item in listantropometriaMdl)
+            {
+                item.Fecharegistro = item.Fecha_registro.ToString("dd/MM/yyyy");
+            }
+
+            return Json(listantropometriaMdl, JsonRequestBehavior.AllowGet);
         }
 
     }

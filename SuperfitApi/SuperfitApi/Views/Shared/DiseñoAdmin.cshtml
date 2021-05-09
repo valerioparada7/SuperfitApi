@@ -99,9 +99,7 @@
                 type: "GET",
                 url: direccion,
                 success: function (data) {
-                    console.log(data);
                     if (data == "True") {
-                        console.log("logrado");
                         window.location.href='@Url.Action("LoginWeb", "LoginWeb")';
                     }
                 },
