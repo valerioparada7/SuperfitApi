@@ -1,0 +1,122 @@
+﻿@using SuperfitApi.Models
+@model List<AntropometriaModel>
+
+@{
+    Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3><i class="fa fa-address-book"></i> Asesoria antropometria </h3>
+        <hr id="line" />
+        <span class="float-right" style="margin-top:-65px">
+            <button type="button" class="btn btn-primary" onclick="Ver()">Nuevo Asesoria antropometria</button>
+        </span>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover" id="tabla">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Editar</th>
+                        <th>Clave entrenamiento</th>
+                        <th>Tipo entrenamiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td><button type="button" class="btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id)"></button></td>
+                            <td>@item.Peso</td>
+                            <td>@item.Altura</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Agregar--->
+<div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Nuevo Asesoria antropometria</h3>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdNombre" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Agregar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Editar--->
+<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Asesoria antropometria</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <input id="id" style="display:none" />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdNombreE" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Editar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var url = '@Url.Action("AgregarCliente", "AdministracionWebHome")';
+    var urleditar = '@Url.Action("EditarCliente", "AdministracionWebHome")';
+
+    function Ver() {
+        $('#ModalAgregar').modal('show');
+    }
+
+    function Agregar() {
+
+    }
+
+    function VerEditar(Id) {
+
+    }
+
+    function Editar() {
+    }
+
+</script>

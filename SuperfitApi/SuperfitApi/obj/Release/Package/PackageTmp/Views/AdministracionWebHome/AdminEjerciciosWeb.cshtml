@@ -1,0 +1,403 @@
+﻿@using SuperfitApi.Models
+@model List<EjerciciosModel>
+
+@{
+    Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+    EjerciciosModel ejercicio = new EjerciciosModel();
+    List<SelectListItem> list = new List<SelectListItem>();
+    list.Add(new SelectListItem() { Text = "Definicion" , Value = "Definicion" });
+    list.Add(new SelectListItem() { Text = "Volumen"    , Value = "Volumen" });
+
+    var lista = new SelectList(list, "Text", "Value");
+
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3 class="letracolor"><i class="fa fa-address-book"></i> Ejercicios </h3>
+        <hr id="line" />
+        <span class="float-right" style="margin-top:-65px">
+            <button type="button" class="color btn btn-primary" onclick="Ver()">Nuevo ejercicio</button>
+        </span>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover" id="tabla">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Editar</th>
+                        <th>Clave ejercicio</th>
+                        <th>Ejercicio</th>
+                        <th>Descripcion</th>
+                        <th>Posicion</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@item.Id_ejercicio</td>
+                        <td><button type="button" class="color btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_ejercicio)"></button></td>
+                        <td>@item.Clave_ejercicio</td>
+                        <td>@item.Ejercicio</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Posicion </td>
+                        <td><img src="@item.Ubicacion_imagen" width="200" height="200"/></td>                        
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Agregar--->
+<div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Nuevo Ejercicio</h3>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>           
+            <div class="modal-body">
+                <div class="container">
+                @*@using (Html.BeginForm("AgregarEjercicios", "AdministracionWebHome", FormMethod.Post, new { @id = "formAdd" }))
+                {*@
+                    <div class="row">
+                        <div class="col-md-6">
+                            @*@Html.TextBoxFor(Model => ejercicio.Clave_ejercicio,new { @class = "form-control", @id = "IdClaveejercicio" , placeholder = "Clave ejercicio", onkeypress = "style.borderColor='gray'" })*@
+                            <input type="text" class="form-control" id="IdClaveejercicio" placeholder="Clave ejercicio" onkeypress="style.borderColor='gray'" />
+                        </div>
+                        <div class="col-md-6">
+                            @*@Html.TextBoxFor(Model => ejercicio.Ejercicio, new { @class = "form-control" ,id = "IdEjercicio" , placeholder = "Ejercicio", onkeypress = "style.borderColor='gray'" })*@
+                            <input type="text" class="form-control" id="IdEjercicio" placeholder="Ejercicio" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            @*@Html.TextBoxFor(Model => ejercicio.Imagen, new { @class = "form-control-file my-2 check-image-size", type = "file", accept = " image/*", style = "background-color:white;color:black;" })*@
+                            <input type="file" data-maxsize="4200000" id="IdEjercicioimg" class="form-control-file my-2 check-image-size">
+                        </div>
+                        <div class="col">
+                            <select class="form-control" id="IdEjercicioList" >
+                                <option value="Definicion">Definicion</option>
+                                <option value="Volumen">Volumen</option>                                
+                            </select>
+                            @*@Html.DropDownListFor(p =>ejercicio.Tipo, lista as SelectList, new { @class = "form-control", id = "IdEjercicioList" })*@
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            @*@Html.TextAreaFor(Model => ejercicio.Descripcion, new { @class = "form-control", id = "IdDescripcion", placeholder = "Descripcion" ,style = "height:200px" ,onkeypress = "style.borderColor='gray'" })*@
+                            <textarea type="text" class="form-control" id="IdDescripcion" placeholder="Descripcion" style="height:200px" onkeypress="style.borderColor='gray'"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            @*@Html.TextAreaFor(Model => ejercicio.Posicion, new { @class = "form-control", id = "IdPosicion", placeholder = "Posicion" ,style = "height:200px", onkeypress = "style.borderColor='gray'" })*@
+                            <textarea type="text" class="form-control" id="IdPosicion" placeholder="Posicion" style="height:200px" onkeypress="style.borderColor='gray'"></textarea>
+                        </div>
+                    </div>
+                        
+                    <br />    
+                @*}*@
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Agregar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Editar--->
+<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Cliente</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <input id="Id_ejercicio" style="display:none" />
+                    @*@Html.TextBoxFor(p =>ejercicio.Id_ejercicio, new { @id = "Id_ejercicio", style = "display:none" })*@
+                    <div class="row">
+                        <div class="col-md-6">
+                            @*@Html.TextBoxFor(p =>ejercicio.Clave_ejercicio, new { @class = "form-control", @id = "IdClaveejercicioE", placeholder = "Clave ejercicio", onkeypress = "style.borderColor='gray'" })*@
+                            <input type="text" class="form-control" id="IdClaveejercicioE" placeholder="Clave ejercicio" onkeypress="style.borderColor='gray'" />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="IdEjercicioE" placeholder="Ejercicio" onkeypress="style.borderColor='gray'" />
+                            @*@Html.TextBoxFor(p =>ejercicio.Ejercicio, new { @class = "form-control", id = "IdEjercicioE", placeholder = "Ejercicio", onkeypress = "style.borderColor='gray'" })*@
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            @*@Html.TextAreaFor(p =>ejercicio.Descripcion, new { @class = "form-control", id = "IdDescripcionE", placeholder = "Descripcion", style = "height:200px", onkeypress = "style.borderColor='gray'" })*@
+                            <textarea type="text" class="form-control" id="IdDescripcionE" placeholder="Descripcion" style="height:200px" onkeypress="style.borderColor='gray'"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            @*@Html.TextAreaFor(p =>ejercicio.Posicion, new { @class = "form-control", id = "IdPosicionE", placeholder = "Posicion", style = "height:200px", onkeypress = "style.borderColor='gray'" })*@
+                            <textarea type="text" class="form-control" id="IdPosicionE" placeholder="Posicion" style="height:200px" onkeypress="style.borderColor='gray'"></textarea>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col">
+                                    <input type="file" data-maxsize="4200000" id="IdEjercicioimgE" class="form-control-file my-2 check-image-size" name="fileImage">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <img id="Imgsrc" width="150" height="150" />
+                                </div>
+                            </div>
+                            @*@Html.TextBoxFor(p =>ejercicio.Imagen, new { @class = "form-control-file my-2 check-image-size", type = "file", accept = " image/*", style = "background-color:white;color:black;" })*@
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control" id="IdEjercicioListE">
+                                <option value="Definicion">Definicion</option>
+                                <option value="Volumen">Volumen</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Editar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var url = '@Url.Action("AgregarEjercicios", "AdministracionWebHome")';
+    var urleditar = '@Url.Action("EditarEjercicios", "AdministracionWebHome")';
+    var urlup = '@Url.Action("UpImagen", "AdministracionWebHome")';
+    var urlupact = '@Url.Action("UpImagenActualizar", "AdministracionWebHome")';
+
+    function Ver() {
+        $('#ModalAgregar').modal('show');
+    }
+
+    function Agregar() {
+        var formdata = new FormData();
+        var Imagenf = $("#IdEjercicioimg")[0];
+        var parametros = {};
+        parametros.Clave_ejercicio = $("#IdClaveejercicio").val().trim();
+        parametros.Ejercicio = $("#IdEjercicio").val().trim();
+        parametros.Descripcion = $("#IdDescripcion").val().trim();
+        parametros.Posicion = $("#IdPosicion").val().trim();
+        parametros.Tipo = $("#IdEjercicioList").val().trim();
+        var model = parametros;
+        var file = Imagenf.files[0];
+        formdata.append("Tipo", parametros.Tipo);
+        formdata.append("Imagen", file);
+
+        if (file != undefined) {
+            var maxSizeFileInput = parseInt($("#IdEjercicioimg").data("maxsize"));
+            var sizeFile = Imagenf.files[0].size;
+            if (sizeFile > maxSizeFileInput) {
+                alert("Favor de seleccionar un archivo con tamaño no más de " + (maxSizeFileInput / 1000000) + " MB.");
+                return;
+            }
+        }
+        if (parametros.Clave_ejercicio != "")
+        {
+            if (parametros.Ejercicio != "")
+            {
+                if (parametros.Descripcion != "")
+                {
+                    if (parametros.Posicion != "")
+                    {
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: model,
+                            success: function (data) {
+                                if (data == "True")
+                                {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: urlup,
+                                        data: formdata,
+                                        cache: false,
+                                        processData: false,
+                                        contentType: false,
+                                        success: function (data) {
+                                            if (data == "True") {
+                                                location.reload();
+                                            }
+                                            else {
+                                                location.reload();
+                                            }
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                            alert("Ocurrio un error verifique su conexion updateimagen");
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    location.reload();
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                alert("Ocurrio un error verifique su conexion post");
+                            }
+                        });
+                    }
+                    else
+                    {
+                        document.getElementById("IdPosicion").style.borderColor = "red";
+                    }
+                }
+                else
+                {
+                    document.getElementById("IdDescripcion").style.borderColor = "red";
+                }
+            }
+            else
+            {
+                document.getElementById("IdEjercicio").style.borderColor = "red";
+            }
+        }
+        else
+        {
+            document.getElementById("IdClaveejercicio").style.borderColor = "red";
+        }
+    }
+
+    function VerEditar(Id)
+    {
+        $.ajax({
+            type: "GET",
+            url: urleditar,
+            data: { "Id_ejercicio": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                document.getElementById("Id_ejercicio").value = data["Id_ejercicio"];
+                document.getElementById("IdClaveejercicioE").value = data["Clave_ejercicio"];
+                document.getElementById("IdEjercicioE").value = data["Ejercicio"];
+                document.getElementById('IdDescripcionE').value = data["Descripcion"];
+                document.getElementById('IdPosicionE').value = data["Posicion"];
+                document.getElementById('Imgsrc').src = data["Ubicacion_imagen"];
+                $('#ModalEditar').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    function Editar()
+    {
+        var formdata = new FormData();
+        var Imagenf = $("#IdEjercicioimgE")[0];        
+        var img = Imagenf.files[0];        
+        var parametros = {};
+        parametros.Id_ejercicio = $("#Id_ejercicio").val().trim();
+        parametros.Clave_ejercicio = $("#IdClaveejercicioE").val().trim();
+        parametros.Ejercicio = $("#IdEjercicioE").val().trim();
+        parametros.Descripcion = $("#IdDescripcionE").val().trim();
+        parametros.Posicion = $("#IdPosicionE").val().trim();
+        parametros.Tipo = $("#IdEjercicioListE").val().trim();
+        var model = parametros;
+
+        formdata.append("Tipo", parametros.Tipo);
+        formdata.append("Imagen", img);
+
+        if (img != undefined) {
+            var maxSizeFileInput = parseInt($("#IdEjercicioimgE").data("maxsize"));
+            var sizeFile = Imagenf.files[0].size;
+            if (sizeFile > maxSizeFileInput) {
+                alert("Favor de seleccionar un archivo con tamaño no más de " + (maxSizeFileInput / 1000000) + " MB.");
+                return;
+            } 
+        }
+        if (parametros.Clave_ejercicio != "")
+        {
+            if (parametros.Ejercicio != "")
+            {
+                if (parametros.Descripcion != "")
+                {
+                    if (parametros.Posicion != "")
+                    {
+                        $.ajax({
+                            type: "POST",
+                            url: urleditar,
+                            data: model,
+                            success: function (data) {
+                                if (data == "True") {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: urlupact,
+                                        data: formdata,
+                                        cache: false,
+                                        processData: false,
+                                        contentType: false,
+                                        success: function (data) {
+                                            if (data == "True") {
+                                                location.reload();
+                                            }
+                                            else {
+                                                location.reload();
+                                            }
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                            alert("Ocurrio un error verifique su conexion updateimagen");
+                                        }
+                                    });
+
+                                }
+                                else {
+                                    location.reload();
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                alert("Ocurrio un error verifique su conexion updateimagen");
+                            }
+                        });
+                    }
+                    else
+                    {
+                        document.getElementById("IdPosicionE").style.borderColor = "red";
+                    }
+                }
+                else
+                {
+                    document.getElementById("IdDescripcionE").style.borderColor = "red";
+                }
+            }
+            else
+            {
+                document.getElementById("IdEjercicioE").style.borderColor = "red";
+            }
+        }
+        else
+        {
+            document.getElementById("IdClaveejercicioE").style.borderColor = "red";
+        }
+    }
+
+</script>

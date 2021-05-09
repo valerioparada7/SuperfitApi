@@ -1,0 +1,1019 @@
+﻿@using SuperfitApi.Models
+@model List<ClientesModel>
+
+@{
+    Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3 class="letracolor"><i class="fa fa-address-book"></i>  Clientes </h3>
+        <hr id="line" />
+        <span class="float-right" style="margin-top:-65px">
+            <button type="button" class="color btn btn-primary" onclick="Ver()">Nuevo cliente</button>
+        </span>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover" id="tabla">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Editar</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Celular</th>
+                        <th>Correo</th>
+                        <th>Estado</th>
+                        <th>Sexo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id_cliente</td>
+                            <td>
+                                @Html.ActionLink("Ver cliente", "ClienteDetalle", "AdministracionWebHome",new { Id_cliente = item.Id_cliente }, new { @class = "color btn btn-primary" })
+                                <button type="button" class="color btn btn-primary" onclick="VerEditar(@item.Id_cliente)">Editar</button>
+                            </td>
+                            <td>@item.Nombres @item.Apellido_paterno @item.Apellido_materno</td>
+                            <td>@item.Edad</td>
+                            <td>@item.Telefono</td>
+                            <td>@item.Correo_electronico </td>
+                            <td>
+                                @if (item.Estado == true)
+                                {<label>Activo</label> }
+                                else
+                                { <label>Baja</label>}
+                            <td>@item.Sexo</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Agregar--->
+<div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Nuevo cliente</h3>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdNombre" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApeP" placeholder="Apellido paterno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApeM" placeholder="Apellido materno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApodo" placeholder="Alias" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdEdad" placeholder="Edad" maxlength="2" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdTelefono" placeholder="Celular" maxlength="10" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="email" class="form-control" id="IdCorreo" placeholder="Correo elctronico" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="password" class="form-control" id="IdContraseña" placeholder="Contraseña" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <select class="form-control" id="IdSexo" name="Sexo">
+                                <option value="Mujer">Mujer</option>
+                                <option value="Hombre">Hombre</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="Agregar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Editar--->
+<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Cliente</h3>
+                <h5></h5>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <input id="idcliente" style="display:none" />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdNombreE" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApePE" placeholder="Apellido paterno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApeME" placeholder="Apellido materno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApodoE" placeholder="Alias" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdEdadE" placeholder="Edad" maxlength="2" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdTelefonoE" placeholder="Celular" maxlength="10" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="email" class="form-control" id="IdCorreoE" placeholder="Correo elctronico" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="password" class="form-control" id="IdContraseñaE" placeholder="Contraseña" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <select class="form-control" id="IdSexoE" name="Sexo">
+                                <option value="Mujer">Mujer</option>
+                                <option value="Hombre">Hombre</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">                
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Cuestionario(document.getElementById('idcliente').value)">Cuestionario</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="MensualidadDetalle(document.getElementById('idcliente').value)">Detalle Mensualidad</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad(document.getElementById('idcliente').value)">Mensualidad</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="Editar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Mensualidad--->
+<div class="modal fade" id="ModalMensualidad" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Mensualidad</h3>
+                <h5></h5>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h3 id="nameCliente"></h3>
+                    <input id="idclienteMensualidad" style="display:none" />
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" id="Tiporutina">
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" id="Meses">
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" id="Estatus">
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" id="Tipoentrenamientolist">
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Cuestionario(document.getElementById('idcliente').value)">Cuestionario</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="MensualidadDetalle(document.getElementById('idcliente').value)">Detalle Mensualidad</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="VerEditar(document.getElementById('idcliente').value)">Cliente</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="MensualidadGuardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA detalle Mensualidad--->
+<div class="modal fade" id="ModalMensualidadDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
+                <h5></h5>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="overflow-y:auto;height:500px">
+                    <h3 id="nameClienteDetalle" class="letracolor"></h3>
+                    <input id="idclienteMensualidadDetalle" style="display:none" />
+                    <br />
+                    <div id="=asignacion">
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Rutinas">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Dias">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Ejercicios">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" id="Repeticiones" class="form-control" placeholder="Repeticiones" onkeypress="style.borderColor='gray'" />
+                            </div>
+                            <div class="col">
+                                <input type="text" id="Series" class="form-control" placeholder="Series" onkeypress="style.borderColor='gray'" />
+                            </div>
+                            <div class="col">
+                                <input type="text" id="Set" class="form-control" placeholder="Set" onkeypress="style.borderColor='gray'" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-5">
+                                <button type="button" id="AgregarRutina" class="btn btn-success" onclick="AgregarRutina()">Agregar a la rutina</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <h4>Rutina</h4>
+                    <br />
+                    <div id="rutinas">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-striped table-hover" id="ListaEjercicios">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Dia</th>
+                                        <th>Rutina</th>
+                                        <th>Ejercicio</th>
+                                        <th>Series</th>
+                                        <th>Repeticiones</th>
+                                        <th>Set</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Cuestionario(document.getElementById('idcliente').value)">Cuestionario</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="VerEditar(document.getElementById('idcliente').value)">Cliente</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad(document.getElementById('idcliente').value)">Mensualidad</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA cuestionario --->
+<div class="modal fade" id="ModalCuestionario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Cuestionario</h3>
+                <h5></h5>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="overflow-y:auto;height:500px">
+                    <h3 id="nameClienteDetalle"></h3>
+                    <input id="idclientecuestionario" style="display:none" />
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Padece alguna enfermedad?</label>
+                            <input type="checkbox" class="form-check-input" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()" />
+                            <Label class="form-check-label pt-1" for="Padece_enfermedadChk">
+                                ¿Si?
+                            </Label>
+                            <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="style.borderColor='gray'" style="display:none" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
+                            <input type="checkbox" class="form-check-input" id="lesionesChk" onchange="lesionesChk()" />
+                            <Label class="form-check-label pt-1" for="lesionesChk">
+                                ¿Si?
+                            </Label>
+                            <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="style.borderColor='gray'" style="display:none" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Acostumbra a Fumar?</label>
+                            <input type="checkbox" class="form-check-input" id="FumaChk" onchange="FumaChk()" />
+                            <Label class="form-check-label pt-1" for="FumaChk">
+                                ¿Si?
+                            </Label>
+                            <input type="text" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="style.borderColor='gray'" style="display:none" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
+                            <input type="checkbox" class="form-check-input" id="AlcoholChk" onchange="AlcoholChk()" />
+                            <Label class="form-check-label pt-1" for="AlcoholChk">
+                                ¿Si?
+                            </Label>
+                            <input type="text" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="style.borderColor='gray'" style="display:none" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Actualmente realizas alguna actividad física?</label>
+                            <input type="checkbox" class="form-check-input" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
+                            <Label class="form-check-label pt-1" for="Actividad_fisicaChk">
+                                ¿Si?
+                            </Label>
+                            <br />
+                        </div>
+                    </div>
+                    <br />
+                    <div id="cuestionarioTime" style="display:none">
+                        <div class="row">
+                            <div class="col">
+                                <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>
+                                <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="style.borderColor='gray'" />
+                                <br />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>¿Cuánto tiempo llevas realizando dicha actividad de manera constante?</label>
+                                <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="style.borderColor='gray'" />
+                                <br />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>¿En qué horario entrenas?</label>
+                                <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="style.borderColor='gray'" />
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Cuáles son tus metas u objetivos para lograr?</label>
+                            <input type="text" class="form-control" id="MetasObjetivosTxt" placeholder="Ej: mejorar condicion... aumentar masa muscular" onkeypress="style.borderColor='gray'" />
+                            <br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Qué compromiso tienes contigo mismo?</label>
+                            <input type="text" class="form-control" id="CompromisosTxt" placeholder="Ej: Ser diciplinado... constante" onkeypress="style.borderColor='gray'" />
+                            <br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>¿Algún comentario adicional, antes de poder seguir y comenzar?</label>
+                            <input type="text" class="form-control" id="ComentariosTxt" placeholder="..." onkeypress="style.borderColor='gray'" />
+                            <br />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="VerEditar(document.getElementById('idcliente').value)">Cliente</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="MensualidadDetalle(document.getElementById('idcliente').value)">Detalle Mensualidad</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="Mensualidad(document.getElementById('idcliente').value)">Mensualidad</button>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="GuardarCuestionario()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        CargarCombos();
+    });
+
+    var url = '@Url.Action("AgregarCliente", "AdministracionWebHome")';
+    var urleditar = '@Url.Action("EditarCliente", "AdministracionWebHome")';
+    var urlmensualidad = '@Url.Action("AgregarMensualidad", "AdministracionWebHome")';
+    var urldetallRutina = '@Url.Action("DetallRutina", "AdministracionWebHome")';
+    var urlcuestionario = '@Url.Action("AgregarCuestionario", "AdministracionWebHome")';
+    
+
+    function Ver() {
+        $('#ModalAgregar').modal('show');
+    }
+
+    function Agregar() {
+        var parametros = {};
+        parametros.Nombres = $('#IdNombre').val().trim();
+        parametros.Apellido_paterno = $('#IdApeP').val().trim();
+        parametros.Apellido_materno = $('#IdApeM').val().trim();
+        parametros.Apodo = $('#IdApodo').val().trim();
+        parametros.Edad = $('#IdEdad').val();
+        parametros.Telefono = $('#IdTelefono').val();
+        parametros.Correo_electronico = $('#IdCorreo').val().trim();
+        parametros.Contraseña = $('#IdContraseña').val().trim();
+        parametros.Sexo = $('#IdSexo').val();
+        var clientesModel = parametros;
+        if (parametros.Nombres != "")
+        {
+            if (parametros.Nombres.length >= 3)
+            {
+                if (parametros.Apellido_paterno != "")
+                {
+                    if (parametros.Apellido_paterno.length >= 3)
+                    {
+                        if (parametros.Apellido_materno != "")
+                        {
+                            if (parametros.Apellido_materno.length >= 3)
+                            {
+                                if (parametros.Edad != "")
+                                {
+                                    if (parametros.Telefono != "" || parametros.Correo_electronico != "")
+                                    {
+                                        if (parametros.Contraseña != "")
+                                        {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: url,
+                                                data: clientesModel,
+                                                success: function (data) {
+                                                    if (data == "True") {
+                                                        location.reload();
+                                                    }
+                                                    else {
+                                                        location.reload();
+                                                    }
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                                    alert("Ocurrio un error verifique su conexion");
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            document.getElementById("IdContraseña").style.borderColor = "red";
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("IdCorreo").style.borderColor = "red";
+                                        document.getElementById("IdTelefono").style.borderColor = "red";
+                                    }
+                                }
+                                else {
+                                    document.getElementById("IdEdad").style.borderColor = "red";
+                                    }
+                            }
+                            else {
+                                document.getElementById("IdApeM").style.borderColor = "red";
+                            }
+                        }
+                        else {
+                            document.getElementById("IdApeM").style.borderColor = "red";
+                            }
+                    }
+                    else {
+                        document.getElementById("IdApeP").style.borderColor = "red";
+                    }
+                }
+                else {
+                    document.getElementById("IdApeP").style.borderColor = "red";
+                    }
+            }
+            else {
+                document.getElementById("IdNombre").style.borderColor = "red";
+            }
+        }
+        else {
+            document.getElementById("IdNombre").style.borderColor = "red";
+        }
+    }
+
+    function VerEditar(Id) {
+        $.ajax({
+            type: "GET",
+            url: urleditar,
+            data: { "Id_cliente": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                document.getElementById('idcliente').value = data["Id_cliente"];
+                document.getElementById('IdNombreE').value = data["Nombres"];
+                document.getElementById('IdApePE').value = data["Apellido_paterno"];
+                document.getElementById('IdApeME').value = data["Apellido_materno"];
+                document.getElementById('IdApodoE').value = data["Apodo"];
+                document.getElementById('IdEdadE').value = data["Edad"];
+                document.getElementById('IdTelefonoE').value = data["Telefono"];
+                document.getElementById('IdCorreoE').value = data["Correo_electronico"];
+                document.getElementById('IdContraseñaE').value = data["Contraseña"];
+                document.getElementById('IdSexoE').value = data["Sexo"];
+                $('#ModalEditar').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    function Editar() {
+        var parametros = {};
+        parametros.Id_cliente =         $('#idcliente').val().trim();
+        parametros.Nombres =            $('#IdNombreE').val().trim();
+        parametros.Apellido_paterno =   $('#IdApePE').val().trim();
+        parametros.Apellido_materno =   $('#IdApeME').val().trim();
+        parametros.Apodo =              $('#IdApodoE').val().trim();
+        parametros.Edad =               $('#IdEdadE').val();
+        parametros.Telefono =           $('#IdTelefonoE').val();
+        parametros.Correo_electronico = $('#IdCorreoE').val().trim();
+        parametros.Contraseña =         $('#IdContraseñaE').val().trim();
+        parametros.Sexo =               $('#IdSexoE').val();
+        var clientesModel = parametros;
+        if (parametros.Nombres != "") {
+            if (parametros.Nombres.length >= 3) {
+                if (parametros.Apellido_paterno != "") {
+                    if (parametros.Apellido_paterno.length >= 3) {
+                        if (parametros.Apellido_materno != "") {
+                            if (parametros.Apellido_materno.length >= 3) {
+                                if (parametros.Edad != "") {
+                                    if (parametros.Telefono != "" || parametros.Correo_electronico != "") {
+                                        if (parametros.Contraseña != "") {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: urleditar,
+                                                data: clientesModel,
+                                                success: function (data) {
+                                                    if (data == "True") {
+                                                        location.reload();
+                                                    }
+                                                    else {
+                                                        location.reload();
+                                                    }
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                                    alert("Ocurrio un error verifique su conexion");
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            document.getElementById("IdContraseña").style.borderColor = "red";
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("IdCorreo").style.borderColor = "red";
+                                        document.getElementById("IdTelefono").style.borderColor = "red";
+                                    }
+                                }
+                                else {
+                                    document.getElementById("IdEdad").style.borderColor = "red";
+                                }
+                            }
+                            else {
+                                document.getElementById("IdApeM").style.borderColor = "red";
+                            }
+                        }
+                        else {
+                            document.getElementById("IdApeM").style.borderColor = "red";
+                        }
+                    }
+                    else {
+                        document.getElementById("IdApeP").style.borderColor = "red";
+                    }
+                }
+                else {
+                    document.getElementById("IdApeP").style.borderColor = "red";
+                }
+            }
+            else {
+                document.getElementById("IdNombre").style.borderColor = "red";
+            }
+        }
+        else {
+            document.getElementById("IdNombre").style.borderColor = "red";
+        }
+    }
+
+    function Mensualidad(Id)
+    {
+        var name = document.getElementById("IdNombreE").value;
+        name = name +" "+ document.getElementById("IdApePE").value;
+        name = name + " " + document.getElementById("IdApeME").value;
+        document.getElementById("nameCliente").innerHTML = name;
+        document.getElementById("idclienteMensualidad").value = Id;
+        $('#ModalMensualidad').modal('show');
+    }
+
+    function MensualidadGuardar() {
+        var parametros = {};
+        var Tiporutina = {};
+        var Mes = {};
+        var Estatus = {};
+        var TipoEntrenamiento = {};
+        var Cliente = {};
+        Tiporutina.Id_tiporutina =$("#Tiporutina").val();
+        Mes.Id_mes =$("#Meses").val();
+        Estatus.Id_estatus = $("#Estatus").val();
+        TipoEntrenamiento.Id_TipoEntrenamiento = $("#Tipoentrenamientolist").val();
+        Cliente.Id_cliente = $("#idclienteMensualidad").val();
+        parametros.Tiporutina = Tiporutina;
+        parametros.Mes = Mes;
+        parametros.Estatus = Estatus;
+        parametros.TipoEntrenamiento = TipoEntrenamiento;
+        parametros.Cliente = Cliente;
+        var model = parametros;
+        $.ajax({
+            type: "POST",
+            url: urlmensualidad,
+            data: model,
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    function MensualidadDetalle(Id) {
+        var name = document.getElementById("IdNombreE").value;
+        name = name + " " + document.getElementById("IdApePE").value;
+        name = name + " " + document.getElementById("IdApeME").value;
+        document.getElementById("nameClienteDetalle").innerHTML = name;
+        document.getElementById("idclienteMensualidadDetalle").value = Id;
+        $('#ModalMensualidadDetalle').modal('show');
+    }
+
+    function AgregarRutina() {
+
+        var ser = $('#Series').val();
+        var rep = $('#Repeticiones').val();
+        var set = $('#Set').val();
+        if (ser == "" && rep == "" && set == "") {
+            document.getElementById("Set").style.borderColor = "red";
+            document.getElementById("Repeticiones").style.borderColor = "red";
+            document.getElementById("Series").style.borderColor = "red";
+        }
+
+        if (ser != "")
+        {
+            if (rep != "")
+            {
+                if (set != "")
+                {
+                    var i = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
+                    var c = i.length-1;
+                    var rutina = document.getElementById("Rutinas");
+                    var dia = document.getElementById("Dias");
+                    var ejercicio = document.getElementById("Ejercicios");
+                    var html = '';
+                    html += '<tr id="fila' + c +'">';
+                    html += '<td><label id="idmensualidad" style="display:block">' + $('#idclienteMensualidadDetalle').val() + '</label>'+c+'</td> ';
+                    html += '<td> <label id="iddia' + c +'" style="display:block">' + $('#Dias').val() + '</label>' + dia.options[dia.selectedIndex].text + '</td> ';
+                    html += '<td> <label id="idrutina' + c +'" style="display:block">' + $('#Rutinas').val() + '</label>' + rutina.options[rutina.selectedIndex].text + '</td> ';
+                    html += '<td> <label id="idejercicio' + c +'" style="display:block">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text + '</td> ';
+                    html += '<td> <label id="idserie' + c +'">' + $('#Series').val() + '</label></td> ';
+                    html += '<td> <label id="idrepeticion' + c +'">' + $('#Repeticiones').val() + '</label></td> ';
+                    html += '<td> <label id="idset' + c +'">' + $('#Set').val() + '</label></td> ';
+                    html += '<td><button type="button" class="btn btn-danger fa fa-trash" onclick="EliminaFila('+c+')"></button></td>';
+                    html += '</tr>';
+                    $('#ListaEjercicios tbody').append(html);
+                    document.getElementById("Set").value = "";
+                    document.getElementById("Repeticiones").value = "";
+                    document.getElementById("Series").value = "";
+                }
+                else {
+                    document.getElementById("Set").style.borderColor = "red";
+                }
+            }
+            else {
+                document.getElementById("Repeticiones").style.borderColor = "red";
+            }
+        }
+        else {
+            document.getElementById("Series").style.borderColor = "red";
+        }
+    }
+
+    function GuardarRutina() {
+        var detallerutinaModels = [];
+        var l = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
+        var c = l.length - 2;
+        for (var i = 1; i <= c; i++)
+        {
+            var fila = document.getElementById("fila" + i).style.display;
+            if (fila != "none") {
+                var model = {};
+                var Dias = {};
+                var Ejercicios = {};
+                var Mensualidad = {};
+                var Rutinas = {};
+
+                Dias.Id_dia = document.getElementById("iddia" + i).innerHTML;
+                Ejercicios.Id_ejercicio = document.getElementById('idejercicio' + i).innerHTML;
+                Mensualidad.Id_mensualidad = document.getElementById('idclienteMensualidadDetalle').value;
+                Rutinas.Id_rutina = document.getElementById('idrutina' + i).innerHTML;
+                model.Dias = Dias;
+                model.Ejercicios = Ejercicios;
+                model.Mensualidad = Mensualidad;
+                model.Rutinas = Rutinas;
+                model.Repeticiones = document.getElementById('idrepeticion' + i).innerHTML;
+                model.Series = document.getElementById('idserie' + i).innerHTML;
+                model.Tipo_set = document.getElementById('idset' + i).innerHTML;
+                detallerutinaModels.push(model);
+            }
+        }
+
+        $.ajax({
+            type: "POST",
+            url: urldetallRutina,
+            data: JSON.stringify(detallerutinaModels),
+            contentType: "application/json",
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+
+    }
+
+    //Fila para quitar ejercicio de rutina en el modelo detalle mensualidad
+    function EliminaFila(Id) {
+        document.getElementById("fila" + Id).style.display = "none";
+    }
+
+    function Cuestionario(Id) {
+        var name = document.getElementById("IdNombreE").value;
+        name = name + " " + document.getElementById("IdApePE").value;
+        name = name + " " + document.getElementById("IdApeME").value;
+        document.getElementById("nameCliente").innerHTML = name;
+        document.getElementById("idclientecuestionario").value = Id;
+        $('#ModalCuestionario').modal('show');
+    }
+
+    function GuardarCuestionario() {
+        var parametros = {};
+        var Cliente = {};
+        Cliente.Id_cliente = $("#idclientecuestionario").val();
+        parametros.Cliente = Cliente;
+        parametros.Padece_enfermedad = $("#Padece_enfermedadChk").val();
+        parametros.Medicamento_prescrito_medico = $("#Medicamento_prescrito_medicoTxt").val();
+        parametros.lesiones = $("#lesionesChk").val();
+        parametros.Alguna_recomendacion_lesiones = $("#Alguna_recomendacion_lesionesTxt").val();
+        parametros.Fuma = $("#FumaChk").val();
+        parametros.Veces_semana_fuma = $("#Veces_semana_fumaTxt").val();
+        parametros.Alcohol = $("#AlcoholChk").val();
+        parametros.Veces_semana_alcohol = $("#Veces_semana_alcoholTxt").val();
+        parametros.Actividad_fisica = $("#Actividad_fisicaChk").val();
+        parametros.Tipo_ejercicios = $("#Tipo_ejerciciosTxt").val();
+        parametros.Tiempo_dedicado = $("#Tiempo_dedicadoTxt").val();
+        parametros.Horario_entreno = $("#Horario_entrenoTxt").val();
+        parametros.MetasObjetivos = $("#MetasObjetivosTxt").val();
+        parametros.Compromisos = $("#CompromisosTxt").val();
+        parametros.Comentarios = $("#ComentariosTxt").val();
+
+        var modelo = parametros;
+
+        $.ajax({
+            type: "POST",
+            url: urlcuestionario,
+            data: modelo,
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+        
+    function Padece_enfermedadChk() {
+        var value = document.getElementById("Padece_enfermedadChk").checked;
+        if (value == true) {
+            document.getElementById("Medicamento_prescrito_medicoTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Medicamento_prescrito_medicoTxt").style.display = "none";
+            document.getElementById("Medicamento_prescrito_medicoTxt").value = "";
+        }
+
+    }
+    function lesionesChk() {
+        var value = document.getElementById("lesionesChk").checked;
+        if (value == true) {
+            document.getElementById("Alguna_recomendacion_lesionesTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Alguna_recomendacion_lesionesTxt").style.display = "none";
+            document.getElementById("Alguna_recomendacion_lesionesTxt").value = "";
+        }
+
+    }
+    function FumaChk() {
+        var value = document.getElementById("FumaChk").checked;
+        if (value == true) {
+            document.getElementById("Veces_semana_fumaTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Veces_semana_fumaTxt").style.display = "none";
+            document.getElementById("Veces_semana_fumaTxt").value = "";
+        }
+    }
+    function AlcoholChk() {
+        var value = document.getElementById("AlcoholChk").checked;
+        if (value == true) {
+            document.getElementById("Veces_semana_alcoholTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Veces_semana_alcoholTxt").style.display = "none";
+            document.getElementById("Veces_semana_alcoholTxt").value = "";
+        }
+    }
+    function Actividad_fisicaChk() {
+        var value = document.getElementById("Actividad_fisicaChk").checked;
+        if (value == true) {
+            document.getElementById("cuestionarioTime").style.display = "block";
+        }
+        else {
+            document.getElementById("cuestionarioTime").style.display = "none";
+            document.getElementById("Tipo_ejerciciosTxt").value = "";
+            document.getElementById("Tiempo_dedicadoTxt").value = "";
+            document.getElementById("Horario_entrenoTxt").value = "";
+        }
+    }
+
+    function CargarCombos() {
+        var listaTiporutina =  @Html.Raw(Json.Encode(ViewBag.Tiporutina));
+        var listaMes = @Html.Raw(Json.Encode(ViewBag.Mes));
+        var listaEstatus = @Html.Raw(Json.Encode(ViewBag.Estatus));
+        var listaTipoEntrenamiento = @Html.Raw(Json.Encode(ViewBag.TipoEntrenamiento));
+
+        var listRutinas=@Html.Raw(Json.Encode(ViewBag.Rutinas));
+        var listDias=@Html.Raw(Json.Encode(ViewBag.Dias));
+        var listEjercicios =@Html.Raw(Json.Encode(ViewBag.Ejercicios));
+
+        for (var i = 0; i<listaTiporutina.length; i++) {
+            $("#Tiporutina").append("<option value='" + listaTiporutina[i].Id_tiporutina + "'>" + listaTiporutina[i].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var j = 0; j<listaMes.length; j++) {
+            $("#Meses").append("<option value='" + listaMes[j].Id_mes + "'>" + listaMes[j].Mes.toUpperCase() + "</option>");
+        }
+        for (var k = 0; k < listaEstatus.length; k++) {
+            $("#Estatus").append("<option value='" + listaEstatus[k].Id_estatus + "'>" + listaEstatus[k].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listaTipoEntrenamiento.length; l++) {
+            $("#Tipoentrenamientolist").append("<option value='" + listaTipoEntrenamiento[l].Id_TipoEntrenamiento + "'>" + listaTipoEntrenamiento[l].Tipo_entrenamiento.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listRutinas.length; l++) {
+            $("#Rutinas").append("<option value='" + listRutinas[l].Id_rutina + "'>" + listRutinas[l].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listDias.length; l++) {
+            $("#Dias").append("<option value='" + listDias[l].Id_dia + "'>" + listDias[l].Dia.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listEjercicios.length; l++) {
+            $("#Ejercicios").append("<option value='" + listEjercicios[l].Id_ejercicio + "'>" + listEjercicios[l].Ejercicio.toUpperCase() + "</option>");
+        }
+
+    }
+
+</script>
+
+
+
+
+
+

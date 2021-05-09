@@ -3,41 +3,256 @@
     ViewBag.Title = "Rutinas";
     Layout = "~/Views/Shared/Diseño.cshtml";
 }
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h2 style="text-align:center">Rutina de la semana</h2>
-        </div>
+<style>
+     @@media screen and (min-width:768px) {
+        .mobile {
+            width: 310px;
+            height:40px;
+        }
+        .imagenes {
+            width: 200px;
+            height: 200px;
+        }
+
+    }
+    
+</style>
+<div class="row">
+    <div class="col">
+        <h2 style="text-align:center">Rutina de la semana</h2>
     </div>
-    <hr />        
-    <div class="table-responsive">
-        <table id="tabladias" class="table table-condensed table-striped table-hover sortable">
-            <thead>
-                <tr>                    
-                    <th style="text-align:center"><h3>Elige tu dia a entrenar</h3></th>
-                </tr>
-            </thead>
-            <tbody>
+</div>    
+<br />
+<div id="semana">
+    <div class="row">        
+        <div class="col">
+            <h5>Dia de la semana a entrenar</h5>
+            <select class="form-control mobile" id="dias">
                 @{
-                    string[] dias = { "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" };
-                    for (int i = 1; i <= dias.Length - 1; i++)
+                    string[] dias = { "", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" };
+                    for (int i = 2; i < dias.Length; i++)
                     {
-                        <tr>                            
-                            <td style="text-align:center;height:50px">                            
-                            @Html.ActionLink(dias[i], "GetDetalleRutinaSets", "ClientesWeb", new { @class = "btn btn-primary",style= "width:250px;text-align:center;height:50px" })</td>
-                            
-                        </tr>
+                        <option value="@i">@dias[i]</option>
+
                     }
                 }
-            </tbody>
-        </table>
+            </select>
+        </div>        
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+            <h5>Sets</h5>
+            <select class="form-control mobile" id="sets">
+                <option value="0">No hay sets asignados</option>
+            </select>
+        </div>
+    </div>
+
+    <hr />    
+    <div class="row">
+        <div class="col">
+            <h5>Ejercicios</h5>            
+            <br />
+            <div id="rutinas" class="tablarutinas">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-striped table-hover" id="ListaEjercicios">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Dia</th>
+                                <th>Ejemplo</th>
+                                <th>Ejercicio</th>
+                                <th>Series</th>
+                                <th>Repeticiones</th>
+                                <th>Set</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>    
 </div>
+   
 
 <script type="text/javascript">
+    var urlsets = '@Url.Action("GetDetalleRutinaSets", "ClientesWeb")';
+    var urlejercicios = '@Url.Action("GetDetalleRutinaEjercicios", "ClientesWeb")';
+
     $(document).ready(function () {
-        $("#tabladias").DataTable();
+        Getsets();
     });
+
+    //int IdMensualidad,int IdEstatusMes,int IdDIa
+    $("#dias").change(function () {
+        var dia = $(this).val();
+        var mens = '@Session["Mensualdiad"].ToString()';
+        var estatusmes = '@Session["EstatusMensualdiad"].ToString()';
+        $.ajax({
+            type: "GET",
+            url: urlsets,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: { "IdMensualidad": mens, "IdEstatusMes": estatusmes, "IdDIa": dia },
+            success: function (data) {
+                $('#ListaEjercicios tbody').empty();
+                var c = data.length;
+                if (c > 0) {
+                    var html = '';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i].Tipo_set + '">' + data[i].TipoSet + '</option>';
+                    }
+                    $('#sets').empty();
+                    $('#sets').append(html);
+                    GetDetalleRutinaEjercicios();
+                }
+                else {
+                    var html = '';
+                    html += '<option value="0">No hay sets asignados</option>';
+                    $('#sets').empty();
+                    $('#sets').append(html);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Cliente)");
+            }
+        });
+    });
+
+    $("#sets").change(function () {
+        var set = $(this).val();
+        var dia = document.getElementById("dias").value;
+        var Idmensualidad = '@Session["Mensualdiad"].ToString()';
+        var idmes = '@Session["EstatusMensualdiad"].ToString()';
+    $.ajax({
+        type: "GET",
+        url: urlejercicios,
+        data: { "IdMensualidad": Idmensualidad, "IdEstatusMes": idmes, "IdDIa": dia,"TipoSet":set},
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        success: function (data) {
+            console.log(data);
+            $('#ListaEjercicios tbody').empty();
+            var c = data.length;
+            if (c > 0) {
+                var html = '';
+                var n = 1;
+                var diaob = document.getElementById("dias");
+                var setobt = document.getElementById("sets");
+                for (var i = 0; i < data.length; i++) {
+                    var ejercicio = data[i].Ejercicios;
+                    var html = '';
+                    html += '<tr>';
+                    html += '<td>' + n + '</td> ';
+                    html += '<td>' + diaob.options[diaob.selectedIndex].text+ '</td> ';
+                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen +' width="200" height="200""/></td> ';
+                    html += '<td>'+ ejercicio.Ejercicio+'</td>';
+                    html += '<td>' + data[i].Series+'</td> ';
+                    html += '<td>' + data[i].Repeticiones+'</td> ';
+                    html += '<td> ' + setobt.options[setobt.selectedIndex].text +'</td> ';
+                    html += '</tr>';
+                    $('#ListaEjercicios tbody').append(html);
+                    n++;
+                }
+
+            }
+            else {
+
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            alert("Ocurrio un error verifique su conexion (Cliente)");
+        }
+    });
+    });
+
+    function Getsets() {
+        var dia = document.getElementById("dias").value;
+        var mens = '@Session["Mensualdiad"].ToString()';
+        var estatusmes = '@Session["EstatusMensualdiad"].ToString()';
+        $.ajax({
+            type: "GET",
+            url: urlsets,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: { "IdMensualidad": mens, "IdEstatusMes": estatusmes, "IdDIa": dia },
+            success: function (data) {
+                var c = data.length;
+                if (c > 0) {
+                    var html = '';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i].Tipo_set + '">' + data[i].TipoSet + '</option>';
+                    }
+                    $('#sets').empty();
+                    $('#sets').append(html);
+                    GetDetalleRutinaEjercicios();
+                }
+                else {
+                    var html = '';
+                    html += '<option value="0">No hay sets asignados</option>';
+                    $('#sets').empty();
+                    $('#sets').append(html);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Cliente)");
+            }
+        });
+    }
+
+    function GetDetalleRutinaEjercicios() {
+        var set = document.getElementById("sets").value;
+        var dia = document.getElementById("dias").value;
+        var Idmensualidad = '@Session["Mensualdiad"].ToString()';
+        var idmes = '@Session["EstatusMensualdiad"].ToString()';
+    $.ajax({
+        type: "GET",
+        url: urlejercicios,
+        data: { "IdMensualidad": Idmensualidad, "IdEstatusMes": idmes, "IdDIa": dia,"TipoSet":set},
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        success: function (data) {
+            console.log(data);
+            var c = data.length;
+            if (c > 0) {
+                var html = '';
+                var n = 1;
+                var diaob = document.getElementById("dias");
+                var setobt = document.getElementById("sets");
+                for (var i = 0; i < data.length; i++) {
+                    var ejercicio = data[i].Ejercicios;
+                    var html = '';
+                    html += '<tr>';
+                    html += '<td>' + n + '</td> ';
+                    html += '<td>' + diaob.options[diaob.selectedIndex].text+ '</td> ';
+                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen +'" width="200" height="200" /></td> ';
+                    html += '<td>'+ ejercicio.Ejercicio+'</td>';
+                    html += '<td>' + data[i].Series+'</td> ';
+                    html += '<td>' + data[i].Repeticiones+'</td> ';
+                    html += '<td> ' + setobt.options[setobt.selectedIndex].text +'</td> ';
+                    html += '</tr>';
+                    $('#ListaEjercicios tbody').append(html);
+                    n++;
+                }
+
+            }
+            else {
+
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            alert("Ocurrio un error verifique su conexion (Cliente)");
+        }
+    });
+}
+
 </script>
 
 

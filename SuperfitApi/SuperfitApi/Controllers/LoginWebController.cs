@@ -209,21 +209,22 @@ namespace SuperfitApi.Controllers
         
         //Registrar Cliente
         public ActionResult RegistrarCliente()
-        {
+        {            
             ViewBag.Tiporutina = (from t in Db.Tipo_rutina select new TiporutinaModel() { Id_tiporutina = t.Id_tipo_rutina, Descripcion = t.Descripcion }).ToList();
             ViewBag.TipoEntrenamiento = (from t in Db.Tipo_entrenamiento select new TipoentrenamientoModel() { Id_TipoEntrenamiento = t.Id_tipo_entrenamiento, Tipo_entrenamiento = t.Tipo_entrenamientos }).ToList();
             return View();
         }
 
         [HttpPost]
-        public bool RegistrarCliente(RegistroCliente Registro)
+        public string RegistrarCliente(RegistroCliente Registro)
         {
-            bool result = false;
+            string result = "No se guardaron los datos intente de nuevo";
+            try
+            {                       
             if (Registro != null)
             {
                 var cliente = Db.Clientes.Where(p => p.Correo_electronico == Registro.Cliente.Correo_electronico
                                                         || p.Telefono == Registro.Cliente.Telefono).FirstOrDefault();
-
                 if (cliente == null)
                 {
                     string Clave = "";
@@ -320,88 +321,108 @@ namespace SuperfitApi.Controllers
                                     DirectoryInfo di = Directory.CreateDirectory(ruta);
                                     TempData["Ubicacion"] = Name;
                                     TempData["IdCliente"] = clientes.Id_cliente;
-                                    TempData["IdMedidas"] = asesoria_antropometria.Id;
-                                    ViewBag.Success = "Registro exito,espera tu respuesta a tu correo o celular que proporcionaste";
-                                    result = true;
+                                    TempData["IdMedidas"] = asesoria_antropometria.Id;                                    
+                                    result = "True";
                                 }
                                 else
                                 {
-                                    Session["Error"] = "Ocurrio un error al guardar tus medidas reintenta de nuevo y verifica tus datos";
+                                    result = "Ocurrio un error al guardar tus medidas reintenta de nuevo y verifica tus datos";
                                     Db.Mensualidad.Remove(mensualidad);
                                     Db.SaveChanges();
                                     Db.Cuestionario.Remove(cuestionario);
                                     Db.SaveChanges();
                                     Db.Clientes.Remove(clientes);
-                                    Db.SaveChanges();
-                                    result = false;
+                                    Db.SaveChanges();                                     
                                 }
                             }
                             else
                             {
-                                Session["Error"] = "Ocurrio un error al guardar tu mensualidad reintenta de nuevo y verifica tus datos";
+                                result = "Ocurrio un error al guardar tu mensualidad reintenta de nuevo y verifica tus datos";
                                 Db.Cuestionario.Remove(cuestionario);
                                 Db.SaveChanges();
                                 Db.Clientes.Remove(clientes);
-                                Db.SaveChanges();                                
-                                result = false;
+                                Db.SaveChanges();
                             }
                         }
                         else
                         {
-                            Session["Error"] = "Ocurrio un error al guardar tu cuestionario reintenta de nuevo y verifica tus datos";
+                            result = "Ocurrio un error al guardar tu cuestionario reintenta de nuevo y verifica tus datos";
                             Db.Clientes.Remove(clientes);
                             Db.SaveChanges();
-                            result = false;
                         }
                     }
                     else
                     {
-                        Session["Error"] = "Ocurrio un error al guardar tus datos personales reintenta de nuevo y verifica tus datos";
-                        result = false;
+                        result = "Ocurrio un error al guardar tus datos personales reintenta de nuevo y verifica tus datos";                        
                     }
                 }
                 else
                 {
-                    Session["Error"] = "Ya hay un correo y/o celular registrado por favor intenta otro";
-                    result= false;
+                    result = "Ya hay un correo y/o celular registrado por favor intenta otro";                    
                 }
+            }
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
             }
             return result;
         }
 
         [HttpPost]
-        public bool UpdateImagenes(HttpPostedFileBase fotoperfil, HttpPostedFileBase fotofrontal, 
+        public string UpdateImagenes(HttpPostedFileBase fotoperfil, HttpPostedFileBase fotofrontal, 
                                     HttpPostedFileBase fotolateral, HttpPostedFileBase fotoposterior)
         {
-            bool result = false;
-            string ubicacion = string.Empty,idcliente = string.Empty, medidas= string.Empty;
-            int clienteid = 0, medidasid = 0;
-            if (fotoperfil!=null&& fotofrontal != null&& fotolateral != null && fotoposterior != null)
+            string result = "1";
+            try
             {
+                string ubicacion = string.Empty, idcliente = string.Empty, medidas = string.Empty;
+                int clienteid = 0, medidasid = 0;
                 ubicacion = TempData["Ubicacion"].ToString();
                 idcliente = TempData["IdCliente"].ToString();
                 medidas = TempData["IdMedidas"].ToString();
-
                 clienteid = int.Parse(idcliente);
                 medidasid = int.Parse(medidas);
-
                 clientes = Db.Clientes.Where(y => y.Id_cliente == clienteid).FirstOrDefault();
                 asesoria_antropometria = Db.Asesoria_antropometria.Where(y => y.Id == medidasid).FirstOrDefault();
-                clientes.Foto_perfil = clientes.Foto_perfil + "/" + fotoperfil.FileName.ToString();
-                Db.SaveChanges();
-
-                asesoria_antropometria.Foto_frontal= asesoria_antropometria.Foto_frontal + "/" + fotofrontal.FileName.ToString();
-                asesoria_antropometria.Foto_perfil = asesoria_antropometria.Foto_perfil + "/" + fotolateral.FileName.ToString();
-                asesoria_antropometria.Foto_posterior = asesoria_antropometria.Foto_posterior + "/" + fotoposterior.FileName.ToString();
-                Db.SaveChanges();
-                
-                fotoperfil.SaveAs(Server.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotoperfil.FileName.ToString()));
-                fotofrontal.SaveAs(Server.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotofrontal.FileName.ToString()));
-                fotolateral.SaveAs(Server.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotolateral.FileName.ToString()));
-                fotoposterior.SaveAs(Server.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotoposterior.FileName.ToString()));
-                result = true;
+                if (fotoperfil!=null)
+                {
+                    clientes.Foto_perfil = clientes.Foto_perfil + "/" + fotoperfil.FileName.ToString();
+                    Db.SaveChanges();
+                    fotoperfil.SaveAs(Server.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotoperfil.FileName.ToString()));
+                    result = "True";   
+                }
+                else
+                {
+                    clientes.Foto_perfil = clientes.Foto_perfil + "/";
+                    Db.SaveChanges();
+                }
+                if(fotofrontal != null)
+                {
+                    asesoria_antropometria.Foto_frontal = asesoria_antropometria.Foto_frontal + "/" + fotofrontal.FileName.ToString();
+                    Db.SaveChanges();
+                    fotofrontal.SaveAs(Server.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotofrontal.FileName.ToString()));
+                    result = "True";
+                }
+                if(fotolateral != null)
+                {
+                    asesoria_antropometria.Foto_perfil = asesoria_antropometria.Foto_perfil + "/" + fotolateral.FileName.ToString();
+                    Db.SaveChanges();
+                    fotolateral.SaveAs(Server.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotolateral.FileName.ToString()));
+                    result = "True";
+                }
+                if(fotoposterior != null)
+                {
+                    asesoria_antropometria.Foto_posterior = asesoria_antropometria.Foto_posterior + "/" + fotoposterior.FileName.ToString();
+                    Db.SaveChanges();
+                    result = "True";
+                    fotoposterior.SaveAs(Server.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotoposterior.FileName.ToString()));
+                }
             }
-
+            catch (Exception ex)
+            {                
+                result = ex.Message; 
+            }
             return result;
         }
 

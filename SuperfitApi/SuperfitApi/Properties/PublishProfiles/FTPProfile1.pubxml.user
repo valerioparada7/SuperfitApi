@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo se usa en el proceso de publicación y empaquetado del proyecto web. Para personalizar el comportamiento de este proceso,
+edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 para obtener más información. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAtZ/Ze3P9d0SUgdJHiVwj5gAAAAACAAAAAAADZgAAwAAAABAAAACDYyFdWEuxbSgxrEnxpkhVAAAAAASAAACgAAAAEAAAABEqOI64FE2bbXrXsennRFsgAAAAVVgoJdPGSpQF8bpNG/uqT2PbTpD9VSRknGiRhRioF+IUAAAAOileNFaK3v+j35yjt275WQZtCzU=</EncryptedPassword>
+    <_PublishTargetUrl>ftp://ftp.site4now.net/superflyfit</_PublishTargetUrl>
+    <History>False|2021-05-09T04:01:35.1743678Z;False|2021-05-08T23:00:18.9402895-05:00;False|2021-05-08T22:59:17.5387937-05:00;</History>
+  </PropertyGroup>
+</Project>

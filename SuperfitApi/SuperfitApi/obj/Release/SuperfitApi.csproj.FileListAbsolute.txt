@@ -199,8 +199,8 @@ C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\Super
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\es\System.Web.WebPages.resources.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\es\System.Web.WebPages.Razor.resources.dll
-C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.csprojAssemblyReference.cache
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.csproj.CoreCompileInputs.cache
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.csproj.CopyComplete
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.pdb
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.csprojAssemblyReference.cache

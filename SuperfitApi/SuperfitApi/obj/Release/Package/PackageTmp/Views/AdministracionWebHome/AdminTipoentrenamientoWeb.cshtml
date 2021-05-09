@@ -1,0 +1,221 @@
+﻿@using SuperfitApi.Models
+@model List<TipoentrenamientoModel>
+
+@{
+    Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3 class="letracolor"><i class="fa fa-address-book"></i> Tipo entrenamiento </h3>
+        <hr id="line" />
+        <span class="float-right" style="margin-top:-65px">
+            <button type="button" class="color btn btn-primary" onclick="Ver()">Nuevo Tipo entrenamiento</button>
+        </span>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover" id="tabla">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Editar</th>
+                        <th>Clave entrenamiento</th>
+                        <th>Tipo entrenamiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id_TipoEntrenamiento</td>
+                            <td><button type="button" class="color btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_TipoEntrenamiento)"></button></td>
+                            <td>@item.Clave_Entrenamiento</td>
+                            <td>@item.Tipo_entrenamiento</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Agregar--->
+<div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Nuevo Tipo entrenamiento</h3>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdClaveentrenamiento" placeholder="Clave entrenamiento" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdTipoentrenamiento" placeholder="Tipo entrenamiento" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Agregar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Editar--->
+<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Tipo entrenamiento</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <input id="idvalue" style="display:none" />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdClaveentrenamientoE" placeholder="Clave entrenamiento" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdTipoentrenamientoE" placeholder="Tipo entrenamiento" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Editar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var url = '@Url.Action("AgregarTipoentrenamiento", "AdministracionWebHome")';
+    var urleditar = '@Url.Action("EditarTipoentrenamiento", "AdministracionWebHome")';
+
+    function Ver() {
+        $('#ModalAgregar').modal('show');
+    }
+
+    function Agregar() {
+        var parametros = {};
+        parametros.Clave_Entrenamiento = $('#IdClaveentrenamiento').val().trim();
+        parametros.Tipo_entrenamiento = $('#IdTipoentrenamiento').val().trim();        
+        var model = parametros;        
+
+        if (parametros.Clave_rutina != "")
+        {
+            if (parametros.Descripcion != "")
+            {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: model,
+                    success: function (data) {
+                        if (data == "True") {
+                            location.reload();
+                        }
+                        else {
+                            location.reload();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                        alert("Ocurrio un error verifique su conexion");
+                    }
+                });
+            }
+            else
+            {
+                document.getElementById("IdTipoentrenamiento").style.borderColor = "red";
+            }
+        }
+        else
+        {
+            document.getElementById("IdClaveentrenamiento").style.borderColor = "red";
+        }
+    }
+
+    function VerEditar(Id) {
+
+        $.ajax({
+            type: "GET",
+            url: urleditar,
+            data: { "Id_tipo_entrenamiento": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                document.getElementById('idvalue').value = data["Id_TipoEntrenamiento"];
+                document.getElementById('IdClaveentrenamientoE').value = data["Clave_Entrenamiento"];
+                document.getElementById('IdTipoentrenamientoE').value = data["Tipo_entrenamiento"];
+                $('#ModalEditar').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    function Editar()
+    {        
+        var parametros = {};
+        parametros.Id_TipoEntrenamiento = $('#idvalue').val().trim();       
+        parametros.Clave_Entrenamiento = $('#IdClaveentrenamientoE').val().trim();
+        parametros.Tipo_entrenamiento = $('#IdTipoentrenamientoE').val().trim();     
+        var model = parametros;
+
+        if (parametros.Clave_Entrenamiento != "")
+        {
+            if (parametros.Tipo_entrenamiento != "")
+            {
+                $.ajax({
+                    type: "POST",
+                    url: urleditar,
+                    data: model,
+                    success: function (data)
+                    {
+                        if (data == "True") {
+                            location.reload();
+                        }
+                        else {
+                            location.reload();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                        alert("Ocurrio un error verifique su conexion");
+                    }
+                });
+            }
+            else
+            {
+                document.getElementById("IdTipoentrenamientoE").style.borderColor = "red";
+            }
+        }
+        else
+        {
+            document.getElementById("IdClaveentrenamientoE").style.borderColor = "red";
+        }
+    }
+
+</script>

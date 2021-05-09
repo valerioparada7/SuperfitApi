@@ -1,0 +1,418 @@
+﻿@using SuperfitApi.Models
+@model List<MensualidadModel>
+
+@{
+    Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3><i class="fa fa-address-book"></i> Mensualidad</h3>
+        <hr id="line" />
+        <span class="float-right" style="margin-top:-65px">
+            <button type="button" class="btn btn-primary" onclick="Mensualidad()">Nuevo Mensualidad</button>
+        </span>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover" id="tabla">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Editar</th>
+                        <th>Cliente</th>
+                        <th>Tipo rutina</th>
+                        <th>Mes</th>
+                        <th>Estatus</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id_mensualidad</td>
+                            <td><button type="button" class="btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_mensualidad,@item.Cliente.Id_cliente)"></button></td>
+                            <td>@item.Cliente.Nombres @item.Cliente.Apellido_paterno @item.Cliente.Apellido_materno</td>
+                            <td>@item.Tiporutina.Tipo</td>
+                            <td>@item.Mes.Mes</td>
+                            <td>@item.Estatus.Descripcion</td>
+                            <td>@item.Fecha_inicio</td>
+                            <td>@item.Fecha_inicio</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Agregar--->
+<div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Nuevo Mensualidad</h3>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdNombre" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Agregar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Editar--->
+<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Mensualidad</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <input id="idmes" style="display:none" />
+                    <input id="idcliente" style="display:none" />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdNombreE" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="Medidas(document.getElementById('idmes').value)">Medidas</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Editar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Mensualida--->
+<div class="modal fade" id="ModalMensualidad" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Nueva Mensualidad</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div id="SeleCliente">
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="IdCliente" name="Clientes">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="asesoria">
+                        <h5>Seleccione tipo de asesoria </h5>
+
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Tiporutina">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Meses">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Estatus">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-control" id="Tipoentrenamientolist">
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="MensualidadGuardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA medidas --->
+<div class="modal fade" id="ModalMedidas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Medidas</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="overflow-y:auto;height:500px">
+                    <h3 id="nameClienteDetalle"></h3>
+                    <input id="idMensualidadMedidas" style="display:none" />
+                    <div>
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control"/>
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" id="IMC" class="form-control" readonly="true"/>
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <label>Foto frontal</label>
+                                <input type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <label>Foto perfil</label>
+                                <input type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col">
+                                <label>Foto posterior</label>
+                                <input type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarMedidas()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        CargarCombos();
+    });
+
+    var url = '@Url.Action("AgregarCliente", "AdministracionWebHome")';
+    var urleditar = '@Url.Action("EditarCliente", "AdministracionWebHome")';
+    var urlmedidas = '@Url.Action("AgregarAsesoriaantropometria", "AdministracionWebHome")';
+
+    function Ver() {
+        $('#ModalAgregar').modal('show');
+    }
+
+    function Agregar() {
+
+    }
+
+    function VerEditar(Id, cliente) {
+        document.getElementById("idmes").value = Id;
+        document.getElementById("idcliente").value = cliente;
+        $('#ModalEditar').modal('show');
+    }
+
+    function Editar() {
+    }
+
+    function Mensualidad() {
+        $('#ModalMensualidad').modal('show');
+    }
+
+    function Medidas(idmes) {
+        document.getElementById("idMensualidadMedidas").value = idmes;
+        $('#ModalMedidas').modal('show');
+    }
+
+    function GuardarMedidas() {
+        var parametros = {};
+        var Mensualidad = {};
+        Mensualidad.Id_mensualidad = $("#idMensualidadMedidas").val();
+        parametros.Peso = $("#Peso").val();
+        parametros.Altura = $("#Altura").val();
+        parametros.IMC = $("#IMC").val();
+        parametros.Brazoderechorelajado = $("#Brazo_derecho_relajado").val();
+        parametros.Brazoderechofuerza = $("#Brazo_derecho_fuerza").val();
+        parametros.Brazoizquierdorelajado = $("#Brazo_izquierdo_relajado").val();
+        parametros.Brazoizquierdofuerza = $("#Brazo_izquierdo_fuerza").val();
+        parametros.Cintura = $("#Cintura").val();
+        parametros.Cadera = $("#Cadera").val();
+        parametros.Piernaizquierda = $("#Pierna_izquierda").val();
+        parametros.Piernaderecho = $("#Pierna_derecho").val();
+        parametros.Pantorrilladerecha = $("#Pantorrilla_derecha").val();
+        parametros.Pantorrillaizquierda = $("#Pantorrilla_izquierda").val();
+        parametros.Mensualidad = Mensualidad;
+        //Foto_frontal
+        //Foto_perfil
+        //Foto_posterior
+
+        var modelo = parametros;
+        $.ajax({
+            type: "POST",
+            url: urlmedidas,
+            data: modelo,
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    function CargarCombos() {
+        var listaTiporutina =  @Html.Raw(Json.Encode(ViewBag.Tiporutina));
+        var listaMes = @Html.Raw(Json.Encode(ViewBag.Mes));
+        var listaEstatus = @Html.Raw(Json.Encode(ViewBag.Estatus));
+        var listaTipoEntrenamiento = @Html.Raw(Json.Encode(ViewBag.TipoEntrenamiento));
+        var listCliente = @Html.Raw(Json.Encode(ViewBag.Cliente));
+        for (var i = 0; i<listaTiporutina.length; i++) {
+            $("#Tiporutina").append("<option value='" + listaTiporutina[i].Id_tiporutina + "'>" + listaTiporutina[i].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var j = 0; j<listaMes.length; j++) {
+            $("#Meses").append("<option value='" + listaMes[j].Id_mes + "'>" + listaMes[j].Mes.toUpperCase() + "</option>");
+        }
+        for (var k = 0; k < listaEstatus.length; k++) {
+            $("#Estatus").append("<option value='" + listaEstatus[k].Id_estatus + "'>" + listaEstatus[k].Descripcion.toUpperCase() + "</option>");
+        }
+        for (var l = 0; l < listaTipoEntrenamiento.length; l++) {
+            $("#Tipoentrenamientolist").append("<option value='" + listaTipoEntrenamiento[l].Id_TipoEntrenamiento + "'>" + listaTipoEntrenamiento[l].Tipo_entrenamiento.toUpperCase() + "</option>");
+        }
+        for (var m = 0; m < listCliente.length; m++) {
+            $("#IdCliente").append("<option value='" + listCliente[m].Id_cliente + "'>" + listCliente[m].Nombres.toUpperCase() + "</option>");
+        }
+
+    }
+
+    $("#Altura").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = value;
+        var peso = document.getElementById("Peso").value;
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
+            }
+        }
+
+    });
+    $("#Peso").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = document.getElementById("Altura").value;
+        var peso = value;
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
+            }
+        }
+
+    });
+
+
+</script>

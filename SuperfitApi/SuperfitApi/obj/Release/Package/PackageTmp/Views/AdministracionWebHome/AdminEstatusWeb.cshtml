@@ -1,0 +1,193 @@
+﻿@using SuperfitApi.Models
+@model List<EstatusModel>
+
+@{
+    Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3 class="letracolor"><i class="fa fa-address-book"></i> Estatus</h3>
+        <hr id="line" />
+        <span class="float-right" style="margin-top:-65px">
+            <button type="button" class="color btn btn-primary" onclick="Ver()">Nuevo Estatus</button>
+        </span>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover" id="tabla">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Editar</th>
+                        <th>Descripcion </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id_estatus</td>
+                            <td><button type="button" class="color btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_estatus)"></button></td>                          
+                            <td>@item.Descripcion</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Agregar--->
+<div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Nuevo Estatus</h3>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdDescripcion" placeholder="Descripcion" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Agregar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA Editar--->
+<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Estatus</h3>
+                <h5></h5>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <input id="idvalue" style="display:none" />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdDescripcionE" placeholder="Descripcion" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="Editar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var url = '@Url.Action("AgregarEstatus", "AdministracionWebHome")';
+    var urleditar = '@Url.Action("EditarEstatus", "AdministracionWebHome")';
+
+    function Ver() {
+        $('#ModalAgregar').modal('show');
+    }
+
+    function Agregar() {
+        var parametros = {};
+        parametros.Descripcion = $("#IdDescripcion").val().trim();
+        var model = parametros;
+        if (parametros.descripcion != "")
+        {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: model,
+                success: function (data) {
+                    if (data == "True") {
+                        location.reload();
+                    }
+                    else {
+                        location.reload();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    alert("Ocurrio un error verifique su conexion");
+                }
+            });
+        }
+        else
+        {
+            document.getElementById("IdDescripcion").style.borderColor = "red";
+        }
+    }
+
+    function VerEditar(Id)
+    {
+        $.ajax({
+            type: "GET",
+            url: urleditar,
+            data: { "Id_estatus": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                document.getElementById('idvalue').value = data["Id_estatus"];
+                document.getElementById("IdDescripcionE").value = data["Descripcion"];                
+                $('#ModalEditar').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    function Editar()
+    {
+        var parametros = {};
+        parametros.Id_estatus = $("#idvalue").val().trim();
+        parametros.Descripcion = $("#IdDescripcionE").val().trim();
+        var model = parametros;
+        if (parametros.descripcion != "")
+        {
+            $.ajax({
+                type: "POST",
+                url: urleditar ,
+                data: model,
+                success: function (data) {
+                    if (data == "True") {
+                        location.reload();
+                    }
+                    else {
+                        location.reload();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    alert("Ocurrio un error verifique su conexion");
+                }
+            });
+        }
+        else
+        {
+            document.getElementById("IdDescripcionE").style.borderColor = "red";
+        }
+        
+    }
+
+</script>
+

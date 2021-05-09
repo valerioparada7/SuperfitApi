@@ -1,0 +1,250 @@
+﻿@using SuperfitApi.Models
+@model List<MensualidadModel>
+@{
+    ViewBag.Title = "Mensualidades";
+    Layout = "~/Views/Shared/Diseño.cshtml";
+}
+
+<div id="content">
+    <div class="container">
+        <h3>Mensualidades</h3>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover" id="tabla">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Detalle rutina</th>
+                        <th>Tipo rutina</th>
+                        <th>Medidas y fotos</th>
+                        <th>Mes</th>
+                        <th>Estatus</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>                                
+                                <td>@i</td>
+                                <td>@item.TipoEntrenamiento.Tipo_entrenamiento</td>
+                                <td>@item.Tiporutina.Tipo</td>
+                                <td><button type="button" style="border:0px;color:#007bff" class="btn-link" onclick="VerFotosMedidas(@item.Id_mensualidad)">Ver mis medidas y fotos</button></td>
+                                <td>@item.Mes.Mes</td>
+                                <td>@item.Estatus.Descripcion</td>
+                                <td>@item.Fechainicio</td>
+                                <td>@item.Fechafin</td>
+                            </tr>
+                        }
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Modal para detalle Mensualidad--->
+<div id="ModalMensualidadDetalle" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">    
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="letracolor modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
+                    <h5></h5>
+                    <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h3>Nuevo registro</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" id="IMC" class="form-control" readonly />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" />
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Foto frontal</label>
+                                        <label for="Foto_frontal" style="cursor:pointer">
+                                            <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                        </label>
+                                        <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Foto perfil</label>
+                                        <label for="Foto_perfil" style="cursor:pointer">
+                                            <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                        </label>
+                                        <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
+                                    </div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Foto posterior</label>
+                                        <label for="Foto_posterior" style="cursor:pointer">
+                                            <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                        </label>
+                                        <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col">
+                                    <h3>Mis medidas y fotos</h3>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped table-hover" id="ListaMedidas">
+                                    <thead>
+                                        <tr>
+                                            <th>Peso</th>
+                                            <th>Altura</th>
+                                            <th>IMC</th>
+                                            <th>Brazo derecho relajado</th>
+                                            <th>Brazo derecho fuerza</th>
+                                            <th>Brazo izquierdo relajado</th>
+                                            <th>Brazo izquierdo fuerza</th>
+                                            <th>Cintura</th>
+                                            <th>Cadera</th>
+                                            <th>Pierna izquierda</th>
+                                            <th>Pierna derecho</th>
+                                            <th>Pantorrilla derecha</th>
+                                            <th>Pantorrilla izquierda</th>
+                                            <th>Foto frontal</th>
+                                            <th>Foto perfil</th>
+                                            <th>Foto posterior</th>
+                                            <th>Fecha registro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var urlmedidas = '@Url.Action("ListAsesoriaantropometria", "ClientesWeb")';
+        function VerFotosMedidas(Id) {
+            $.ajax({
+                type: "GET",
+                url: urlmedidas,
+                data: { "Id_mensualidad": Id },
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) { 
+                        var html = "";
+                        html += '<tr>';
+                        html += '<td><lable>' + data[i].Peso + '</lable></td>';
+                        html += '<td><lable>' + data[i].Altura + '</lable></td>';
+                        html += '<td><lable>' + data[i].IMC + '</lable></td>';
+                        html += '<td><lable>' + data[i].Brazoderechorelajado + '</lable></td>';
+                        html += '<td><lable>' + data[i].Brazoderechofuerza + '</lable></td>';
+                        html += '<td><lable>' + data[i].Brazoizquierdorelajado + '</lable></td>';
+                        html += '<td><lable>' + data[i].Brazoizquierdofuerza + '</lable></td>';
+                        html += '<td><lable>' + data[i].Cintura + '</lable></td>';
+                        html += '<td><lable>' + data[i].Cadera + '</lable></td>';
+                        html += '<td><lable>' + data[i].Piernaizquierda + '</lable></td>';
+                        html += '<td><lable>' + data[i].Piernaderecho + '</lable></td>';
+                        html += '<td><lable>' + data[i].Pantorrilladerecha + '</lable></td>';
+                        html += '<td><lable>' + data[i].Pantorrillaizquierda + '</lable></td>';
+                        html += '<td><img src="' + data[i].Fotofrontal + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                        html += '<td><img src="' + data[i].Fotoperfil + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                        html += '<td><img src="' + data[i].Fotoposterior + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                        html += '<td><lable>' + data[i].Fecharegistro + '</lable></td>';
+                        html += '</tr>';
+                        $('#ListaMedidas tbody').append(html);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    alert("Ocurrio un error verifique su conexion (Mensualidad)");
+                }
+            });
+            $("#ModalMensualidadDetalle").modal("show");
+        }
+    </script>

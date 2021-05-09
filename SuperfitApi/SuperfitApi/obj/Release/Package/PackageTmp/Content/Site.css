@@ -393,66 +393,6 @@ table.dataTable tbody td {
         transition: .4s;
     }
 
-/* include generated hidden field here */
-input[type="checkbox"]:checked + input[type="hidden"] + .slider,
-input[type="checkbox"]:checked + .slider {
-    background-color: #2196F3;
-}
-
-/* include generated hidden field here */
-input[type="checkbox"]:focus + input[type="hidden"] + .slider,
-input[type="checkbox"]:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-/* include generated hidden field here */
-input[type="checkbox"]:checked + input[type="hidden"] + .slider:before,
-input[type="checkbox"]:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-    border-radius: 34px;
-}
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-
-
-input[type="checkbox"] {
-    position: relative;
-    width: 52px;
-    height: 7px;
-    -webkit-appearance: none;
-    background: #c6c6c6;
-    outline: none;
-    border-radius: 20px;
-    box-shadow: inset 0 0 5px rgb(1, 1, 1);
-    transition: .5s;
-}
-input:checked[type="checkbox"] {
-    background: #062b59;
-}
-input[type="checkbox"]:before {
-
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 33px;
-    top: -7px;
-    left: 0;
-    background: #fff;
-    transform: scale(1.2);
-    box-shadow: 0 0px 10px rgba(0,0,0,0.45);
-    transition: .5s;
-}
-
-input:checked[type="checkbox"]:before {
-    left: 40px;
-}
 
 
 

@@ -1,77 +1,198 @@
 ﻿@using SuperfitApi.Models
-@model MensualidadModel
+
 @{
     ViewBag.Title = "Perfil";
     Layout = "~/Views/Shared/Diseño.cshtml";
+    MensualidadModel mes = new MensualidadModel();
+    mes = ViewBag.Mes;
 }
+<style>
+    .colorh {
+        color: black;
+    }
+
+    h3 {
+        color: #007bff;
+        background-color: white;
+        border-radius: 5px 5px;
+    }
+
+    .color {
+        background-color: #007bff;
+    }
+</style>
+
 <div class="container">
-    <br />    
-    <div class="row" style="border-color:#0A497B;border-style: solid;border-radius: 20px 20px;margin-left:10px;margin-right:10px">
+    <br />
+    <div class="row" style="border-color:#007bff;border-style: solid;border-radius: 20px 20px;margin-left:10px;margin-right:10px">
         <div class="col-md-12">
-            <h1 style="text-align:center"> @Model.Cliente.Nombres.ToUpper()</h1>
+            <h1 id="ClienteNombres" style="text-align:center">
+                @mes.Cliente.Nombres
+            </h1>
         </div>
     </div>
     <br />
     <div class="jumbotron">
-        <h1>AQUI IRA FOTO DE PERFIL</h1>
+        <div style="text-align:center;">
+            <img id="perfil" src="@mes.Cliente.Foto_perfil" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/>
+        </div>
+        <div style="text-align:center;margin-top:10px" class="col-md-6 offset-md-3">
+            <label for="Foto_cliente_perfil" style="cursor:pointer">
+                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+            </label>
+            <input  style="display:none" value="Foto perfil" title="Foto perfil" type="file" data-maxsize="4200000" id="Foto_cliente_perfil" class="form-control-file my-2 check-image-size">
+        </div>
+        <hr />
         <div class="row">
-            <div class="col-sm-3">
-                <h3>Fecha Inicio</h3>
+            <div class="col-md-4">
+                <h3 class="colorh">Mensualidad:</h3>
             </div>
-            <div class="col-sm-2">
-                <h3>
-                    @ViewBag.FechaI
+            <div class="col">
+                <h3 id="EstatusId">
+                    @mes.Estatus.Descripcion
                 </h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3">
-                <h3>Fecha Fin</h3>
+            <div class="col-md-4">
+                <h3 class="colorh">Fecha Inicio:</h3>
             </div>
-            <div class="col-sm-2">
-                <h3>
-                    @ViewBag.FechaF
+            <div class="col">
+                <h3 id="FechaI">
+                    @mes.Fechainicio
                 </h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3">
-                <h3>Tipo Rutina</h3>
+            <div class="col-md-4">
+                <h3 class="colorh">Fecha Fin:</h3>
             </div>
-            <div class="col-sm-6">
-                <h3>
-                    @ViewBag.TipoRutina
+            <div class="col">
+                <h3 id="FechaF">
+                    @mes.Fechafin
                 </h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3">
-                <h3>Tipo entrenamiento</h3>
+            <div class="col-md-4">
+                <h3 class="colorh">Tipo Rutina:</h3>
             </div>
-            <div class="col-sm-6">
-                <h3>
-                    @ViewBag.TipoEntrenamiento
+            <div class="col">
+                <h3 id="TipoRutina">
+                    @mes.Tiporutina.Tipo
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="colorh">Tipo entrenamiento:</h3>
+            </div>
+            <div class="col">
+                <h3 id="TipoEntrenamiento">
+                    @mes.TipoEntrenamiento.Tipo_entrenamiento
                 </h3>
             </div>
         </div>
     </div>
-
-
     <div class="row">
         <div class="col-md-4">
             <h2>Rutinas de ejemplo para aumento de gluteo</h2>
             <p>En desarrollo</p>
-            <p><a class="btn btn-primary">Link para enviarte a la pagina &raquo;</a></p>
+            <p><a class="color btn btn-primary">Link para enviarte a la pagina &raquo;</a></p>
         </div>
         <div class="col-md-4">
             <h2>Dietas de ejemplo</h2>
             <p>En desarrollo</p>
-            <p><a class="btn btn-primary">Link para enviarte a la pagina &raquo;</a></p>
+            <p><a class="color btn btn-primary">Link para enviarte a la pagina &raquo;</a></p>
         </div>
         <div class="col-md-4">
             <h2>Mas ejemplos</h2>
             <p>En desarrollo</p>
-            <p><a class="btn btn-primary">Link para enviarte a la pagina &raquo;</a></p>
+            <p><a class="color btn btn-primary">Link para enviarte a la pagina &raquo;</a></p>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar foto del perfil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center">
+                    <div id="preview" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" onclick="ActualizarFoto()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var urlupdate = '@Url.Action("UpdateFoto", "ClientesWeb")';
+
+    function ModalImagen() {
+        $("#exampleModal").show();
+    }
+    //prevializacion de la foton
+    document.getElementById("Foto_cliente_perfil").onchange = function (e) {
+        // Creamos el objeto de la clase FileReader
+        let reader = new FileReader();
+
+        // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+        reader.readAsDataURL(e.target.files[0]);
+
+        // Le decimos que cuando este listo ejecute el código interno
+        reader.onload = function () {
+            let preview = document.getElementById('preview'),
+                image = document.createElement('img');
+
+            image.src = reader.result;
+            image.width = '200';
+            image.height = '200';
+            image.style.display = 'inline-block';
+            image.style.borderRadius = '20px';
+            image.style.boxShadow = '0px 0px 2px #888';
+            preview.innerHTML = '';
+            preview.append(image);
+        };
+        $("#exampleModal").modal('show');
+    }
+
+    function ActualizarFoto() {
+        var formdata = new FormData();
+        var fotoperfil = $("#Foto_cliente_perfil")[0];
+        var imagen = fotoperfil.files[0];
+        formdata.append("imagen", imagen);
+        $.ajax({
+            type: "POST",
+            url: urlupdate,
+            data: formdata,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Ocurrio un error verifique su conexion updateimagen");
+            }
+        });
+    }
+</script>
+
+
