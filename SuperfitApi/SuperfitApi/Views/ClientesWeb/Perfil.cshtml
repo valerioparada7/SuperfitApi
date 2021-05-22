@@ -93,7 +93,101 @@
                 </h3>
             </div>
         </div>
+    </div>    
+    <hr />
+    <div class="jumbotron" style="background-color:#f0f2f5;">
+        <div id="Cuestionario">
+            <h3 style="color:#007bff;background-color:#f0f2f5;">Cuestionario</h3>            
+            <hr />
+            <div class="container">
+                <h3 class="letracolor" id="nameClienteDetalle"></h3>
+                <input id="idclientecuestionario" style="display:none" />
+                <input id="idcuestionario" style="display:none" />
+                <div class="row">
+                    <div class="col">
+                        <label>¿Padece alguna enfermedad?</label>
+                        <input type="checkbox" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()">
+                        <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="style.borderColor='gray'" style="display:none" />
+                    </div>
+                    <div class="col">
+                        <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
+                        <input type="checkbox" id="lesionesChk" onchange="lesionesChk()" />
+                        <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="style.borderColor='gray'" style="display:none" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
+                        <input type="checkbox" id="AlcoholChk" onchange="AlcoholChk()" />
+                        <input type="number" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="style.borderColor='gray'" style="display:none" />
+                    </div>
+                    <div class="col">
+                        <label>¿Acostumbra a Fumar?</label>
+                        <input type="checkbox" id="FumaChk" onchange="FumaChk()" />
+                        <input type="number" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="style.borderColor='gray'" style="display:none" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <label>¿Actualmente realizas alguna actividad física?</label>
+                        <input type="checkbox" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
+                    </div>
+                </div>
+                <br />
+                <div id="cuestionarioTime" style="display:none">
+                    <div class="row">
+                        <div class="col-4">
+                            <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>
+                            <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="style.borderColor='gray'" />
+                        </div>
+                        <div class="col-4">
+                            <label>¿Cuánto tiempo llevas realizando dicha actividad de manera constante?</label>
+                            <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="style.borderColor='gray'" />
+                        </div>
+                        <div class="col-4">
+                            <label>¿En qué horario entrenas?</label>
+                            <br />
+                            <br />
+                            <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <label>¿Cuáles son tus metas u objetivos para lograr?</label>
+                    </div>
+                    <div class="col">
+                        <label>¿Qué compromiso tienes contigo mismo?</label>
+                    </div>
+                    <div class="col">
+                        <label>¿Algún comentario adicional, antes de poder seguir y comenzar?</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" id="MetasObjetivosTxt" placeholder="Ej: mejorar condicion... aumentar masa muscular" onkeypress="style.borderColor='gray'" />
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="CompromisosTxt" placeholder="Ej: Ser diciplinado... constante" onkeypress="style.borderColor='gray'" />
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="ComentariosTxt" placeholder="..." onkeypress="style.borderColor='gray'" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-success" id="BtnEditarCuestionarioEditar" style="display:none" onclick="GuardarCuestionario()">Guardar</button>
+                        <button type="button" class="btn btn-success" id="BtnEditarCuestionario" style="display:none" onclick="GuardarCuestionario()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div class="row">
         <div class="col-md-4">
             <h2>Rutinas de ejemplo para aumento de gluteo</h2>
@@ -137,9 +231,12 @@
 </div>
 
 <script type="text/javascript">
-
+    var urlcuestionario = '@Url.Action("AgregarCuestionario", "AdministracionWebHome")';
+    var urlvercuestionario = '@Url.Action("VerCuestionario", "AdministracionWebHome")';
     var urlupdate = '@Url.Action("UpdateFoto", "ClientesWeb")';
-
+    $(document).ready(function () {
+        VerCuestionario();
+    });
     function ModalImagen() {
         $("#exampleModal").show();
     }
@@ -192,6 +289,169 @@
                 alert("Ocurrio un error verifique su conexion updateimagen");
             }
         });
+    }
+
+    //Cuestionario
+    function VerCuestionario() {
+        var Id = @Session["Id_Cliente"].ToString();
+        document.getElementById("idclientecuestionario").value = Id;
+        $.ajax({
+            type: "GET",
+            url: urlvercuestionario,
+            data: { "Id_cliente": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                var id = data["Id_cuestionario"];
+                if (id != 0) {
+                    document.getElementById('idcuestionario').value = id;
+                    document.getElementById('BtnEditarCuestionarioEditar').style.display = "block";
+                    document.getElementById('BtnEditarCuestionario').style.display = "none";
+                }
+                else {
+                    document.getElementById('idcuestionario').value = 0;
+                    document.getElementById('BtnEditarCuestionarioEditar').style.display = "none";
+                    document.getElementById('BtnEditarCuestionario').style.display = "block";
+                }
+                document.getElementById('Padece_enfermedadChk').checked = data["Padece_enfermedad"];
+                document.getElementById('Medicamento_prescrito_medicoTxt').value = data["Medicamento_prescrito_medico"];
+                document.getElementById('lesionesChk').checked = data["lesiones"];
+                document.getElementById('Alguna_recomendacion_lesionesTxt').value = data["Alguna_recomendacion_lesiones"];
+                document.getElementById('FumaChk').checked = data["Fuma"];
+                document.getElementById('Veces_semana_fumaTxt').value = data["Veces_semana_fuma"];
+                document.getElementById('AlcoholChk').checked = data["Alcohol"];
+                document.getElementById('Veces_semana_alcoholTxt').value = data["Veces_semana_alcohol"];
+                document.getElementById('Actividad_fisicaChk').checked = data["Actividad_fisica"];
+                document.getElementById('Tipo_ejerciciosTxt').value = data["Tipo_ejercicios"];
+                document.getElementById('Tiempo_dedicadoTxt').value = data["Tiempo_dedicado"];
+                document.getElementById('Horario_entrenoTxt').value = data["Horario_entreno"];
+                document.getElementById('MetasObjetivosTxt').value = data["MetasObjetivos"];
+                document.getElementById('CompromisosTxt').value = data["Compromisos"];
+                document.getElementById('ComentariosTxt').value = data["Comentarios"];
+                if (data["Padece_enfermedad"] == true) {
+                    document.getElementById('Medicamento_prescrito_medicoTxt').style.display = "block";
+                }
+                if (data["lesiones"] == true) {
+                    document.getElementById('Alguna_recomendacion_lesionesTxt').style.display = "block";
+                }
+                if (data["Fuma"] == true) {
+                    document.getElementById('Veces_semana_fumaTxt').style.display = "block";
+                }
+                if (data["Alcohol"]) {
+                    document.getElementById('Veces_semana_alcoholTxt').style.display = "block";
+                }
+                if (data["Actividad_fisica"] == true) {
+                    document.getElementById("cuestionarioTime").style.display = "block";
+                }
+
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Cuestionario)");
+            }
+        });
+    }
+
+    function GuardarCuestionario() {
+        var parametros = {};
+        var Cliente = {};
+        Cliente.Id_cliente = $("#idclientecuestionario").val();
+        parametros.Cliente = Cliente;
+        parametros.Padece_enfermedad = document.getElementById("Padece_enfermedadChk").checked;
+        parametros.Medicamento_prescrito_medico = $("#Medicamento_prescrito_medicoTxt").val();
+        parametros.lesiones = document.getElementById("lesionesChk").checked;
+        parametros.Alguna_recomendacion_lesiones = $("#Alguna_recomendacion_lesionesTxt").val();
+        parametros.Fuma = document.getElementById("FumaChk").checked;
+        parametros.Veces_semana_fuma = $("#Veces_semana_fumaTxt").val();
+        parametros.Alcohol = document.getElementById("AlcoholChk").checked;
+        parametros.Veces_semana_alcohol = $("#Veces_semana_alcoholTxt").val();
+        parametros.Actividad_fisica = document.getElementById("Actividad_fisicaChk").checked;
+        parametros.Tipo_ejercicios = $("#Tipo_ejerciciosTxt").val();
+        parametros.Tiempo_dedicado = $("#Tiempo_dedicadoTxt").val();
+        parametros.Horario_entreno = $("#Horario_entrenoTxt").val();
+        parametros.MetasObjetivos = $("#MetasObjetivosTxt").val();
+        parametros.Compromisos = $("#CompromisosTxt").val();
+        parametros.Comentarios = $("#ComentariosTxt").val();
+        var id = $("#idcuestionario").val();
+        if (id != 0) {
+            parametros.Id_cuestionario = id;
+            urlcuestionario = '@Url.Action("ActualizarCuestionario", "AdministracionWebHome")';
+        }
+        var modelo = parametros;
+
+        $.ajax({
+            type: "POST",
+            url: urlcuestionario,
+            data: modelo,
+            success: function (data) {
+                if (data == "True") {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    /*Cuestionario*/
+    function Padece_enfermedadChk() {
+        var value = document.getElementById("Padece_enfermedadChk").checked;
+        if (value == true) {
+            document.getElementById("Medicamento_prescrito_medicoTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Medicamento_prescrito_medicoTxt").style.display = "none";
+            document.getElementById("Medicamento_prescrito_medicoTxt").value = "";
+        }
+
+    }
+    function lesionesChk() {
+        var value = document.getElementById("lesionesChk").checked;
+        if (value == true) {
+            document.getElementById("Alguna_recomendacion_lesionesTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Alguna_recomendacion_lesionesTxt").style.display = "none";
+            document.getElementById("Alguna_recomendacion_lesionesTxt").value = "";
+        }
+
+    }
+    function FumaChk() {
+        var value = document.getElementById("FumaChk").checked;
+        if (value == true) {
+            document.getElementById("Veces_semana_fumaTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Veces_semana_fumaTxt").style.display = "none";
+            document.getElementById("Veces_semana_fumaTxt").value = "";
+        }
+    }
+    function AlcoholChk() {
+        var value = document.getElementById("AlcoholChk").checked;
+        if (value == true) {
+            document.getElementById("Veces_semana_alcoholTxt").style.display = "block";
+        }
+        else {
+            document.getElementById("Veces_semana_alcoholTxt").style.display = "none";
+            document.getElementById("Veces_semana_alcoholTxt").value = "";
+        }
+    }
+    function Actividad_fisicaChk() {
+        var value = document.getElementById("Actividad_fisicaChk").checked;
+        if (value == true) {
+            document.getElementById("cuestionarioTime").style.display = "block";
+        }
+        else {
+            document.getElementById("cuestionarioTime").style.display = "none";
+            document.getElementById("Tipo_ejerciciosTxt").value = "";
+            document.getElementById("Tiempo_dedicadoTxt").value = "";
+            document.getElementById("Horario_entrenoTxt").value = "";
+        }
     }
 </script>
 

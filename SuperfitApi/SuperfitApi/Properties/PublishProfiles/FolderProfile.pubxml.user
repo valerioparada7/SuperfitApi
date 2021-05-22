@@ -276,10 +276,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:56</publishTime>
     </File>
     <File Include="bin/SuperfitApi.dll">
-      <publishTime>05/09/2021 01:23:09</publishTime>
+      <publishTime>05/09/2021 20:41:45</publishTime>
     </File>
     <File Include="bin/SuperfitApi.pdb">
-      <publishTime>05/09/2021 01:23:09</publishTime>
+      <publishTime>05/09/2021 20:41:45</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>03/11/2021 21:29:56</publishTime>
@@ -1680,28 +1680,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/08/2021 21:54:52</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Mensualidades.cshtml">
-      <publishTime>05/08/2021 22:33:29</publishTime>
+      <publishTime>05/09/2021 20:38:17</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Perfil.cshtml">
-      <publishTime>05/08/2021 23:02:21</publishTime>
+      <publishTime>05/09/2021 20:13:55</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Rutinas.cshtml">
-      <publishTime>05/08/2021 20:15:15</publishTime>
+      <publishTime>05/10/2021 00:09:26</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Views/LoginWeb/LoginAdministradorWeb.cshtml">
-      <publishTime>05/07/2021 22:23:59</publishTime>
+      <publishTime>05/09/2021 18:34:56</publishTime>
     </File>
     <File Include="Views/LoginWeb/LoginWeb.cshtml">
-      <publishTime>05/09/2021 01:22:16</publishTime>
+      <publishTime>05/09/2021 18:34:17</publishTime>
     </File>
     <File Include="Views/LoginWeb/RegistrarCliente.cshtml">
-      <publishTime>05/09/2021 01:14:08</publishTime>
+      <publishTime>05/10/2021 00:15:46</publishTime>
     </File>
     <File Include="Views/Shared/Diseño.cshtml">
-      <publishTime>05/08/2021 22:06:54</publishTime>
+      <publishTime>05/10/2021 00:15:23</publishTime>
     </File>
     <File Include="Views/Shared/DiseñoAdmin.cshtml">
       <publishTime>05/08/2021 21:48:32</publishTime>

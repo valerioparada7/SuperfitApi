@@ -12,9 +12,10 @@
         .imagenes {
             width: 200px;
             height: 200px;
-        }
-
+        }        
     }
+    
+    
     
 </style>
 <div class="row">
@@ -48,6 +49,11 @@
             </select>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <div id="descripcion"></div>
+        </div>
+    </div>
 
     <hr />    
     <div class="row">
@@ -61,8 +67,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>Dia</th>
-                                <th>Ejemplo</th>
-                                <th>Ejercicio</th>
+                                <th width="100">Ejercicio</th>
+                                <th width="100">Visualizacion</th>
+                                <th width="300">Descripcion</th>
                                 <th>Series</th>
                                 <th>Repeticiones</th>
                                 <th>Set</th>
@@ -149,8 +156,9 @@
                     html += '<tr>';
                     html += '<td>' + n + '</td> ';
                     html += '<td>' + diaob.options[diaob.selectedIndex].text+ '</td> ';
-                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen +' width="200" height="200""/></td> ';
-                    html += '<td>'+ ejercicio.Ejercicio+'</td>';
+                    html += '<td>' + ejercicio.Ejercicio +'</td> ';
+                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen + '" width="200" height="200"/></td>';
+                    html += '<td><label>' + ejercicio.Descripcion + '</label></td>';
                     html += '<td>' + data[i].Series+'</td> ';
                     html += '<td>' + data[i].Repeticiones+'</td> ';
                     html += '<td> ' + setobt.options[setobt.selectedIndex].text +'</td> ';
@@ -231,8 +239,9 @@
                     html += '<tr>';
                     html += '<td>' + n + '</td> ';
                     html += '<td>' + diaob.options[diaob.selectedIndex].text+ '</td> ';
-                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen +'" width="200" height="200" /></td> ';
-                    html += '<td>'+ ejercicio.Ejercicio+'</td>';
+                    html += '<td>' + ejercicio.Ejercicio +'</td>';
+                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen + '" width="200" height="200" /></td>';
+                    html += '<td width=100;><label>' + ejercicio.Descripcion + '</label></td>';
                     html += '<td>' + data[i].Series+'</td> ';
                     html += '<td>' + data[i].Repeticiones+'</td> ';
                     html += '<td> ' + setobt.options[setobt.selectedIndex].text +'</td> ';

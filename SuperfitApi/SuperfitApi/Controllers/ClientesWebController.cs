@@ -271,37 +271,42 @@ namespace SuperfitApi.Controllers
 
         //Obtener los sets a realizar por dia
         [HttpGet]
-        public JsonResult GetDetalleRutinaSets(int IdMensualidad = 0, int IdEstatusMes = 0,int IdDIa=0)
-        {            
-            listdetallerutinaMdl = (from d in Db.Detalle_rutina
-                                    join m in Db.Mensualidad
-                                   on d.Id_mensualidad equals m.Id_mensualidad
-                                    where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa
-                                    select new DetallerutinaModel()
-                                    {
-                                        Tipo_set = d.Tipo_set
-                                    }).Distinct().ToList();
-            foreach (DetallerutinaModel detalle in listdetallerutinaMdl)
-            {
-                if (detalle.Tipo_set == 1)
+        public JsonResult GetDetalleRutinaSets(int IdMensualidad = 0, int IdEstatusMes = 0, int IdDIa = 0)
+        {
+            var mes = Db.Mensualidad.Where(y => y.Id_mensualidad == IdMensualidad).FirstOrDefault();
+            IdEstatusMes = mes.Id_estatus;
+            if (IdEstatusMes == 2 || IdEstatusMes == 4)
+            {            
+                listdetallerutinaMdl = (from d in Db.Detalle_rutina
+                                        join m in Db.Mensualidad
+                                       on d.Id_mensualidad equals m.Id_mensualidad
+                                        where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa
+                                        select new DetallerutinaModel()
+                                        {
+                                            Tipo_set = d.Tipo_set
+                                        }).Distinct().ToList();
+                foreach (DetallerutinaModel detalle in listdetallerutinaMdl)
                 {
-                    detalle.TipoSet = "Primer set";
-                }
-                else if (detalle.Tipo_set == 2)
-                {
-                    detalle.TipoSet = "Segundo set";
-                }
-                else if (detalle.Tipo_set == 3)
-                {
-                    detalle.TipoSet = "Tercer set";
-                }
-                else if (detalle.Tipo_set == 4)
-                {
-                    detalle.TipoSet = "Cuarto set";
-                }
-                else
-                {
-                    detalle.TipoSet = "Ultimo set";
+                    if (detalle.Tipo_set == 1)
+                    {
+                        detalle.TipoSet = "Primer set";
+                    }
+                    else if (detalle.Tipo_set == 2)
+                    {
+                        detalle.TipoSet = "Segundo set";
+                    }
+                    else if (detalle.Tipo_set == 3)
+                    {
+                        detalle.TipoSet = "Tercer set";
+                    }
+                    else if (detalle.Tipo_set == 4)
+                    {
+                        detalle.TipoSet = "Cuarto set";
+                    }
+                    else
+                    {
+                        detalle.TipoSet = "Ultimo set";
+                    }
                 }
             }
             return Json(listdetallerutinaMdl,JsonRequestBehavior.AllowGet);
@@ -311,36 +316,40 @@ namespace SuperfitApi.Controllers
         [HttpGet]
         public JsonResult GetDetalleRutinaEjercicios(int IdMensualidad = 0, int IdEstatusMes = 0, int IdDIa = 0, int TipoSet = 0)
         {
-            
-            listdetallerutinaMdl = (from d in Db.Detalle_rutina
-                                    join e in Db.Ejercicios
-                                    on d.Id_ejercicio equals e.Id_ejercicio
-                                    join m in Db.Mensualidad
-                                    on d.Id_mensualidad equals m.Id_mensualidad
-                                    join r in Db.Rutinas
-                                    on d.Id_rutina equals r.Id_rutina
-                                    where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa && d.Tipo_set == TipoSet
-                                    select new DetallerutinaModel()
-                                    {
-                                        Id_detallerutina = d.Id_detalle_rutina,
-                                        Ejercicios = new EjerciciosModel
+            var mes = Db.Mensualidad.Where(y => y.Id_mensualidad == IdMensualidad).FirstOrDefault();
+            IdEstatusMes = mes.Id_estatus;
+            if (IdEstatusMes == 2 || IdEstatusMes == 4)
+            {
+                listdetallerutinaMdl = (from d in Db.Detalle_rutina
+                                        join e in Db.Ejercicios
+                                        on d.Id_ejercicio equals e.Id_ejercicio
+                                        join m in Db.Mensualidad
+                                        on d.Id_mensualidad equals m.Id_mensualidad
+                                        join r in Db.Rutinas
+                                        on d.Id_rutina equals r.Id_rutina
+                                        where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa && d.Tipo_set == TipoSet
+                                        select new DetallerutinaModel()
                                         {
-                                            Id_ejercicio = e.Id_ejercicio,
-                                            Clave_ejercicio = e.Clave_ejercicio,
-                                            Ejercicio = e.Ejercicio,
-                                            Descripcion = e.Descripcion,
-                                            Posicion = e.Posicion,
-                                            Ubicacion_imagen = e.Ubicacion_imagen
-                                        },
-                                        Rutinas = new RutinasModel
-                                        {
-                                            Id_rutina = r.Id_rutina,
-                                            Clave_rutina = r.Clave_rutina,
-                                            Descripcion = r.Descripcion
-                                        },
-                                        Repeticiones = d.Repeticiones,
-                                        Series = d.Series
-                                    }).ToList();
+                                            Id_detallerutina = d.Id_detalle_rutina,
+                                            Ejercicios = new EjerciciosModel
+                                            {
+                                                Id_ejercicio = e.Id_ejercicio,
+                                                Clave_ejercicio = e.Clave_ejercicio,
+                                                Ejercicio = e.Ejercicio,
+                                                Descripcion = e.Descripcion,
+                                                Posicion = e.Posicion,
+                                                Ubicacion_imagen = e.Ubicacion_imagen
+                                            },
+                                            Rutinas = new RutinasModel
+                                            {
+                                                Id_rutina = r.Id_rutina,
+                                                Clave_rutina = r.Clave_rutina,
+                                                Descripcion = r.Descripcion
+                                            },
+                                            Repeticiones = d.Repeticiones,
+                                            Series = d.Series
+                                        }).ToList();
+            }
 
             return Json(listdetallerutinaMdl, JsonRequestBehavior.AllowGet);
         }
@@ -381,5 +390,91 @@ namespace SuperfitApi.Controllers
             return Json(listantropometriaMdl, JsonRequestBehavior.AllowGet);
         }
 
+
+        //Hacer un nuevo registro de medidas
+        public string RegistrarMedidas(AntropometriaModel antropometriaModel)
+        {
+            string result = "False";
+            try
+            {
+                string Id = Session["Id_Cliente"].ToString();
+                int IdCliente = int.Parse(Id);
+                clientes = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
+                string Name = clientes.Nombres + " " + clientes.Apellido_paterno + " " + clientes.Apellido_materno;
+                Name = Name.Replace(" ", "_");
+                string fotoperfil = "/Imagenes/Clientes/" + Name;
+                asesoria_antropometria = new Asesoria_antropometria
+                {
+                    Peso = antropometriaModel.Peso,
+                    Id_mensualidad = antropometriaModel.Mensualidad.Id_mensualidad,
+                    Altura = antropometriaModel.Altura,
+                    IMC = antropometriaModel.IMC,
+                    Brazo_derecho_relajado = antropometriaModel.Brazoderechorelajado,
+                    Brazo_derecho_fuerza = antropometriaModel.Brazoderechofuerza,
+                    Brazo_izquierdo_relajado = antropometriaModel.Brazoizquierdorelajado,
+                    Brazo_izquierdo_fuerza = antropometriaModel.Brazoizquierdofuerza,
+                    Cintura = antropometriaModel.Cintura,
+                    Cadera = antropometriaModel.Cadera,
+                    Pierna_izquierda = antropometriaModel.Piernaizquierda,
+                    Pierna_derecho = antropometriaModel.Piernaderecho,
+                    Pantorrilla_derecha = antropometriaModel.Pantorrilladerecha,
+                    Pantorrilla_izquierda = antropometriaModel.Pantorrillaizquierda,
+                    Foto_frontal = fotoperfil,
+                    Foto_perfil = fotoperfil,
+                    Foto_posterior = fotoperfil,
+                    Fecha_registro = DateTime.Now
+                };
+                Db.Asesoria_antropometria.Add(asesoria_antropometria);
+                if (Db.SaveChanges() == 1)
+                {
+                    TempData["idmedidas"] = asesoria_antropometria.Id;
+                    TempData["Name"] = fotoperfil;
+                    result = "True";
+                }
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
+            return result;
+        }
+
+        public string RegistrarFotos(HttpPostedFileBase frontal,HttpPostedFileBase perfil,HttpPostedFileBase posterior)
+        {
+            string result = "False";
+            try
+            {
+                string medida = TempData["idmedidas"].ToString();
+                string name = TempData["Name"].ToString();
+                int Idmedida = int.Parse(medida);
+                asesoria_antropometria = Db.Asesoria_antropometria.Where(y => y.Id == Idmedida).FirstOrDefault();
+                if (frontal != null)
+                {
+                    asesoria_antropometria.Foto_frontal = asesoria_antropometria.Foto_frontal + "/" + frontal.FileName.ToString();
+                    Db.SaveChanges();
+                    frontal.SaveAs(Server.MapPath("~/"+name +"/" + frontal.FileName.ToString()));
+                    result = "True";
+                }
+                if (perfil != null)
+                {
+                    asesoria_antropometria.Foto_perfil = asesoria_antropometria.Foto_perfil + "/" + perfil.FileName.ToString();
+                    Db.SaveChanges();
+                    perfil.SaveAs(Server.MapPath("~/" + name + "/" + perfil.FileName.ToString()));
+                    result = "True";
+                }
+                if (posterior != null)
+                {
+                    asesoria_antropometria.Foto_posterior = asesoria_antropometria.Foto_posterior + "/" + posterior.FileName.ToString();
+                    Db.SaveChanges();
+                    posterior.SaveAs(Server.MapPath("~/" + name + "/" + posterior.FileName.ToString()));
+                    result = "True";
+                }
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }            
+            return result;
+        }
     }
 }

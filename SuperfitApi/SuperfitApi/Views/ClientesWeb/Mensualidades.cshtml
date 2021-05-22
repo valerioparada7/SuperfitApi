@@ -28,7 +28,7 @@
                         int i = 1;
                         foreach (var item in Model)
                         {
-                            <tr>                                
+                            <tr>
                                 <td>@i</td>
                                 <td>@item.TipoEntrenamiento.Tipo_entrenamiento</td>
                                 <td>@item.Tiporutina.Tipo</td>
@@ -48,203 +48,461 @@
 </div>
 
 <!--Modal para detalle Mensualidad--->
-<div id="ModalMensualidadDetalle" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">    
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="letracolor modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
-                    <h5></h5>
-                    <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+<div id="ModalMensualidadDetalle" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
+                <h5></h5>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="Id_mensualidad" type="text" style="display:none" />
+                <div id="medidas">
                     <div class="row">
-                        <div class="col-4">
-                            <div>
-                                <div class="row">
-                                    <div class="col">
-                                        <h3>Nuevo registro</h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="text" id="IMC" class="form-control" readonly />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" />
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <label>Foto frontal</label>
-                                        <label for="Foto_frontal" style="cursor:pointer">
-                                            <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
-                                        </label>
-                                        <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <label>Foto perfil</label>
-                                        <label for="Foto_perfil" style="cursor:pointer">
-                                            <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
-                                        </label>
-                                        <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
-                                    </div>
-                                </div><br />
-                                <div class="row">
-                                    <div class="col">
-                                        <label>Foto posterior</label>
-                                        <label for="Foto_posterior" style="cursor:pointer">
-                                            <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
-                                        </label>
-                                        <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
-                                    </div>
-                                </div>
-                                <br />
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="row">
-                                <div class="col">
-                                    <h3>Mis medidas y fotos</h3>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-condensed table-striped table-hover" id="ListaMedidas">
-                                    <thead>
-                                        <tr>
-                                            <th>Peso</th>
-                                            <th>Altura</th>
-                                            <th>IMC</th>
-                                            <th>Brazo derecho relajado</th>
-                                            <th>Brazo derecho fuerza</th>
-                                            <th>Brazo izquierdo relajado</th>
-                                            <th>Brazo izquierdo fuerza</th>
-                                            <th>Cintura</th>
-                                            <th>Cadera</th>
-                                            <th>Pierna izquierda</th>
-                                            <th>Pierna derecho</th>
-                                            <th>Pantorrilla derecha</th>
-                                            <th>Pantorrilla izquierda</th>
-                                            <th>Foto frontal</th>
-                                            <th>Foto perfil</th>
-                                            <th>Foto posterior</th>
-                                            <th>Fecha registro</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>                                        
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="col">
+                            <h3>Nuevo registro</h3>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="text" id="IMC" class="form-control" readonly />
+                        </div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" />
+                        </div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
+                        </div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" />
+                        </div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" />
+                        </div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <div id="previewfrontal" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                            </div>
+                            <label>Foto frontal</label>
+                            <label for="Foto_frontal" style="cursor:pointer">
+                                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                            </label>
+                            <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
+                        </div>
+                        <div class="col">
+                            <div>
+                                <div id="previewperfil" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                            </div>
+                            <label>Foto perfil</label>
+                            <label for="Foto_perfil" style="cursor:pointer">
+                                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                            </label>
+                            <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
+                        </div>
+                        <div class="col">
+                            <div>
+                                <div id="previewposterior" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                            </div>
+                            <label>Foto posterior</label>
+                            <label for="Foto_posterior" style="cursor:pointer">
+                                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                            </label>
+                            <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align:right">
+                            <button type="button" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+                        </div>
+                    </div>
+                    <br />
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+                <div id="listamedidas">
+                    <div class="row">
+                        <div class="col">
+                            <h3>Mis medidas y fotos</h3>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-hover" id="ListaMedidas">
+                            <thead>
+                                <tr>
+                                    <th>Peso  </th>
+                                    <th>Altura</th>
+                                    <th>IMC</th>
+                                    <th>Brazo derecho relajado</th>
+                                    <th>Brazo derecho fuerza</th>
+                                    <th>Brazo izquierdo relajado</th>
+                                    <th>Brazo izquierdo fuerza</th>
+                                    <th>Cintura</th>
+                                    <th>Cadera</th>
+                                    <th>Pierna izquierda</th>
+                                    <th>Pierna derecho</th>
+                                    <th>Pantorrilla derecha</th>
+                                    <th>Pantorrilla izquierda</th>
+                                    <th>Foto frontal</th>
+                                    <th>Foto perfil</th>
+                                    <th>Foto posterior</th>
+                                    <th>Fecha registro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
+</div>
 
-    <script type="text/javascript">
-        var urlmedidas = '@Url.Action("ListAsesoriaantropometria", "ClientesWeb")';
-        function VerFotosMedidas(Id) {
-            $.ajax({
-                type: "GET",
-                url: urlmedidas,
-                data: { "Id_mensualidad": Id },
-                contentType: "application/json; charset=utf-8",
-                datatype: "json",
-                success: function (data) {
-                    for (var i = 0; i < data.length; i++) { 
-                        var html = "";
-                        html += '<tr>';
-                        html += '<td><lable>' + data[i].Peso + '</lable></td>';
-                        html += '<td><lable>' + data[i].Altura + '</lable></td>';
-                        html += '<td><lable>' + data[i].IMC + '</lable></td>';
-                        html += '<td><lable>' + data[i].Brazoderechorelajado + '</lable></td>';
-                        html += '<td><lable>' + data[i].Brazoderechofuerza + '</lable></td>';
-                        html += '<td><lable>' + data[i].Brazoizquierdorelajado + '</lable></td>';
-                        html += '<td><lable>' + data[i].Brazoizquierdofuerza + '</lable></td>';
-                        html += '<td><lable>' + data[i].Cintura + '</lable></td>';
-                        html += '<td><lable>' + data[i].Cadera + '</lable></td>';
-                        html += '<td><lable>' + data[i].Piernaizquierda + '</lable></td>';
-                        html += '<td><lable>' + data[i].Piernaderecho + '</lable></td>';
-                        html += '<td><lable>' + data[i].Pantorrilladerecha + '</lable></td>';
-                        html += '<td><lable>' + data[i].Pantorrillaizquierda + '</lable></td>';
-                        html += '<td><img src="' + data[i].Fotofrontal + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
-                        html += '<td><img src="' + data[i].Fotoperfil + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
-                        html += '<td><img src="' + data[i].Fotoposterior + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
-                        html += '<td><lable>' + data[i].Fecharegistro + '</lable></td>';
-                        html += '</tr>';
-                        $('#ListaMedidas tbody').append(html);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                    alert("Ocurrio un error verifique su conexion (Mensualidad)");
+<script type="text/javascript">
+    var urlmedidas = '@Url.Action("ListAsesoriaantropometria", "ClientesWeb")';
+    var urlmedidasreg ='@Url.Action("RegistrarMedidas", "ClientesWeb")';
+    var urlfotos ='@Url.Action("RegistrarFotos", "ClientesWeb")';
+    document.getElementById("Foto_frontal").onchange = function (e) {
+        // Creamos el objeto de la clase FileReader
+        let reader = new FileReader();
+
+        // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+        reader.readAsDataURL(e.target.files[0]);
+
+        // Le decimos que cuando este listo ejecute el código interno
+        reader.onload = function () {
+            let preview = document.getElementById('previewfrontal'),
+                image = document.createElement('img');
+
+            image.src = reader.result;
+            image.width = '100';
+            image.height = '100';
+            image.style.display = 'inline-block';
+            image.style.borderRadius = '20px';
+            image.style.boxShadow = '0px 0px 2px #888';
+            preview.innerHTML = '';
+            preview.append(image);
+        };
+    }
+    //medidas lateral
+    document.getElementById("Foto_perfil").onchange = function (e) {
+        // Creamos el objeto de la clase FileReader
+        let reader = new FileReader();
+
+        // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+        reader.readAsDataURL(e.target.files[0]);
+
+        // Le decimos que cuando este listo ejecute el código interno
+        reader.onload = function () {
+            let preview = document.getElementById('previewperfil'),
+                image = document.createElement('img');
+
+            image.src = reader.result;
+            image.width = '100';
+            image.height = '100';
+            image.style.display = 'inline-block';
+            image.style.borderRadius = '20px';
+            image.style.boxShadow = '0px 0px 2px #888';
+            preview.innerHTML = '';
+            preview.append(image);
+        };
+    }
+    //medidas traseras
+    document.getElementById("Foto_posterior").onchange = function (e) {
+        // Creamos el objeto de la clase FileReader
+        let reader = new FileReader();
+
+        // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+        reader.readAsDataURL(e.target.files[0]);
+
+        // Le decimos que cuando este listo ejecute el código interno
+        reader.onload = function () {
+            let preview = document.getElementById('previewposterior'),
+                image = document.createElement('img');
+
+            image.src = reader.result;
+            image.width = '100';
+            image.height = '100';
+            image.style.display = 'inline-block';
+            image.style.borderRadius = '20px';
+            image.style.boxShadow = '0px 0px 2px #888';
+            preview.innerHTML = '';
+            preview.append(image);
+        };
+    }
+
+    function VerFotosMedidas(Id) {
+        document.getElementById("Id_mensualidad").value = Id;
+        $.ajax({
+            type: "GET",
+            url: urlmedidas,
+            data: { "Id_mensualidad": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var html = "";
+                    html += '<tr>';
+                    html += '<td><lable>' + data[i].Peso + ' kg</lable></td>';
+                    html += '<td><lable>' + data[i].Altura + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].IMC + '</lable></td>';
+                    html += '<td><lable>' + data[i].Brazoderechorelajado + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Brazoderechofuerza + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Brazoizquierdorelajado + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Brazoizquierdofuerza + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Cintura + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Cadera + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Piernaizquierda + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Piernaderecho + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Pantorrilladerecha + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Pantorrillaizquierda + ' cm</lable></td>';
+                    html += '<td><img src="' + data[i].Fotofrontal + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><img src="' + data[i].Fotoperfil + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><img src="' + data[i].Fotoposterior + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><lable>' + data[i].Fecharegistro + '</lable></td>';
+                    html += '</tr>';
+                    $('#ListaMedidas tbody').append(html);
                 }
-            });
-            $("#ModalMensualidadDetalle").modal("show");
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion (Mensualidad)");
+            }
+        });
+        $("#ModalMensualidadDetalle").modal("show");
+    }
+
+    function GuardarRutina() {
+        
+        var parametros = {};
+        var Mensualidad = {};
+        var modelo = {};
+        var formdata = new FormData();
+        Mensualidad.Id_mensualidad = $("#Id_mensualidad").val();
+        parametros.Peso = $("#Peso").val();
+        parametros.Altura = $("#Altura").val();
+        parametros.IMC = $("#IMC").val();
+        parametros.Brazoderechorelajado = $("#Brazo_derecho_relajado").val();
+        parametros.Brazoderechofuerza = $("#Brazo_derecho_fuerza").val();
+        parametros.Brazoizquierdorelajado = $("#Brazo_izquierdo_relajado").val();
+        parametros.Brazoizquierdofuerza = $("#Brazo_izquierdo_fuerza").val();
+        parametros.Cintura = $("#Cintura").val();
+        parametros.Cadera = $("#Cadera").val();
+        parametros.Piernaizquierda = $("#Pierna_izquierda").val();
+        parametros.Piernaderecho = $("#Pierna_derecho").val();
+        parametros.Pantorrilladerecha = $("#Pantorrilla_derecha").val();
+        parametros.Pantorrillaizquierda = $("#Pantorrilla_izquierda").val();
+        parametros.Mensualidad = Mensualidad;
+        modelo = parametros;
+        //imagenes
+        var fotofrontal = $("#Foto_frontal")[0];
+        var fotolateral = $("#Foto_perfil")[0];
+        var fotoposterior = $("#Foto_posterior")[0];
+        var imagen1 = fotofrontal.files[0];
+        var imagen2 = fotolateral.files[0];
+        var imagen3 = fotoposterior.files[0];
+        formdata.append("frontal", imagen1);
+        formdata.append("perfil", imagen2);
+        formdata.append("posterior", imagen3);
+
+        if (parametros.Peso != "") {
+            if (parametros.Altura != "") {
+                if (parametros.Brazoderechorelajado != "") {
+                    if (parametros.Brazoderechofuerza != "") {
+                        if (parametros.Brazoizquierdorelajado != "") {
+                            if (parametros.Brazoizquierdofuerza != "") {
+                                if (parametros.Cintura != "") {
+                                    if (parametros.Cadera != "") {
+                                        if (parametros.Piernaizquierda != "") {
+                                            if (parametros.Piernaderecho != "") {
+                                                if (parametros.Pantorrilladerecha != "") {
+                                                    if (parametros.Pantorrillaizquierda != "") {
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: urlmedidasreg,
+                                                            data: modelo,
+                                                            success: function (data) {
+                                                                if (data == "True") {
+                                                                    $.ajax({
+                                                                        type: "POST",
+                                                                        url: urlfotos,
+                                                                        data: formdata,
+                                                                        cache: false,
+                                                                        processData: false,
+                                                                        contentType: false,
+                                                                        success: function (data) {
+                                                                            if (data == "True") {                                                                                
+                                                                                swal({
+                                                                                    title: "Registro exitoso!",
+                                                                                    text: "Se guardaron tus datos correctamente",
+                                                                                    type: "success"
+                                                                                }).then(function () {
+                                                                                    location.reload();
+                                                                                });
+                                                                            }
+                                                                            else {
+                                                                                if (data == "False") {
+                                                                                    swal({
+                                                                                        title: "Registro exitoso!",
+                                                                                        text: "Se guardaron tus datos correctamente",
+                                                                                        type: "success"
+                                                                                    }).then(function () {
+                                                                                        location.reload();
+                                                                                    });
+                                                                                }
+                                                                                else {
+                                                                                    swal("Ocurrio un error!", "Tus medidas seguardaron correctamente,No se guardaron tus fotos correctamente (Error):"+data, "warning");
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        error: function (xhr, status, error) {
+                                                                            swal("Warning", "No se realizo la conexion intente de nuevo, warning:" + data, "warning");
+                                                                            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                                                                            alert("Ocurrio un error verifique su conexion");
+                                                                        }
+                                                                    });
+                                                                }
+                                                                else {
+                                                                    swal("Warning", "No se realizo la conexion intente de nuevo, warning:" + data, "warning");
+                                                                    console.log("Fallo al hacer la conexion");
+                                                                    alert(data);
+                                                                }
+
+                                                            },
+                                                            error: function (xhr, status, error) {
+                                                                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                                                                swal("Warning", "No se realizo la conexion intente de nuevo, warning:" + data, "warning");
+                                                                alert("Ocurrio un error verifique su conexion");
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        document.getElementById("Pantorrilla_izquierda").style.borderColor = "red";
+                                                        return false;
+                                                    }
+                                                }
+                                                else {
+                                                    document.getElementById("Pantorrilla_derecha").style.borderColor = "red";
+                                                    return false;
+                                                }
+                                            }
+                                            else {
+                                                document.getElementById("Pierna_derecho").style.borderColor = "red";
+                                                return false;
+                                            }
+                                        }
+                                        else {
+                                            document.getElementById("Pierna_izquierda").style.borderColor = "red";
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("Cadera").style.borderColor = "red";
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    document.getElementById("Cintura").style.borderColor = "red";
+                                    return false;
+                                }
+                            }
+                            else {
+                                document.getElementById("Brazo_izquierdo_fuerza").style.borderColor = "red";
+                                return false;
+                            }
+                        }
+                        else {
+                            document.getElementById("Brazo_izquierdo_relajado").style.borderColor = "red";
+                            return false;
+                        }
+                    }
+                    else {
+                        document.getElementById("Brazo_derecho_fuerza").style.borderColor = "red";
+                        return false;
+                    }
+                }
+                else {
+                    document.getElementById("Brazo_derecho_relajado").style.borderColor = "red";
+                    return false;
+                }
+            }
+            else {
+                document.getElementById("Altura").style.borderColor = "red";
+                return false;
+            }
         }
-    </script>
+        else {
+            document.getElementById("Peso").style.borderColor = "red";
+            return false;
+        }
+        
+    }
+
+    $("#Altura").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = value;
+        var peso = document.getElementById("Peso").value;
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
+            }
+        }
+
+    });
+    $("#Peso").keyup(function () {
+        var value = $(this).val().trim();
+        var altura = document.getElementById("Altura").value;
+        var peso = value;
+        if (altura != "0") {
+            altura = altura / 100;
+            altura = altura * altura;
+            imc = peso / altura;
+            if (imc != 0) {
+                document.getElementById("IMC").value = imc.toFixed(1);
+            }
+        }
+
+    });
+
+</script>
