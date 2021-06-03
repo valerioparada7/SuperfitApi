@@ -14,7 +14,7 @@
         </span>
         <br />
         <div class="table-responsive">
-            <table class="table table-condensed table-striped table-hover" id="tabla">
+            <table class="table table-condensed table-striped table-hover" id="tablamensualidad">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -286,9 +286,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#tablamensualidad').DataTable();
         CargarCombos();
     });
-
+    
     var url = '@Url.Action("AgregarCliente", "AdministracionWebHome")';
     var urleditar = '@Url.Action("EditarCliente", "AdministracionWebHome")';
     var urlmedidas = '@Url.Action("AgregarAsesoriaantropometria", "AdministracionWebHome")';

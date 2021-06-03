@@ -14,7 +14,7 @@
         </span>
         <br />
         <div class="table-responsive">
-            <table class="table table-condensed table-striped table-hover" id="tabla">
+            <table class="table table-condensed table-striped table-hover" id="tablaentrenamiento">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -108,7 +108,9 @@
 </div>
 
 <script type="text/javascript">
-
+    $(document).ready(function () {
+        $('#tablaentrenamiento').DataTable();
+    });
     var url = '@Url.Action("AgregarTipoentrenamiento", "AdministracionWebHome")';
     var urleditar = '@Url.Action("EditarTipoentrenamiento", "AdministracionWebHome")';
 

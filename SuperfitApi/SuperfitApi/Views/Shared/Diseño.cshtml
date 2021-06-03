@@ -35,6 +35,12 @@
         h3 {
             color: #007bff;
         }
+        .contenido {
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
     </style>
 </head>
 <body>
@@ -59,7 +65,7 @@
                     <a class="navbar-brand" href="@Url.Action("Mensualidades", "ClientesWeb", null, null)">
                         <span class="menu-collapsed text-white">Mensualidades</span>
                     </a>
-                </li>                               
+                </li>
                 <li class="nav-item">
                     <a class="navbar-brand" href="@Url.Action("OutWeb", "LoginWeb", null, null)">
                         <span class="menu-collapsed text-white">Salir</span>
@@ -68,19 +74,19 @@
             </ul>
         </div>
     </nav>
-    <div class="container-fluid body-content">
+
+    <div class="contenido">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Software's Valerio Parada</p>
         </footer>
-    </div>
-
+    </div>    
     @Scripts.Render("~/bundles/datatablesjs")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-<script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
             validacion();
         });
@@ -90,7 +96,7 @@
                 type: "GET",
                 url: direccion,
                 success: function (data) {
-                    if (data == "True") {                      
+                    if (data == "True") {
                         window.location.href='@Url.Action("LoginWeb", "LoginWeb")';
                     }
                 },
@@ -100,7 +106,7 @@
                 }
             });
         }
-</script>
+    </script>
 </body>
 </html>
 

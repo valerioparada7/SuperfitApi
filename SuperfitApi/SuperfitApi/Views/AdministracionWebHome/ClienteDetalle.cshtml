@@ -8,184 +8,182 @@
     <title>Perfil Cliente</title>
 </head>
 <body>
-    <div id="content">
-        <div class="container-fluid">
-            <div id="Cliente">
-                <h3 class="letracolor">Cliente</h3>
-                <div class="container">
-                    <input id="idcliente" style="display:none" />
+    <div>
+        <div id="Cliente">
+            <h3 class="letracolor">Cliente</h3>
+            <div>
+                <input id="idcliente" style="display:none" />
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" class="form-control" id="IdNombreE" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" id="IdApePE" placeholder="Apellido paterno" onkeypress="style.borderColor='gray'" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" id="IdApeME" placeholder="Apellido materno" onkeypress="style.borderColor='gray'" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" class="form-control" id="IdApodoE" placeholder="Alias" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" id="IdEdadE" placeholder="Edad" maxlength="2" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" id="IdTelefonoE" placeholder="Celular" maxlength="10" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="email" class="form-control" id="IdCorreoE" placeholder="Correo elctronico" onkeypress="style.borderColor='gray'" />
+                    </div>
+                    <div class="col-4">
+                        <input type="password" class="form-control" id="IdContraseñaE" placeholder="Contraseña" onkeypress="style.borderColor='gray'" />
+                    </div>
+                    <div class="col-4">
+                        <select class="form-control" id="IdSexoE" name="Sexo">
+                            <option value="Mujer">Mujer</option>
+                            <option value="Hombre">Hombre</option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-success" id="BtnEditarCliente" onclick="GuardarCliente()">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <br />
+        <div id="Cuestionario">
+            <h3 class="letracolor">Cuestionario</h3>
+            <h6>Marque la casilla en caso de que sea si para cada pregunta</h6>
+            <br />
+            <hr />
+            <div>
+                <h3 class="letracolor" id="nameClienteDetalle"></h3>
+                <input id="idclientecuestionario" style="display:none" />
+                <input id="idcuestionario" style="display:none" />
+                <div class="row">
+                    <div class="col">
+                        <label>¿Padece alguna enfermedad?</label>
+                        <input type="checkbox" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()">
+                        <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="style.borderColor='gray'" style="display:none" />
+                    </div>
+                    <div class="col">
+                        <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
+                        <input type="checkbox" id="lesionesChk" onchange="lesionesChk()" />
+                        <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="style.borderColor='gray'" style="display:none" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
+                        <input type="checkbox" id="AlcoholChk" onchange="AlcoholChk()" />
+                        <input type="number" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="style.borderColor='gray'" style="display:none" />
+                    </div>
+                    <div class="col">
+                        <label>¿Acostumbra a Fumar?</label>
+                        <input type="checkbox" id="FumaChk" onchange="FumaChk()" />
+                        <input type="number" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="style.borderColor='gray'" style="display:none" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <label>¿Actualmente realizas alguna actividad física?</label>
+                        <input type="checkbox" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
+                    </div>
+                </div>
+                <br />
+                <div id="cuestionarioTime" style="display:none">
                     <div class="row">
                         <div class="col-4">
-                            <input type="text" class="form-control" id="IdNombreE" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                            <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>
+                            <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="style.borderColor='gray'" />
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" id="IdApePE" placeholder="Apellido paterno" onkeypress="style.borderColor='gray'" />
+                            <label>¿Cuánto tiempo llevas realizando dicha actividad de manera constante?</label>
+                            <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="style.borderColor='gray'" />
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" id="IdApeME" placeholder="Apellido materno" onkeypress="style.borderColor='gray'" />
+                            <label>¿En qué horario entrenas?</label>
+                            <br />
+                            <br />
+                            <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="style.borderColor='gray'" />
                         </div>
                     </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-4">
-                            <input type="text" class="form-control" id="IdApodoE" placeholder="Alias" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control" id="IdEdadE" placeholder="Edad" maxlength="2" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control" id="IdTelefonoE" placeholder="Celular" maxlength="10" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
-                        </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <label>¿Cuáles son tus metas u objetivos para lograr?</label>
                     </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input type="email" class="form-control" id="IdCorreoE" placeholder="Correo elctronico" onkeypress="style.borderColor='gray'" />
-                        </div>
-                        <div class="col-4">
-                            <input type="password" class="form-control" id="IdContraseñaE" placeholder="Contraseña" onkeypress="style.borderColor='gray'" />
-                        </div>
-                        <div class="col-4">
-                            <select class="form-control" id="IdSexoE" name="Sexo">
-                                <option value="Mujer">Mujer</option>
-                                <option value="Hombre">Hombre</option>
-                            </select>
-                        </div>
+                    <div class="col">
+                        <label>¿Qué compromiso tienes contigo mismo?</label>
                     </div>
-                    <br />
+                    <div class="col">
+                        <label>¿Algún comentario adicional, antes de poder seguir y comenzar?</label>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-success" id="BtnEditarCliente" onclick="GuardarCliente()">Guardar</button>
+                        <input type="text" class="form-control" id="MetasObjetivosTxt" placeholder="Ej: mejorar condicion... aumentar masa muscular" onkeypress="style.borderColor='gray'" />
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="CompromisosTxt" placeholder="Ej: Ser diciplinado... constante" onkeypress="style.borderColor='gray'" />
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="ComentariosTxt" placeholder="..." onkeypress="style.borderColor='gray'" />
                     </div>
                 </div>
-            </div>
-            <hr />
-            <br />
-            <div id="Cuestionario">
-                <h3 class="letracolor">Cuestionario</h3>
-                <h6>Marque la casilla en caso de que sea si para cada pregunta</h6>
                 <br />
-                <hr />
-                <div class="container">
-                    <h3 class="letracolor" id="nameClienteDetalle"></h3>
-                    <input id="idclientecuestionario" style="display:none" />
-                    <input id="idcuestionario" style="display:none" />
-                    <div class="row">
-                        <div class="col">
-                            <label>¿Padece alguna enfermedad?</label>
-                            <input type="checkbox" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()">
-                            <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="style.borderColor='gray'" style="display:none" />
-                        </div>
-                        <div class="col">
-                            <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
-                            <input type="checkbox" id="lesionesChk" onchange="lesionesChk()" />
-                            <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="style.borderColor='gray'" style="display:none" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col">
-                            <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
-                            <input type="checkbox" id="AlcoholChk" onchange="AlcoholChk()" />
-                            <input type="number" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="style.borderColor='gray'" style="display:none" />
-                        </div>
-                        <div class="col">
-                            <label>¿Acostumbra a Fumar?</label>
-                            <input type="checkbox" id="FumaChk" onchange="FumaChk()" />
-                            <input type="number" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="style.borderColor='gray'" style="display:none" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col">
-                            <label>¿Actualmente realizas alguna actividad física?</label>
-                            <input type="checkbox" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
-                        </div>
-                    </div>
-                    <br />
-                    <div id="cuestionarioTime" style="display:none">
-                        <div class="row">
-                            <div class="col-4">
-                                <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>
-                                <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="style.borderColor='gray'" />
-                            </div>
-                            <div class="col-4">
-                                <label>¿Cuánto tiempo llevas realizando dicha actividad de manera constante?</label>
-                                <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="style.borderColor='gray'" />
-                            </div>
-                            <div class="col-4">
-                                <label>¿En qué horario entrenas?</label>
-                                <br />
-                                <br />
-                                <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="style.borderColor='gray'" />
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col">
-                            <label>¿Cuáles son tus metas u objetivos para lograr?</label>
-                        </div>
-                        <div class="col">
-                            <label>¿Qué compromiso tienes contigo mismo?</label>
-                        </div>
-                        <div class="col">
-                            <label>¿Algún comentario adicional, antes de poder seguir y comenzar?</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control" id="MetasObjetivosTxt" placeholder="Ej: mejorar condicion... aumentar masa muscular" onkeypress="style.borderColor='gray'" />
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="CompromisosTxt" placeholder="Ej: Ser diciplinado... constante" onkeypress="style.borderColor='gray'" />
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="ComentariosTxt" placeholder="..." onkeypress="style.borderColor='gray'" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-success" id="BtnEditarCuestionarioEditar" style="display:none" onclick="GuardarCuestionario()">Guardar</button>
-                            <button type="button" class="btn btn-success" id="BtnEditarCuestionario" style="display:none" onclick="GuardarCuestionario()">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <div id="mensualidad">
-                <h3 class="letracolor">Mensualidades</h3>
-                <div class="container" style="overflow-y:auto;height:500px">
-                    <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="Mensualidad()">Nueva Mensualidad</button>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-striped table-hover" id="tabla">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Mensualidad</th>
-                                    <th>Medidas</th>
-                                    <th>Detalle rutina</th>
-                                    <th>Tipo rutina</th>
-                                    <th>Mes</th>
-                                    <th>Estatus</th>
-                                    <th>Fecha inicio</th>
-                                    <th>Fecha fin</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-success" id="BtnEditarCuestionarioEditar" style="display:none" onclick="GuardarCuestionario()">Guardar</button>
+                        <button type="button" class="btn btn-success" id="BtnEditarCuestionario" style="display:none" onclick="GuardarCuestionario()">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
+        <hr />
+        <div id="mensualidad">
+            <h3 class="letracolor">Mensualidades</h3>
+            <div style="overflow-y:auto;height:500px">
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="Mensualidad()">Nueva Mensualidad</button>
+                    </div>
+                </div>
+                <br />
+                <div class="table-responsive">
+                    <table class="table table-condensed table-striped table-hover" id="tabladetallemensualidad">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Mensualidad</th>
+                                <th>Medidas</th>
+                                <th>Detalle rutina</th>
+                                <th>Tipo rutina</th>
+                                <th>Mes</th>
+                                <th>Estatus</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>        
     </div>
 </body>
 </html>
@@ -194,7 +192,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Mensualidad</h5>
+                <h5 class="modal-title">Actualizar Mensualidad</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -210,7 +208,7 @@
                 <br />
                 <div class="row">
                     <div class="col">
-                        <select class="form-control" id="MesesMensualidad">
+                        <select class="form-control" id="TipoentrenamientolistMensualidad">
                         </select>
                     </div>
                 </div>
@@ -221,13 +219,7 @@
                         </select>
                     </div>
                 </div>
-                <br />
-                <div class="row">
-                    <div class="col">
-                        <select class="form-control" id="TipoentrenamientolistMensualidad">
-                        </select>
-                    </div>
-                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -242,7 +234,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Mensualidad</h3>
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Nueva mensualidad</h3>
                 <h5></h5>
                 <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -267,13 +259,7 @@
                         </div>
                     </div>
                     <br />
-                    <div class="row">
-                        <div class="col">
-                            <select class="form-control" id="Estatus">
-                            </select>
-                        </div>
-                    </div>
-                    <br />
+                    
                     <div class="row">
                         <div class="col">
                             <select class="form-control" id="Tipoentrenamientolist">
@@ -281,6 +267,12 @@
                         </div>
                     </div>
                     <br />
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" id="Estatus">
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -523,7 +515,9 @@
 
 
 <script type="text/javascript">
-
+    $(document).ready(function () {
+        $('#tabladetallemensualidad').DataTable();
+    });
     $(document).ready(function () {
         VerCliente();
         VerCuestionario();
@@ -813,7 +807,7 @@
                 var IdEstatus = data["Estatus"].Id_estatus;
                 var IdRutina = data["Tiporutina"].Id_tiporutina;
                 document.getElementById("TipoentrenamientolistMensualidad").value = Idtipo;
-                document.getElementById("MesesMensualidad").value = IdMes;
+                //document.getElementById("MesesMensualidad").value = IdMes;
                 document.getElementById("EstatusMensualidad").value = IdEstatus;
                 document.getElementById("TiporutinaMensualidad").value = IdRutina;
                 document.getElementById("mensualidadIdver").value = Id
@@ -865,12 +859,14 @@
     }
 
     function ActualizarEstatus() {
+        var tiporutina = document.getElementById("Tiporutina").value;
+        var tipoentrenamiento = document.getElementById("Tipoentrenamientolist").value;
         var estatus = document.getElementById("EstatusMensualidad").value;
         var mes = document.getElementById("mensualidadIdver").value;
         $.ajax({
             url: urlactualizacion,
             type: "POST",
-            data: { "Id_mensualidad": mes, "estatus": estatus},
+            data: { "Id_mensualidad": mes, "estatus": estatus, "Id_tipo_entrenamiento": tipoentrenamiento, "Id_tipo_rutina": tiporutina },
             success: function (data) {
                 if (data == "True") {
                     document.getElementById("MensajeAlerta").innerHTML = 'Actualizacion exitosa';

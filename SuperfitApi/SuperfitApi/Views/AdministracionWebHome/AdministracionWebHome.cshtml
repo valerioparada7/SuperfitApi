@@ -1,35 +1,216 @@
-﻿
+﻿@using SuperfitApi.Models;
+
 @{
     Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+    List<ClientesModel> pendientes = new List<ClientesModel>();
+    List<ClientesModel> activos = new List<ClientesModel>();
+    List<ClientesModel> inactivos = new List<ClientesModel>();
+    List<ClientesModel> porfinalizar = new List<ClientesModel>();
+    pendientes = ViewBag.pendientes;
+    activos = ViewBag.activos;
+    inactivos = ViewBag.inactivos;
+    porfinalizar = ViewBag.porfinalizar;    
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Administracion</title>
+    <style>
+        h3 {
+            color: #007bff;
+        }
+        .divisor {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px 5px;
+            width: auto;
+            height: 200px;
+        }
+    </style>
 </head>
 <body>
-    <div> 
-        <h1>Super fit administracion</h1>
+    <div>
+        <h1 style="color:#007bff">Super fit administracion</h1>
+        <br />
+        <div class="divisor">
+            <h3>Clientes pendientes por asignar rutinas</h3>
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped table-hover" id="tablapendiente">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Editar</th>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                            <th>Celular</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Sexo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in pendientes)
+                        {
+                            <tr>
+                                <td>@item.Id_cliente</td>
+                                <td>
+                                    @Html.ActionLink("Ver cliente", "ClienteDetalle", "AdministracionWebHome", new { Id_cliente = item.Id_cliente }, new { @class = "color btn btn-primary" })                                    
+                                </td>
+                                <td>@item.Nombres @item.Apellido_paterno @item.Apellido_materno</td>
+                                <td>@item.Edad</td>
+                                <td>@item.Telefono</td>
+                                <td>@item.Correo_electronico </td>
+                                <td>
+                                    @if (item.Estado == true)
+                                    {<label>Activo</label> }
+                                    else
+                                    { <label>Baja</label>}
+                                <td>@item.Sexo</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr />
+        <div class="divisor">
+            <h3>Clientes sin renovar mensualidades</h3>
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped table-hover" id="tablainactivos">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Editar</th>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                            <th>Celular</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Sexo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in inactivos)
+                        {
+                            <tr>
+                                <td>@item.Id_cliente</td>
+                                <td>
+                                    @Html.ActionLink("Ver cliente", "ClienteDetalle", "AdministracionWebHome", new { Id_cliente = item.Id_cliente }, new { @class = "color btn btn-primary" })
+                                </td>
+                                <td>@item.Nombres @item.Apellido_paterno @item.Apellido_materno</td>
+                                <td>@item.Edad</td>
+                                <td>@item.Telefono</td>
+                                <td>@item.Correo_electronico </td>
+                                <td>
+                                    @if (item.Estado == true)
+                                    {<label>Activo</label> }
+                                    else
+                                    { <label>Baja</label>}
+                                <td>@item.Sexo</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr />
+        <div class="divisor">
+            <h3>Clientes con mensualidad</h3>
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped table-hover" id="tablaactivos">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Editar</th>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                            <th>Celular</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Sexo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in activos)
+                        {
+                            <tr>
+                                <td>@item.Id_cliente</td>
+                                <td>
+                                    @Html.ActionLink("Ver cliente", "ClienteDetalle", "AdministracionWebHome", new { Id_cliente = item.Id_cliente }, new { @class = "color btn btn-primary" })
+                                </td>
+                                <td>@item.Nombres @item.Apellido_paterno @item.Apellido_materno</td>
+                                <td>@item.Edad</td>
+                                <td>@item.Telefono</td>
+                                <td>@item.Correo_electronico </td>
+                                <td>
+                                    @if (item.Estado == true)
+                                    {<label>Activo</label> }
+                                    else
+                                    { <label>Baja</label>}
+                                <td>@item.Sexo</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr />
+        <div class="divisor">
+            <h3>Clientes por finalizar mensualidad</h3>
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped table-hover" id="tablaporfinalizar">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Editar</th>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                            <th>Celular</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Sexo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in porfinalizar)
+                        {
+                            if (item != null) 
+                            { 
+                                <tr>
+                                    <td>@item.Id_cliente</td>
+                                    <td>
+                                        @Html.ActionLink("Ver cliente", "ClienteDetalle", "AdministracionWebHome", new { Id_cliente = item.Id_cliente }, new { @class = "color btn btn-primary" })
+                                    </td>
+                                    <td>@item.Nombres @item.Apellido_paterno @item.Apellido_materno</td>
+                                    <td>@item.Edad</td>
+                                    <td>@item.Telefono</td>
+                                    <td>@item.Correo_electronico </td>
+                                    <td>
+                                        @if (item.Estado == true)
+                                        {<label>Activo</label> }
+                                        else
+                                        { <label>Baja</label>}
+                                    <td>@item.Sexo</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="container">
-        @{
-            for (int i = 0; i < 10; i++)
-            {
-                <div class="row">
-                    @for (int j = 0; j < 4; j++)
-                    {
-                            <div class="col">
-                                <img width="200" height="200" src="https://scontent.fgdl10-1.fna.fbcdn.net/v/t1.6435-9/180808007_5422339407838671_1700596020277203302_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeEUG9dgR8qfrrmJyTtRWKXW1XHmAJHouv3VceYAkei6_bidts1BsvvpaSWrLhDHhq3tk766oRgc6S9AW2sMd7SO&_nc_ohc=cNs73O1AApcAX8YSVk9&_nc_ht=scontent.fgdl10-1.fna&oh=bf57e05ff2cb4528f3924a626c0791e1&oe=60BA6AC8" />
-                            </div>                    
-                    }
-                </div>
-                
-            }
-        }
+    <script type="text/javascript">
 
-    </div>
+        $(document).ready(function () {
+            $('#tablapendiente').DataTable();
+            $('#tablainactivos').DataTable();
+            $('#tablaactivos').DataTable();
+            $('#tablaporfinalizar').DataTable();                        
+        });
+    </script>
 </body>
 </html>

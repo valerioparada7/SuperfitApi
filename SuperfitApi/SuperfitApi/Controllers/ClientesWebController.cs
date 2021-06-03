@@ -229,12 +229,21 @@ namespace SuperfitApi.Controllers
         }
 
         public bool UpdateFoto(HttpPostedFileBase imagen)
-        {
+        {            
             string Id = Session["Id_Cliente"].ToString();
+            string exception = string.Empty;
             int IdCliente = int.Parse(Id);
             clientes = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
             var file = HttpContext.Server.MapPath("~"+ clientes.Foto_perfil);
-            System.IO.File.Delete(file);
+            try
+            {
+                System.IO.File.Delete(file);
+            }
+            catch (Exception ex)
+            {
+                exception = ex.Message;             
+            }
+            
             string name = clientes.Nombres;
             string ruta = clientes.Foto_perfil;
             int j = 0;
@@ -260,12 +269,20 @@ namespace SuperfitApi.Controllers
             clientes.Foto_perfil = newruta;
             if (Db.SaveChanges() == 1)
             {
-                imagen.SaveAs(Server.MapPath("~" + clientes.Foto_perfil));
-                return true;
+                try
+                {
+                    imagen.SaveAs(Server.MapPath("~" + clientes.Foto_perfil));
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    exception = ex.Message;
+                    return false;
+                }                
             }
             else
             {
-                return false ;
+                return false;
             }
         }
 

@@ -15,7 +15,7 @@
         </span>
         <br />
         <div class="table-responsive">
-            <table class="table table-condensed table-striped table-hover" id="tabla">
+            <table class="table table-condensed table-striped table-hover" id="tablaclientes">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -503,6 +503,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $('#tablaclientes').DataTable();
         CargarCombos();
     });
 

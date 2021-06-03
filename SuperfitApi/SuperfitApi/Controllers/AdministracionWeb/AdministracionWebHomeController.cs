@@ -96,6 +96,117 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         // GET: AdministracionWebHome
         public ActionResult AdministracionWebHome()
         {
+            List<ClientesModel> pendientes = new List<ClientesModel>();
+            List<ClientesModel> activos = new List<ClientesModel>();
+            List<ClientesModel> inactivos = new List<ClientesModel>();
+            List<ClientesModel> porfinalizar = new List<ClientesModel>();
+
+            listclientesMdl = (from l in Db.Clientes
+                               select new ClientesModel()
+                               {
+                                   Id_cliente = l.Id_cliente,
+                                   Clave_cliente = l.Clave_cliente,
+                                   Nombres = l.Nombres,
+                                   Apellido_paterno = l.Apellido_paterno,
+                                   Apellido_materno = l.Apellido_materno,
+                                   Apodo = l.Apodo,
+                                   Edad = l.Edad,
+                                   Telefono = (decimal)l.Telefono,
+                                   Correo_electronico = l.Correo_electronico,
+                                   Estado = l.Estado,
+                                   Contraseña = l.Contraseña,
+                                   Foto_perfil = l.Foto_perfil,
+                                   Sexo = l.Sexo
+                               }).ToList();
+
+            listmensualidadMdl = (from m in Db.Mensualidad
+                                  join c in Db.Clientes
+                                  on m.Id_cliente equals c.Id_cliente                                  
+                                  join es in Db.Estatus
+                                  on m.Id_estatus equals es.Id_estatus                                  
+                                  select new MensualidadModel()
+                                  {
+                                      Id_mensualidad = m.Id_mensualidad,
+                                      Fecha_inicio = (DateTime)m.Fecha_inicio,
+                                      Fecha_fin = (DateTime)m.Fecha_fin,
+                                      Estatus = new EstatusModel
+                                      {
+                                          Id_estatus = es.Id_estatus,
+                                          Descripcion = es.Descripcion
+                                      },
+                                      Cliente = new ClientesModel
+                                      {
+                                          Id_cliente = c.Id_cliente,
+                                          Clave_cliente = c.Clave_cliente,
+                                          Nombres = c.Nombres,
+                                          Apellido_paterno = c.Apellido_paterno,
+                                          Apellido_materno = c.Apellido_materno,
+                                          Apodo = c.Apodo,
+                                          Edad = c.Edad,
+                                          Telefono = (decimal)c.Telefono,
+                                          Correo_electronico = c.Correo_electronico,
+                                          Estado = c.Estado,
+                                          Contraseña = c.Contraseña,
+                                          Foto_perfil = c.Foto_perfil,
+                                          Sexo = c.Sexo
+                                      }
+                                  }).ToList();
+
+            if (listclientesMdl.Count > 0)
+            {
+                foreach(ClientesModel cliente in listclientesMdl)
+                {             
+                    if (listmensualidadMdl.Count > 0)
+                    {
+                        var list = listmensualidadMdl.Where(y => y.Cliente.Id_cliente == cliente.Id_cliente).ToList();
+                        var mensualidad = list.OrderByDescending(p => p.Fecha_fin).FirstOrDefault();
+                        if (mensualidad.Estatus.Id_estatus == 1)
+                        {
+                            pendientes.Add(cliente);
+                        }
+                        else if (mensualidad.Estatus.Id_estatus == 2 || mensualidad.Estatus.Id_estatus == 4)
+                        {
+                            activos.Add(cliente);
+                        }
+                        else
+                        {
+                            inactivos.Add(cliente);
+                        }
+                    }                         
+                }
+
+                if(listmensualidadMdl.Count > 0)
+                {                    
+                    var finalizar = listmensualidadMdl.Where(y => y.Estatus.Id_estatus == 2 || y.Estatus.Id_estatus == 4 && DateTime.Now.AddDays(5) >= y.Fecha_fin).ToList();
+                    if(finalizar.Count > 0)
+                    {
+                        foreach(MensualidadModel mes in finalizar)
+                        {
+                            if(mes.Fecha_fin < DateTime.Now && (mes.Estatus.Id_estatus == 2 || mes.Estatus.Id_estatus == 4))
+                            {
+                                mensualidad = Db.Mensualidad.Where(y => y.Id_mensualidad == mes.Id_mensualidad).FirstOrDefault();
+                                if (mensualidad != null)
+                                {
+                                    mensualidad.Id_estatus = 3;
+                                    if (Db.SaveChanges() == 1)
+                                    {
+                                        mes.Cliente = null;
+                                    }
+                                }
+                            }
+                        }
+                        porfinalizar = (from c in finalizar
+                                        select c.Cliente).ToList();
+                    }
+                    
+                }
+
+                ViewBag.pendientes = pendientes;
+                ViewBag.activos = activos;
+                ViewBag.inactivos = inactivos;
+                ViewBag.porfinalizar = porfinalizar;
+            }
+            
             return View();
         }
 
@@ -956,18 +1067,60 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         }
 
         [HttpPost]
-        public bool ActualizarEstatus(int Id_mensualidad,int estatus)
+        public bool ActualizarEstatus(int Id_mensualidad,int estatus,int Id_tipo_entrenamiento,int Id_tipo_rutina)
         {
+            bool result = false; 
             mensualidad = Db.Mensualidad.Where(y => y.Id_mensualidad == Id_mensualidad).FirstOrDefault();
-            mensualidad.Id_estatus = estatus;
-            if (Db.SaveChanges() == 1)
+            if (mensualidad != null)
             {
-                return true;
+                if(mensualidad.Id_estatus != estatus)
+                {
+                    if (estatus == 2 || estatus == 4)
+                    {
+                        mensualidad.Fecha_inicio = DateTime.Now;
+                        mensualidad.Fecha_fin = DateTime.Now.AddDays(30);
+                        mensualidad.Id_mes = DateTime.Now.AddDays(30).Month;
+                    }
+                    mensualidad.Id_estatus = estatus;
+                    if (Db.SaveChanges() == 1)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }  
+                }
+                if (mensualidad.Id_tipo_entrenamiento != Id_tipo_entrenamiento)
+                {
+                    mensualidad.Id_tipo_entrenamiento = Id_tipo_entrenamiento;
+                    if (Db.SaveChanges() == 1)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+                if (mensualidad.Id_tipo_rutina != Id_tipo_rutina)
+                {
+                    mensualidad.Id_tipo_rutina = Id_tipo_rutina;
+                    if (Db.SaveChanges() == 1)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+                else
+                {
+                    result= true;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return result;
         }
         [HttpPost]
         public bool AgregarMensualidad(MensualidadModel mensualidadModel)

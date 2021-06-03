@@ -141,55 +141,88 @@
                         </div>
                     </div>
                 </div>
-                <div id="Cuestionario" style="display:none">
-                    <div class="container" style="text-align:center">
+                <div id="Cuestionario" style="display:none">                  
+                    <div class="container" style="overflow-y:auto;height:500px;text-align:center;">
                         <h3>Cuestionario</h3>
-                        <h6>Marque la casilla en caso de que sea si para cada pregunta</h6>
-                    </div>
-                    <div class="container">
+                        <h4>Marque la casilla en caso de que sea si para cada pregunta</h4>
+                        <div class="row">
+                            <div class="col">
+                                <label>
+                                    ¿Padece alguna enfermedad?
+                                    <input type="checkbox" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()">
+                                </label>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
-                                <label>¿Padece alguna enfermedad?</label>
-                                <input type="checkbox" id="Padece_enfermedadChk" onchange="Padece_enfermedadChk()">
                                 <input type="text" class="form-control" id="Medicamento_prescrito_medicoTxt" placeholder="Medicamento que toma" onkeypress="" style="display:none" />
                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>
+                                    ¿Ha tenido alguna lesión en músculos o articulaciones?
+                                    <input type="checkbox" id="lesionesChk" onchange="lesionesChk()" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6 offset-md-3">
-                                <label>¿Ha tenido alguna lesión en músculos o articulaciones?</label>
-                                <input type="checkbox" id="lesionesChk" onchange="lesionesChk()" />
                                 <input type="text" class="form-control" id="Alguna_recomendacion_lesionesTxt" placeholder="Alguna recomendación actual del médico tratante" onkeypress="" style="display:none" />
                             </div>
                         </div>
 
                         <div class="row">
+                            <div class="col">
+                                <label>
+                                    ¿Acostumbra a tomar bebidas alcohólicas?
+                                    <input type="checkbox" id="AlcoholChk" onchange="AlcoholChk()" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6 offset-md-3">
-                                <label>¿Acostumbra a tomar bebidas alcohólicas?</label>
-                                <input type="checkbox" id="AlcoholChk" onchange="AlcoholChk()" />
                                 <input type="number" class="form-control" id="Veces_semana_alcoholTxt" placeholder="Cuntas veces por semana;Ej: 2" onkeypress="" style="display:none" />
                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>
+                                    ¿Acostumbra a Fumar?
+                                    <input type="checkbox" id="FumaChk" onchange="FumaChk()" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6 offset-md-3">
-                                <label>¿Acostumbra a Fumar?</label>
-                                <input type="checkbox" id="FumaChk" onchange="FumaChk()" />
                                 <input type="number" class="form-control" id="Veces_semana_fumaTxt" placeholder="Cuantas veces por semana;Ej: 3" onkeypress="" style="display:none" />
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 offset-md-3">
-                                <label>¿Actualmente realizas alguna actividad física?</label>
-                                <input type="checkbox" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
+                            <div class="col">
+                                <label>
+                                    ¿Actualmente realizas alguna actividad física?
+                                    <input type="checkbox" id="Actividad_fisicaChk" onchange="Actividad_fisicaChk()" />
+                                </label>
                             </div>
                         </div>
-
                         <div id="cuestionarioTime" style="display:none">
                             <div class="row">
                                 <div class="col-md-6 offset-md-3">
                                     <label>¿Qué tipo de ejercicio realizas y cuánto tiempo le dedicas en cada sesión que haces?</label>
                                     <input type="text" class="form-control" id="Tipo_ejerciciosTxt" placeholder="Ej: Correr 30 minutos" onkeypress="" />
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6 offset-md-3">
                                     <label>¿Cuánto tiempo llevas realizando dicha actividad de manera constante?</label>
                                     <input type="text" class="form-control" id="Tiempo_dedicadoTxt" placeholder="Ej:Desde hace dos años,meses etc..." onkeypress="" />
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6 offset-md-3">
                                     <label>¿En qué horario entrenas?</label>
                                     <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="" />
@@ -202,10 +235,14 @@
                                 <label>¿Cuáles son tus metas u objetivos para lograr?</label>
                                 <input type="text" class="form-control" id="MetasObjetivosTxt" placeholder="Ej: mejorar condicion... aumentar masa muscular" onkeypress="" />
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6 offset-md-3">
                                 <label>¿Qué compromiso tienes contigo mismo?</label>
                                 <input type="text" class="form-control" id="CompromisosTxt" placeholder="Ej: Ser diciplinado... constante" onkeypress="" />
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6 offset-md-3">
                                 <label>¿Algún comentario adicional, antes de poder seguir y comenzar?</label>
                                 <input type="text" class="form-control" id="ComentariosTxt" placeholder="..." onkeypress="" />
