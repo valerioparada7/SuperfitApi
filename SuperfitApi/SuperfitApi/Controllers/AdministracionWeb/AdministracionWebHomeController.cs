@@ -166,7 +166,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                         }
                         else if (mensualidad.Estatus.Id_estatus == 2 || mensualidad.Estatus.Id_estatus == 4)
                         {
-                            activos.Add(cliente);
+                            activos.Add(cliente);                            
                         }
                         else
                         {
