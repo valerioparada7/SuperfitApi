@@ -173,6 +173,7 @@ namespace SuperfitApi.Controllers
                 return RedirectToAction("Error", "Shared", new { Error = ex.Message });
             }
         }
+
         public bool ValidacionUser(string email)
         {
             string expresion;
@@ -193,6 +194,7 @@ namespace SuperfitApi.Controllers
                 return false;
             }
         }
+
         public bool ValidarCelular(string strNumber)
         {
             Regex regex = new Regex(@"\A[0-9]{7,10}\z");
@@ -219,148 +221,159 @@ namespace SuperfitApi.Controllers
         public string RegistrarCliente(RegistroCliente Registro)
         {
             string result = "No se guardaron los datos intente de nuevo";
+            string Clave = "000C-";
+            string fotoperfil="/Imagenes/Clientes/" + Clave;
+            string ubicacion = fotoperfil;
             try
             {                       
-            if (Registro != null)
-            {
-                var cliente = Db.Clientes.Where(p => p.Correo_electronico == Registro.Cliente.Correo_electronico
-                                                        || p.Telefono == Registro.Cliente.Telefono).FirstOrDefault();
-                if (cliente == null)
+                if (Registro != null)
                 {
-                    string Clave = "";
-                    Clave = Registro.Cliente.Nombres.Substring(0, 3) + Registro.Cliente.Apellido_paterno.Substring(0, 3) +
-                            Registro.Cliente.Apellido_materno.Substring(0, 3);
-                    string Name = Registro.Cliente.Nombres + " " + Registro.Cliente.Apellido_paterno + " " +
-                            Registro.Cliente.Apellido_materno;
-                    Name = Name.Replace(" ", "_");
-                    string fotoperfil = "/Imagenes/Clientes/" + Name;                    
-                    clientes = new Clientes
-                    {
-                        Clave_cliente = Clave,
-                        Nombres = Registro.Cliente.Nombres,
-                        Apellido_paterno = Registro.Cliente.Apellido_paterno,
-                        Apellido_materno = Registro.Cliente.Apellido_materno,
-                        Edad = Registro.Cliente.Edad,
-                        Telefono = Registro.Cliente.Telefono == null ? 0 : Registro.Cliente.Telefono,
-                        Correo_electronico = Registro.Cliente.Correo_electronico == null ? "" : Registro.Cliente.Correo_electronico,
-                        Apodo = Registro.Cliente.Apodo == null ? "" : Registro.Cliente.Apodo,
-                        Contraseña = Registro.Cliente.Contraseña,
-                        Foto_perfil = fotoperfil,
-                        Sexo = Registro.Cliente.Sexo,
-                        Estado = true
-                    };
-                    Db.Clientes.Add(clientes);
-                    if (Db.SaveChanges() == 1)
-                    {
-                        cuestionario = new Cuestionario
+                    var cliente = Db.Clientes.Where(p => p.Correo_electronico == Registro.Cliente.Correo_electronico
+                                                            || p.Telefono == Registro.Cliente.Telefono).FirstOrDefault();
+                    if (cliente == null)
+                    {                  
+                        clientes = new Clientes
                         {
-                            Id_cliente = clientes.Id_cliente,
-                            Clave_cuestionario = "CUES" + clientes.Clave_cliente,
-                            Padece_enfermedad = Registro.Cuestionario.Padece_enfermedad == null ? false : Registro.Cuestionario.Padece_enfermedad,
-                            Medicamento_prescrito_medico = Registro.Cuestionario.Medicamento_prescrito_medico == null ? "" : Registro.Cuestionario.Medicamento_prescrito_medico,
-                            lesiones = Registro.Cuestionario.lesiones == null ? false : Registro.Cuestionario.lesiones,
-                            Alguna_recomendacion_lesiones = Registro.Cuestionario.Alguna_recomendacion_lesiones == null ? "" : Registro.Cuestionario.Alguna_recomendacion_lesiones,
-                            Fuma = Registro.Cuestionario.Fuma == null ? false : Registro.Cuestionario.Fuma,
-                            Veces_semana_fuma = Registro.Cuestionario.Veces_semana_fuma == null ? 0 : Registro.Cuestionario.Veces_semana_fuma,
-                            Alcohol = Registro.Cuestionario.Alcohol == null ? false : Registro.Cuestionario.Alcohol,
-                            Veces_semana_alcohol = Registro.Cuestionario.Veces_semana_alcohol == null ? 0 : Registro.Cuestionario.Veces_semana_alcohol,
-                            Actividad_fisica = Registro.Cuestionario.Actividad_fisica == null ? false : Registro.Cuestionario.Actividad_fisica,
-                            Tipo_ejercicios = Registro.Cuestionario.Tipo_ejercicios == null ? "" : Registro.Cuestionario.Tipo_ejercicios,
-                            Tiempo_dedicado = Registro.Cuestionario.Tiempo_dedicado == null ? "" : Registro.Cuestionario.Tiempo_dedicado,
-                            Horario_entreno = Registro.Cuestionario.Horario_entreno == null ? "" : Registro.Cuestionario.Horario_entreno,
-                            MetasObjetivos = Registro.Cuestionario.MetasObjetivos == null ? "" : Registro.Cuestionario.MetasObjetivos,
-                            Compromisos = Registro.Cuestionario.Compromisos == null ? "" : Registro.Cuestionario.Compromisos,
-                            Comentarios = Registro.Cuestionario.Comentarios == null ? "" : Registro.Cuestionario.Comentarios,
-                            Fecha_registro = DateTime.Now
+                            Clave_cliente = Clave,
+                            Nombres = Registro.Cliente.Nombres,
+                            Apellido_paterno = Registro.Cliente.Apellido_paterno,
+                            Apellido_materno = Registro.Cliente.Apellido_materno,
+                            Edad = Registro.Cliente.Edad,
+                            Telefono = Registro.Cliente.Telefono == null ? 0 : Registro.Cliente.Telefono,
+                            Correo_electronico = Registro.Cliente.Correo_electronico == null ? "" : Registro.Cliente.Correo_electronico,
+                            Apodo = Registro.Cliente.Apodo == null ? "" : Registro.Cliente.Apodo,
+                            Contraseña = Registro.Cliente.Contraseña,
+                            Foto_perfil = fotoperfil,
+                            Sexo = Registro.Cliente.Sexo,
+                            Estado = true
                         };
-                        Db.Cuestionario.Add(cuestionario);                        
+                        Db.Clientes.Add(clientes);
                         if (Db.SaveChanges() == 1)
                         {
-                            Registro.Mensualidad.Fecha_inicio = DateTime.Now;
-                            Registro.Mensualidad.Fecha_fin = DateTime.Now.AddDays(30);
-                            int mes = DateTime.Now.Month;
-                            mensualidad = new Mensualidad
+                            int Identity = Db.Clientes.Select(y => y.Id_cliente).Max() + 1;
+                            Clientes updatecliente = Db.Clientes.Where(y => y.Id_cliente == clientes.Id_cliente).FirstOrDefault();
+                            updatecliente.Clave_cliente = updatecliente.Clave_cliente + "" + Identity.ToString();
+                            updatecliente.Foto_perfil = "/Imagenes/Clientes/"+ updatecliente.Clave_cliente + "" + Identity.ToString();                            
+                            if (Db.SaveChanges() == 1)
                             {
-                                Id_cliente = clientes.Id_cliente,
-                                Id_tipo_rutina = Registro.Mensualidad.Tiporutina.Id_tiporutina,
-                                Id_mes = mes,
-                                Id_estatus = 1,
-                                Id_tipo_entrenamiento = Registro.Mensualidad.TipoEntrenamiento.Id_TipoEntrenamiento,
-                                Fecha_inicio = Registro.Mensualidad.Fecha_inicio,
-                                Fecha_fin = Registro.Mensualidad.Fecha_fin
-                            };
-                            Db.Mensualidad.Add(mensualidad);
-                            if (Db.SaveChanges()==1)
-                            {
-                                asesoria_antropometria = new Asesoria_antropometria
+                                Clave = updatecliente.Clave_cliente;
+                                fotoperfil = "/Imagenes/Clientes/"+Clave;
+                                cuestionario = new Cuestionario
                                 {
-                                    Peso = Registro.Medidas.Peso,
-                                    Id_mensualidad = mensualidad.Id_mensualidad,
-                                    Altura = Registro.Medidas.Altura,
-                                    IMC = Registro.Medidas.IMC,
-                                    Brazo_derecho_relajado = Registro.Medidas.Brazoderechorelajado,
-                                    Brazo_derecho_fuerza = Registro.Medidas.Brazoderechofuerza,
-                                    Brazo_izquierdo_relajado = Registro.Medidas.Brazoizquierdorelajado,
-                                    Brazo_izquierdo_fuerza = Registro.Medidas.Brazoizquierdofuerza,
-                                    Cintura = Registro.Medidas.Cintura,
-                                    Cadera = Registro.Medidas.Cadera,
-                                    Pierna_izquierda = Registro.Medidas.Piernaizquierda,
-                                    Pierna_derecho = Registro.Medidas.Piernaderecho,
-                                    Pantorrilla_derecha = Registro.Medidas.Pantorrilladerecha,
-                                    Pantorrilla_izquierda = Registro.Medidas.Pantorrillaizquierda,
-                                    Foto_frontal = fotoperfil,
-                                    Foto_perfil = fotoperfil,
-                                    Foto_posterior = fotoperfil,
+                                    Id_cliente = clientes.Id_cliente,
+                                    Clave_cuestionario = "CUES-" + Clave,
+                                    Padece_enfermedad = Registro.Cuestionario.Padece_enfermedad == null ? false : Registro.Cuestionario.Padece_enfermedad,
+                                    Medicamento_prescrito_medico = Registro.Cuestionario.Medicamento_prescrito_medico == null ? "" : Registro.Cuestionario.Medicamento_prescrito_medico,
+                                    lesiones = Registro.Cuestionario.lesiones == null ? false : Registro.Cuestionario.lesiones,
+                                    Alguna_recomendacion_lesiones = Registro.Cuestionario.Alguna_recomendacion_lesiones == null ? "" : Registro.Cuestionario.Alguna_recomendacion_lesiones,
+                                    Fuma = Registro.Cuestionario.Fuma == null ? false : Registro.Cuestionario.Fuma,
+                                    Veces_semana_fuma = Registro.Cuestionario.Veces_semana_fuma == null ? 0 : Registro.Cuestionario.Veces_semana_fuma,
+                                    Alcohol = Registro.Cuestionario.Alcohol == null ? false : Registro.Cuestionario.Alcohol,
+                                    Veces_semana_alcohol = Registro.Cuestionario.Veces_semana_alcohol == null ? 0 : Registro.Cuestionario.Veces_semana_alcohol,
+                                    Actividad_fisica = Registro.Cuestionario.Actividad_fisica == null ? false : Registro.Cuestionario.Actividad_fisica,
+                                    Tipo_ejercicios = Registro.Cuestionario.Tipo_ejercicios == null ? "" : Registro.Cuestionario.Tipo_ejercicios,
+                                    Tiempo_dedicado = Registro.Cuestionario.Tiempo_dedicado == null ? "" : Registro.Cuestionario.Tiempo_dedicado,
+                                    Horario_entreno = Registro.Cuestionario.Horario_entreno == null ? "" : Registro.Cuestionario.Horario_entreno,
+                                    MetasObjetivos = Registro.Cuestionario.MetasObjetivos == null ? "" : Registro.Cuestionario.MetasObjetivos,
+                                    Compromisos = Registro.Cuestionario.Compromisos == null ? "" : Registro.Cuestionario.Compromisos,
+                                    Comentarios = Registro.Cuestionario.Comentarios == null ? "" : Registro.Cuestionario.Comentarios,
                                     Fecha_registro = DateTime.Now
                                 };
-                                Db.Asesoria_antropometria.Add(asesoria_antropometria);
+                                Db.Cuestionario.Add(cuestionario);                        
                                 if (Db.SaveChanges() == 1)
                                 {
-                                    string ruta = Server.MapPath("/Imagenes/Clientes");
-                                    ruta = Path.Combine(ruta + @"\" + Name);
-                                    DirectoryInfo di = Directory.CreateDirectory(ruta);
-                                    TempData["Ubicacion"] = Name;
-                                    TempData["IdCliente"] = clientes.Id_cliente;
-                                    TempData["IdMedidas"] = asesoria_antropometria.Id;                                    
-                                    result = "True";
+                                    Registro.Mensualidad.Fecha_inicio = DateTime.Now;
+                                    Registro.Mensualidad.Fecha_fin = DateTime.Now.AddDays(30);
+                                    int mes = DateTime.Now.Month;
+                                    mensualidad = new Mensualidad
+                                    {
+                                        Id_cliente = clientes.Id_cliente,
+                                        Id_tipo_rutina = Registro.Mensualidad.Tiporutina.Id_tiporutina,
+                                        Id_mes = mes,
+                                        Id_estatus = 1,
+                                        Id_tipo_entrenamiento = Registro.Mensualidad.TipoEntrenamiento.Id_TipoEntrenamiento,
+                                        Fecha_inicio = Registro.Mensualidad.Fecha_inicio,
+                                        Fecha_fin = Registro.Mensualidad.Fecha_fin
+                                    };
+                                    Db.Mensualidad.Add(mensualidad);
+                                    if (Db.SaveChanges()==1)
+                                    {
+                                        asesoria_antropometria = new Asesoria_antropometria
+                                        {
+                                            Peso = Registro.Medidas.Peso,
+                                            Id_mensualidad = mensualidad.Id_mensualidad,
+                                            Altura = Registro.Medidas.Altura,
+                                            IMC = Registro.Medidas.IMC,
+                                            Brazo_derecho_relajado = Registro.Medidas.Brazoderechorelajado,
+                                            Brazo_derecho_fuerza = Registro.Medidas.Brazoderechofuerza,
+                                            Brazo_izquierdo_relajado = Registro.Medidas.Brazoizquierdorelajado,
+                                            Brazo_izquierdo_fuerza = Registro.Medidas.Brazoizquierdofuerza,
+                                            Cintura = Registro.Medidas.Cintura,
+                                            Cadera = Registro.Medidas.Cadera,
+                                            Pierna_izquierda = Registro.Medidas.Piernaizquierda,
+                                            Pierna_derecho = Registro.Medidas.Piernaderecho,
+                                            Pantorrilla_derecha = Registro.Medidas.Pantorrilladerecha,
+                                            Pantorrilla_izquierda = Registro.Medidas.Pantorrillaizquierda,
+                                            Foto_frontal = fotoperfil,
+                                            Foto_perfil = fotoperfil,
+                                            Foto_posterior = fotoperfil,
+                                            Fecha_registro = DateTime.Now
+                                        };
+                                        Db.Asesoria_antropometria.Add(asesoria_antropometria);
+                                        if (Db.SaveChanges() == 1)
+                                        {
+                                            string ruta = Server.MapPath("/Imagenes/Clientes");
+                                            ruta = Path.Combine(ruta + @"\" + Clave);
+                                            DirectoryInfo di = Directory.CreateDirectory(ruta);
+                                            TempData["Ubicacion"] = Clave;
+                                            TempData["IdCliente"] = clientes.Id_cliente;
+                                            TempData["IdMedidas"] = asesoria_antropometria.Id;                                    
+                                            result = "True";
+                                        }
+                                        else
+                                        {
+                                            result = "Ocurrio un error al guardar tus medidas reintenta de nuevo y verifica tus datos";
+                                            Db.Mensualidad.Remove(mensualidad);
+                                            Db.SaveChanges();
+                                            Db.Cuestionario.Remove(cuestionario);
+                                            Db.SaveChanges();
+                                            Db.Clientes.Remove(clientes);
+                                            Db.SaveChanges();                                     
+                                        }
+                                    }
+                                    else
+                                    {
+                                        result = "Ocurrio un error al guardar tu mensualidad reintenta de nuevo y verifica tus datos";
+                                        Db.Cuestionario.Remove(cuestionario);
+                                        Db.SaveChanges();
+                                        Db.Clientes.Remove(clientes);
+                                        Db.SaveChanges();
+                                    }
                                 }
                                 else
                                 {
-                                    result = "Ocurrio un error al guardar tus medidas reintenta de nuevo y verifica tus datos";
-                                    Db.Mensualidad.Remove(mensualidad);
-                                    Db.SaveChanges();
-                                    Db.Cuestionario.Remove(cuestionario);
-                                    Db.SaveChanges();
+                                    result = "Ocurrio un error al guardar tu cuestionario reintenta de nuevo y verifica tus datos";
                                     Db.Clientes.Remove(clientes);
-                                    Db.SaveChanges();                                     
+                                    Db.SaveChanges();
                                 }
                             }
                             else
                             {
-                                result = "Ocurrio un error al guardar tu mensualidad reintenta de nuevo y verifica tus datos";
-                                Db.Cuestionario.Remove(cuestionario);
-                                Db.SaveChanges();
+                                result = "Ocurrio un error al guardar los datos intente de nuevo por favor";
                                 Db.Clientes.Remove(clientes);
                                 Db.SaveChanges();
                             }
                         }
                         else
                         {
-                            result = "Ocurrio un error al guardar tu cuestionario reintenta de nuevo y verifica tus datos";
-                            Db.Clientes.Remove(clientes);
-                            Db.SaveChanges();
+                            result = "Ocurrio un error al guardar tus datos personales reintenta de nuevo y verifica tus datos";                        
                         }
                     }
                     else
                     {
-                        result = "Ocurrio un error al guardar tus datos personales reintenta de nuevo y verifica tus datos";                        
+                        result = "Ya hay un correo y/o celular registrado por favor intenta otro";                    
                     }
                 }
-                else
-                {
-                    result = "Ya hay un correo y/o celular registrado por favor intenta otro";                    
-                }
-            }
             }
             catch (Exception ex)
             {

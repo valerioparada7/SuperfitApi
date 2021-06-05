@@ -35,7 +35,7 @@
                             <td>@item.Id_cliente</td>
                             <td>
                                 @Html.ActionLink("Ver cliente", "ClienteDetalle", "AdministracionWebHome",new { Id_cliente = item.Id_cliente }, new { @class = "color btn btn-primary" })
-                                <button type="button" class="color btn btn-primary" onclick="VerEditar(@item.Id_cliente)">Editar</button>
+                                @*<button type="button" class="color btn btn-primary" onclick="VerEditar(@item.Id_cliente)">Editar</button>*@
                             </td>
                             <td>@item.Nombres @item.Apellido_paterno @item.Apellido_materno</td>
                             <td>@item.Edad</td>

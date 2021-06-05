@@ -216,15 +216,13 @@
 
         #columna17 {
         }
-    }
-
-    
+    }    
 </style>
 <div>
     <h3>Mensualidades</h3>
     <br />
     <div class="table-responsive">
-        <table class="table table-condensed table-striped table-hover" id="tabla">
+        <table class="table table-condensed table-striped table-hover" id="tablamensualidad">
             <thead>
                 <tr>
                     <th>#</th>
@@ -505,6 +503,9 @@
 </div>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('#tablamensualidad').DataTable();
+    });
     var urlmedidas = '@Url.Action("ListAsesoriaantropometria", "ClientesWeb")';
     var urlmedidasreg ='@Url.Action("RegistrarMedidas", "ClientesWeb")';
     var urlfotos ='@Url.Action("RegistrarFotos", "ClientesWeb")';

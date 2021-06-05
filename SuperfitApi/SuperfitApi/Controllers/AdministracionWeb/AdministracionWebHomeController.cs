@@ -160,19 +160,30 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                     {
                         var list = listmensualidadMdl.Where(y => y.Cliente.Id_cliente == cliente.Id_cliente).ToList();
                         var mensualidad = list.OrderByDescending(p => p.Fecha_fin).FirstOrDefault();
-                        if (mensualidad.Estatus.Id_estatus == 1)
+                        if (mensualidad != null)
+                        {
+                            if (mensualidad.Estatus.Id_estatus == 1)
+                            {
+                                pendientes.Add(cliente);
+                            }
+                            else if (mensualidad.Estatus.Id_estatus == 2 || mensualidad.Estatus.Id_estatus == 4)
+                            {
+                                activos.Add(cliente);
+                            }
+                            else
+                            {
+                                inactivos.Add(cliente);
+                            }
+                        }
+                    }
+                    if (cliente != null)
+                    {
+                        var list = listmensualidadMdl.Where(y => y.Cliente.Id_cliente == cliente.Id_cliente).ToList();
+                        if (list.Count == 0)
                         {
                             pendientes.Add(cliente);
-                        }
-                        else if (mensualidad.Estatus.Id_estatus == 2 || mensualidad.Estatus.Id_estatus == 4)
-                        {
-                            activos.Add(cliente);                            
-                        }
-                        else
-                        {
-                            inactivos.Add(cliente);
-                        }
-                    }                         
+                        }                        
+                    }
                 }
 
                 if(listmensualidadMdl.Count > 0)
@@ -257,13 +268,9 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
             if (cliente == null)
             {
-                string Clave = "";
-                Clave = clientesModel.Nombres.Substring(0, 3) + clientesModel.Apellido_paterno.Substring(0, 3) +
-                        clientesModel.Apellido_materno.Substring(0, 3);
-                string Name = clientesModel.Nombres + " " + clientesModel.Apellido_paterno + " " +
-                        clientesModel.Apellido_materno;
-                Name = Name.Replace(" ", "_");
-                string fotoperfil = "Imagenes/Clientes/" + Name;
+                string Clave = "000C-";
+                string fotoperfil = "/Imagenes/Clientes/" + Clave;
+                string UpdateClave = string.Empty;
                 clientes = new Clientes
                 {
                     Clave_cliente = Clave,
@@ -282,7 +289,19 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 Db.Clientes.Add(clientes);
                 if (Db.SaveChanges() == 1)
                 {
-                    result = true;
+                    int Identity = Db.Clientes.Select(y => y.Id_cliente).Max() + 1;
+                    Clientes updatecliente = Db.Clientes.Where(y => y.Id_cliente == clientes.Id_cliente).FirstOrDefault();                    
+                    updatecliente.Clave_cliente = updatecliente.Clave_cliente + "" + Identity.ToString();
+                    updatecliente.Foto_perfil = "/Imagenes/Clientes/"+ updatecliente.Clave_cliente + "" + Identity.ToString();
+                    if (Db.SaveChanges() == 1)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                        
                 }
                 else
                 {
@@ -346,6 +365,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         //Detalle Cliente
         public ActionResult ClienteDetalle(int Id_cliente)
         {
+            Session["Id_Cliente"] = Id_cliente;
             GetList();
             ViewBag.idcliente = Id_cliente;
             return View();

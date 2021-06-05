@@ -229,56 +229,44 @@ namespace SuperfitApi.Controllers
         }
 
         public bool UpdateFoto(HttpPostedFileBase imagen)
-        {            
+        {
             string Id = Session["Id_Cliente"].ToString();
-            string exception = string.Empty;
+            Id = Id == null ? "0" : Id;
             int IdCliente = int.Parse(Id);
-            clientes = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
-            var file = HttpContext.Server.MapPath("~"+ clientes.Foto_perfil);
-            try
+            string exception = string.Empty;
+            string ruta = string.Empty;
+
+            if (IdCliente != 0) 
             {
-                System.IO.File.Delete(file);
-            }
-            catch (Exception ex)
-            {
-                exception = ex.Message;             
-            }
-            
-            string name = clientes.Nombres;
-            string ruta = clientes.Foto_perfil;
-            int j = 0;
-            string newruta = string.Empty;
-            for(int i = 0; i < ruta.Length; i++)
-            {
-                string c = ruta.Substring(i, 1);
-                if (c == "/")
-                {
-                    newruta += c;
-                    j++;
-                }
-                else
-                {
-                    newruta += c;
-                }
-                if (j == 4)
-                {
-                    break;
-                }
-            }
-            newruta += imagen.FileName.ToString();
-            clientes.Foto_perfil = newruta;
-            if (Db.SaveChanges() == 1)
-            {
+                clientes = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
+                var file = HttpContext.Server.MapPath("~" + clientes.Foto_perfil);
                 try
                 {
-                    imagen.SaveAs(Server.MapPath("~" + clientes.Foto_perfil));
-                    return true;
+                    System.IO.File.Delete(file);
                 }
                 catch (Exception ex)
                 {
                     exception = ex.Message;
+                }
+                ruta = "/Imagenes/Clientes/" + clientes.Clave_cliente + "/" + imagen.FileName.ToString();
+                clientes.Foto_perfil = ruta;
+                if (Db.SaveChanges() == 1)
+                {
+                    try
+                    {
+                        imagen.SaveAs(Server.MapPath("~" + ruta));
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        exception = ex.Message;
+                        return false;
+                    }
+                }
+                else
+                {
                     return false;
-                }                
+                }
             }
             else
             {
@@ -412,41 +400,44 @@ namespace SuperfitApi.Controllers
         public string RegistrarMedidas(AntropometriaModel antropometriaModel)
         {
             string result = "False";
+            string fotoperfil = "/Imagenes/Clientes/";
             try
             {
                 string Id = Session["Id_Cliente"].ToString();
+                Id = Id == null ? "0" : Id;
                 int IdCliente = int.Parse(Id);
-                clientes = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
-                string Name = clientes.Nombres + " " + clientes.Apellido_paterno + " " + clientes.Apellido_materno;
-                Name = Name.Replace(" ", "_");
-                string fotoperfil = "/Imagenes/Clientes/" + Name;
-                asesoria_antropometria = new Asesoria_antropometria
+                if (IdCliente != 0)
                 {
-                    Peso = antropometriaModel.Peso,
-                    Id_mensualidad = antropometriaModel.Mensualidad.Id_mensualidad,
-                    Altura = antropometriaModel.Altura,
-                    IMC = antropometriaModel.IMC,
-                    Brazo_derecho_relajado = antropometriaModel.Brazoderechorelajado,
-                    Brazo_derecho_fuerza = antropometriaModel.Brazoderechofuerza,
-                    Brazo_izquierdo_relajado = antropometriaModel.Brazoizquierdorelajado,
-                    Brazo_izquierdo_fuerza = antropometriaModel.Brazoizquierdofuerza,
-                    Cintura = antropometriaModel.Cintura,
-                    Cadera = antropometriaModel.Cadera,
-                    Pierna_izquierda = antropometriaModel.Piernaizquierda,
-                    Pierna_derecho = antropometriaModel.Piernaderecho,
-                    Pantorrilla_derecha = antropometriaModel.Pantorrilladerecha,
-                    Pantorrilla_izquierda = antropometriaModel.Pantorrillaizquierda,
-                    Foto_frontal = fotoperfil,
-                    Foto_perfil = fotoperfil,
-                    Foto_posterior = fotoperfil,
-                    Fecha_registro = DateTime.Now
-                };
-                Db.Asesoria_antropometria.Add(asesoria_antropometria);
-                if (Db.SaveChanges() == 1)
-                {
-                    TempData["idmedidas"] = asesoria_antropometria.Id;
-                    TempData["Name"] = fotoperfil;
-                    result = "True";
+                    clientes = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
+                    fotoperfil += "/" + clientes.Clave_cliente;
+                    asesoria_antropometria = new Asesoria_antropometria
+                    {
+                        Peso = antropometriaModel.Peso,
+                        Id_mensualidad = antropometriaModel.Mensualidad.Id_mensualidad,
+                        Altura = antropometriaModel.Altura,
+                        IMC = antropometriaModel.IMC,
+                        Brazo_derecho_relajado = antropometriaModel.Brazoderechorelajado,
+                        Brazo_derecho_fuerza = antropometriaModel.Brazoderechofuerza,
+                        Brazo_izquierdo_relajado = antropometriaModel.Brazoizquierdorelajado,
+                        Brazo_izquierdo_fuerza = antropometriaModel.Brazoizquierdofuerza,
+                        Cintura = antropometriaModel.Cintura,
+                        Cadera = antropometriaModel.Cadera,
+                        Pierna_izquierda = antropometriaModel.Piernaizquierda,
+                        Pierna_derecho = antropometriaModel.Piernaderecho,
+                        Pantorrilla_derecha = antropometriaModel.Pantorrilladerecha,
+                        Pantorrilla_izquierda = antropometriaModel.Pantorrillaizquierda,
+                        Foto_frontal = fotoperfil,
+                        Foto_perfil = fotoperfil,
+                        Foto_posterior = fotoperfil,
+                        Fecha_registro = DateTime.Now
+                    };
+                    Db.Asesoria_antropometria.Add(asesoria_antropometria);
+                    if (Db.SaveChanges() == 1)
+                    {
+                        TempData["idmedidas"] = asesoria_antropometria.Id;
+                        TempData["Name"] = fotoperfil;
+                        result = "True";
+                    }
                 }
             }
             catch (Exception ex)
@@ -467,21 +458,21 @@ namespace SuperfitApi.Controllers
                 asesoria_antropometria = Db.Asesoria_antropometria.Where(y => y.Id == Idmedida).FirstOrDefault();
                 if (frontal != null)
                 {
-                    asesoria_antropometria.Foto_frontal = asesoria_antropometria.Foto_frontal + "/" + frontal.FileName.ToString();
+                    asesoria_antropometria.Foto_frontal += "/" + frontal.FileName.ToString();
                     Db.SaveChanges();
                     frontal.SaveAs(Server.MapPath("~/"+name +"/" + frontal.FileName.ToString()));
                     result = "True";
                 }
                 if (perfil != null)
                 {
-                    asesoria_antropometria.Foto_perfil = asesoria_antropometria.Foto_perfil + "/" + perfil.FileName.ToString();
+                    asesoria_antropometria.Foto_perfil += "/" + perfil.FileName.ToString();
                     Db.SaveChanges();
                     perfil.SaveAs(Server.MapPath("~/" + name + "/" + perfil.FileName.ToString()));
                     result = "True";
                 }
                 if (posterior != null)
                 {
-                    asesoria_antropometria.Foto_posterior = asesoria_antropometria.Foto_posterior + "/" + posterior.FileName.ToString();
+                    asesoria_antropometria.Foto_posterior += "/" + posterior.FileName.ToString();
                     Db.SaveChanges();
                     posterior.SaveAs(Server.MapPath("~/" + name + "/" + posterior.FileName.ToString()));
                     result = "True";

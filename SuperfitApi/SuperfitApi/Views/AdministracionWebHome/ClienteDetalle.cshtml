@@ -156,34 +156,34 @@
         <hr />
         <div id="mensualidad">
             <h3 class="letracolor">Mensualidades</h3>
-            <div style="overflow-y:auto;height:500px">
-                <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="Mensualidad()">Nueva Mensualidad</button>
-                    </div>
-                </div>
-                <br />
-                <div class="table-responsive">
-                    <table class="table table-condensed table-striped table-hover" id="tabladetallemensualidad">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Mensualidad</th>
-                                <th>Medidas</th>
-                                <th>Detalle rutina</th>
-                                <th>Tipo rutina</th>
-                                <th>Mes</th>
-                                <th>Estatus</th>
-                                <th>Fecha inicio</th>
-                                <th>Fecha fin</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="Mensualidad()">Nueva Mensualidad</button>
                 </div>
             </div>
-        </div>        
+            <br />
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped table-hover" id="tabladetallemensualidad">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mensualidad</th>
+                            <th>Medidas</th>
+                            <th>Detalle rutina</th>
+                            <th>Tipo rutina</th>
+                            <th>Mes</th>
+                            <th>Estatus</th>
+                            <th>Fecha inicio</th>
+                            <th>Fecha fin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
 </body>
 </html>
@@ -259,7 +259,7 @@
                         </div>
                     </div>
                     <br />
-                    
+
                     <div class="row">
                         <div class="col">
                             <select class="form-control" id="Tipoentrenamientolist">
@@ -284,7 +284,7 @@
 </div>
 
 <!--Modal para medidas --->
-<div class="modal fade" id="ModalMedidas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!--<div class="modal fade" id="ModalMedidas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -393,7 +393,254 @@
             </div>
         </div>
     </div>
+</div>-->
+
+<!--Modal para detalle Mensualidad medidas--->
+<div id="ModalMedidas" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Detalle de Mensualidad</h3>
+                <h5></h5>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="Id_mensualidad" type="text" style="display:none" />
+                <div class="container-fluid">
+                    <div id="registro">
+                        <div class="row">
+                            <div class="col">
+                                <h3>Nuevo registro</h3>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila1">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna1">
+                                        <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna2">
+                                        <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna3">
+                                        <input type="text" id="IMC" class="form-control" readonly />
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila2">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna4">
+                                        <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna5">
+                                        <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna6">
+                                        <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila3">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna7">
+                                        <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna8">
+                                        <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna9">
+                                        <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila4">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna10">
+                                        <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna11">
+                                        <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna12">
+                                        <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila5">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna13">
+                                        <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila6">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna14">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div id="previewfrontal" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Foto frontal</label>
+                                                <label for="Foto_frontal" style="cursor:pointer">
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                </label>
+                                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna15">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div id="previewperfil" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Foto perfil</label>
+                                                <label for="Foto_perfil" style="cursor:pointer">
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                </label>
+                                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna16">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div id="previewposterior" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Foto posterior</label>
+                                                <label for="Foto_posterior" style="cursor:pointer">
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                </label>
+                                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila7">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna17">
+                                        <button type="button" class="color btn btn-primary" onclick="GuardarMedidas()">Guardar</button>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="listamedidas">
+                        <div class="row">
+                            <div class="col">
+                                <h3>Mis medidas y fotos</h3>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-striped table-hover" id="ListaMedidas">
+                                <thead>
+                                    <tr>
+                                        <th>Peso  </th>
+                                        <th>Altura</th>
+                                        <th>IMC</th>
+                                        <th>Brazo derecho relajado</th>
+                                        <th>Brazo derecho fuerza</th>
+                                        <th>Brazo izquierdo relajado</th>
+                                        <th>Brazo izquierdo fuerza</th>
+                                        <th>Cintura</th>
+                                        <th>Cadera</th>
+                                        <th>Pierna izquierda</th>
+                                        <th>Pierna derecho</th>
+                                        <th>Pantorrilla derecha</th>
+                                        <th>Pantorrilla izquierda</th>
+                                        <th>Foto frontal</th>
+                                        <th>Foto perfil</th>
+                                        <th>Foto posterior</th>
+                                        <th>Fecha registro</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 
 <!--Modal para detalle Mensualidad--->
 <div class="modal fade" id="ModalMensualidadDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -515,9 +762,7 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#tabladetallemensualidad').DataTable();
-    });
+
     $(document).ready(function () {
         VerCliente();
         VerCuestionario();
@@ -536,7 +781,9 @@
     var urldetallRutina = '@Url.Action("DetallRutina", "AdministracionWebHome")';
     var urlcuestionario = '@Url.Action("AgregarCuestionario", "AdministracionWebHome")';
     var urlvercuestionario = '@Url.Action("VerCuestionario", "AdministracionWebHome")';
-    var urlmedidas = '@Url.Action("AgregarAsesoriaantropometria", "AdministracionWebHome")';
+    var urlmedidas = '@Url.Action("ListAsesoriaantropometria", "ClientesWeb")';
+    var urlmedidasreg = '@Url.Action("RegistrarMedidas", "ClientesWeb")';
+    var urlfotos ='@Url.Action("RegistrarFotos", "ClientesWeb")';
 
     //Cliente
     function VerCliente() {
@@ -773,15 +1020,16 @@
                     html += '<td>' + sum + '</td>';
                     html += '<td><button type="button" class="btn btn-success" onclick = "VerMensualidad('+data[i].Id_mensualidad +')"> Ver</button></td>';
                     html += '<td><button type="button" class="btn btn-success" onclick="MensualidadDetalle(' + data[i].Id_mensualidad + ')">Rutina</button></td>';
-                    html += '<td><button type="button" class="btn btn-success" onclick="VerMedidas(' + data[i].Id_mensualidad + ')">Medidas</button></td>';
+                    html += '<td><button type="button" class="btn btn-success" onclick="VerFotosMedidas(' + data[i].Id_mensualidad + ',' + Estatus.Id_estatus + ')">Medidas</button></td>';
                     html += '<td>' + Tiporutina.Tipo + '</td>';
                     html += '<td>'+Mes.Mes+'</td>';
                     html += '<td>' + Estatus.Descripcion +'</td>';
                     html += '<td>' + data[i].Fechainicio+'</td>';
                     html += '<td>' + data[i].Fechafin + '</td>';
                     html += '</tr>';
-                    $('#tabla tbody').append(html);
+                    $('#tabladetallemensualidad tbody').append(html);
                 }
+                $('#tabladetallemensualidad').DataTable();
             },
             error: function (xhr, status, error) {
                 console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -875,7 +1123,7 @@
                 }
                 else {
                     $('#ModalRespuesta').modal('show');
-                    document.getElementById("MensajeAlerta").innerHTML = 'Ocurrio un error verifique su conexion';                    
+                    document.getElementById("MensajeAlerta").innerHTML = 'Ocurrio un error verifique su conexion';
                 }
             },
             error: function (xhr, status, error) {
@@ -890,85 +1138,216 @@
     }
 
     //Medidas
-    function VerMedidas(idmes) {
-        document.getElementById("idMensualidadMedidas").value = idmes;
-        var url = '@Url.Action("EditarAsesoriaantropometria", "AdministracionWebHome")';
+    function VerFotosMedidas(Id,estatus) {
+        document.getElementById("Id_mensualidad").value = Id;
+        if (estatus == 3) {
+            document.getElementById("registro").style.display = "none";
+        }
         $.ajax({
             type: "GET",
-            url: url,
-            data: { "Id": idmes },
+            url: urlmedidas,
+            data: { "Id_mensualidad": Id },
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            datatype: "json",
             success: function (data) {
-                if (data["Id"] != 0) {
-                    document.getElementById("idMMedidas").value = data["Id"];
-                    document.getElementById("Peso").value = data["Peso"];
-                    document.getElementById("Altura").value = data["Altura"];
-                    document.getElementById("IMC").value = data["IMC"];
-                    document.getElementById("Brazo_derecho_relajado").value = data["Brazoderechorelajado"];
-                    document.getElementById("Brazo_derecho_fuerza").value = data["Brazoderechofuerza"];
-                    document.getElementById("Brazo_izquierdo_relajado").value = data["Brazoizquierdorelajado"];
-                    document.getElementById("Brazo_izquierdo_fuerza").value = data["Brazoizquierdofuerza"];
-                    document.getElementById("Cintura").value = data["Cintura"];
-                    document.getElementById("Cadera").value = data["Cadera"];
-                    document.getElementById("Pierna_izquierda").value= data["Piernaizquierda"];
-                    document.getElementById("Pierna_derecho").value = data["Piernaderecho"];
-                    document.getElementById("Pantorrilla_derecha").value = data["Pantorrilladerecha"];
-                    document.getElementById("Pantorrilla_izquierda").value= data["Pantorrillaizquierda"];
+                $('#ListaMedidas tbody').empty();
+                for (var i = 0; i < data.length; i++) {
+                    var html = "";
+                    html += '<tr>';
+                    html += '<td><lable>' + data[i].Peso + ' kg</lable></td>';
+                    html += '<td><lable>' + data[i].Altura + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].IMC + '</lable></td>';
+                    html += '<td><lable>' + data[i].Brazoderechorelajado + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Brazoderechofuerza + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Brazoizquierdorelajado + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Brazoizquierdofuerza + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Cintura + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Cadera + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Piernaizquierda + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Piernaderecho + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Pantorrilladerecha + ' cm</lable></td>';
+                    html += '<td><lable>' + data[i].Pantorrillaizquierda + ' cm</lable></td>';
+                    html += '<td><img src="' + data[i].Fotofrontal + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><img src="' + data[i].Fotoperfil + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><img src="' + data[i].Fotoposterior + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><lable>' + data[i].Fecharegistro + '</lable></td>';
+                    html += '</tr>';
+                    $('#ListaMedidas tbody').append(html);
                 }
-                else { document.getElementById("idMMedidas").value=0}
-
             },
             error: function (xhr, status, error) {
                 console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                alert("Ocurrio un error verifique su conexion (Cliente)");
+                alert("Ocurrio un error verifique su conexion (Mensualidad)");
             }
         });
-        $('#ModalMedidas').modal('show');
+        $("#ModalMedidas").modal("show");
     }
 
     function GuardarMedidas() {
-        var id = document.getElementById("idMMedidas").value;
 
-        var parametros = {};
-        var Mensualidad = {};
-        Mensualidad.Id_mensualidad = $("#idMensualidadMedidas").val();
-        parametros.Peso = $("#Peso").val();
-        parametros.Altura = $("#Altura").val();
-        parametros.IMC = $("#IMC").val();
-        parametros.Brazoderechorelajado = $("#Brazo_derecho_relajado").val();
-        parametros.Brazoderechofuerza = $("#Brazo_derecho_fuerza").val();
-        parametros.Brazoizquierdorelajado = $("#Brazo_izquierdo_relajado").val();
-        parametros.Brazoizquierdofuerza = $("#Brazo_izquierdo_fuerza").val();
-        parametros.Cintura = $("#Cintura").val();
-        parametros.Cadera = $("#Cadera").val();
-        parametros.Piernaizquierda = $("#Pierna_izquierda").val();
-        parametros.Piernaderecho = $("#Pierna_derecho").val();
-        parametros.Pantorrilladerecha = $("#Pantorrilla_derecha").val();
-        parametros.Pantorrillaizquierda = $("#Pantorrilla_izquierda").val();
-        parametros.Mensualidad = Mensualidad;
-        if (id != 0) {
-            urlmedidas = '@Url.Action("EditarAsesoriaantropometria", "AdministracionWebHome")';
-            parametros.Id = id;
-        }
-        var modelo = parametros;
-        $.ajax({
-            type: "POST",
-            url: urlmedidas,
-            data: modelo,
-            success: function (data) {
-                if (data == "True") {
-                    location.reload();
+            var parametros = {};
+            var Mensualidad = {};
+            var modelo = {};
+            var formdata = new FormData();
+            Mensualidad.Id_mensualidad = $("#Id_mensualidad").val();
+            parametros.Peso = $("#Peso").val();
+            parametros.Altura = $("#Altura").val();
+            parametros.IMC = $("#IMC").val();
+            parametros.Brazoderechorelajado = $("#Brazo_derecho_relajado").val();
+            parametros.Brazoderechofuerza = $("#Brazo_derecho_fuerza").val();
+            parametros.Brazoizquierdorelajado = $("#Brazo_izquierdo_relajado").val();
+            parametros.Brazoizquierdofuerza = $("#Brazo_izquierdo_fuerza").val();
+            parametros.Cintura = $("#Cintura").val();
+            parametros.Cadera = $("#Cadera").val();
+            parametros.Piernaizquierda = $("#Pierna_izquierda").val();
+            parametros.Piernaderecho = $("#Pierna_derecho").val();
+            parametros.Pantorrilladerecha = $("#Pantorrilla_derecha").val();
+            parametros.Pantorrillaizquierda = $("#Pantorrilla_izquierda").val();
+            parametros.Mensualidad = Mensualidad;
+            modelo = parametros;
+            //imagenes
+            var fotofrontal = $("#Foto_frontal")[0];
+            var fotolateral = $("#Foto_perfil")[0];
+            var fotoposterior = $("#Foto_posterior")[0];
+            var imagen1 = fotofrontal.files[0];
+            var imagen2 = fotolateral.files[0];
+            var imagen3 = fotoposterior.files[0];
+            formdata.append("frontal", imagen1);
+            formdata.append("perfil", imagen2);
+            formdata.append("posterior", imagen3);
+
+            if (parametros.Peso != "") {
+                if (parametros.Altura != "") {
+                    if (parametros.Brazoderechorelajado != "") {
+                        if (parametros.Brazoderechofuerza != "") {
+                            if (parametros.Brazoizquierdorelajado != "") {
+                                if (parametros.Brazoizquierdofuerza != "") {
+                                    if (parametros.Cintura != "") {
+                                        if (parametros.Cadera != "") {
+                                            if (parametros.Piernaizquierda != "") {
+                                                if (parametros.Piernaderecho != "") {
+                                                    if (parametros.Pantorrilladerecha != "") {
+                                                        if (parametros.Pantorrillaizquierda != "") {
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                url: urlmedidasreg,
+                                                                data: modelo,
+                                                                success: function (data) {
+                                                                    if (data == "True") {
+                                                                        $.ajax({
+                                                                            type: "POST",
+                                                                            url: urlfotos,
+                                                                            data: formdata,
+                                                                            cache: false,
+                                                                            processData: false,
+                                                                            contentType: false,
+                                                                            success: function (data) {
+                                                                                if (data == "True") {
+                                                                                    swal({
+                                                                                        title: "Registro exitoso!",
+                                                                                        text: "Se guardaron tus datos correctamente",
+                                                                                        type: "success"
+                                                                                    }).then(function () {
+                                                                                        location.reload();
+                                                                                    });
+                                                                                }
+                                                                                else {
+                                                                                    if (data == "False") {
+                                                                                        swal({
+                                                                                            title: "Registro exitoso!",
+                                                                                            text: "Se guardaron tus datos correctamente",
+                                                                                            type: "success"
+                                                                                        }).then(function () {
+                                                                                            location.reload();
+                                                                                        });
+                                                                                    }
+                                                                                    else {
+                                                                                        swal("Ocurrio un error!", "Tus medidas seguardaron correctamente,No se guardaron tus fotos correctamente (Error):" + data, "warning");
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            error: function (xhr, status, error) {
+                                                                                swal("Warning", "No se realizo la conexion intente de nuevo, warning:" + data, "warning");
+                                                                                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                                                                                alert("Ocurrio un error verifique su conexion");
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else {
+                                                                        swal("Warning", "No se realizo la conexion intente de nuevo, warning:" + data, "warning");
+                                                                        console.log("Fallo al hacer la conexion");
+                                                                        alert(data);
+                                                                    }
+
+                                                                },
+                                                                error: function (xhr, status, error) {
+                                                                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                                                                    swal("Warning", "No se realizo la conexion intente de nuevo, warning:" + data, "warning");
+                                                                    alert("Ocurrio un error verifique su conexion");
+                                                                }
+                                                            });
+                                                        }
+                                                        else {
+                                                            document.getElementById("Pantorrilla_izquierda").style.borderColor = "red";
+                                                            return false;
+                                                        }
+                                                    }
+                                                    else {
+                                                        document.getElementById("Pantorrilla_derecha").style.borderColor = "red";
+                                                        return false;
+                                                    }
+                                                }
+                                                else {
+                                                    document.getElementById("Pierna_derecho").style.borderColor = "red";
+                                                    return false;
+                                                }
+                                            }
+                                            else {
+                                                document.getElementById("Pierna_izquierda").style.borderColor = "red";
+                                                return false;
+                                            }
+                                        }
+                                        else {
+                                            document.getElementById("Cadera").style.borderColor = "red";
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("Cintura").style.borderColor = "red";
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    document.getElementById("Brazo_izquierdo_fuerza").style.borderColor = "red";
+                                    return false;
+                                }
+                            }
+                            else {
+                                document.getElementById("Brazo_izquierdo_relajado").style.borderColor = "red";
+                                return false;
+                            }
+                        }
+                        else {
+                            document.getElementById("Brazo_derecho_fuerza").style.borderColor = "red";
+                            return false;
+                        }
+                    }
+                    else {
+                        document.getElementById("Brazo_derecho_relajado").style.borderColor = "red";
+                        return false;
+                    }
                 }
                 else {
-                    location.reload();
+                    document.getElementById("Altura").style.borderColor = "red";
+                    return false;
                 }
-            },
-            error: function (xhr, status, error) {
-                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                alert("Ocurrio un error verifique su conexion");
             }
-        });
+            else {
+                document.getElementById("Peso").style.borderColor = "red";
+                return false;
+            }
+
+
     }
 
     //Detalle de rutina
@@ -1044,46 +1423,68 @@
         var ser = $('#Series').val();
         var rep = $('#Repeticiones').val();
         var set = $('#Set').val();
+        var rutina = document.getElementById("Rutinas");
+        var dia = document.getElementById("Dias");
+        var ejercicio = document.getElementById("Ejercicios");
         if (ser == "" && rep == "" && set == "") {
             document.getElementById("Set").style.borderColor = "red";
             document.getElementById("Repeticiones").style.borderColor = "red";
             document.getElementById("Series").style.borderColor = "red";
         }
 
-        if (ser != "") {
-            if (rep != "") {
-                if (set != "") {
-                    var i = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
-                    var c = i.length - 1;
-                    var rutina = document.getElementById("Rutinas");
-                    var dia = document.getElementById("Dias");
-                    var ejercicio = document.getElementById("Ejercicios");
-                    var html = '';
-                    html += '<tr id="fila' + c + '">';
-                    html += '<td><label id="idmensualidad" style="display:none">' + $('#idclienteMensualidadDetalle').val() + '</label>' + c + '</td> ';
-                    html += '<td> <label id="iddia' + c + '" style="display:none">' + $('#Dias').val() + '</label>' + dia.options[dia.selectedIndex].text + '</td> ';
-                    html += '<td> <label id="idrutina' + c + '" style="display:none">' + $('#Rutinas').val() + '</label>' + rutina.options[rutina.selectedIndex].text + '</td> ';
-                    html += '<td> <label id="idejercicio' + c + '" style="display:none">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text + '</td> ';
-                    html += '<td> <label id="idserie' + c + '">' + $('#Series').val() + '</label></td> ';
-                    html += '<td> <label id="idrepeticion' + c + '">' + $('#Repeticiones').val() + '</label></td> ';
-                    html += '<td> <label id="idset' + c + '">' + $('#Set').val() + '</label></td> ';
-                    html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
-                    html += '</tr>';
-                    $('#ListaEjercicios tbody').append(html);
-                    document.getElementById("Set").value = "";
-                    document.getElementById("Repeticiones").value = "";
-                    document.getElementById("Series").value = "";
+        if ($('#Rutinas').val() != null)
+        {
+            if ($('#Ejercicios').val() != null)
+            {
+                if ($('#Dias').val() != null)
+                {
+                    if (ser != "")
+                    {
+                        if (rep != "")
+                        {
+                            if (set != "")
+                            {
+                                var i = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
+                                var c = i.length - 1;
+
+                                var html = '';
+                                html += '<tr id="fila' + c + '">';
+                                html += '<td><label id="idmensualidad" style="display:none">' + $('#idclienteMensualidadDetalle').val() + '</label>' + c + '</td> ';
+                                html += '<td> <label id="iddia' + c + '" style="display:none">' + $('#Dias').val() + '</label>' + dia.options[dia.selectedIndex].text + '</td> ';
+                                html += '<td> <label id="idrutina' + c + '" style="display:none">' + $('#Rutinas').val() + '</label>' + rutina.options[rutina.selectedIndex].text + '</td> ';
+                                html += '<td> <label id="idejercicio' + c + '" style="display:none">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text + '</td> ';
+                                html += '<td> <label id="idserie' + c + '">' + $('#Series').val() + '</label></td> ';
+                                html += '<td> <label id="idrepeticion' + c + '">' + $('#Repeticiones').val() + '</label></td> ';
+                                html += '<td> <label id="idset' + c + '">' + $('#Set').val() + '</label></td> ';
+                                html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
+                                html += '</tr>';
+                                $('#ListaEjercicios tbody').append(html);
+                                document.getElementById("Set").value = "";
+                                document.getElementById("Repeticiones").value = "";
+                                document.getElementById("Series").value = "";
+                            }
+                            else {
+                                document.getElementById("Set").style.borderColor = "red";
+                            }
+                        }
+                        else {
+                            document.getElementById("Repeticiones").style.borderColor = "red";
+                        }
+                    }
+                    else {
+                        document.getElementById("Series").style.borderColor = "red";
+                    }
                 }
                 else {
-                    document.getElementById("Set").style.borderColor = "red";
+                    document.getElementById("Dias").style.borderColor = "red";
                 }
             }
             else {
-                document.getElementById("Repeticiones").style.borderColor = "red";
+                document.getElementById("Ejercicios").style.borderColor = "red";
             }
         }
         else {
-            document.getElementById("Series").style.borderColor = "red";
+            document.getElementById("Rutinas").style.borderColor = "red";
         }
     }
 
