@@ -4,46 +4,257 @@
     ViewBag.Title = "Mensualidades";
     Layout = "~/Views/Shared/Diseño.cshtml";
 }
+<style>
+    /*Resolicion para dispositivos moviles muy pequeños*/
+    @@media(max-width: 575px){
+        #columna1 {
+        }
 
-<div id="content">
-    <div class="container">
-        <h3>Mensualidades</h3>
-        <br />
-        <div class="table-responsive">
-            <table class="table table-condensed table-striped table-hover" id="tabla">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Detalle rutina</th>
-                        <th>Tipo rutina</th>
-                        <th>Medidas y fotos</th>
-                        <th>Mes</th>
-                        <th>Estatus</th>
-                        <th>Fecha inicio</th>
-                        <th>Fecha fin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        int i = 1;
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@i</td>
-                                <td>@item.TipoEntrenamiento.Tipo_entrenamiento</td>
-                                <td>@item.Tiporutina.Tipo</td>
-                                <td><button type="button" style="border:0px;color:#007bff" class="btn-link" onclick="VerFotosMedidas(@item.Id_mensualidad)">Ver mis medidas y fotos</button></td>
-                                <td>@item.Mes.Mes</td>
-                                <td>@item.Estatus.Descripcion</td>
-                                <td>@item.Fechainicio</td>
-                                <td>@item.Fechafin</td>
-                            </tr>
-                        }
-                        i++;
+        #columna2 {
+        }
+
+        #columna3 {
+        }
+
+        #columna4 {
+        }
+
+        #columna5 {
+        }
+
+        #columna6 {
+        }
+
+        #columna7 {
+        }
+
+        #columna8 {
+        }
+
+        #columna9 {
+        }
+
+        #columna10 {
+        }
+
+        #columna11 {
+        }
+
+        #columna12 {
+        }
+
+        #columna13 {
+        }
+
+        #columna14 {
+        }
+
+        #columna15 {
+        }
+
+        #columna16 {
+        }
+
+        #columna17 {
+        }
+    }
+    /*Resolicion para dispositivos moviles pequeños*/
+    @@media(max-width: 576px) and (max-width: 767px) {
+        #columna1 {
+        }
+
+        #columna2 {
+        }
+
+        #columna3 {
+        }
+
+        #columna4 {
+        }
+
+        #columna5 {
+        }
+
+        #columna6 {
+        }
+
+        #columna7 {
+        }
+
+        #columna8 {
+        }
+
+        #columna9 {
+        }
+
+        #columna10 {
+        }
+
+        #columna11 {
+        }
+
+        #columna12 {
+        }
+
+        #columna13 {
+        }
+
+        #columna14 {
+        }
+
+        #columna15 {
+        }
+
+        #columna16 {
+        }
+
+        #columna17 {
+        }
+    }
+    /*Resolicion para tablets*/
+    @@media(max-width: 768px) and (max-width: 991px) {
+        #columna1 {
+        }
+
+        #columna2 {
+        }
+
+        #columna3 {
+        }
+
+        #columna4 {
+        }
+
+        #columna5 {
+        }
+
+        #columna6 {
+        }
+
+        #columna7 {
+        }
+
+        #columna8 {
+        }
+
+        #columna9 {
+        }
+
+        #columna10 {
+        }
+
+        #columna11 {
+        }
+
+        #columna12 {
+        }
+
+        #columna13 {
+        }
+
+        #columna14 {
+        }
+
+        #columna15 {
+        }
+
+        #columna16 {
+        }
+
+        #columna17 {
+        }
+    }
+    /*Resolicion para pc de escritorio*/
+    @@media(max-width: 992px) {
+        #columna1 {
+        }
+
+        #columna2 {
+        }
+
+        #columna3 {
+        }
+
+        #columna4 {
+        }
+
+        #columna5 {
+        }
+
+        #columna6 {
+        }
+
+        #columna7 {
+        }
+
+        #columna8 {
+        }
+
+        #columna9 {
+        }
+
+        #columna10 {
+        }
+
+        #columna11 {
+        }
+
+        #columna12 {
+        }
+
+        #columna13 {
+        }
+
+        #columna14 {
+        }
+
+        #columna15 {
+        }
+
+        #columna16 {
+        }
+
+        #columna17 {
+        }
+    }    
+</style>
+<div>
+    <h3>Mensualidades</h3>
+    <br />
+    <div class="table-responsive">
+        <table class="table table-condensed table-striped table-hover" id="tablamensualidad">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Detalle rutina</th>
+                    <th>Tipo rutina</th>
+                    <th>Medidas y fotos</th>
+                    <th>Mes</th>
+                    <th>Estatus</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.TipoEntrenamiento.Tipo_entrenamiento</td>
+                            <td>@item.Tiporutina.Tipo</td>
+                            <td><button type="button" style="border:0px;color:#007bff" class="btn-link" onclick="VerFotosMedidas(@item.Id_mensualidad,@item.Estatus.Id_estatus)">Ver mis medidas y fotos</button></td>
+                            <td>@item.Mes.Mes</td>
+                            <td>@item.Estatus.Descripcion</td>
+                            <td>@item.Fechainicio</td>
+                            <td>@item.Fechafin</td>
+                        </tr>
                     }
-                </tbody>
-            </table>
-        </div>
+                    i++;
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -60,132 +271,227 @@
             </div>
             <div class="modal-body">
                 <input id="Id_mensualidad" type="text" style="display:none" />
-                <div id="medidas">
-                    <div class="row">
-                        <div class="col">
-                            <h3>Nuevo registro</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input type="text" id="IMC" class="form-control" readonly />
-                        </div>
-                    </div><br />
-                    <div class="row">
-                        <div class="col">
-                            <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" />
-                        </div>
-                    </div><br />
-                    <div class="row">
-                        <div class="col">
-                            <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
-                        </div>
-                    </div><br />
-                    <div class="row">
-                        <div class="col">
-                            <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" />
-                        </div>
-                    </div><br />
-                    <div class="row">
-                        <div class="col">
-                            <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" />
-                        </div>
-                    </div><br />
-                    <div class="row">
-                        <div class="col">
-                            <div>
-                                <div id="previewfrontal" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                <div class="container-fluid">
+                    <div id="registro">
+                        <div class="row">
+                            <div class="col">
+                                <h3>Nuevo registro</h3>
                             </div>
-                            <label>Foto frontal</label>
-                            <label for="Foto_frontal" style="cursor:pointer">
-                                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
-                            </label>
-                            <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
                         </div>
-                        <div class="col">
-                            <div>
-                                <div id="previewperfil" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                        <br />
+                        <div class="row" id="fila1">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna1">
+                                        <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control" />
+                                    </div>
+                                </center>
                             </div>
-                            <label>Foto perfil</label>
-                            <label for="Foto_perfil" style="cursor:pointer">
-                                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
-                            </label>
-                            <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
-                        </div>
-                        <div class="col">
-                            <div>
-                                <div id="previewposterior" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna2">
+                                        <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
+                                    </div>
+                                </center>
                             </div>
-                            <label>Foto posterior</label>
-                            <label for="Foto_posterior" style="cursor:pointer">
-                                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
-                            </label>
-                            <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna3">
+                                        <input type="text" id="IMC" class="form-control" readonly />
+                                    </div>
+                                </center>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col" style="text-align:right">
-                            <button type="button" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+                        <br />
+                        <div class="row" id="fila2">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna4">
+                                        <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna5">
+                                        <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna6">
+                                        <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila3">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna7">
+                                        <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna8">
+                                        <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna9">
+                                        <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila4">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna10">
+                                        <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna11">
+                                        <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna12">
+                                        <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila5">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna13">
+                                        <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" />
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila6">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna14">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div id="previewfrontal" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Foto frontal</label>
+                                                <label for="Foto_frontal" style="cursor:pointer">
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                </label>
+                                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna15">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div id="previewperfil" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Foto perfil</label>
+                                                <label for="Foto_perfil" style="cursor:pointer">
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                </label>
+                                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna16">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div id="previewposterior" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Foto posterior</label>
+                                                <label for="Foto_posterior" style="cursor:pointer">
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                </label>
+                                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row" id="fila7">
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna17">
+                                        <button type="button" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+                                    </div>
+                                </center>
+                            </div>
                         </div>
                     </div>
                     <br />
-                </div>
-                <div id="listamedidas">
-                    <div class="row">
-                        <div class="col">
-                            <h3>Mis medidas y fotos</h3>
+                    <div id="listamedidas">
+                        <div class="row">
+                            <div class="col">
+                                <h3>Mis medidas y fotos</h3>
+                            </div>
                         </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-striped table-hover" id="ListaMedidas">
-                            <thead>
-                                <tr>
-                                    <th>Peso  </th>
-                                    <th>Altura</th>
-                                    <th>IMC</th>
-                                    <th>Brazo derecho relajado</th>
-                                    <th>Brazo derecho fuerza</th>
-                                    <th>Brazo izquierdo relajado</th>
-                                    <th>Brazo izquierdo fuerza</th>
-                                    <th>Cintura</th>
-                                    <th>Cadera</th>
-                                    <th>Pierna izquierda</th>
-                                    <th>Pierna derecho</th>
-                                    <th>Pantorrilla derecha</th>
-                                    <th>Pantorrilla izquierda</th>
-                                    <th>Foto frontal</th>
-                                    <th>Foto perfil</th>
-                                    <th>Foto posterior</th>
-                                    <th>Fecha registro</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-striped table-hover" id="ListaMedidas">
+                                <thead>
+                                    <tr>
+                                        <th>Peso  </th>
+                                        <th>Altura</th>
+                                        <th>IMC</th>
+                                        <th>Brazo derecho relajado</th>
+                                        <th>Brazo derecho fuerza</th>
+                                        <th>Brazo izquierdo relajado</th>
+                                        <th>Brazo izquierdo fuerza</th>
+                                        <th>Cintura</th>
+                                        <th>Cadera</th>
+                                        <th>Pierna izquierda</th>
+                                        <th>Pierna derecho</th>
+                                        <th>Pantorrilla derecha</th>
+                                        <th>Pantorrilla izquierda</th>
+                                        <th>Foto frontal</th>
+                                        <th>Foto perfil</th>
+                                        <th>Foto posterior</th>
+                                        <th>Fecha registro</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -197,6 +503,9 @@
 </div>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('#tablamensualidad').DataTable();
+    });
     var urlmedidas = '@Url.Action("ListAsesoriaantropometria", "ClientesWeb")';
     var urlmedidasreg ='@Url.Action("RegistrarMedidas", "ClientesWeb")';
     var urlfotos ='@Url.Action("RegistrarFotos", "ClientesWeb")';
@@ -269,8 +578,11 @@
         };
     }
 
-    function VerFotosMedidas(Id) {
+    function VerFotosMedidas(Id,estatus) {
         document.getElementById("Id_mensualidad").value = Id;
+        if (estatus == 3) {
+            document.getElementById("registro").style.display = "none";
+        }
         $.ajax({
             type: "GET",
             url: urlmedidas,
@@ -278,6 +590,7 @@
             contentType: "application/json; charset=utf-8",
             datatype: "json",
             success: function (data) {
+                $('#ListaMedidas tbody').empty();
                 for (var i = 0; i < data.length; i++) {
                     var html = "";
                     html += '<tr>';

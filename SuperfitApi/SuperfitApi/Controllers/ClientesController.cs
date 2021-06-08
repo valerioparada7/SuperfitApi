@@ -73,9 +73,7 @@ namespace SuperfitApi.Controllers
                 return false;
             }
         }
-
-        //RUTINAS PERSONALIZADAS IRAN JUNTO EL CLIENTE PORQUE TODO ES RESPECTO A SU ID
-
+        
         //Obtener los sets a realizar por dia
         [HttpGet]
         public List<DetallerutinaModel> GetDetalleRutinaSets(int IdMensualidad,int IdEstatusMes,int IdDIa)

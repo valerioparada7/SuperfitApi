@@ -509,6 +509,7 @@
     <Content Include="Views\AdministracionWebHome\ClienteDetalle.cshtml" />
     <Content Include="Views\LoginWeb\RegistrarCliente.cshtml" />
     <Content Include="Views\ClientesWeb\Mensualidades.cshtml" />
+    <Content Include="Views\AdministracionWebHome\Entrenamientoenvivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

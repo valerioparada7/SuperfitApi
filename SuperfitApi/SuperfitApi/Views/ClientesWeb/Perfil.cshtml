@@ -27,25 +27,39 @@
     <div class="row" style="border-color:#007bff;border-style: solid;border-radius: 20px 20px;margin-left:10px;margin-right:10px">
         <div class="col-md-12">
             <h1 id="ClienteNombres" style="text-align:center">
-                @mes.Cliente.Nombres
+                @mes.Cliente.Nombres.ToUpper()
             </h1>
         </div>
     </div>
     <br />
     <div class="jumbotron">
         <div style="text-align:center;">
-            <img id="perfil" src="@mes.Cliente.Foto_perfil" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/>
+            <img id="perfil" src="@mes.Cliente.Foto_perfil" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;" />
         </div>
         <div style="text-align:center;margin-top:10px" class="col-md-6 offset-md-3">
-            <label for="Foto_cliente_perfil" style="cursor:pointer">Actualizar foto de perfil
+            <label for="Foto_cliente_perfil" style="cursor:pointer">
+                Actualizar foto de perfil
                 <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
             </label>
-            <input  style="display:none" value="Foto perfil" title="Foto perfil" type="file" data-maxsize="4200000" id="Foto_cliente_perfil" class="form-control-file my-2 check-image-size">
+            <input style="display:none" value="Foto perfil" title="Foto perfil" type="file" data-maxsize="4200000" id="Foto_cliente_perfil" class="form-control-file my-2 check-image-size">
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="color btn btn-primary" onclick="VerEditar(@mes.Cliente.Id_cliente)">Editar perfil</button>
+            </div>
         </div>
         <hr />
         <div class="row">
+            <div class="col">
+                @if (ViewBag.Finalizar != null)
+                {
+                    <h3 class="alter alert-danger">@ViewBag.Finalizar</h3>
+                }
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-4">
-                <h3 class="colorh">Mensualidad:</h3>
+                <h3 class="colorh">Mensualidad</h3>
             </div>
             <div class="col">
                 <h3 id="EstatusId">
@@ -55,7 +69,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <h3 class="colorh">Fecha Inicio:</h3>
+                <h3 class="colorh">Fecha Inicio</h3>
             </div>
             <div class="col">
                 <h3 id="FechaI">
@@ -65,7 +79,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <h3 class="colorh">Fecha Fin:</h3>
+                <h3 class="colorh">Fecha Fin</h3>
             </div>
             <div class="col">
                 <h3 id="FechaF">
@@ -75,7 +89,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <h3 class="colorh">Tipo Rutina:</h3>
+                <h3 class="colorh">Tipo Rutina</h3>
             </div>
             <div class="col">
                 <h3 id="TipoRutina">
@@ -85,7 +99,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <h3 class="colorh">Tipo entrenamiento:</h3>
+                <h3 class="colorh">Tipo entrenamiento</h3>
             </div>
             <div class="col">
                 <h3 id="TipoEntrenamiento">
@@ -93,13 +107,13 @@
                 </h3>
             </div>
         </div>
-    </div>    
+    </div>
     <hr />
-    <div class="jumbotron" style="background-color:#f0f2f5;">         
+    <div class="jumbotron" style="background-color:#f0f2f5;">
         <div id="Cuestionario">
             <div class="container" style="overflow-y:auto;height:500px;text-align:center;">
                 <h3 style="color:#007bff;background-color:#f0f2f5;">Cuestionario</h3>
-                <h4>Marque la casilla en caso de que sea si para cada pregunta</h4>
+                <h5>Marque la casilla en caso de que sea si para cada pregunta</h5>
                 <h3 class="letracolor" id="nameClienteDetalle"></h3>
                 <input id="idclientecuestionario" style="display:none" />
                 <input id="idcuestionario" style="display:none" />
@@ -182,7 +196,7 @@
                             <input type="text" class="form-control" id="Horario_entrenoTxt" placeholder="Ej: Tardes de 6 a 7" onkeypress="" />
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                         <label>¿Cuáles son tus metas u objetivos para lograr?</label>
@@ -231,6 +245,87 @@
     </div>
 </div>
 
+<!--MODAL PARA Editar--->
+<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Cliente</h3>
+                <h5></h5>
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <input id="idcliente" style="display:none" />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdNombreE" placeholder="Nombre(s)" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApePE" placeholder="Apellido paterno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApeME" placeholder="Apellido materno" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdApodoE" placeholder="Alias" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdEdadE" placeholder="Edad" maxlength="2" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="text" class="form-control" id="IdTelefonoE" placeholder="Celular" maxlength="10" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="email" class="form-control" id="IdCorreoE" placeholder="Correo elctronico" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <input type="password" class="form-control" id="IdContraseñaE" placeholder="Contraseña" onkeypress="style.borderColor='gray'" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <select class="form-control" id="IdSexoE" name="Sexo">
+                                <option value="Mujer">Mujer</option>
+                                <option value="Hombre">Hombre</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">               
+                <button type="button" class="color btn btn-primary" onclick="Editar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -244,7 +339,7 @@
             <div class="modal-body">
                 <div style="text-align:center">
                     <div id="preview" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
-                </div>                
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -258,6 +353,8 @@
     var urlcuestionario = '@Url.Action("AgregarCuestionario", "AdministracionWebHome")';
     var urlvercuestionario = '@Url.Action("VerCuestionario", "AdministracionWebHome")';
     var urlupdate = '@Url.Action("UpdateFoto", "ClientesWeb")';
+    var urleditar = '@Url.Action("EditarCliente", "AdministracionWebHome")';
+
     $(document).ready(function () {
         VerCuestionario();
     });
@@ -314,6 +411,113 @@
             }
         });
     }
+
+    //Editar datos
+    function VerEditar(Id) {
+        $.ajax({
+            type: "GET",
+            url: urleditar,
+            data: { "Id_cliente": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+                document.getElementById('idcliente').value = data["Id_cliente"];
+                document.getElementById('IdNombreE').value = data["Nombres"];
+                document.getElementById('IdApePE').value = data["Apellido_paterno"];
+                document.getElementById('IdApeME').value = data["Apellido_materno"];
+                document.getElementById('IdApodoE').value = data["Apodo"];
+                document.getElementById('IdEdadE').value = data["Edad"];
+                document.getElementById('IdTelefonoE').value = data["Telefono"];
+                document.getElementById('IdCorreoE').value = data["Correo_electronico"];
+                document.getElementById('IdContraseñaE').value = data["Contraseña"];
+                document.getElementById('IdSexoE').value = data["Sexo"];
+                $('#ModalEditar').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
+    }
+
+    function Editar() {
+        var parametros = {};
+        parametros.Id_cliente = $('#idcliente').val().trim();
+        parametros.Nombres = $('#IdNombreE').val().trim();
+        parametros.Apellido_paterno = $('#IdApePE').val().trim();
+        parametros.Apellido_materno = $('#IdApeME').val().trim();
+        parametros.Apodo = $('#IdApodoE').val().trim();
+        parametros.Edad = $('#IdEdadE').val();
+        parametros.Telefono = $('#IdTelefonoE').val();
+        parametros.Correo_electronico = $('#IdCorreoE').val().trim();
+        parametros.Contraseña = $('#IdContraseñaE').val().trim();
+        parametros.Sexo = $('#IdSexoE').val();
+        var clientesModel = parametros;
+        if (parametros.Nombres != "") {
+            if (parametros.Nombres.length >= 3) {
+                if (parametros.Apellido_paterno != "") {
+                    if (parametros.Apellido_paterno.length >= 3) {
+                        if (parametros.Apellido_materno != "") {
+                            if (parametros.Apellido_materno.length >= 3) {
+                                if (parametros.Edad != "") {
+                                    if (parametros.Telefono != "" || parametros.Correo_electronico != "") {
+                                        if (parametros.Contraseña != "") {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: urleditar,
+                                                data: clientesModel,
+                                                success: function (data) {
+                                                    if (data == "True") {
+                                                        location.reload();
+                                                    }
+                                                    else {
+                                                        location.reload();
+                                                    }
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                                                    alert("Ocurrio un error verifique su conexion");
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            document.getElementById("IdContraseñaE").style.borderColor = "red";
+                                        }
+                                    }
+                                    else {
+                                        document.getElementById("IdCorreoE").style.borderColor = "red";
+                                        document.getElementById("IdTelefonoE").style.borderColor = "red";
+                                    }
+                                }
+                                else {
+                                    document.getElementById("IdEdadE").style.borderColor = "red";
+                                }
+                            }
+                            else {
+                                document.getElementById("IdApeME").style.borderColor = "red";
+                            }
+                        }
+                        else {
+                            document.getElementById("IdApeME").style.borderColor = "red";
+                        }
+                    }
+                    else {
+                        document.getElementById("IdApePE").style.borderColor = "red";
+                    }
+                }
+                else {
+                    document.getElementById("IdApePE").style.borderColor = "red";
+                }
+            }
+            else {
+                document.getElementById("IdNombreE").style.borderColor = "red";
+            }
+        }
+        else {
+            document.getElementById("IdNombreE").style.borderColor = "red";
+        }
+    }
+
 
     //Cuestionario
     function VerCuestionario() {

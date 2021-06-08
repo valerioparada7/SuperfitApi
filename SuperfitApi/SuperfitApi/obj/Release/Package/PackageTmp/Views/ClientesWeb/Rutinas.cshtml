@@ -12,79 +12,81 @@
         .imagenes {
             width: 200px;
             height: 200px;
-        }        
+        }
+
     }
     
     
     
 </style>
-<div class="row">
-    <div class="col">
-        <h2 style="text-align:center">Rutina de la semana</h2>
-    </div>
-</div>    
-<br />
-<div id="semana">
-    <div class="row">        
+<div>
+    <div class="row">
         <div class="col">
-            <h5>Dia de la semana a entrenar</h5>
-            <select class="form-control mobile" id="dias">
-                @{
-                    string[] dias = { "", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" };
-                    for (int i = 2; i < dias.Length; i++)
-                    {
-                        <option value="@i">@dias[i]</option>
-
-                    }
-                }
-            </select>
-        </div>        
+            <h2 style="text-align:center">Rutina de la semana</h2>
+        </div>
     </div>
     <br />
-    <div class="row">
-        <div class="col">
-            <h5>Sets</h5>
-            <select class="form-control mobile" id="sets">
-                <option value="0">No hay sets asignados</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div id="descripcion"></div>
-        </div>
-    </div>
+    <div id="semana">
+        <div class="row">
+            <div class="col">
+                <h5>Dia de la semana a entrenar</h5>
+                <select class="form-control mobile" id="dias">
+                    @{
+                        string[] dias = { "", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" };
+                        for (int i = 2; i < dias.Length; i++)
+                        {
+                            <option value="@i">@dias[i]</option>
 
-    <hr />    
-    <div class="row">
-        <div class="col">
-            <h5>Ejercicios</h5>            
-            <br />
-            <div id="rutinas" class="tablarutinas">
-                <div class="table-responsive">
-                    <table class="table table-condensed table-striped table-hover" id="ListaEjercicios">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Dia</th>
-                                <th width="100">Ejercicio</th>
-                                <th width="100">Visualizacion</th>
-                                <th width="300">Descripcion</th>
-                                <th>Series</th>
-                                <th>Repeticiones</th>
-                                <th>Set</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col">
+                <h5>Sets</h5>
+                <select class="form-control mobile" id="sets">
+                    <option value="0">No hay sets asignados</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div id="descripcion"></div>
+            </div>
+        </div>
+
+        <hr />
+        <div class="row">
+            <div class="col">
+                <h5>Ejercicios</h5>
+                <br />
+                <div id="rutinas" class="tablarutinas">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-hover" id="ListaEjercicios">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Dia</th>
+                                    <th width="100">Ejercicio</th>
+                                    <th width="100">Visualizacion</th>
+                                    <th width="300">Descripcion</th>
+                                    <th>Series</th>
+                                    <th>Repeticiones</th>
+                                    <th>Set</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
-   
-
 <script type="text/javascript">
     var urlsets = '@Url.Action("GetDetalleRutinaSets", "ClientesWeb")';
     var urlejercicios = '@Url.Action("GetDetalleRutinaEjercicios", "ClientesWeb")';
@@ -157,7 +159,7 @@
                     html += '<td>' + n + '</td> ';
                     html += '<td>' + diaob.options[diaob.selectedIndex].text+ '</td> ';
                     html += '<td>' + ejercicio.Ejercicio +'</td> ';
-                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen + ' width="200" height="200"/></td>';
+                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen + '" width="200" height="200"/></td>';
                     html += '<td><label>' + ejercicio.Descripcion + '</label></td>';
                     html += '<td>' + data[i].Series+'</td> ';
                     html += '<td>' + data[i].Repeticiones+'</td> ';

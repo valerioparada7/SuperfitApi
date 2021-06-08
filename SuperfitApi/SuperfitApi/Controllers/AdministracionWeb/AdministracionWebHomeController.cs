@@ -7,6 +7,7 @@ using SuperfitApi.Models;
 using System.Web.Mvc;
 using System.IO;
 using SuperfitApi.Autetication;
+using System.Globalization;
 
 namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 {
@@ -188,12 +189,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
                 if(listmensualidadMdl.Count > 0)
                 {                    
-                    var finalizar = listmensualidadMdl.Where(y => y.Estatus.Id_estatus == 2 || y.Estatus.Id_estatus == 4 && DateTime.Now.AddDays(5) >= y.Fecha_fin).ToList();
+                    var finalizar = listmensualidadMdl.Where(y => (y.Estatus.Id_estatus == 2 || y.Estatus.Id_estatus == 4) && DateTime.Now.AddDays(5) >= y.Fecha_fin).ToList();
                     if(finalizar.Count > 0)
                     {
                         foreach(MensualidadModel mes in finalizar)
                         {
-                            if(mes.Fecha_fin < DateTime.Now && (mes.Estatus.Id_estatus == 2 || mes.Estatus.Id_estatus == 4))
+                            if((mes.Fecha_fin < DateTime.Now) && (mes.Estatus.Id_estatus == 2 || mes.Estatus.Id_estatus == 4))
                             {
                                 mensualidad = Db.Mensualidad.Where(y => y.Id_mensualidad == mes.Id_mensualidad).FirstOrDefault();
                                 if (mensualidad != null)
@@ -292,7 +293,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                     int Identity = Db.Clientes.Select(y => y.Id_cliente).Max() + 1;
                     Clientes updatecliente = Db.Clientes.Where(y => y.Id_cliente == clientes.Id_cliente).FirstOrDefault();                    
                     updatecliente.Clave_cliente = updatecliente.Clave_cliente + "" + Identity.ToString();
-                    updatecliente.Foto_perfil = "/Imagenes/Clientes/"+ updatecliente.Clave_cliente + "" + Identity.ToString();
+                    updatecliente.Foto_perfil = "/Imagenes/Clientes/" + updatecliente.Clave_cliente;
                     if (Db.SaveChanges() == 1)
                     {
                         result = true;
@@ -941,6 +942,8 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
         public JsonResult VerMensualidad(int Id_cliente)
         {
+            DateTimeFormatInfo fechastring = CultureInfo.GetCultureInfo("es-ES").DateTimeFormat;
+            string Mes = string.Empty, Dia = string.Empty; 
             listmensualidadMdl = (from m in Db.Mensualidad
                                   join c in Db.Clientes
                                   on m.Id_cliente equals c.Id_cliente
@@ -1006,8 +1009,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             {              
                 for(int i=0;i< listmensualidadMdl.Count; i++)
                 {
-                    listmensualidadMdl[i].Fechainicio = listmensualidadMdl[i].Fecha_inicio.ToString("dd/MM/yyyy");
-                    listmensualidadMdl[i].Fechafin = listmensualidadMdl[i].Fecha_fin.ToString("dd/MM/yyyy");
+                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_inicio.Month);
+                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_inicio.DayOfWeek);
+                    listmensualidadMdl[i].Fechainicio = Dia + " " + listmensualidadMdl[i].Fecha_inicio.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_inicio.Year;
+                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_fin.Month);
+                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_fin.DayOfWeek);
+                    listmensualidadMdl[i].Fechafin = Dia + " " + listmensualidadMdl[i].Fecha_fin.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_fin.Year;
                 }
             }
 
@@ -1575,6 +1582,15 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
         }
         #endregion
+
+
+        #region Entrenamiento en vivo
+        public ActionResult Entrenamientoenvivo()
+        {
+            return View();
+        }
+        #endregion
+
 
         //cerrar sesion
         public ActionResult OutWeb()

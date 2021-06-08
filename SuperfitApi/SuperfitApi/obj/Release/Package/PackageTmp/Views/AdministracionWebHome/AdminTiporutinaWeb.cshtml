@@ -14,7 +14,7 @@
         </span>
         <br />
         <div class="table-responsive">
-            <table class="table table-condensed table-striped table-hover" id="tabla">
+            <table class="table table-condensed table-striped table-hover" id="tablatiporutina">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -108,7 +108,9 @@
 
 
 <script type="text/javascript">
-
+    $(document).ready(function () {
+        $('#tablatiporutina').DataTable();
+    });
     var url = '@Url.Action("AgregarTiporutina", "AdministracionWebHome")';
     var urleditar = '@Url.Action("EditarTiporutina", "AdministracionWebHome")';
 

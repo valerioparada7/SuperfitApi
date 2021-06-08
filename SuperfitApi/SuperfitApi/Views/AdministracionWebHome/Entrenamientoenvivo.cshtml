@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Entrenamientoenvivo";
+    Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
+}
+
+<style>
+    h3 {
+        color: #007bff;
+    }
+
+    .divisor {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: #e9ecef;
+        border-radius: 5px 5px;
+    }
+</style>
+
+<div>
+    <h1 style="color:#007bff"><i class="fa fa-video-camera"></i> Entrenamientos online</h1>
+    <div id="division" style="display:none">        
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var div = "<div id='primero' class='divisor'><div id='titulo'><h3 id='cliente'></h3></div><div id='camara'><video id='videocliente' width='200' height='200'></video></div></div><br/><hr/>";
+    var video1 = "https://instagram.fgdl3-1.fna.fbcdn.net/v/t50.2886-16/20619558_1594302720609667_6082908279485235200_n.mp4?efg=eyJxZV9ncm91cHMiOiJbXCJpZ19wcm9ncmVzc2l2ZV91cmxnZW4ucHJvZHVjdF90eXBlLmZlZWRcIl0ifQ&_nc_ht=instagram.fgdl3-1.fna.fbcdn.net&_nc_cat=107&_nc_ohc=SRAiiB5U_REAX9gtz8H&edm=AP_V10EBAAAA&ccb=7-4&oe=60BE2515&oh=389bc3fd3d2f7eaee8707875a28dbab8&_nc_sid=4f375e";
+    var video = "<video id='localVideo' autoplay playsinline controls='false'/>";
+    $(document).ready(function () {
+        GetSessionsCustumers();
+    });
+
+    function GetSessionsCustumers() {
+        var html = "";
+
+        for (var i = 1; i < 10; i++) {
+            html += "<div id='primero" + i + "' class='divisor'><div id='titulo" + i + "'><h3 id='cliente" + i + "'>Valerio " + i + "</h3><buttun type='button' class='color btn btn-primary'><i class='fa fa-video-camera'></i></button></div><div id='camara" + i + "' style='text-align:center'><video id='videocliente" + i + "' width='300' height='300' autoplay playsinline controls='false' style='border-radius: 5px 5px'></video></div></div><br/><hr/>";
+        }
+        $("#division").append(html);
+        document.getElementById("division").style.display = "block";
+    }
+</script>

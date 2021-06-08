@@ -159,7 +159,7 @@
 
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="Mensualidad()">Nueva Mensualidad</button>
+                    <button type="button" id="nuevamensualdiadbuttonId" class="btn btn-success" data-dismiss="modal" onclick="Mensualidad()">Nueva Mensualidad</button>
                 </div>
             </div>
             <br />
@@ -223,7 +223,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="color btn btn-primary" onclick="ActualizarEstatus()">Guardar</button>
+                <button type="button" id="ActualizarEstatusId" class="color btn btn-primary" onclick="ActualizarEstatus()">Guardar</button>
             </div>
         </div>
     </div>
@@ -282,118 +282,6 @@
         </div>
     </div>
 </div>
-
-<!--Modal para medidas --->
-<!--<div class="modal fade" id="ModalMedidas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Medidas</h3>
-                <h5></h5>
-                <button type="button" class="colorred btn btn-danger" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="container" style="overflow-y:auto;height:500px">
-                    <h3 class="letracolor" id="nameClienteDetalle"></h3>
-                    <input id="idMensualidadMedidas" style="display:none" />
-                    <input id="idMMedidas" style="display:none" />
-                    <div>
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Peso" placeholder="Peso (kg)" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Altura" placeholder="Altura (cm)" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" id="IMC" class="form-control" readonly />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Brazo_derecho_relajado" placeholder="Brazo derecho relajado" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Brazo_derecho_fuerza" placeholder="Brazo derecho fuerza" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Brazo_izquierdo_relajado" placeholder="Brazo izquierdo relajado" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Brazo_izquierdo_fuerza" placeholder="Brazo izquierdo fuerza" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Cintura" placeholder="Cintura" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Cadera" placeholder="Cadera" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Pierna_izquierda" placeholder="Pierna izquierda" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Pierna_derecho" placeholder="Pierna derecho" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Pantorrilla_derecha" placeholder="Pantorrilla derecha" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" id="Pantorrilla_izquierda" placeholder="Pantorrilla izquierda" class="form-control" />
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <label>Foto frontal</label>
-                                <input type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <label>Foto perfil</label>
-                                <input type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
-                            </div>
-                        </div><br />
-                        <div class="row">
-                            <div class="col">
-                                <label>Foto posterior</label>
-                                <input type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
-                            </div>
-                        </div>
-                        <br />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="color btn btn-primary" onclick="GuardarMedidas()">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>-->
 
 <!--Modal para detalle Mensualidad medidas--->
 <div id="ModalMedidas" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -639,9 +527,6 @@
     </div>
 </div>
 
-
-
-
 <!--Modal para detalle Mensualidad--->
 <div class="modal fade" id="ModalMensualidadDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -733,7 +618,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
+                <button type="button" id="guardarrutinaId" class="color btn btn-primary" onclick="GuardarRutina()">Guardar</button>
             </div>
         </div>
     </div>
@@ -855,40 +740,40 @@
                                             });
                                         }
                                         else {
-                                            document.getElementById("IdContraseña").style.borderColor = "red";
+                                            document.getElementById("IdContraseñaE").style.borderColor = "red";
                                         }
                                     }
                                     else {
-                                        document.getElementById("IdCorreo").style.borderColor = "red";
-                                        document.getElementById("IdTelefono").style.borderColor = "red";
+                                        document.getElementById("IdCorreoE").style.borderColor = "red";
+                                        document.getElementById("IdTelefonoE").style.borderColor = "red";
                                     }
                                 }
                                 else {
-                                    document.getElementById("IdEdad").style.borderColor = "red";
+                                    document.getElementById("IdEdadE").style.borderColor = "red";
                                 }
                             }
                             else {
-                                document.getElementById("IdApeM").style.borderColor = "red";
+                                document.getElementById("IdApeME").style.borderColor = "red";
                             }
                         }
                         else {
-                            document.getElementById("IdApeM").style.borderColor = "red";
+                            document.getElementById("IdApeME").style.borderColor = "red";
                         }
                     }
                     else {
-                        document.getElementById("IdApeP").style.borderColor = "red";
+                        document.getElementById("IdApePE").style.borderColor = "red";
                     }
                 }
                 else {
-                    document.getElementById("IdApeP").style.borderColor = "red";
+                    document.getElementById("IdApePE").style.borderColor = "red";
                 }
             }
             else {
-                document.getElementById("IdNombre").style.borderColor = "red";
+                document.getElementById("IdNombreE").style.borderColor = "red";
             }
         }
         else {
-            document.getElementById("IdNombre").style.borderColor = "red";
+            document.getElementById("IdNombreE").style.borderColor = "red";
         }
     }
 
@@ -1001,7 +886,8 @@
 
     //Mensualidad
     function VerMensualidades() {
-        var Id = @ViewBag.idcliente
+        var Id = @ViewBag.idcliente;
+        var count = 0;
         document.getElementById("idclienteMensualidad").value = Id;
         $.ajax({
             type: "GET",
@@ -1018,8 +904,8 @@
                     var html = '';
                     html += '<tr id="fila' + i + '">';
                     html += '<td>' + sum + '</td>';
-                    html += '<td><button type="button" class="btn btn-success" onclick = "VerMensualidad('+data[i].Id_mensualidad +')"> Ver</button></td>';
-                    html += '<td><button type="button" class="btn btn-success" onclick="MensualidadDetalle(' + data[i].Id_mensualidad + ')">Rutina</button></td>';
+                    html += '<td><button type="button" class="btn btn-success" onclick = "VerMensualidad(' + data[i].Id_mensualidad +',' + Estatus.Id_estatus +')"> Ver</button></td>';
+                    html += '<td><button type="button" class="btn btn-success" onclick="MensualidadDetalle(' + data[i].Id_mensualidad +',' + Estatus.Id_estatus + ')">Rutina</button></td>';
                     html += '<td><button type="button" class="btn btn-success" onclick="VerFotosMedidas(' + data[i].Id_mensualidad + ',' + Estatus.Id_estatus + ')">Medidas</button></td>';
                     html += '<td>' + Tiporutina.Tipo + '</td>';
                     html += '<td>'+Mes.Mes+'</td>';
@@ -1028,8 +914,14 @@
                     html += '<td>' + data[i].Fechafin + '</td>';
                     html += '</tr>';
                     $('#tabladetallemensualidad tbody').append(html);
+                    if (Estatus.Id_estatus != 3) {
+                        count++;
+                    }
                 }
                 $('#tabladetallemensualidad').DataTable();
+                if (count > 0) {
+                    document.getElementById("nuevamensualdiadbuttonId").style.display = "none";                    
+                }
             },
             error: function (xhr, status, error) {
                 console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -1042,7 +934,7 @@
         $('#ModalMensualidad').modal('show');
     }
 
-    function VerMensualidad(Id) {
+    function VerMensualidad(Id,estatus) {
         $.ajax({
             url: urlvermensualidadid,
             type: "GET",
@@ -1059,6 +951,9 @@
                 document.getElementById("EstatusMensualidad").value = IdEstatus;
                 document.getElementById("TiporutinaMensualidad").value = IdRutina;
                 document.getElementById("mensualidadIdver").value = Id
+                if (estatus == 3) {
+                    document.getElementById("ActualizarEstatusId").style.display = "none";
+                }
                 $('#MensualidadVerModal').modal('show');
             },
             error: function (xhr, status, error) {
@@ -1351,7 +1246,7 @@
     }
 
     //Detalle de rutina
-    function MensualidadDetalle(Id) {
+    function MensualidadDetalle(Id, estatus) {
         document.getElementById("idclienteMensualidadDetalle").value = Id;
         var url ='@Url.Action("VerDetalleRutina", "AdministracionWebHome")';
         $.ajax({
@@ -1415,6 +1310,10 @@
                 alert("Ocurrio un error verifique su conexion (Cliente)");
             }
         });
+        if (estatus == 3) {
+            document.getElementById("AgregarRutina").style.display = "none";
+            document.getElementById("guardarrutinaId").style.display = "none";
+        }
         $('#ModalMensualidadDetalle').modal('show');
     }
 

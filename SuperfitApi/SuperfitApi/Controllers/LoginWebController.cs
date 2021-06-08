@@ -253,7 +253,7 @@ namespace SuperfitApi.Controllers
                             int Identity = Db.Clientes.Select(y => y.Id_cliente).Max() + 1;
                             Clientes updatecliente = Db.Clientes.Where(y => y.Id_cliente == clientes.Id_cliente).FirstOrDefault();
                             updatecliente.Clave_cliente = updatecliente.Clave_cliente + "" + Identity.ToString();
-                            updatecliente.Foto_perfil = "/Imagenes/Clientes/"+ updatecliente.Clave_cliente + "" + Identity.ToString();                            
+                            updatecliente.Foto_perfil = "/Imagenes/Clientes/" + updatecliente.Clave_cliente;                           
                             if (Db.SaveChanges() == 1)
                             {
                                 Clave = updatecliente.Clave_cliente;

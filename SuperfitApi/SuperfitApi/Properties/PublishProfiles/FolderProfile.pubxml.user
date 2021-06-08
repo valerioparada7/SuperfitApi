@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\valerio.parada\Downloads\SuperflifitApiPublicsh</_PublishTargetUrl>
-    <History>True|2021-05-09T04:03:03.6841086Z;True|2021-05-08T22:39:13.9943872-05:00;True|2021-03-14T16:57:47.1850185-06:00;True|2021-03-12T09:18:56.8913010-06:00;</History>
+    <History>True|2021-06-08T03:40:37.6292259Z;True|2021-05-08T23:03:03.6841086-05:00;True|2021-05-08T22:39:13.9943872-05:00;True|2021-03-14T16:57:47.1850185-06:00;True|2021-03-12T09:18:56.8913010-06:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/HelpPage/HelpPage.css">
@@ -276,10 +276,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:56</publishTime>
     </File>
     <File Include="bin/SuperfitApi.dll">
-      <publishTime>05/09/2021 20:41:45</publishTime>
+      <publishTime>06/07/2021 22:40:36</publishTime>
     </File>
     <File Include="bin/SuperfitApi.pdb">
-      <publishTime>05/09/2021 20:41:45</publishTime>
+      <publishTime>06/07/2021 22:40:36</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>03/11/2021 21:29:56</publishTime>
@@ -395,8 +395,95 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/component-custom-switch.min.css">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.bootstrap.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.bootstrap.min.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.bootstrap4.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.bootstrap4.min.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.foundation.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.foundation.min.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.jqueryui.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.jqueryui.min.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.semanticui.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/dataTables.semanticui.min.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/jquery.dataTables.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/css/jquery.dataTables.min.css">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/images/sort_asc.png">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/images/sort_asc_disabled.png">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/images/sort_both.png">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/images/sort_desc.png">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/images/sort_desc_disabled.png">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.bootstrap.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.bootstrap.min.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.bootstrap4.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.bootstrap4.min.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.foundation.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.foundation.min.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.jqueryui.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.jqueryui.min.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.semanticui.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/dataTables.semanticui.min.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/jquery.dataTables.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.24/js/jquery.dataTables.min.js">
+      <publishTime>06/04/2021 23:10:46</publishTime>
+    </File>
     <File Include="Content/datatables.css">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>06/04/2021 23:10:55</publishTime>
     </File>
     <File Include="Content/DataTables/css/autoFill.bootstrap.css">
       <publishTime>04/19/2021 15:55:47</publishTime>
@@ -1068,7 +1155,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Scripts/datatables.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>06/04/2021 23:11:06</publishTime>
     </File>
     <File Include="Scripts/DataTables/autoFill.bootstrap.js">
       <publishTime>04/19/2021 15:55:45</publishTime>
@@ -1653,64 +1740,67 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/19/2021 13:42:29</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminClientesWeb.cshtml">
-      <publishTime>05/07/2021 22:34:13</publishTime>
+      <publishTime>06/04/2021 21:31:23</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminEjerciciosWeb.cshtml">
-      <publishTime>05/07/2021 11:41:48</publishTime>
+      <publishTime>06/03/2021 17:54:12</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminEstatusWeb.cshtml">
-      <publishTime>05/07/2021 11:42:28</publishTime>
+      <publishTime>06/03/2021 17:54:34</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdministracionWebHome.cshtml">
-      <publishTime>05/07/2021 22:30:04</publishTime>
+      <publishTime>06/05/2021 18:16:20</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminMensualidadWeb.cshtml">
-      <publishTime>04/25/2021 13:08:17</publishTime>
+      <publishTime>06/03/2021 17:55:05</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminRutinasWeb.cshtml">
-      <publishTime>05/07/2021 11:40:43</publishTime>
+      <publishTime>06/03/2021 17:55:20</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminTipoentrenamientoWeb.cshtml">
-      <publishTime>05/07/2021 11:39:44</publishTime>
+      <publishTime>06/03/2021 17:55:37</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminTiporutinaWeb.cshtml">
-      <publishTime>05/07/2021 11:39:08</publishTime>
+      <publishTime>06/03/2021 17:55:55</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/ClienteDetalle.cshtml">
       <publishTime>05/08/2021 21:54:52</publishTime>
     </File>
+    <File Include="Views/AdministracionWebHome/Entrenamientoenvivo.cshtml">
+      <publishTime>06/05/2021 21:34:48</publishTime>
+    </File>
     <File Include="Views/ClientesWeb/Mensualidades.cshtml">
-      <publishTime>05/09/2021 20:38:17</publishTime>
+      <publishTime>06/04/2021 22:11:48</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Perfil.cshtml">
-      <publishTime>05/09/2021 20:13:55</publishTime>
+      <publishTime>06/07/2021 20:35:35</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Rutinas.cshtml">
-      <publishTime>05/10/2021 00:09:26</publishTime>
+      <publishTime>06/03/2021 18:00:42</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Views/LoginWeb/LoginAdministradorWeb.cshtml">
-      <publishTime>05/09/2021 18:34:56</publishTime>
+      <publishTime>06/04/2021 22:17:17</publishTime>
     </File>
     <File Include="Views/LoginWeb/LoginWeb.cshtml">
-      <publishTime>05/09/2021 18:34:17</publishTime>
+      <publishTime>06/04/2021 22:17:10</publishTime>
     </File>
     <File Include="Views/LoginWeb/RegistrarCliente.cshtml">
-      <publishTime>05/10/2021 00:15:46</publishTime>
+      <publishTime>06/05/2021 23:05:48</publishTime>
     </File>
     <File Include="Views/Shared/Diseño.cshtml">
-      <publishTime>05/10/2021 00:15:23</publishTime>
+      <publishTime>06/05/2021 17:29:14</publishTime>
     </File>
     <File Include="Views/Shared/DiseñoAdmin.cshtml">
-      <publishTime>05/08/2021 21:48:32</publishTime>
+      <publishTime>06/05/2021 18:26:50</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>06/04/2021 23:25:45</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -1719,7 +1809,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/08/2021 23:02:59</publishTime>
+      <publishTime>06/07/2021 22:40:36</publishTime>
     </File>
   </ItemGroup>
 </Project>

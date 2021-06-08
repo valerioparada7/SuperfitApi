@@ -7,6 +7,7 @@ using SuperfitApi.Models.Entity;
 using SuperfitApi.Models;
 using SuperfitApi.Autetication;
 using System.IO;
+using System.Globalization;
 
 namespace SuperfitApi.Controllers
 {
@@ -58,7 +59,10 @@ namespace SuperfitApi.Controllers
         public ActionResult Perfil()
         {
             try
-            {            
+            {
+                
+                DateTimeFormatInfo fechastring = CultureInfo.GetCultureInfo("es-ES").DateTimeFormat;                
+                string Mes = string.Empty, Dia = string.Empty,finalizar=string.Empty;
                 string Id = Session["Id_Cliente"].ToString();
                 int IdCliente = int.Parse(Id);
 
@@ -119,8 +123,16 @@ namespace SuperfitApi.Controllers
                     Session["EstatusMensualdiad"] = mensualidadMdl.Estatus.Id_estatus;
                     mensualidadMdl.Cliente = new ClientesModel();
                     mensualidadMdl.Cliente = clientesMdl;
-                    mensualidadMdl.Fechafin = mensualidadMdl.Fecha_fin.ToString("dd/MM/yyyy");
-                    mensualidadMdl.Fechainicio = mensualidadMdl.Fecha_inicio.ToString("dd/MM/yyyy");
+                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_fin.Month);
+                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_fin.DayOfWeek);
+                    mensualidadMdl.Fechafin = Dia +" "+ mensualidadMdl.Fecha_fin.Day.ToString() +" de " + Mes + " de "+ mensualidadMdl.Fecha_fin.Year;
+                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_inicio.Month);
+                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_inicio.DayOfWeek);
+                    mensualidadMdl.Fechainicio = Dia + " " + mensualidadMdl.Fecha_inicio.Day.ToString() + " de " + Mes + " de " + mensualidadMdl.Fecha_inicio.Year;
+                    if((mensualidadMdl.Estatus.Id_estatus == 2 || mensualidadMdl.Estatus.Id_estatus == 4) && DateTime.Now.AddDays(5) >= mensualidadMdl.Fecha_fin)
+                    {
+                        finalizar = "Tu mes esta por acabar";
+                    }
                 }
                 else
                 {
@@ -138,6 +150,7 @@ namespace SuperfitApi.Controllers
                     mensualidadMdl.Fechainicio = "Sin fecha asignada";
                 }
                 string fto = mensualidadMdl.Cliente.Foto_perfil;
+                ViewBag.Finalizar = finalizar;
                 ViewBag.Mes = mensualidadMdl;
                 return View();
             }
@@ -154,6 +167,8 @@ namespace SuperfitApi.Controllers
 
         public ActionResult Mensualidades()
         {
+            DateTimeFormatInfo fechastring = CultureInfo.GetCultureInfo("es-ES").DateTimeFormat;
+            string Mes = string.Empty, Dia = string.Empty;
             string Id = Session["Id_Cliente"].ToString();
             int IdCliente = int.Parse(Id);
             listmensualidadMdl = (from m in Db.Mensualidad
@@ -221,8 +236,12 @@ namespace SuperfitApi.Controllers
             {
                 for (int i = 0; i < listmensualidadMdl.Count; i++)
                 {
-                    listmensualidadMdl[i].Fechainicio = listmensualidadMdl[i].Fecha_inicio.ToString("dd/MM/yyyy");
-                    listmensualidadMdl[i].Fechafin = listmensualidadMdl[i].Fecha_fin.ToString("dd/MM/yyyy");
+                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_inicio.Month);
+                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_inicio.DayOfWeek);
+                    listmensualidadMdl[i].Fechainicio = Dia + " " + listmensualidadMdl[i].Fecha_inicio.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_inicio.Year; 
+                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_fin.Month);
+                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_fin.DayOfWeek); 
+                    listmensualidadMdl[i].Fechafin = Dia + " " + listmensualidadMdl[i].Fecha_fin.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_fin.Year;
                 }
             }
             return View(listmensualidadMdl);
@@ -363,6 +382,8 @@ namespace SuperfitApi.Controllers
         [HttpGet]
         public JsonResult ListAsesoriaantropometria(int Id_mensualidad)
         {
+            DateTimeFormatInfo fechastring = CultureInfo.GetCultureInfo("es-ES").DateTimeFormat;
+            string Mes = string.Empty, Dia = string.Empty;
             listantropometriaMdl = (from a in Db.Asesoria_antropometria
                                     where a.Id_mensualidad == Id_mensualidad
                                     select new AntropometriaModel()
@@ -389,7 +410,9 @@ namespace SuperfitApi.Controllers
 
             foreach(var item in listantropometriaMdl)
             {
-                item.Fecharegistro = item.Fecha_registro.ToString("dd/MM/yyyy");
+                Mes = fechastring.GetMonthName(item.Fecha_registro.Month);
+                Dia = fechastring.GetDayName(item.Fecha_registro.DayOfWeek);
+                item.Fecharegistro = Dia + " " + item.Fecha_registro.Day.ToString() + " de " + Mes + " de " + item.Fecha_registro.Year; 
             }
 
             return Json(listantropometriaMdl, JsonRequestBehavior.AllowGet);
