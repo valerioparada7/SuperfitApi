@@ -10,6 +10,7 @@ using SuperfitApi.Models.Entity;
 using SuperfitApi.Models;
 using System.Web;
 using System.Web.Hosting;
+using System.Drawing;
 
 namespace SuperfitApi.Controllers
 {
@@ -554,27 +555,32 @@ namespace SuperfitApi.Controllers
 
         [HttpPost]
         [Route("api/Login/UpdateImagenes")]
-        public AlertasModel UpdateImagenes(HttpPostedFileBase fotoperfil, HttpPostedFileBase fotofrontal,
-                                    HttpPostedFileBase fotolateral, HttpPostedFileBase fotoposterior)
-        {
+        public AlertasModel UpdateImagenes(Imagenes imagenes)
+        {   
             alertasModel.Result = true;
             alertasModel.Mensaje = "1";
             try
             {
                 string ubicacion = string.Empty, idcliente = string.Empty, medidas = string.Empty;
                 int clienteid = 0, medidasid = 0;
-                ubicacion = Ubicacion;
-                idcliente = IdCliente;
-                medidas = IdMedidas;
+                ubicacion = "Prueba";//Ubicacion;
+                idcliente = "1";// IdCliente;
+                medidas = "1"; //IdMedidas;
                 clienteid = int.Parse(idcliente);
                 medidasid = int.Parse(medidas);
                 clientes = Db.Clientes.Where(y => y.Id_cliente == clienteid).FirstOrDefault();
                 asesoria_antropometria = Db.Asesoria_antropometria.Where(y => y.Id == medidasid).FirstOrDefault();
-                if (fotoperfil != null)
+                if (!string.IsNullOrEmpty(imagenes.ImagenPerfilCuenta))
                 {
-                    clientes.Foto_perfil = clientes.Foto_perfil + "/" + fotoperfil.FileName.ToString();
-                    Db.SaveChanges();
-                    fotoperfil.SaveAs(HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotoperfil.FileName.ToString()));
+                    byte[] Foto_perfil = Convert.FromBase64String(imagenes.ImagenPerfilCuenta);
+                    clientes.Foto_perfil = clientes.Foto_perfil + "/" + "fotocuenta.jpg";
+                    //Db.SaveChanges();
+                    string rutaimagenPerfilCuenta = HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + "fotocuenta.jpg");
+                    using (var ms = new MemoryStream(Foto_perfil, 0, Foto_perfil.Length))
+                    {
+                        Image image = Image.FromStream(ms, true);
+                        image.Save(rutaimagenPerfilCuenta);
+                    }
                     alertasModel.Result = true;
                     alertasModel.Mensaje = "True";
                 }
@@ -583,29 +589,48 @@ namespace SuperfitApi.Controllers
                     clientes.Foto_perfil = clientes.Foto_perfil + "/";
                     Db.SaveChanges();
                 }
-                if (fotofrontal != null)
+                if (!string.IsNullOrEmpty(imagenes.ImagenFrontal))
                 {
-                    asesoria_antropometria.Foto_frontal = asesoria_antropometria.Foto_frontal + "/" + fotofrontal.FileName.ToString();
-                    Db.SaveChanges();
-                    fotofrontal.SaveAs(HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotofrontal.FileName.ToString()));
+                    byte[] Foto_frontal = Convert.FromBase64String(imagenes.ImagenFrontal);
+                    asesoria_antropometria.Foto_frontal = asesoria_antropometria.Foto_frontal + "/" + "Foto_frontal.jpg";
+                   // Db.SaveChanges();
+                    string rutaFoto_frontal= HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + "Foto_frontal.jpg");
+                    using (var ms = new MemoryStream(Foto_frontal, 0, Foto_frontal.Length))
+                    {
+                        Image image = Image.FromStream(ms, true);
+                        image.Save(rutaFoto_frontal);
+                    }
                     alertasModel.Result = true;
                     alertasModel.Mensaje = "True";
                 }
-                if (fotolateral != null)
+                if (!string.IsNullOrEmpty(imagenes.ImagenPerfil))
                 {
-                    asesoria_antropometria.Foto_perfil = asesoria_antropometria.Foto_perfil + "/" + fotolateral.FileName.ToString();
-                    Db.SaveChanges();
-                    fotolateral.SaveAs(HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotolateral.FileName.ToString()));
+                    byte[] Foto_perfil = Convert.FromBase64String(imagenes.ImagenPerfil);
+                    asesoria_antropometria.Foto_perfil = asesoria_antropometria.Foto_perfil + "/" + "Foto_lateral.jpg";
+                    //Db.SaveChanges();
+                    string rutafotolateral = HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + "Foto_lateral.jpg");
+                    using (var ms = new MemoryStream(Foto_perfil, 0, Foto_perfil.Length))
+                    {
+                        Image image = Image.FromStream(ms, true);
+                        image.Save(rutafotolateral);
+                    }
                     alertasModel.Result = true;
                     alertasModel.Mensaje = "True";
                 }
-                if (fotoposterior != null)
+                if (!string.IsNullOrEmpty(imagenes.ImagenPosterior))
                 {
-                    asesoria_antropometria.Foto_posterior = asesoria_antropometria.Foto_posterior + "/" + fotoposterior.FileName.ToString();
-                    Db.SaveChanges();
+                    byte[] Foto_posterior = Convert.FromBase64String(imagenes.ImagenPosterior);
+                    asesoria_antropometria.Foto_posterior = asesoria_antropometria.Foto_posterior + "/" + "Foto_posterior.jpg"; 
+                    //Db.SaveChanges();
+                    string fotoposterior=HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + "Foto_posterior.jpg");
+                    using (var ms = new MemoryStream(Foto_posterior, 0, Foto_posterior.Length))                    
+                    {
+                        Image image = Image.FromStream(ms, true);
+                        image.Save(fotoposterior);
+                    }
                     alertasModel.Result = true;
                     alertasModel.Mensaje = "True";
-                    fotoposterior.SaveAs(HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotoposterior.FileName.ToString()));
+                    
                 }
             }
             catch (Exception ex)
@@ -614,6 +639,8 @@ namespace SuperfitApi.Controllers
             }
             return alertasModel;
         }
-        
+
+
     }
+   
 }

@@ -245,6 +245,7 @@
       <DependentUpon>SuperfitEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EstatusModel.cs" />
+    <Compile Include="Models\Imagenes.cs" />
     <Compile Include="Models\MensualidadModel.cs" />
     <Compile Include="Models\MesesModel.cs" />
     <Compile Include="Models\RegistroCliente.cs" />
