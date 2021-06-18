@@ -45,6 +45,7 @@ namespace SuperfitApi.Controllers
 
         //Obtener los datos para su perfil del cliente
         [HttpGet]
+        [Route("api/Clientes/GetCliente")]
         public Clientes GetCliente(int IdCliente)
         {
             clientes = Db.Clientes.Where(p => p.Id_cliente == IdCliente).FirstOrDefault();
@@ -52,6 +53,7 @@ namespace SuperfitApi.Controllers
         }
 
         [HttpPut]
+        [Route("api/Clientes/UpdateCliente")]
         public bool UpdateCliente(ClientesModel ClientesMdl)
         {
             int IdCliente = ClientesMdl.Id_cliente ;
@@ -76,6 +78,7 @@ namespace SuperfitApi.Controllers
         
         //Obtener los sets a realizar por dia
         [HttpGet]
+        [Route("api/Clientes/GetDetalleRutinaSets")]
         public List<DetallerutinaModel> GetDetalleRutinaSets(int IdMensualidad,int IdEstatusMes,int IdDIa)
         {
             listdetallerutinaMdl = (from d in Db.Detalle_rutina
@@ -115,6 +118,7 @@ namespace SuperfitApi.Controllers
 
         //Obtener ejercicios por set
         [HttpGet]
+        [Route("api/Clientes/GetDetalleRutinaEjercicios")]
         public List<DetallerutinaModel> GetDetalleRutinaEjercicios(int IdMensualidad, int IdEstatusMes, int IdDIa,int TipoSet)
         {
             listdetallerutinaMdl = (from d in Db.Detalle_rutina
@@ -196,9 +200,47 @@ namespace SuperfitApi.Controllers
 
                                   }).ToList();
             if (listmensualidadMdl == null)
-            {                
+            {  
+                
             }
             return listmensualidadMdl;
+        }
+
+        //Obtener Mi cuestionario
+        [HttpGet]
+        [Route("api/Clientes/GetCuestionario")]
+        public CuestionarioModel GetCuestionario(int IdCliente)
+        {
+            cuestionarioMdl = (from c in Db.Cuestionario
+                               where c.Id_cuestionario == IdCliente
+                               select new CuestionarioModel()
+                               {
+                                    Id_cuestionario=c.Id_cuestionario,
+                                    Clave_cuestionario=c.Clave_cuestionario,
+                                    Padece_enfermedad =(bool)c.Padece_enfermedad,     
+                                    Medicamento_prescrito_medico  =c.Medicamento_prescrito_medico ,     
+                                    lesiones= (bool)c.lesiones,     
+                                    Alguna_recomendacion_lesiones =c.Alguna_recomendacion_lesiones,     
+                                    Fuma= (bool)c.Fuma,     
+                                    Veces_semana_fuma= (int)c.Veces_semana_fuma,     
+                                    Alcohol= (bool)c.Alcohol,     
+                                    Veces_semana_alcohol= (int)c.Veces_semana_alcohol,     
+                                    Actividad_fisica= (bool)c.Actividad_fisica,     
+                                    Tipo_ejercicios =c.Tipo_ejercicios,     
+                                    Tiempo_dedicado =c.Tiempo_dedicado,     
+                                    Horario_entreno =c.Horario_entreno,     
+                                    MetasObjetivos  =c.MetasObjetivos ,     
+                                    Compromisos  =c.Compromisos,     
+                                    Comentarios  =c.Comentarios,     
+                                    Fecha_registro= (DateTime)c.Fecha_registro,
+                                    Cliente = new ClientesModel
+                                    {
+                                        Id_cliente = IdCliente
+                                    }
+
+                               }).FirstOrDefault();
+
+            return cuestionarioMdl;
         }
     }
 }

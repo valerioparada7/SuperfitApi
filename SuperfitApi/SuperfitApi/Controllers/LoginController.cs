@@ -8,11 +8,13 @@ using System.Text.RegularExpressions;
 using System.Web.Http;
 using SuperfitApi.Models.Entity;
 using SuperfitApi.Models;
+using System.Web;
+using System.Web.Hosting;
 
 namespace SuperfitApi.Controllers
 {
     public class LoginController : ApiController
-    {
+    {        
         #region Variables 
         public SuperfitEntities Db;
         public Clientes clientes;
@@ -25,6 +27,10 @@ namespace SuperfitApi.Controllers
         public MensualidadModel mensualidadMdl;
         public AntropometriaModel asesoria_antropometriaMdl;
         public AlertasModel alertasModel;
+        //Variables globales
+        public string Ubicacion = string.Empty;
+        public string IdCliente=string.Empty;
+        public string IdMedidas=string.Empty;
         #endregion       
         public LoginController()
         {
@@ -73,7 +79,7 @@ namespace SuperfitApi.Controllers
                                    }).FirstOrDefault();
                 }
             }
-            
+
             
             if (clientesMdl.Id_cliente != 0)
             {
@@ -368,5 +374,246 @@ namespace SuperfitApi.Controllers
                 return alertasModel;
             }
         }
+        
+        //Registro cliente completo
+        [HttpPost]
+        [Route("api/Login/RegistroCompleto")]
+        public AlertasModel RegistroCompleto(RegistroCliente Registro)
+        {
+            string result = "No se guardaron los datos intente de nuevo";
+            string Clave = "000C-";
+            string fotoperfil = "/Imagenes/Clientes/" + Clave;
+            string ubicacion = fotoperfil;
+            try
+            {
+                if (Registro != null)
+                {
+                    var cliente = Db.Clientes.Where(p => p.Correo_electronico == Registro.Cliente.Correo_electronico
+                                                            || p.Telefono == Registro.Cliente.Telefono).FirstOrDefault();
+                    if (cliente == null)
+                    {
+                        clientes = new Clientes
+                        {
+                            Clave_cliente = Clave,
+                            Nombres = Registro.Cliente.Nombres,
+                            Apellido_paterno = Registro.Cliente.Apellido_paterno,
+                            Apellido_materno = Registro.Cliente.Apellido_materno,
+                            Edad = Registro.Cliente.Edad,
+                            Telefono = Registro.Cliente.Telefono == null ? 0 : Registro.Cliente.Telefono,
+                            Correo_electronico = Registro.Cliente.Correo_electronico == null ? "" : Registro.Cliente.Correo_electronico,
+                            Apodo = Registro.Cliente.Apodo == null ? "" : Registro.Cliente.Apodo,
+                            Contraseña = Registro.Cliente.Contraseña,
+                            Foto_perfil = fotoperfil,
+                            Sexo = Registro.Cliente.Sexo,
+                            Estado = true
+                        };
+                        Db.Clientes.Add(clientes);
+                        if (Db.SaveChanges() == 1)
+                        {
+                            int Identity = Db.Clientes.Select(y => y.Id_cliente).Max() + 1;
+                            Clientes updatecliente = Db.Clientes.Where(y => y.Id_cliente == clientes.Id_cliente).FirstOrDefault();
+                            updatecliente.Clave_cliente = updatecliente.Clave_cliente + "" + Identity.ToString();
+                            updatecliente.Foto_perfil = "/Imagenes/Clientes/" + updatecliente.Clave_cliente;
+                            if (Db.SaveChanges() == 1)
+                            {
+                                Clave = updatecliente.Clave_cliente;
+                                fotoperfil = "/Imagenes/Clientes/" + Clave;
+                                cuestionario = new Cuestionario
+                                {
+                                    Id_cliente = clientes.Id_cliente,
+                                    Clave_cuestionario = "CUES-" + Clave,
+                                    Padece_enfermedad = Registro.Cuestionario.Padece_enfermedad == null ? false : Registro.Cuestionario.Padece_enfermedad,
+                                    Medicamento_prescrito_medico = Registro.Cuestionario.Medicamento_prescrito_medico == null ? "" : Registro.Cuestionario.Medicamento_prescrito_medico,
+                                    lesiones = Registro.Cuestionario.lesiones == null ? false : Registro.Cuestionario.lesiones,
+                                    Alguna_recomendacion_lesiones = Registro.Cuestionario.Alguna_recomendacion_lesiones == null ? "" : Registro.Cuestionario.Alguna_recomendacion_lesiones,
+                                    Fuma = Registro.Cuestionario.Fuma == null ? false : Registro.Cuestionario.Fuma,
+                                    Veces_semana_fuma = Registro.Cuestionario.Veces_semana_fuma == null ? 0 : Registro.Cuestionario.Veces_semana_fuma,
+                                    Alcohol = Registro.Cuestionario.Alcohol == null ? false : Registro.Cuestionario.Alcohol,
+                                    Veces_semana_alcohol = Registro.Cuestionario.Veces_semana_alcohol == null ? 0 : Registro.Cuestionario.Veces_semana_alcohol,
+                                    Actividad_fisica = Registro.Cuestionario.Actividad_fisica == null ? false : Registro.Cuestionario.Actividad_fisica,
+                                    Tipo_ejercicios = Registro.Cuestionario.Tipo_ejercicios == null ? "" : Registro.Cuestionario.Tipo_ejercicios,
+                                    Tiempo_dedicado = Registro.Cuestionario.Tiempo_dedicado == null ? "" : Registro.Cuestionario.Tiempo_dedicado,
+                                    Horario_entreno = Registro.Cuestionario.Horario_entreno == null ? "" : Registro.Cuestionario.Horario_entreno,
+                                    MetasObjetivos = Registro.Cuestionario.MetasObjetivos == null ? "" : Registro.Cuestionario.MetasObjetivos,
+                                    Compromisos = Registro.Cuestionario.Compromisos == null ? "" : Registro.Cuestionario.Compromisos,
+                                    Comentarios = Registro.Cuestionario.Comentarios == null ? "" : Registro.Cuestionario.Comentarios,
+                                    Fecha_registro = DateTime.Now
+                                };
+                                Db.Cuestionario.Add(cuestionario);
+                                if (Db.SaveChanges() == 1)
+                                {
+                                    Registro.Mensualidad.Fecha_inicio = DateTime.Now;
+                                    Registro.Mensualidad.Fecha_fin = DateTime.Now.AddDays(30);
+                                    int mes = DateTime.Now.Month;
+                                    mensualidad = new Mensualidad
+                                    {
+                                        Id_cliente = clientes.Id_cliente,
+                                        Id_tipo_rutina = Registro.Mensualidad.Tiporutina.Id_tiporutina,
+                                        Id_mes = mes,
+                                        Id_estatus = 1,
+                                        Id_tipo_entrenamiento = Registro.Mensualidad.TipoEntrenamiento.Id_TipoEntrenamiento,
+                                        Fecha_inicio = Registro.Mensualidad.Fecha_inicio,
+                                        Fecha_fin = Registro.Mensualidad.Fecha_fin
+                                    };
+                                    Db.Mensualidad.Add(mensualidad);
+                                    if (Db.SaveChanges() == 1)
+                                    {
+                                        asesoria_antropometria = new Asesoria_antropometria
+                                        {
+                                            Peso = Registro.Medidas.Peso,
+                                            Id_mensualidad = mensualidad.Id_mensualidad,
+                                            Altura = Registro.Medidas.Altura,
+                                            IMC = Registro.Medidas.IMC,
+                                            Brazo_derecho_relajado = Registro.Medidas.Brazoderechorelajado,
+                                            Brazo_derecho_fuerza = Registro.Medidas.Brazoderechofuerza,
+                                            Brazo_izquierdo_relajado = Registro.Medidas.Brazoizquierdorelajado,
+                                            Brazo_izquierdo_fuerza = Registro.Medidas.Brazoizquierdofuerza,
+                                            Cintura = Registro.Medidas.Cintura,
+                                            Cadera = Registro.Medidas.Cadera,
+                                            Pierna_izquierda = Registro.Medidas.Piernaizquierda,
+                                            Pierna_derecho = Registro.Medidas.Piernaderecho,
+                                            Pantorrilla_derecha = Registro.Medidas.Pantorrilladerecha,
+                                            Pantorrilla_izquierda = Registro.Medidas.Pantorrillaizquierda,
+                                            Foto_frontal = fotoperfil,
+                                            Foto_perfil = fotoperfil,
+                                            Foto_posterior = fotoperfil,
+                                            Fecha_registro = DateTime.Now
+                                        };
+                                        Db.Asesoria_antropometria.Add(asesoria_antropometria);
+                                        if (Db.SaveChanges() == 1)
+                                        {                                           
+                                            string ruta = HostingEnvironment.MapPath("/Imagenes/Clientes");
+                                            ruta = Path.Combine(ruta + @"\" + Clave);
+                                            DirectoryInfo di = Directory.CreateDirectory(ruta);
+                                            Ubicacion = Clave;
+                                            IdCliente = clientes.Id_cliente.ToString();
+                                            IdMedidas = asesoria_antropometria.Id.ToString();
+                                            result = "True";
+                                            alertasModel.Result = true;
+                                        }
+                                        else
+                                        {                                            
+                                            result = "Ocurrio un error al guardar tus medidas reintenta de nuevo y verifica tus datos";
+                                            Db.Mensualidad.Remove(mensualidad);
+                                            Db.SaveChanges();
+                                            Db.Cuestionario.Remove(cuestionario);
+                                            Db.SaveChanges();
+                                            Db.Clientes.Remove(clientes);
+                                            Db.SaveChanges();
+                                            alertasModel.Result = false;
+                                        }
+                                    }
+                                    else
+                                    {                                        
+                                        result = "Ocurrio un error al guardar tu mensualidad reintenta de nuevo y verifica tus datos";
+                                        Db.Cuestionario.Remove(cuestionario);
+                                        Db.SaveChanges();
+                                        Db.Clientes.Remove(clientes);
+                                        Db.SaveChanges();
+                                        alertasModel.Result = false;
+                                    }
+                                }
+                                else
+                                {                                    
+                                    result = "Ocurrio un error al guardar tu cuestionario reintenta de nuevo y verifica tus datos";
+                                    Db.Clientes.Remove(clientes);
+                                    Db.SaveChanges();
+                                    alertasModel.Result = false;
+                                }
+                            }
+                            else
+                            {                                
+                                result = "Ocurrio un error al guardar los datos intente de nuevo por favor";
+                                Db.Clientes.Remove(clientes);
+                                Db.SaveChanges();
+                                alertasModel.Result = false;
+                            }
+                        }
+                        else
+                        {                            
+                            result = "Ocurrio un error al guardar tus datos personales reintenta de nuevo y verifica tus datos";
+                            alertasModel.Result = false;
+                        }
+                    }
+                    else
+                    {                                              
+                        result = "Ya hay un correo y/o celular registrado por favor intenta otro";
+                        alertasModel.Result = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                alertasModel.Result = false;
+                alertasModel.Mensaje = ex.Message;
+                result = ex.Message;
+            }
+            alertasModel.Mensaje = result;
+            return alertasModel;
+        }
+
+        [HttpPost]
+        [Route("api/Login/UpdateImagenes")]
+        public AlertasModel UpdateImagenes(HttpPostedFileBase fotoperfil, HttpPostedFileBase fotofrontal,
+                                    HttpPostedFileBase fotolateral, HttpPostedFileBase fotoposterior)
+        {
+            alertasModel.Result = true;
+            alertasModel.Mensaje = "1";
+            try
+            {
+                string ubicacion = string.Empty, idcliente = string.Empty, medidas = string.Empty;
+                int clienteid = 0, medidasid = 0;
+                ubicacion = Ubicacion;
+                idcliente = IdCliente;
+                medidas = IdMedidas;
+                clienteid = int.Parse(idcliente);
+                medidasid = int.Parse(medidas);
+                clientes = Db.Clientes.Where(y => y.Id_cliente == clienteid).FirstOrDefault();
+                asesoria_antropometria = Db.Asesoria_antropometria.Where(y => y.Id == medidasid).FirstOrDefault();
+                if (fotoperfil != null)
+                {
+                    clientes.Foto_perfil = clientes.Foto_perfil + "/" + fotoperfil.FileName.ToString();
+                    Db.SaveChanges();
+                    fotoperfil.SaveAs(HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotoperfil.FileName.ToString()));
+                    alertasModel.Result = true;
+                    alertasModel.Mensaje = "True";
+                }
+                else
+                {
+                    clientes.Foto_perfil = clientes.Foto_perfil + "/";
+                    Db.SaveChanges();
+                }
+                if (fotofrontal != null)
+                {
+                    asesoria_antropometria.Foto_frontal = asesoria_antropometria.Foto_frontal + "/" + fotofrontal.FileName.ToString();
+                    Db.SaveChanges();
+                    fotofrontal.SaveAs(HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotofrontal.FileName.ToString()));
+                    alertasModel.Result = true;
+                    alertasModel.Mensaje = "True";
+                }
+                if (fotolateral != null)
+                {
+                    asesoria_antropometria.Foto_perfil = asesoria_antropometria.Foto_perfil + "/" + fotolateral.FileName.ToString();
+                    Db.SaveChanges();
+                    fotolateral.SaveAs(HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotolateral.FileName.ToString()));
+                    alertasModel.Result = true;
+                    alertasModel.Mensaje = "True";
+                }
+                if (fotoposterior != null)
+                {
+                    asesoria_antropometria.Foto_posterior = asesoria_antropometria.Foto_posterior + "/" + fotoposterior.FileName.ToString();
+                    Db.SaveChanges();
+                    alertasModel.Result = true;
+                    alertasModel.Mensaje = "True";
+                    fotoposterior.SaveAs(HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + fotoposterior.FileName.ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                alertasModel.Mensaje = ex.Message;
+            }
+            return alertasModel;
+        }
+        
     }
 }
