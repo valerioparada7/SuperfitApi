@@ -4,220 +4,7 @@
     ViewBag.Title = "Mensualidades";
     Layout = "~/Views/Shared/Diseño.cshtml";
 }
-<style>
-    /*Resolicion para dispositivos moviles muy pequeños*/
-    @@media(max-width: 575px){
-        #columna1 {
-        }
 
-        #columna2 {
-        }
-
-        #columna3 {
-        }
-
-        #columna4 {
-        }
-
-        #columna5 {
-        }
-
-        #columna6 {
-        }
-
-        #columna7 {
-        }
-
-        #columna8 {
-        }
-
-        #columna9 {
-        }
-
-        #columna10 {
-        }
-
-        #columna11 {
-        }
-
-        #columna12 {
-        }
-
-        #columna13 {
-        }
-
-        #columna14 {
-        }
-
-        #columna15 {
-        }
-
-        #columna16 {
-        }
-
-        #columna17 {
-        }
-    }
-    /*Resolicion para dispositivos moviles pequeños*/
-    @@media(max-width: 576px) and (max-width: 767px) {
-        #columna1 {
-        }
-
-        #columna2 {
-        }
-
-        #columna3 {
-        }
-
-        #columna4 {
-        }
-
-        #columna5 {
-        }
-
-        #columna6 {
-        }
-
-        #columna7 {
-        }
-
-        #columna8 {
-        }
-
-        #columna9 {
-        }
-
-        #columna10 {
-        }
-
-        #columna11 {
-        }
-
-        #columna12 {
-        }
-
-        #columna13 {
-        }
-
-        #columna14 {
-        }
-
-        #columna15 {
-        }
-
-        #columna16 {
-        }
-
-        #columna17 {
-        }
-    }
-    /*Resolicion para tablets*/
-    @@media(max-width: 768px) and (max-width: 991px) {
-        #columna1 {
-        }
-
-        #columna2 {
-        }
-
-        #columna3 {
-        }
-
-        #columna4 {
-        }
-
-        #columna5 {
-        }
-
-        #columna6 {
-        }
-
-        #columna7 {
-        }
-
-        #columna8 {
-        }
-
-        #columna9 {
-        }
-
-        #columna10 {
-        }
-
-        #columna11 {
-        }
-
-        #columna12 {
-        }
-
-        #columna13 {
-        }
-
-        #columna14 {
-        }
-
-        #columna15 {
-        }
-
-        #columna16 {
-        }
-
-        #columna17 {
-        }
-    }
-    /*Resolicion para pc de escritorio*/
-    @@media(max-width: 992px) {
-        #columna1 {
-        }
-
-        #columna2 {
-        }
-
-        #columna3 {
-        }
-
-        #columna4 {
-        }
-
-        #columna5 {
-        }
-
-        #columna6 {
-        }
-
-        #columna7 {
-        }
-
-        #columna8 {
-        }
-
-        #columna9 {
-        }
-
-        #columna10 {
-        }
-
-        #columna11 {
-        }
-
-        #columna12 {
-        }
-
-        #columna13 {
-        }
-
-        #columna14 {
-        }
-
-        #columna15 {
-        }
-
-        #columna16 {
-        }
-
-        #columna17 {
-        }
-    }    
-</style>
 <div>
     <h3>Mensualidades</h3>
     <br />
@@ -246,7 +33,14 @@
                             <td>@item.Tiporutina.Tipo</td>
                             <td><button type="button" style="border:0px;color:#007bff" class="btn-link" onclick="VerFotosMedidas(@item.Id_mensualidad,@item.Estatus.Id_estatus)">Ver mis medidas y fotos</button></td>
                             <td>@item.Mes.Mes</td>
-                            <td>@item.Estatus.Descripcion</td>
+                            <td>
+                                @item.Estatus.Descripcion
+                                @if (item.Estatus.Id_estatus == 1)
+                                {
+                                <button type="button" style="border:0px;color:#007bff" class="btn-link" 
+                                        onclick="OpenPago(@item.Id_mensualidad)">Subir comoprobante de pago</button>                                                        
+                                }
+                            </td>
                             <td>@item.Fechainicio</td>
                             <td>@item.Fechafin</td>
                         </tr>
@@ -257,6 +51,52 @@
         </table>
     </div>
 </div>
+
+<!--Modal para pagar y subir la foto-->
+<div class="modal" id="ModalMensualidadPago" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pago Mensualidad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="Idmensualidadpago" style="display:none" />
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="monto" class="form-control" placeholder="Monto pagado" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="descripcion" class="form-control" placeholder="Descripcion u observaciones" />
+                    </div>
+                </div>
+                <br />
+                <div style="text-align:center;margin-top:10px" class="col-md-6 offset-md-3">
+                    <label for="Foto_comprobante" style="cursor:pointer">
+                        Subir foto del comprobante
+                        <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                    </label>
+                    <input style="display:none" value="Foto comprobante" title="Foto comprobante" type="file" data-maxsize="4200000" id="Foto_comprobante" class="form-control-file my-2 check-image-size">
+                </div>
+                <div style="text-align:center">
+                    <div id="preview" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="color btn btn-primary" data-dismiss="modal" onclick="RealizarPago()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <!--Modal para detalle Mensualidad--->
 <div id="ModalMensualidadDetalle" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -504,11 +344,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#tablamensualidad').DataTable();
+        //$('#tablamensualidad').DataTable();
     });
     var urlmedidas = '@Url.Action("ListAsesoriaantropometria", "ClientesWeb")';
     var urlmedidasreg ='@Url.Action("RegistrarMedidas", "ClientesWeb")';
-    var urlfotos ='@Url.Action("RegistrarFotos", "ClientesWeb")';
+    var urlfotos = '@Url.Action("RegistrarFotos", "ClientesWeb")';
+    var urlpagos ='@Url.Action("PagoMes", "ClientesWeb")';
     document.getElementById("Foto_frontal").onchange = function (e) {
         // Creamos el objeto de la clase FileReader
         let reader = new FileReader();
@@ -578,6 +419,31 @@
         };
     }
 
+    //foto del comprobante
+    document.getElementById("Foto_comprobante").onchange = function (e) {
+        // Creamos el objeto de la clase FileReader
+        let reader = new FileReader();
+
+        // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+        reader.readAsDataURL(e.target.files[0]);
+
+        // Le decimos que cuando este listo ejecute el código interno
+        reader.onload = function () {
+            let preview = document.getElementById('preview'),
+                image = document.createElement('img');
+
+            image.src = reader.result;
+            image.width = '200';
+            image.height = '200';
+            image.style.display = 'inline-block';
+            image.style.borderRadius = '20px';
+            image.style.boxShadow = '0px 0px 2px #888';
+            preview.innerHTML = '';
+            preview.append(image);
+        };
+        $("#exampleModal").modal('show');
+    }
+
     function VerFotosMedidas(Id,estatus) {
         document.getElementById("Id_mensualidad").value = Id;
         if (estatus == 3) {
@@ -607,9 +473,9 @@
                     html += '<td><lable>' + data[i].Piernaderecho + ' cm</lable></td>';
                     html += '<td><lable>' + data[i].Pantorrilladerecha + ' cm</lable></td>';
                     html += '<td><lable>' + data[i].Pantorrillaizquierda + ' cm</lable></td>';
-                    html += '<td><img src="' + data[i].Fotofrontal + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
-                    html += '<td><img src="' + data[i].Fotoperfil + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
-                    html += '<td><img src="' + data[i].Fotoposterior + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotofrontal + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotoperfil + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotoposterior + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
                     html += '<td><lable>' + data[i].Fecharegistro + '</lable></td>';
                     html += '</tr>';
                     $('#ListaMedidas tbody').append(html);
@@ -623,8 +489,75 @@
         $("#ModalMensualidadDetalle").modal("show");
     }
 
-    function GuardarRutina() {
+    function RealizarPago() {
+        var formdata = new FormData();
+        var fotoperfil = $("#Foto_comprobante")[0];
+        var imagen = fotoperfil.files[0];
+        var idmes = document.getElementById("Idmensualidadpago").value;
+        var monto = document.getElementById("monto").value;
+        var descripcion = document.getElementById("descripcion").value;
+        if (fotoperfil != "") {
+            if (monto != "") {
+                formdata.append("imagen", imagen);
+                formdata.append("Idmes", idmes);
+                formdata.append("monto", monto);
+                formdata.append("descripcion", descripcion);
+                $.ajax({
+                    type: "POST",
+                    url: urlpagos,
+                    data: formdata,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data == "True") {
+                            swal({
+                                title: "Registro exitoso!",
+                                text: "Se guardaron tus datos correctamente",
+                                type: "success"
+                            }).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "Warning!",
+                                text: "Ocurrio un error",
+                                type: "warning"
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Ocurrio un error verifique su conexion updateimagen");
+                    }
+                });
+            }
+            else {
+                swal({
+                    title: "Warning!",
+                    text: "Complete los datos requeridos",
+                    type: "warning"
+                });
+            }
+        }
+        else {
+            swal({
+                title: "Warning!",
+                text: "Complete los datos requeridos",
+                type: "warning"
+            });
+        }
         
+    }
+
+    function OpenPago(Id) {
+        document.getElementById("Idmensualidadpago").value = Id;
+        $("#ModalMensualidadPago").show();
+        //$("#ModalMensualidadDetalle").modal("show");
+    }
+
+    function GuardarRutina() {
+
         var parametros = {};
         var Mensualidad = {};
         var modelo = {};
@@ -682,7 +615,7 @@
                                                                         processData: false,
                                                                         contentType: false,
                                                                         success: function (data) {
-                                                                            if (data == "True") {                                                                                
+                                                                            if (data == "True") {
                                                                                 swal({
                                                                                     title: "Registro exitoso!",
                                                                                     text: "Se guardaron tus datos correctamente",
@@ -786,7 +719,7 @@
             document.getElementById("Peso").style.borderColor = "red";
             return false;
         }
-        
+
     }
 
     $("#Altura").keyup(function () {

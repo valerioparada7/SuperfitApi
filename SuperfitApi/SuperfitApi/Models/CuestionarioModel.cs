@@ -12,7 +12,7 @@ namespace SuperfitApi.Models
         public string Clave_cuestionario { get; set; }
         public  bool  Padece_enfermedad { get; set; }
         public string Medicamento_prescrito_medico { get; set; }
-        public  bool  lesiones { get; set; }
+        public  bool  Lesiones { get; set; }
         public string Alguna_recomendacion_lesiones { get; set; }
         public  bool  Fuma { get; set; }
         public  int  Veces_semana_fuma { get; set; }

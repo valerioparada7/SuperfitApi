@@ -19,7 +19,7 @@ namespace SuperfitApi.Models.Entity
         public string Clave_cuestionario { get; set; }
         public Nullable<bool> Padece_enfermedad { get; set; }
         public string Medicamento_prescrito_medico { get; set; }
-        public Nullable<bool> lesiones { get; set; }
+        public Nullable<bool> Lesiones { get; set; }
         public string Alguna_recomendacion_lesiones { get; set; }
         public Nullable<bool> Fuma { get; set; }
         public Nullable<int> Veces_semana_fuma { get; set; }
@@ -29,7 +29,7 @@ namespace SuperfitApi.Models.Entity
         public string Tipo_ejercicios { get; set; }
         public string Tiempo_dedicado { get; set; }
         public string Horario_entreno { get; set; }
-        public string MetasObjetivos { get; set; }
+        public string Metas_objetivos { get; set; }
         public string Compromisos { get; set; }
         public string Comentarios { get; set; }
         public Nullable<System.DateTime> Fecha_registro { get; set; }

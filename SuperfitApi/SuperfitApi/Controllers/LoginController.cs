@@ -27,7 +27,7 @@ namespace SuperfitApi.Controllers
         public CuestionarioModel cuestionarioMdl;
         public MensualidadModel mensualidadMdl;
         public AntropometriaModel asesoria_antropometriaMdl;
-        public AlertasModel alertasModel;
+        public AlertasModel alertasMdl;
         //Variables globales
         public string Ubicacion = string.Empty;
         public string IdCliente=string.Empty;
@@ -45,10 +45,11 @@ namespace SuperfitApi.Controllers
             cuestionarioMdl = new CuestionarioModel();
             mensualidadMdl = new MensualidadModel();
             asesoria_antropometriaMdl = new AntropometriaModel();
-            alertasModel = new AlertasModel();
+            alertasMdl = new AlertasModel();
         }        
         //Loguearse
         [HttpGet]
+        [Route("api/Login/Login")]
         public MensualidadModel Login(string User,string Pass)
         {            
             if (ValidacionUser(User)==true)
@@ -62,6 +63,10 @@ namespace SuperfitApi.Controllers
                                    Nombres = c.Nombres,
                                    Foto_perfil=c.Foto_perfil
                                }).FirstOrDefault();
+                if (clientesMdl == null)
+                {
+                    clientesMdl = new ClientesModel();
+                }
             }
             else
             {
@@ -78,6 +83,12 @@ namespace SuperfitApi.Controllers
                                        Nombres = c.Nombres,
                                        Foto_perfil = c.Foto_perfil
                                    }).FirstOrDefault();
+
+
+                    if (clientesMdl == null)
+                    {
+                        clientesMdl = new ClientesModel();                        
+                    }
                 }
             }
 
@@ -247,23 +258,23 @@ namespace SuperfitApi.Controllers
                 {
                     DirectoryInfo di = Directory.CreateDirectory(Foto_perfil);
                    // clientesModel.Imagen.SaveAs("");
-                    alertasModel.Id = clientes.Id_cliente;
-                    alertasModel.Result = true;
-                    alertasModel.Mensaje = "Se realizo correctamente el registro";
-                    return alertasModel;
+                    alertasMdl.Id = clientes.Id_cliente;
+                    alertasMdl.Result = true;
+                    alertasMdl.Mensaje = "Se realizo correctamente el registro";
+                    return alertasMdl;
                 }
                 else
                 {
-                    alertasModel.Result = false;
-                    alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
-                    return alertasModel;
+                    alertasMdl.Result = false;
+                    alertasMdl.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                    return alertasMdl;
                 }
             }
             else
             {
-                alertasModel.Result = false;
-                alertasModel.Mensaje = "Ya hay un Usuario registrado con el mismo correo y/o telefono";
-                return alertasModel;
+                alertasMdl.Result = false;
+                alertasMdl.Mensaje = "Ya hay un Usuario registrado con el mismo correo y/o telefono";
+                return alertasMdl;
             }
         }        
         //registro ,responder su cuestionario
@@ -278,7 +289,7 @@ namespace SuperfitApi.Controllers
                 Clave_cuestionario = "Cues" + clave.Clave_cliente,
                 Padece_enfermedad = cuestionarioModel.Padece_enfermedad,
                 Medicamento_prescrito_medico = cuestionarioModel.Medicamento_prescrito_medico,
-                lesiones = cuestionarioModel.lesiones,
+                Lesiones = cuestionarioModel.Lesiones,
                 Alguna_recomendacion_lesiones = cuestionarioModel.Alguna_recomendacion_lesiones,
                 Fuma = cuestionarioModel.Fuma,
                 Veces_semana_fuma = cuestionarioModel.Veces_semana_fuma,
@@ -288,7 +299,7 @@ namespace SuperfitApi.Controllers
                 Tipo_ejercicios = cuestionarioModel.Tipo_ejercicios,
                 Tiempo_dedicado = cuestionarioModel.Tiempo_dedicado,
                 Horario_entreno = cuestionarioModel.Horario_entreno,
-                MetasObjetivos = cuestionarioModel.MetasObjetivos,
+                Metas_objetivos = cuestionarioModel.MetasObjetivos,
                 Compromisos = cuestionarioModel.Compromisos,
                 Comentarios = cuestionarioModel.Comentarios,
                 Fecha_registro = DateTime.Now
@@ -296,16 +307,16 @@ namespace SuperfitApi.Controllers
             Db.Cuestionario.Add(cuestionario);
             if (Db.SaveChanges() == 1)
             {
-                alertasModel.Id = cuestionarioModel.Cliente.Id_cliente;
-                alertasModel.Result = true;
-                alertasModel.Mensaje = "Se realizo correctamente el registro";
-                return alertasModel;
+                alertasMdl.Id = cuestionarioModel.Cliente.Id_cliente;
+                alertasMdl.Result = true;
+                alertasMdl.Mensaje = "Se realizo correctamente el registro";
+                return alertasMdl;
             }
             else
             {
-                alertasModel.Result = false;
-                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
-                return alertasModel;
+                alertasMdl.Result = false;
+                alertasMdl.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasMdl;
             }
         }
         //registro de como quiere su mensualidad
@@ -326,16 +337,16 @@ namespace SuperfitApi.Controllers
             Db.Mensualidad.Add(mensualidad);
             if (Db.SaveChanges() == 1)
             {
-                alertasModel.Id = mensualidad.Id_mensualidad;
-                alertasModel.Result = true;
-                alertasModel.Mensaje = "Se realizo correctamente el registro";
-                return alertasModel;
+                alertasMdl.Id = mensualidad.Id_mensualidad;
+                alertasMdl.Result = true;
+                alertasMdl.Mensaje = "Se realizo correctamente el registro";
+                return alertasMdl;
             }
             else
             {
-                alertasModel.Result = false;
-                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
-                return alertasModel;
+                alertasMdl.Result = false;
+                alertasMdl.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasMdl;
             }
         }
         //registro de sus medidas
@@ -364,15 +375,15 @@ namespace SuperfitApi.Controllers
             Db.Asesoria_antropometria.Add(asesoria_antropometria);
             if (Db.SaveChanges() == 1)
             {
-                alertasModel.Result = true;
-                alertasModel.Mensaje = "Se realizo correctamente el registro";
-                return alertasModel;
+                alertasMdl.Result = true;
+                alertasMdl.Mensaje = "Se realizo correctamente el registro";
+                return alertasMdl;
             }
             else
             {
-                alertasModel.Result = false;
-                alertasModel.Mensaje = "Ocurrio un error con el registro intente de nuevo";
-                return alertasModel;
+                alertasMdl.Result = false;
+                alertasMdl.Mensaje = "Ocurrio un error con el registro intente de nuevo";
+                return alertasMdl;
             }
         }
         
@@ -425,7 +436,7 @@ namespace SuperfitApi.Controllers
                                     Clave_cuestionario = "CUES-" + Clave,
                                     Padece_enfermedad = Registro.Cuestionario.Padece_enfermedad == null ? false : Registro.Cuestionario.Padece_enfermedad,
                                     Medicamento_prescrito_medico = Registro.Cuestionario.Medicamento_prescrito_medico == null ? "" : Registro.Cuestionario.Medicamento_prescrito_medico,
-                                    lesiones = Registro.Cuestionario.lesiones == null ? false : Registro.Cuestionario.lesiones,
+                                    Lesiones = Registro.Cuestionario.Lesiones == null ? false : Registro.Cuestionario.Lesiones,
                                     Alguna_recomendacion_lesiones = Registro.Cuestionario.Alguna_recomendacion_lesiones == null ? "" : Registro.Cuestionario.Alguna_recomendacion_lesiones,
                                     Fuma = Registro.Cuestionario.Fuma == null ? false : Registro.Cuestionario.Fuma,
                                     Veces_semana_fuma = Registro.Cuestionario.Veces_semana_fuma == null ? 0 : Registro.Cuestionario.Veces_semana_fuma,
@@ -435,7 +446,7 @@ namespace SuperfitApi.Controllers
                                     Tipo_ejercicios = Registro.Cuestionario.Tipo_ejercicios == null ? "" : Registro.Cuestionario.Tipo_ejercicios,
                                     Tiempo_dedicado = Registro.Cuestionario.Tiempo_dedicado == null ? "" : Registro.Cuestionario.Tiempo_dedicado,
                                     Horario_entreno = Registro.Cuestionario.Horario_entreno == null ? "" : Registro.Cuestionario.Horario_entreno,
-                                    MetasObjetivos = Registro.Cuestionario.MetasObjetivos == null ? "" : Registro.Cuestionario.MetasObjetivos,
+                                    Metas_objetivos = Registro.Cuestionario.MetasObjetivos == null ? "" : Registro.Cuestionario.MetasObjetivos,
                                     Compromisos = Registro.Cuestionario.Compromisos == null ? "" : Registro.Cuestionario.Compromisos,
                                     Comentarios = Registro.Cuestionario.Comentarios == null ? "" : Registro.Cuestionario.Comentarios,
                                     Fecha_registro = DateTime.Now
@@ -483,14 +494,31 @@ namespace SuperfitApi.Controllers
                                         Db.Asesoria_antropometria.Add(asesoria_antropometria);
                                         if (Db.SaveChanges() == 1)
                                         {                                           
-                                            string ruta = HostingEnvironment.MapPath("/Imagenes/Clientes");
+                                            string ruta = HostingEnvironment.MapPath("~/Imagenes/Clientes");
                                             ruta = Path.Combine(ruta + @"\" + Clave);
                                             DirectoryInfo di = Directory.CreateDirectory(ruta);
                                             Ubicacion = Clave;
                                             IdCliente = clientes.Id_cliente.ToString();
                                             IdMedidas = asesoria_antropometria.Id.ToString();
-                                            result = "True";
-                                            alertasModel.Result = true;
+                                            Imagenes imagenes = new Imagenes
+                                            {
+                                                ImagenFrontal = Registro.Imagenes.ImagenFrontal,
+                                                ImagenPerfilCuenta = Registro.Imagenes.ImagenPerfilCuenta,
+                                                ImagenPerfil = Registro.Imagenes.ImagenPerfil,
+                                                ImagenPosterior = Registro.Imagenes.ImagenPosterior,
+                                            };
+
+                                            AlertasModel alert = new AlertasModel();
+                                            alert = UpdateImagenes(imagenes,Ubicacion, IdCliente, IdMedidas);
+                                            if (alert.Mensaje == "True")
+                                            {
+                                                result = "Se registro correcto";
+                                            }
+                                            else
+                                            {
+                                                result = "Se registro correcto falto imagens";
+                                            }
+                                            alertasMdl.Result = true;
                                         }
                                         else
                                         {                                            
@@ -501,7 +529,7 @@ namespace SuperfitApi.Controllers
                                             Db.SaveChanges();
                                             Db.Clientes.Remove(clientes);
                                             Db.SaveChanges();
-                                            alertasModel.Result = false;
+                                            alertasMdl.Result = false;
                                         }
                                     }
                                     else
@@ -511,7 +539,7 @@ namespace SuperfitApi.Controllers
                                         Db.SaveChanges();
                                         Db.Clientes.Remove(clientes);
                                         Db.SaveChanges();
-                                        alertasModel.Result = false;
+                                        alertasMdl.Result = false;
                                     }
                                 }
                                 else
@@ -519,7 +547,7 @@ namespace SuperfitApi.Controllers
                                     result = "Ocurrio un error al guardar tu cuestionario reintenta de nuevo y verifica tus datos";
                                     Db.Clientes.Remove(clientes);
                                     Db.SaveChanges();
-                                    alertasModel.Result = false;
+                                    alertasMdl.Result = false;
                                 }
                             }
                             else
@@ -527,45 +555,40 @@ namespace SuperfitApi.Controllers
                                 result = "Ocurrio un error al guardar los datos intente de nuevo por favor";
                                 Db.Clientes.Remove(clientes);
                                 Db.SaveChanges();
-                                alertasModel.Result = false;
+                                alertasMdl.Result = false;
                             }
                         }
                         else
                         {                            
                             result = "Ocurrio un error al guardar tus datos personales reintenta de nuevo y verifica tus datos";
-                            alertasModel.Result = false;
+                            alertasMdl.Result = false;
                         }
                     }
                     else
                     {                                              
                         result = "Ya hay un correo y/o celular registrado por favor intenta otro";
-                        alertasModel.Result = false;
+                        alertasMdl.Result = false;
                     }
                 }
             }
             catch (Exception ex)
             {
-                alertasModel.Result = false;
-                alertasModel.Mensaje = ex.Message;
+                alertasMdl.Result = false;
+                alertasMdl.Mensaje = ex.Message;
                 result = ex.Message;
             }
-            alertasModel.Mensaje = result;
-            return alertasModel;
+            alertasMdl.Mensaje = result;
+            return alertasMdl;
         }
 
-        [HttpPost]
-        [Route("api/Login/UpdateImagenes")]
-        public AlertasModel UpdateImagenes(Imagenes imagenes)
-        {   
-            alertasModel.Result = true;
-            alertasModel.Mensaje = "1";
+        //Subimos las imagenes
+        public AlertasModel UpdateImagenes(Imagenes imagenes, string ubicacion ,string idcliente,string medidas)
+        {            
+            alertasMdl.Result = true;
+            alertasMdl.Mensaje = "1";
             try
             {
-                string ubicacion = string.Empty, idcliente = string.Empty, medidas = string.Empty;
                 int clienteid = 0, medidasid = 0;
-                ubicacion = "Prueba";//Ubicacion;
-                idcliente = "1";// IdCliente;
-                medidas = "1"; //IdMedidas;
                 clienteid = int.Parse(idcliente);
                 medidasid = int.Parse(medidas);
                 clientes = Db.Clientes.Where(y => y.Id_cliente == clienteid).FirstOrDefault();
@@ -573,16 +596,16 @@ namespace SuperfitApi.Controllers
                 if (!string.IsNullOrEmpty(imagenes.ImagenPerfilCuenta))
                 {
                     byte[] Foto_perfil = Convert.FromBase64String(imagenes.ImagenPerfilCuenta);
-                    clientes.Foto_perfil = clientes.Foto_perfil + "/" + "fotocuenta.jpg";
-                    //Db.SaveChanges();
-                    string rutaimagenPerfilCuenta = HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + "fotocuenta.jpg");
+                    clientes.Foto_perfil = clientes.Foto_perfil + "/" + "Foto_cuenta.jpg";
+                    Db.SaveChanges();
+                    string rutaimagenPerfilCuenta = HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + "Foto_cuenta.jpg");
                     using (var ms = new MemoryStream(Foto_perfil, 0, Foto_perfil.Length))
                     {
                         Image image = Image.FromStream(ms, true);
                         image.Save(rutaimagenPerfilCuenta);
                     }
-                    alertasModel.Result = true;
-                    alertasModel.Mensaje = "True";
+                    alertasMdl.Result = true;
+                    alertasMdl.Mensaje = "True";
                 }
                 else
                 {
@@ -593,54 +616,52 @@ namespace SuperfitApi.Controllers
                 {
                     byte[] Foto_frontal = Convert.FromBase64String(imagenes.ImagenFrontal);
                     asesoria_antropometria.Foto_frontal = asesoria_antropometria.Foto_frontal + "/" + "Foto_frontal.jpg";
-                   // Db.SaveChanges();
+                    Db.SaveChanges();
                     string rutaFoto_frontal= HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + "Foto_frontal.jpg");
                     using (var ms = new MemoryStream(Foto_frontal, 0, Foto_frontal.Length))
                     {
                         Image image = Image.FromStream(ms, true);
                         image.Save(rutaFoto_frontal);
                     }
-                    alertasModel.Result = true;
-                    alertasModel.Mensaje = "True";
+                    alertasMdl.Result = true;
+                    alertasMdl.Mensaje = "True";
                 }
                 if (!string.IsNullOrEmpty(imagenes.ImagenPerfil))
                 {
                     byte[] Foto_perfil = Convert.FromBase64String(imagenes.ImagenPerfil);
                     asesoria_antropometria.Foto_perfil = asesoria_antropometria.Foto_perfil + "/" + "Foto_lateral.jpg";
-                    //Db.SaveChanges();
+                    Db.SaveChanges();
                     string rutafotolateral = HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + "Foto_lateral.jpg");
                     using (var ms = new MemoryStream(Foto_perfil, 0, Foto_perfil.Length))
                     {
                         Image image = Image.FromStream(ms, true);
                         image.Save(rutafotolateral);
                     }
-                    alertasModel.Result = true;
-                    alertasModel.Mensaje = "True";
+                    alertasMdl.Result = true;
+                    alertasMdl.Mensaje = "True";
                 }
                 if (!string.IsNullOrEmpty(imagenes.ImagenPosterior))
                 {
                     byte[] Foto_posterior = Convert.FromBase64String(imagenes.ImagenPosterior);
                     asesoria_antropometria.Foto_posterior = asesoria_antropometria.Foto_posterior + "/" + "Foto_posterior.jpg"; 
-                    //Db.SaveChanges();
+                    Db.SaveChanges();
                     string fotoposterior=HostingEnvironment.MapPath("~/Imagenes/Clientes/" + ubicacion + "/" + "Foto_posterior.jpg");
                     using (var ms = new MemoryStream(Foto_posterior, 0, Foto_posterior.Length))                    
                     {
                         Image image = Image.FromStream(ms, true);
                         image.Save(fotoposterior);
                     }
-                    alertasModel.Result = true;
-                    alertasModel.Mensaje = "True";
+                    alertasMdl.Result = true;
+                    alertasMdl.Mensaje = "True";
                     
                 }
             }
             catch (Exception ex)
             {
-                alertasModel.Mensaje = ex.Message;
+                alertasMdl.Mensaje = ex.Message;
             }
-            return alertasModel;
+            return alertasMdl;
         }
-
-
     }
    
 }

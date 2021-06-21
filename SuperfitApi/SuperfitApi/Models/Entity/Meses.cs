@@ -14,8 +14,17 @@ namespace SuperfitApi.Models.Entity
     
     public partial class Meses
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Meses()
+        {
+            this.Mensualidad = new HashSet<Mensualidad>();
+        }
+    
         public int Id_mes { get; set; }
         public string Clave_mes { get; set; }
         public string Mes { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mensualidad> Mensualidad { get; set; }
     }
 }

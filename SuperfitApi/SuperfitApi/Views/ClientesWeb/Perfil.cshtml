@@ -34,7 +34,7 @@
     <br />
     <div class="jumbotron">
         <div style="text-align:center;">
-            <img id="perfil" src="@mes.Cliente.Foto_perfil" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;" />
+            <img id="perfil" src="https://www.bsite.net/valerioparada/@mes.Cliente.Foto_perfil" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;" />
         </div>
         <div style="text-align:center;margin-top:10px" class="col-md-6 offset-md-3">
             <label for="Foto_cliente_perfil" style="cursor:pointer">
@@ -403,7 +403,11 @@
                     location.reload();
                 }
                 else {
-                    location.reload();
+                    swal({
+                        title: "Warning!",
+                        text: "Ocurrio un error",
+                        type: "warning"
+                    });
                 }
             },
             error: function (xhr, status, error) {
@@ -517,7 +521,6 @@
             document.getElementById("IdNombreE").style.borderColor = "red";
         }
     }
-
 
     //Cuestionario
     function VerCuestionario() {

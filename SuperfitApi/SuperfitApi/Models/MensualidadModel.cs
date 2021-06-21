@@ -19,5 +19,6 @@ namespace SuperfitApi.Models
         public string Fechafin { get; set; }
         public string SinfechaAsignadaI { get; set; }
         public string SinfechaAsignadaF { get; set; }
+        public PagosmensualModel PagoMes { get; set; }
     }
 }

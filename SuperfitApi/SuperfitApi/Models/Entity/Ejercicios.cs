@@ -24,10 +24,12 @@ namespace SuperfitApi.Models.Entity
         public string Clave_ejercicio { get; set; }
         public string Ejercicio { get; set; }
         public string Descripcion { get; set; }
-        public string Posicion { get; set; }
         public string Ubicacion_imagen { get; set; }
+        public string Posicion { get; set; }
+        public int Id_rutina { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Detalle_rutina> Detalle_rutina { get; set; }
+        public virtual Rutinas Rutinas { get; set; }
     }
 }

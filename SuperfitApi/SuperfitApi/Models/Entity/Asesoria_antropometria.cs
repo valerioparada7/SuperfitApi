@@ -33,5 +33,7 @@ namespace SuperfitApi.Models.Entity
         public string Foto_perfil { get; set; }
         public string Foto_posterior { get; set; }
         public System.DateTime Fecha_registro { get; set; }
+    
+        public virtual Mensualidad Mensualidad { get; set; }
     }
 }

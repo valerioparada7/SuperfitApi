@@ -8,6 +8,11 @@ using SuperfitApi.Models;
 using SuperfitApi.Autetication;
 using System.IO;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Net.Mail;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace SuperfitApi.Controllers
 {
@@ -20,12 +25,14 @@ namespace SuperfitApi.Controllers
         public Cuestionario cuestionario;
         public Mensualidad mensualidad;
         public Asesoria_antropometria asesoria_antropometria;
+        public Pagos_mensualidades pagos_Mensualidades;
         //modelos
         public ClientesModel clientesMdl;
         public CuestionarioModel cuestionarioMdl;
         public MensualidadModel mensualidadMdl;
         public AntropometriaModel asesoria_antropometriaMdl;
-        public AlertasModel alertasModel;
+        public AlertasModel alertasMdl;
+        public PagosmensualModel PagosmensualMdl;
         //listas de modelos
         public List<DetallerutinaModel> listdetallerutinaMdl;
         public List<MensualidadModel> listmensualidadMdl;
@@ -39,17 +46,21 @@ namespace SuperfitApi.Controllers
             cuestionario = new Cuestionario();
             mensualidad = new Mensualidad();
             asesoria_antropometria = new Asesoria_antropometria();
+            pagos_Mensualidades = new Pagos_mensualidades();
             //modelos
             clientesMdl = new ClientesModel();
             cuestionarioMdl = new CuestionarioModel();
             mensualidadMdl = new MensualidadModel();
             asesoria_antropometriaMdl = new AntropometriaModel();
-            alertasModel = new AlertasModel();
+            alertasMdl = new AlertasModel();
+            PagosmensualMdl = new PagosmensualModel();
             //listas de modelos
             listdetallerutinaMdl = new List<DetallerutinaModel>();
             listmensualidadMdl = new List<MensualidadModel>();
             listantropometriaMdl = new List<AntropometriaModel>();
         }
+        
+
         // GET: ClientesWeb
         public ActionResult Index()
         {
@@ -60,7 +71,6 @@ namespace SuperfitApi.Controllers
         {
             try
             {
-                
                 DateTimeFormatInfo fechastring = CultureInfo.GetCultureInfo("es-ES").DateTimeFormat;                
                 string Mes = string.Empty, Dia = string.Empty,finalizar=string.Empty;
                 string Id = Session["Id_Cliente"].ToString();
@@ -148,8 +158,7 @@ namespace SuperfitApi.Controllers
                     mensualidadMdl.TipoEntrenamiento.Tipo_entrenamiento = "No asignado";
                     mensualidadMdl.Fechafin = "Sin fecha asignada";
                     mensualidadMdl.Fechainicio = "Sin fecha asignada";
-                }
-                string fto = mensualidadMdl.Cliente.Foto_perfil;
+                }                
                 ViewBag.Finalizar = finalizar;
                 ViewBag.Mes = mensualidadMdl;
                 return View();
@@ -221,7 +230,7 @@ namespace SuperfitApi.Controllers
                                           Edad = c.Edad,
                                           Telefono = (decimal)c.Telefono,
                                           Correo_electronico = c.Correo_electronico,
-                                          Estado = c.Estado,
+                                          Estado = (bool)c.Estado,
                                           Contraseña = c.Contraseña,
                                           Foto_perfil = c.Foto_perfil,
                                           Sexo = c.Sexo
@@ -236,15 +245,57 @@ namespace SuperfitApi.Controllers
             {
                 for (int i = 0; i < listmensualidadMdl.Count; i++)
                 {
-                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_inicio.Month);
-                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_inicio.DayOfWeek);
+                    Mes = fechastring.GetMonthName(listmensualidadMdl[i].Fecha_inicio.Month);
+                    Dia = fechastring.GetDayName(listmensualidadMdl[i].Fecha_inicio.DayOfWeek);
                     listmensualidadMdl[i].Fechainicio = Dia + " " + listmensualidadMdl[i].Fecha_inicio.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_inicio.Year; 
-                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_fin.Month);
-                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_fin.DayOfWeek); 
+                    Mes = fechastring.GetMonthName(listmensualidadMdl[i].Fecha_fin.Month);
+                    Dia = fechastring.GetDayName(listmensualidadMdl[i].Fecha_fin.DayOfWeek); 
                     listmensualidadMdl[i].Fechafin = Dia + " " + listmensualidadMdl[i].Fecha_fin.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_fin.Year;
                 }
             }
             return View(listmensualidadMdl);
+        }
+
+        public bool PagoMes(HttpPostedFileBase imagen,int Idmes,double monto,string descripcion) 
+        {
+            string Id = Session["Id_Cliente"].ToString();
+            int IdCliente = int.Parse(Id);
+            string ruta = string.Empty;
+            var cliente = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
+            var meses = Db.Mensualidad.Where(y => y.Id_mensualidad == Idmes).FirstOrDefault();
+            if (meses.Id_estatus == 1)
+            {
+                pagos_Mensualidades = new Pagos_mensualidades
+                {
+                    Id_mensualidad = Idmes,
+                    Monto = (decimal)monto,
+                    Descripcion = descripcion,
+                    Fecha_pago = DateTime.Now,
+                    Ubicacion_imagen_pago = "/Imagenes/Clientes/" + cliente.Clave_cliente + "/" + "Mes:" + Idmes + ":" + imagen.FileName.ToString()
+                };
+                ruta = pagos_Mensualidades.Ubicacion_imagen_pago;
+                Db.Pagos_mensualidades.Add(pagos_Mensualidades);
+                if (Db.SaveChanges() == 1)
+                {
+                    try
+                    {
+                        imagen.SaveAs(Server.MapPath("~" + ruta));
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {                        
+                        return false;
+                    }                    
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }            
         }
 
         public bool UpdateFoto(HttpPostedFileBase imagen)
@@ -417,8 +468,7 @@ namespace SuperfitApi.Controllers
 
             return Json(listantropometriaMdl, JsonRequestBehavior.AllowGet);
         }
-
-
+        
         //Hacer un nuevo registro de medidas
         public string RegistrarMedidas(AntropometriaModel antropometriaModel)
         {

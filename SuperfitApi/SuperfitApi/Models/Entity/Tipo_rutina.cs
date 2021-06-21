@@ -17,7 +17,7 @@ namespace SuperfitApi.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tipo_rutina()
         {
-            this.Mensualidads = new HashSet<Mensualidad>();
+            this.Mensualidad = new HashSet<Mensualidad>();
         }
     
         public int Id_tipo_rutina { get; set; }
@@ -25,6 +25,6 @@ namespace SuperfitApi.Models.Entity
         public string Descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mensualidad> Mensualidads { get; set; }
+        public virtual ICollection<Mensualidad> Mensualidad { get; set; }
     }
 }

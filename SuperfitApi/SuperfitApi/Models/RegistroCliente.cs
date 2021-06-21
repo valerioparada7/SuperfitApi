@@ -11,5 +11,6 @@ namespace SuperfitApi.Models
         public MensualidadModel Mensualidad { get; set; }
         public CuestionarioModel Cuestionario { get; set; }
         public AntropometriaModel Medidas { get; set; }
+        public Imagenes Imagenes { get; set; }
     }
 }

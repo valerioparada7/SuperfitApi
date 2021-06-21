@@ -26,6 +26,6 @@ namespace SuperfitApi.Models.Entity
         public virtual Dias Dias { get; set; }
         public virtual Ejercicios Ejercicios { get; set; }
         public virtual Mensualidad Mensualidad { get; set; }
-        public virtual Rutina Rutinas { get; set; }
+        public virtual Rutinas Rutinas { get; set; }
     }
 }

@@ -6,10 +6,10 @@
     List<ClientesModel> activos = new List<ClientesModel>();
     List<ClientesModel> inactivos = new List<ClientesModel>();
     List<ClientesModel> porfinalizar = new List<ClientesModel>();
-    pendientes = ViewBag.pendientes;
-    activos = ViewBag.activos;
-    inactivos = ViewBag.inactivos;
-    porfinalizar = ViewBag.porfinalizar;    
+    pendientes = ViewBag.pendientes == null ? new List<ClientesModel>() : ViewBag.pendientes;
+    activos = ViewBag.activos ==null ? new List<ClientesModel>() : ViewBag.activos;
+    inactivos = ViewBag.inactivos == null ? new List<ClientesModel>() : ViewBag.inactivos;
+    porfinalizar = ViewBag.porfinalizar== null? new List<ClientesModel>() : ViewBag.porfinalizar;    
 }
 <!DOCTYPE html>
 <html>

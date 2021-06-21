@@ -17,7 +17,9 @@ namespace SuperfitApi.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Mensualidad()
         {
+            this.Asesoria_antropometria = new HashSet<Asesoria_antropometria>();
             this.Detalle_rutina = new HashSet<Detalle_rutina>();
+            this.Pagos_mensualidades = new HashSet<Pagos_mensualidades>();
         }
     
         public int Id_mensualidad { get; set; }
@@ -25,15 +27,20 @@ namespace SuperfitApi.Models.Entity
         public int Id_tipo_rutina { get; set; }
         public int Id_mes { get; set; }
         public int Id_estatus { get; set; }
-        public int Id_tipo_entrenamiento { get; set; }
-        public System.DateTime Fecha_inicio { get; set; }
-        public System.DateTime Fecha_fin { get; set; }
+        public Nullable<int> Id_tipo_entrenamiento { get; set; }
+        public Nullable<System.DateTime> Fecha_inicio { get; set; }
+        public Nullable<System.DateTime> Fecha_fin { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Asesoria_antropometria> Asesoria_antropometria { get; set; }
         public virtual Clientes Clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Detalle_rutina> Detalle_rutina { get; set; }
         public virtual Estatus Estatus { get; set; }
-        public virtual Tipo_rutina Tipo_rutina { get; set; }
         public virtual Tipo_entrenamiento Tipo_entrenamiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pagos_mensualidades> Pagos_mensualidades { get; set; }
+        public virtual Meses Meses { get; set; }
+        public virtual Tipo_rutina Tipo_rutina { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace SuperfitApi.Models.Entity
         public int Edad { get; set; }
         public Nullable<decimal> Telefono { get; set; }
         public string Correo_electronico { get; set; }
-        public bool Estado { get; set; }
+        public Nullable<bool> Estado { get; set; }
         public string Contraseña { get; set; }
         public string Foto_perfil { get; set; }
         public string Sexo { get; set; }

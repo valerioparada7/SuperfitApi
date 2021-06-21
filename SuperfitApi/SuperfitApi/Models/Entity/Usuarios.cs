@@ -20,6 +20,6 @@ namespace SuperfitApi.Models.Entity
         public string Nombres { get; set; }
         public string Apellido_paterno { get; set; }
         public string Apellido_materno { get; set; }
-        public bool Estado { get; set; }
+        public Nullable<bool> Estado { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public Tipo_entrenamiento tipo_Entrenamiento;
         public Ejercicios ejercicios;
         public Estatus estatus;
-        public Rutina rutina;
+        public Rutinas rutina;
         public Detalle_rutina detalle_Rutina;
 
         //modelos
@@ -66,7 +66,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             tipo_Rutina = new Tipo_rutina();
             tipo_Entrenamiento = new Tipo_entrenamiento();
             ejercicios = new Ejercicios();
-            rutina = new Rutina();
+            rutina = new Rutinas();
             detalle_Rutina = new Detalle_rutina();
 
             //modelos
@@ -114,7 +114,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                    Edad = l.Edad,
                                    Telefono = (decimal)l.Telefono,
                                    Correo_electronico = l.Correo_electronico,
-                                   Estado = l.Estado,
+                                   Estado = (bool)l.Estado,
                                    Contraseña = l.Contraseña,
                                    Foto_perfil = l.Foto_perfil,
                                    Sexo = l.Sexo
@@ -146,7 +146,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                           Edad = c.Edad,
                                           Telefono = (decimal)c.Telefono,
                                           Correo_electronico = c.Correo_electronico,
-                                          Estado = c.Estado,
+                                          Estado = (bool)c.Estado,
                                           Contraseña = c.Contraseña,
                                           Foto_perfil = c.Foto_perfil,
                                           Sexo = c.Sexo
@@ -251,7 +251,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                    Edad = l.Edad,
                                    Telefono = (decimal)l.Telefono,
                                    Correo_electronico = l.Correo_electronico,
-                                   Estado = l.Estado,
+                                   Estado = (bool)l.Estado,
                                    Contraseña = l.Contraseña,
                                    Foto_perfil = l.Foto_perfil,
                                    Sexo = l.Sexo
@@ -331,7 +331,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                Edad = l.Edad,
                                Telefono = (decimal)l.Telefono,
                                Correo_electronico = l.Correo_electronico,
-                               Estado = l.Estado,
+                               Estado = (bool)l.Estado,
                                Contraseña = l.Contraseña,
                                Foto_perfil = l.Foto_perfil,
                                Sexo = l.Sexo
@@ -594,7 +594,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public bool AgregarRutinas(RutinasModel rutinasModel)
         {
             bool result = false;
-            rutina = new Rutina
+            rutina = new Rutinas
             {
                 Clave_rutina = rutinasModel.Clave_rutina,
                 Descripcion = rutinasModel.Descripcion
@@ -677,6 +677,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 Ejercicio = ejerciciosModel.Ejercicio,
                 Descripcion = ejerciciosModel.Descripcion,
                 Posicion = ejerciciosModel.Posicion,
+                Id_rutina = ejerciciosModel.Rutinas.Id_tiporutina,
                 Ubicacion_imagen = ""
             };
             Db.Ejercicios.Add(ejercicios);
@@ -930,7 +931,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                           Edad = c.Edad,
                                           Telefono = (decimal)c.Telefono,
                                           Correo_electronico = c.Correo_electronico,
-                                          Estado = c.Estado,
+                                          Estado = (bool)c.Estado,
                                           Contraseña = c.Contraseña,
                                           Foto_perfil = c.Foto_perfil,
                                           Sexo = c.Sexo
@@ -994,7 +995,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                           Edad = c.Edad,
                                           Telefono = (decimal)c.Telefono,
                                           Correo_electronico = c.Correo_electronico,
-                                          Estado = c.Estado,
+                                          Estado = (bool)c.Estado,
                                           Contraseña = c.Contraseña,
                                           Foto_perfil = c.Foto_perfil,
                                           Sexo = c.Sexo
@@ -1009,11 +1010,11 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             {              
                 for(int i=0;i< listmensualidadMdl.Count; i++)
                 {
-                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_inicio.Month);
-                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_inicio.DayOfWeek);
+                    Mes = fechastring.GetMonthName(listmensualidadMdl[i].Fecha_inicio.Month);
+                    Dia = fechastring.GetDayName(listmensualidadMdl[i].Fecha_inicio.DayOfWeek);
                     listmensualidadMdl[i].Fechainicio = Dia + " " + listmensualidadMdl[i].Fecha_inicio.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_inicio.Year;
-                    Mes = fechastring.GetMonthName(mensualidadMdl.Fecha_fin.Month);
-                    Dia = fechastring.GetDayName(mensualidadMdl.Fecha_fin.DayOfWeek);
+                    Mes = fechastring.GetMonthName(listmensualidadMdl[i].Fecha_fin.Month);
+                    Dia = fechastring.GetDayName(listmensualidadMdl[i].Fecha_fin.DayOfWeek);
                     listmensualidadMdl[i].Fechafin = Dia + " " + listmensualidadMdl[i].Fecha_fin.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_fin.Year;
                 }
             }
@@ -1073,7 +1074,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                           Edad = c.Edad,
                                           Telefono = (decimal)c.Telefono,
                                           Correo_electronico = c.Correo_electronico,
-                                          Estado = c.Estado,
+                                          Estado = (bool)c.Estado,
                                           Contraseña = c.Contraseña,
                                           Foto_perfil = c.Foto_perfil,
                                           Sexo = c.Sexo
@@ -1225,7 +1226,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                       Edad = c.Edad,
                                       Telefono = (decimal)c.Telefono,
                                       Correo_electronico = c.Correo_electronico,
-                                      Estado = c.Estado,
+                                      Estado = (bool)c.Estado,
                                       Contraseña = c.Contraseña,
                                       Foto_perfil = c.Foto_perfil,
                                       Sexo = c.Sexo
@@ -1409,7 +1410,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                     Clave_cuestionario= c.Clave_cuestionario,
                                     Padece_enfermedad= (bool)c.Padece_enfermedad,
                                     Medicamento_prescrito_medico= c.Medicamento_prescrito_medico   ,
-                                    lesiones= (bool)c.lesiones,
+                                    Lesiones= (bool)c.Lesiones,
                                     Alguna_recomendacion_lesiones= c.Alguna_recomendacion_lesiones  ,
                                     Fuma= (bool)c.Fuma,
                                     Veces_semana_fuma= (int)c.Veces_semana_fuma,
@@ -1419,7 +1420,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                     Tipo_ejercicios= c.Tipo_ejercicios,                                    
                                     Tiempo_dedicado = c.Tiempo_dedicado,
                                     Horario_entreno= c.Horario_entreno,
-                                    MetasObjetivos= c.MetasObjetivos,
+                                    MetasObjetivos= c.Metas_objetivos,
                                     Compromisos= c.Compromisos,
                                     Comentarios= c.Comentarios,
                                     Fecha_registro= (DateTime)c.Fecha_registro
@@ -1441,7 +1442,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 Clave_cuestionario ="CUES"+ cliente.Clave_cliente,
                 Padece_enfermedad               = cuestionarioModel.Padece_enfermedad==null ? false: cuestionarioModel.Padece_enfermedad,
                 Medicamento_prescrito_medico    = cuestionarioModel.Medicamento_prescrito_medico ==null ? "" : cuestionarioModel.Medicamento_prescrito_medico , 
-                lesiones                        = cuestionarioModel.lesiones                     ==null ? false : cuestionarioModel.lesiones                     , 
+                Lesiones                        = cuestionarioModel.Lesiones                     ==null ? false : cuestionarioModel.Lesiones                     , 
                 Alguna_recomendacion_lesiones   = cuestionarioModel.Alguna_recomendacion_lesiones==null ? "" : cuestionarioModel.Alguna_recomendacion_lesiones , 
                 Fuma                            = cuestionarioModel.Fuma                         ==null ? false : cuestionarioModel.Fuma                         , 
                 Veces_semana_fuma               = cuestionarioModel.Veces_semana_fuma            ==null ? 0 : cuestionarioModel.Veces_semana_fuma            , 
@@ -1451,7 +1452,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 Tipo_ejercicios                 = cuestionarioModel.Tipo_ejercicios              ==null ? "": cuestionarioModel.Tipo_ejercicios              , 
                 Tiempo_dedicado                 = cuestionarioModel.Tiempo_dedicado              ==null ?"": cuestionarioModel.Tiempo_dedicado              , 
                 Horario_entreno                 = cuestionarioModel.Horario_entreno              ==null ?"" : cuestionarioModel.Horario_entreno              , 
-                MetasObjetivos                  = cuestionarioModel.MetasObjetivos               ==null ?"" : cuestionarioModel.MetasObjetivos               , 
+                Metas_objetivos                  = cuestionarioModel.MetasObjetivos               ==null ?"" : cuestionarioModel.MetasObjetivos               , 
                 Compromisos                     = cuestionarioModel.Compromisos                  ==null ?"" : cuestionarioModel.Compromisos                  , 
                 Comentarios                     = cuestionarioModel.Comentarios                  ==null ?"" :  cuestionarioModel.Comentarios                  ,
                 Fecha_registro                  =DateTime.Now
@@ -1473,7 +1474,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             {
                 cuestionario.Padece_enfermedad = cuestionarioModel.Padece_enfermedad == null ? false : cuestionarioModel.Padece_enfermedad;
                 cuestionario.Medicamento_prescrito_medico = cuestionarioModel.Medicamento_prescrito_medico == null ? "" : cuestionarioModel.Medicamento_prescrito_medico;
-                cuestionario.lesiones = cuestionarioModel.lesiones == null ? false : cuestionarioModel.lesiones;
+                cuestionario.Lesiones = cuestionarioModel.Lesiones == null ? false : cuestionarioModel.Lesiones;
                 cuestionario.Alguna_recomendacion_lesiones = cuestionarioModel.Alguna_recomendacion_lesiones == null ? "" : cuestionarioModel.Alguna_recomendacion_lesiones;
                 cuestionario.Fuma = cuestionarioModel.Fuma == null ? false : cuestionarioModel.Fuma;
                 cuestionario.Veces_semana_fuma = cuestionarioModel.Veces_semana_fuma == null ? 0 : cuestionarioModel.Veces_semana_fuma;
@@ -1483,7 +1484,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 cuestionario.Tipo_ejercicios = cuestionarioModel.Tipo_ejercicios == null ? "" : cuestionarioModel.Tipo_ejercicios;
                 cuestionario.Tiempo_dedicado = cuestionarioModel.Tiempo_dedicado == null ? "" : cuestionarioModel.Tiempo_dedicado;
                 cuestionario.Horario_entreno = cuestionarioModel.Horario_entreno == null ? "" : cuestionarioModel.Horario_entreno;
-                cuestionario.MetasObjetivos = cuestionarioModel.MetasObjetivos == null ? "" : cuestionarioModel.MetasObjetivos;
+                cuestionario.Metas_objetivos = cuestionarioModel.MetasObjetivos == null ? "" : cuestionarioModel.MetasObjetivos;
                 cuestionario.Compromisos = cuestionarioModel.Compromisos == null ? "" : cuestionarioModel.Compromisos;
                 cuestionario.Comentarios = cuestionarioModel.Comentarios == null ? "" : cuestionarioModel.Comentarios;
                 cuestionario.Fecha_registro = DateTime.Now;

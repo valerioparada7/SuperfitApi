@@ -8,6 +8,10 @@ using SuperfitApi.Models;
 using SuperfitApi.Models.Entity;
 using SuperfitApi.Controllers;
 using System.IO;
+using System.Net.Mail;
+using Twilio;
+using Twilio.Types;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace SuperfitApi.Controllers
 {    
@@ -25,7 +29,7 @@ namespace SuperfitApi.Controllers
         public CuestionarioModel cuestionarioMdl;
         public MensualidadModel mensualidadMdl;
         public AntropometriaModel asesoria_antropometriaMdl;
-        public AlertasModel alertasModel;
+        public AlertasModel alertasMdl;
         #endregion       
         public LoginWebController()
         {
@@ -40,7 +44,7 @@ namespace SuperfitApi.Controllers
             cuestionarioMdl = new CuestionarioModel();
             mensualidadMdl = new MensualidadModel();
             asesoria_antropometriaMdl = new AntropometriaModel();
-            alertasModel = new AlertasModel();
+            alertasMdl = new AlertasModel();
         }
         // GET: LoginWeb
         public ActionResult LoginWeb()
@@ -141,7 +145,138 @@ namespace SuperfitApi.Controllers
                 return View();
             }                       
         }
+        public ActionResult Recuperarcuenta()
+        {
+            return View();
+        }
+        //Envio de recuperacion con codigo aleatorio
+        [HttpPost]
+        public JsonResult GeneradorCodigo(string User)
+        {
+            alertasMdl.Result = false;
+            bool validacion = false;
+            string celortel = string.Empty;
+            clientes = new Clientes();
+            try
+            {
+                if (ValidacionUser(User) == true)
+                {
+                    var clientesserch = Db.Clientes.Where(y => y.Correo_electronico == User).FirstOrDefault();
+                    if (clientesserch != null)
+                    {
+                        celortel = "correo";
+                        validacion = true;
+                        clientes = clientesserch;
+                    }
+                    else
+                    {
+                        alertasMdl.Mensaje = "No se encontro ese usuario con ese correo";
+                        alertasMdl.Result = false;
+                    }
+                }
+                else
+                {
+                    if (ValidarCelular(User) == true)
+                    {
+                        decimal celular = 0;
+                        celular = decimal.Parse(User);
+                        var clientesserch = Db.Clientes.Where(y => y.Telefono == celular).FirstOrDefault();
+                        if (clientesserch != null)
+                        {
+                            celortel = "cel";
+                            validacion = true;
+                            clientes = clientesserch;
+                        }
+                    }
+                    else
+                    {
+                        alertasMdl.Mensaje = "No se encontro ese usuario con ese numero";
+                        alertasMdl.Result = false;
+                    }
+                }
 
+                if (validacion == true)
+                {
+                    Random random = new Random();
+                    string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    int numero = random.Next(1, 1000);
+                    string codigo = string.Empty;
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        int ind = random.Next(alfabeto.Length);
+                        codigo += alfabeto[ind];
+                    }
+                    codigo += numero;
+                    clientes.Contraseña = codigo;
+                    Db.SaveChanges();
+                    if (celortel == "correo")
+                    {
+                        string ruta = Server.MapPath("~/Plantillas/CorreoRecuperacion.html");
+                        string html = System.IO.File.ReadAllText(ruta);
+                        html = html.Replace("@CodigoRecuperacion", codigo);
+                        MailMessage MyMailMessage = new MailMessage();
+                        MyMailMessage.From = new MailAddress("soportebysuperfitvalerio@gmail.com");
+                        MyMailMessage.To.Add(User);
+                        MyMailMessage.Subject = "Recuperacion de cuenta";
+                        AlternateView HTMLConImagenes;
+                        HTMLConImagenes = AlternateView.CreateAlternateViewFromString(html, null, "text/html");
+                        MyMailMessage.AlternateViews.Add(HTMLConImagenes);
+                        SmtpClient SMTPServer = new SmtpClient();
+                        SMTPServer.Port = 25;
+                        SMTPServer.Host = "smtp.gmail.com";
+                        SMTPServer.Credentials = new System.Net.NetworkCredential("soportebysuperfitvalerio@gmail.com", "Angelawhite7");
+                        SMTPServer.EnableSsl = true;
+                        try
+                        {
+                            SMTPServer.Send(MyMailMessage);
+                            alertasMdl.Mensaje = "Revisa tu bandeja de correo que proporcionaste para continuar";
+                            alertasMdl.Result = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            alertasMdl.Mensaje = ex.Message;
+                            alertasMdl.Result = false;
+                        }
+                    }
+                    else
+                    {
+                        string Mensaje = string.Empty;
+                        Mensaje = "Codigo de recuperacion\n";
+                        Mensaje += "Introduce este código autogenerado como contraseña temporal,\ndespues que inicies sesion cambia tu contraseña\n";
+                        Mensaje += codigo;
+                        Mensaje += "\nLos códigos de caducan después de dos horas.\n";
+                        Mensaje += "Ir a Superfit\n";
+                        Mensaje += "https://www.bsite.net/valerioparada";
+                        var accountSid = "ACd6ccd243ec7ba11411f5f8888ef37e53";
+                        var authToken = "e8a54699fed75cbcda2cd36d3059a529";
+                        TwilioClient.Init(accountSid, authToken);
+
+                        var messageOptions = new CreateMessageOptions(
+                            new PhoneNumber("whatsapp:+52" + User));
+                        messageOptions.From = new PhoneNumber("whatsapp:+14155238886");
+                        messageOptions.Body = Mensaje;
+
+                        var message = MessageResource.Create(messageOptions);
+                        alertasMdl.Mensaje = "Revisa tu whatsapp con el numero proporcionaste para continuar";
+                        alertasMdl.Result = true;                        
+                    }
+
+                }
+                else
+                {
+                    alertasMdl.Mensaje = alertasMdl.Mensaje;
+                    alertasMdl.Result = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                alertasMdl.Mensaje = ex.Message;
+                alertasMdl.Result = false;
+            }
+            return Json(alertasMdl, JsonRequestBehavior.AllowGet);
+        }
+        
         [HttpPost]
         public ActionResult LoginAdministradorWeb(string User, string Pass)
         {
@@ -253,18 +388,18 @@ namespace SuperfitApi.Controllers
                             int Identity = Db.Clientes.Select(y => y.Id_cliente).Max() + 1;
                             Clientes updatecliente = Db.Clientes.Where(y => y.Id_cliente == clientes.Id_cliente).FirstOrDefault();
                             updatecliente.Clave_cliente = updatecliente.Clave_cliente + "" + Identity.ToString();
-                            updatecliente.Foto_perfil = "/Imagenes/Clientes/" + updatecliente.Clave_cliente;                           
+                            updatecliente.Foto_perfil = "~/Imagenes/Clientes/" + updatecliente.Clave_cliente;                           
                             if (Db.SaveChanges() == 1)
                             {
                                 Clave = updatecliente.Clave_cliente;
-                                fotoperfil = "/Imagenes/Clientes/"+Clave;
+                                fotoperfil = "~/Imagenes/Clientes/" + Clave;
                                 cuestionario = new Cuestionario
                                 {
                                     Id_cliente = clientes.Id_cliente,
                                     Clave_cuestionario = "CUES-" + Clave,
                                     Padece_enfermedad = Registro.Cuestionario.Padece_enfermedad == null ? false : Registro.Cuestionario.Padece_enfermedad,
                                     Medicamento_prescrito_medico = Registro.Cuestionario.Medicamento_prescrito_medico == null ? "" : Registro.Cuestionario.Medicamento_prescrito_medico,
-                                    lesiones = Registro.Cuestionario.lesiones == null ? false : Registro.Cuestionario.lesiones,
+                                    Lesiones = Registro.Cuestionario.Lesiones == null ? false : Registro.Cuestionario.Lesiones,
                                     Alguna_recomendacion_lesiones = Registro.Cuestionario.Alguna_recomendacion_lesiones == null ? "" : Registro.Cuestionario.Alguna_recomendacion_lesiones,
                                     Fuma = Registro.Cuestionario.Fuma == null ? false : Registro.Cuestionario.Fuma,
                                     Veces_semana_fuma = Registro.Cuestionario.Veces_semana_fuma == null ? 0 : Registro.Cuestionario.Veces_semana_fuma,
@@ -274,7 +409,7 @@ namespace SuperfitApi.Controllers
                                     Tipo_ejercicios = Registro.Cuestionario.Tipo_ejercicios == null ? "" : Registro.Cuestionario.Tipo_ejercicios,
                                     Tiempo_dedicado = Registro.Cuestionario.Tiempo_dedicado == null ? "" : Registro.Cuestionario.Tiempo_dedicado,
                                     Horario_entreno = Registro.Cuestionario.Horario_entreno == null ? "" : Registro.Cuestionario.Horario_entreno,
-                                    MetasObjetivos = Registro.Cuestionario.MetasObjetivos == null ? "" : Registro.Cuestionario.MetasObjetivos,
+                                    Metas_objetivos = Registro.Cuestionario.MetasObjetivos == null ? "" : Registro.Cuestionario.MetasObjetivos,
                                     Compromisos = Registro.Cuestionario.Compromisos == null ? "" : Registro.Cuestionario.Compromisos,
                                     Comentarios = Registro.Cuestionario.Comentarios == null ? "" : Registro.Cuestionario.Comentarios,
                                     Fecha_registro = DateTime.Now
@@ -322,7 +457,7 @@ namespace SuperfitApi.Controllers
                                         Db.Asesoria_antropometria.Add(asesoria_antropometria);
                                         if (Db.SaveChanges() == 1)
                                         {
-                                            string ruta = Server.MapPath("/Imagenes/Clientes");
+                                            string ruta = Server.MapPath("~/Imagenes/Clientes");
                                             ruta = Path.Combine(ruta + @"\" + Clave);
                                             DirectoryInfo di = Directory.CreateDirectory(ruta);
                                             TempData["Ubicacion"] = Clave;

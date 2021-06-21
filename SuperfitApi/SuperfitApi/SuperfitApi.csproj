@@ -60,9 +60,19 @@
       <HintPath>..\packages\FontAwesome5.2.1.0\lib\net472\FontAwesome5.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.2\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.2\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -122,6 +132,9 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio, Version=5.62.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.62.0\lib\net451\Twilio.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -191,63 +204,67 @@
     <Compile Include="Models\DiasModel.cs" />
     <Compile Include="Models\EjerciciosModel.cs" />
     <Compile Include="Models\Entity\Asesoria_antropometria.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Clientes.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Cuestionario.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Detalle_rutina.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Dias.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Ejercicios.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Estatus.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Mensualidad.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Meses.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Rutina.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+    <Compile Include="Models\Entity\Pagos_mensualidades.cs">
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\SuperfitEntities.Context.cs">
+    <Compile Include="Models\Entity\Rutinas.cs">
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SuperfitModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SuperfitEntities.Context.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\SuperfitEntities.cs">
+    <Compile Include="Models\Entity\SuperfitModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\SuperfitEntities.Designer.cs">
+    <Compile Include="Models\Entity\SuperfitModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SuperfitEntities.edmx</DependentUpon>
+      <DependentUpon>SuperfitModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Tipo_entrenamiento.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Tipo_rutina.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Usuarios.cs">
-      <DependentUpon>SuperfitEntities.tt</DependentUpon>
+      <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EstatusModel.cs" />
     <Compile Include="Models\Imagenes.cs" />
     <Compile Include="Models\MensualidadModel.cs" />
     <Compile Include="Models\MesesModel.cs" />
+    <Compile Include="Models\PagosmensualModel.cs" />
     <Compile Include="Models\RegistroCliente.cs" />
     <Compile Include="Models\RutinasModel.cs" />
     <Compile Include="Models\TipoentrenamientoModel.cs" />
@@ -298,6 +315,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fondo3.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -331,25 +349,28 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
-    <EntityDeploy Include="Models\Entity\SuperfitEntities.edmx">
+    <EntityDeploy Include="Models\Entity\SuperfitModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SuperfitEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>SuperfitModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Entity\SuperfitEntities.edmx.diagram">
-      <DependentUpon>SuperfitEntities.edmx</DependentUpon>
+    <Content Include="Imagenes\superfiticono.jpeg" />
+    <Content Include="Models\Entity\SuperfitModel.edmx.diagram">
+      <DependentUpon>SuperfitModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
-    <Content Include="Models\Entity\SuperfitEntities.Context.tt">
+    <Content Include="Models\Entity\SuperfitModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SuperfitEntities.edmx</DependentUpon>
-      <LastGenOutput>SuperfitEntities.Context.cs</LastGenOutput>
+      <DependentUpon>SuperfitModel.edmx</DependentUpon>
+      <LastGenOutput>SuperfitModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Entity\SuperfitEntities.tt">
+    <Content Include="Models\Entity\SuperfitModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SuperfitEntities.edmx</DependentUpon>
-      <LastGenOutput>SuperfitEntities.cs</LastGenOutput>
+      <DependentUpon>SuperfitModel.edmx</DependentUpon>
+      <LastGenOutput>SuperfitModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Plantillas\BienvenidaSuperfit.html" />
+    <Content Include="Plantillas\CorreoRecuperacion.html" />
     <Content Include="Scripts\bootstrap-sortable.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -511,6 +532,7 @@
     <Content Include="Views\LoginWeb\RegistrarCliente.cshtml" />
     <Content Include="Views\ClientesWeb\Mensualidades.cshtml" />
     <Content Include="Views\AdministracionWebHome\Entrenamientoenvivo.cshtml" />
+    <Content Include="Views\LoginWeb\Recuperarcuenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -538,6 +560,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>fondo3.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
