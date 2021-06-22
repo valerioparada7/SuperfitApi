@@ -371,6 +371,7 @@
     </Content>
     <Content Include="Plantillas\BienvenidaSuperfit.html" />
     <Content Include="Plantillas\CorreoRecuperacion.html" />
+    <Content Include="Plantillas\SolicitudRegistro.html" />
     <Content Include="Scripts\bootstrap-sortable.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

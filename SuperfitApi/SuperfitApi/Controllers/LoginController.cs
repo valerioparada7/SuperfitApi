@@ -28,6 +28,7 @@ namespace SuperfitApi.Controllers
         public MensualidadModel mensualidadMdl;
         public AntropometriaModel asesoria_antropometriaMdl;
         public AlertasModel alertasMdl;
+        public LoginWebController logincontrol;
         //Variables globales
         public string Ubicacion = string.Empty;
         public string IdCliente=string.Empty;
@@ -507,11 +508,11 @@ namespace SuperfitApi.Controllers
                                                 ImagenPerfil = Registro.Imagenes.ImagenPerfil,
                                                 ImagenPosterior = Registro.Imagenes.ImagenPosterior,
                                             };
-
+                                            logincontrol.SolicitudRegistro(Registro);
                                             AlertasModel alert = new AlertasModel();
                                             alert = UpdateImagenes(imagenes,Ubicacion, IdCliente, IdMedidas);
                                             if (alert.Mensaje == "True")
-                                            {
+                                            {                                                
                                                 result = "Se registro correcto";
                                             }
                                             else

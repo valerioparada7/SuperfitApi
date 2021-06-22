@@ -26,7 +26,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public Estatus estatus;
         public Rutinas rutina;
         public Detalle_rutina detalle_Rutina;
-
+        public LoginWebController login;
         //modelos
         public AlertasModel alertasMdl;
 
@@ -1539,48 +1539,58 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             return Json(listdetallerutinaMdl, JsonRequestBehavior.AllowGet);
         }
         
-        //Agregar
+        //Agregar asignar rutina.
         [HttpPost]
         public bool DetallRutina(List<DetallerutinaModel> detallerutinaModels)
         {
             bool result = false;
-            int id = detallerutinaModels[0].Mensualidad.Id_mensualidad;
-            var detalle = Db.Detalle_rutina.Where(p => p.Id_mensualidad == id).ToList();
-            if (detalle.Count > 0)
-            {
-                foreach(var item in detalle)
+            try
+            {                
+                int id = detallerutinaModels[0].Mensualidad.Id_mensualidad;
+                var mes = Db.Mensualidad.Where(p => p.Id_mensualidad == id).FirstOrDefault();
+                var cliente = Db.Clientes.Where(y => y.Id_cliente == mes.Id_cliente).FirstOrDefault();
+                List<Detalle_rutina> detalle = Db.Detalle_rutina.Where(p => p.Id_mensualidad == id).ToList();
+                if (detalle.Count > 0)
                 {
-                    detalle_Rutina = new Detalle_rutina();
-                    detalle_Rutina = Db.Detalle_rutina.Where(p => p.Id_detalle_rutina == item.Id_detalle_rutina).FirstOrDefault();
-                    Db.Detalle_rutina.Remove(detalle_Rutina);
+                    Db.Detalle_rutina.RemoveRange(detalle);
                     Db.SaveChanges();
                 }
-            }
-            foreach(DetallerutinaModel detalle_ in detallerutinaModels)
-            {
-                detalle_Rutina = new Detalle_rutina
+                foreach (DetallerutinaModel detalle_ in detallerutinaModels)
                 {
-                    Id_mensualidad = detalle_.Mensualidad.Id_mensualidad,
-                    Id_rutina = detalle_.Rutinas.Id_rutina,
-                    Id_ejercicio = detalle_.Ejercicios.Id_ejercicio,
-                    Repeticiones = detalle_.Repeticiones,
-                    Series = detalle_.Series,
-                    Tipo_set = detalle_.Tipo_set,
-                    Id_dia = detalle_.Dias.Id_dia
-                };
-                Db.Detalle_rutina.Add(detalle_Rutina);
-                if (Db.SaveChanges() == 1)
-                {
-                    result = true;
-                }
-                else
-                {
-                    return false;
-                }
-            }           
-            return result;
-            
+                    detalle_Rutina = new Detalle_rutina
+                    {
+                        Id_mensualidad = detalle_.Mensualidad.Id_mensualidad,
+                        Id_rutina = detalle_.Rutinas.Id_rutina,
+                        Id_ejercicio = detalle_.Ejercicios.Id_ejercicio,
+                        Repeticiones = detalle_.Repeticiones,
+                        Series = detalle_.Series,
+                        Tipo_set = detalle_.Tipo_set,
+                        Id_dia = detalle_.Dias.Id_dia
+                    };
+                    Db.Detalle_rutina.Add(detalle_Rutina);
+                    if (Db.SaveChanges() == 1)
+                    {
+                        result = true;
 
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                if (cliente != null)
+                {
+                    login.Bienvenida(cliente.Correo_electronico,cliente.Nombres);
+                }
+                
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
         }
         #endregion
 

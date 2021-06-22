@@ -149,13 +149,16 @@ namespace SuperfitApi.Controllers
         {
             return View();
         }
+        #region Envio de correos
         //Envio de recuperacion con codigo aleatorio
         [HttpPost]
-        public JsonResult GeneradorCodigo(string User)
+        public JsonResult Recuperarcuenta(string User)
         {
             alertasMdl.Result = false;
             bool validacion = false;
             string celortel = string.Empty;
+            string succes = string.Empty;
+            string pass = string.Empty;
             clientes = new Clientes();
             try
             {
@@ -164,6 +167,7 @@ namespace SuperfitApi.Controllers
                     var clientesserch = Db.Clientes.Where(y => y.Correo_electronico == User).FirstOrDefault();
                     if (clientesserch != null)
                     {
+                        pass = clientesserch.Contraseña;
                         celortel = "correo";
                         validacion = true;
                         clientes = clientesserch;
@@ -183,6 +187,7 @@ namespace SuperfitApi.Controllers
                         var clientesserch = Db.Clientes.Where(y => y.Telefono == celular).FirstOrDefault();
                         if (clientesserch != null)
                         {
+                            pass = clientesserch.Contraseña;
                             celortel = "cel";
                             validacion = true;
                             clientes = clientesserch;
@@ -197,68 +202,41 @@ namespace SuperfitApi.Controllers
 
                 if (validacion == true)
                 {
-                    Random random = new Random();
-                    string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                    int numero = random.Next(1, 1000);
-                    string codigo = string.Empty;
-                    for (int i = 1; i <= 5; i++)
-                    {
-                        int ind = random.Next(alfabeto.Length);
-                        codigo += alfabeto[ind];
-                    }
-                    codigo += numero;
+                    string codigo = GenerarCodigo();
                     clientes.Contraseña = codigo;
                     Db.SaveChanges();
                     if (celortel == "correo")
                     {
-                        string ruta = Server.MapPath("~/Plantillas/CorreoRecuperacion.html");
-                        string html = System.IO.File.ReadAllText(ruta);
-                        html = html.Replace("@CodigoRecuperacion", codigo);
-                        MailMessage MyMailMessage = new MailMessage();
-                        MyMailMessage.From = new MailAddress("soportebysuperfitvalerio@gmail.com");
-                        MyMailMessage.To.Add(User);
-                        MyMailMessage.Subject = "Recuperacion de cuenta";
-                        AlternateView HTMLConImagenes;
-                        HTMLConImagenes = AlternateView.CreateAlternateViewFromString(html, null, "text/html");
-                        MyMailMessage.AlternateViews.Add(HTMLConImagenes);
-                        SmtpClient SMTPServer = new SmtpClient();
-                        SMTPServer.Port = 25;
-                        SMTPServer.Host = "smtp.gmail.com";
-                        SMTPServer.Credentials = new System.Net.NetworkCredential("soportebysuperfitvalerio@gmail.com", "Angelawhite7");
-                        SMTPServer.EnableSsl = true;
-                        try
+                        //
+                        Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
+                        datoscorreo.Add("@CodigoRecuperacion", codigo);
+                        string plantilla = Server.MapPath("~/Plantillas/CorreoRecuperacion.html");
+                        succes = "Revisa tu bandeja de correo que proporcionaste para continuar";
+                        AlertasModel resultado = EnviarCorreo(User, plantilla, datoscorreo, succes);
+                        if (resultado.Result = false)
                         {
-                            SMTPServer.Send(MyMailMessage);
-                            alertasMdl.Mensaje = "Revisa tu bandeja de correo que proporcionaste para continuar";
-                            alertasMdl.Result = true;
+                            clientes.Contraseña = pass;
+                            Db.SaveChanges();
                         }
-                        catch (Exception ex)
-                        {
-                            alertasMdl.Mensaje = ex.Message;
-                            alertasMdl.Result = false;
-                        }
+                        alertasMdl = resultado;                    
                     }
                     else
                     {
-                        string Mensaje = string.Empty;
+                        succes= "Revisa tu whatsapp con el numero proporcionaste para continuar";
+                        string Mensaje = string.Empty;                       
                         Mensaje = "Codigo de recuperacion\n";
                         Mensaje += "Introduce este código autogenerado como contraseña temporal,\ndespues que inicies sesion cambia tu contraseña\n";
                         Mensaje += codigo;
                         Mensaje += "\nLos códigos de caducan después de dos horas.\n";
                         Mensaje += "Ir a Superfit\n";
                         Mensaje += "https://www.bsite.net/valerioparada";
-                        var accountSid = "ACd6ccd243ec7ba11411f5f8888ef37e53";
-                        var authToken = "e8a54699fed75cbcda2cd36d3059a529";
-                        TwilioClient.Init(accountSid, authToken);
-
-                        var messageOptions = new CreateMessageOptions(
-                            new PhoneNumber("whatsapp:+52" + User));
-                        messageOptions.From = new PhoneNumber("whatsapp:+14155238886");
-                        messageOptions.Body = Mensaje;
-
-                        var message = MessageResource.Create(messageOptions);
-                        alertasMdl.Mensaje = "Revisa tu whatsapp con el numero proporcionaste para continuar";
-                        alertasMdl.Result = true;                        
+                        AlertasModel resultado = EnviarMensaje(User, Mensaje, succes);
+                        if (resultado.Result = false)
+                        {
+                            clientes.Contraseña = pass;
+                            Db.SaveChanges();
+                        }
+                        alertasMdl = resultado;
                     }
 
                 }
@@ -276,7 +254,142 @@ namespace SuperfitApi.Controllers
             }
             return Json(alertasMdl, JsonRequestBehavior.AllowGet);
         }
-        
+
+        public AlertasModel SolicitudRegistro(RegistroCliente registro)
+        {            
+            try
+            {
+                Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
+                datoscorreo.Add("@Names", registro.Cliente.Nombres);
+                datoscorreo.Add("@Lastname", registro.Cliente.Apellido_paterno);
+                datoscorreo.Add("@OtherLastname", registro.Cliente.Apellido_materno);
+                datoscorreo.Add("@Rutine", registro.Mensualidad.Tiporutina.Descripcion);
+                datoscorreo.Add("@Training", registro.Mensualidad.TipoEntrenamiento.Tipo_entrenamiento);
+                datoscorreo.Add("@Rolesex", registro.Cliente.Sexo);
+                datoscorreo.Add("@Age", registro.Cliente.Edad.ToString());
+                datoscorreo.Add("@Numberphone", registro.Cliente.Telefono.ToString());
+                datoscorreo.Add("@Email", registro.Cliente.Correo_electronico);
+
+                           
+                string plantilla = Server.MapPath("~/Plantillas/SolicitudRegistro.html");
+                string succes = "Se envio tu solicitud de registro a tu entrenador";
+                string correomio = "paradavalerio@gmail.com";
+                AlertasModel resultado = EnviarCorreo(correomio, plantilla, datoscorreo, succes);                
+                alertasMdl = resultado;
+            }
+            catch (Exception ex)
+            {
+                alertasMdl.Result = false;
+                alertasMdl.Mensaje = ex.Message;
+            }
+            return alertasMdl;
+        }   
+
+        public AlertasModel Bienvenida(string User,string Name)
+        {
+            try
+            {
+                Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
+                datoscorreo.Add("@Names", Name);
+                string plantilla = Server.MapPath("~/Plantillas/BienvenidaSuperfit.html");
+                string succes = "Se envio la rutina conexito y bienvenida";                
+                AlertasModel resultado = EnviarCorreo(User, plantilla, datoscorreo, succes);
+                alertasMdl = resultado;
+            }
+            catch (Exception ex)
+            {
+                alertasMdl.Result = false;
+                alertasMdl.Mensaje = ex.Message;
+            }
+            return alertasMdl;
+        }
+        public AlertasModel EnviarCorreo(string User,string Plantilla ,Dictionary<string,string> Datos,string succes)
+        {
+            AlertasModel alertita = new AlertasModel();
+            try
+            {                
+                string ruta = Plantilla;
+                string html = System.IO.File.ReadAllText(ruta);
+                foreach (KeyValuePair<string, string> dato in Datos)
+                {
+                    html = html.Replace(dato.Key, dato.Value);
+                }
+
+                MailMessage MyMailMessage = new MailMessage();
+                MyMailMessage.From = new MailAddress("soportebysuperfitvalerio@gmail.com");
+                MyMailMessage.To.Add(User);
+                MyMailMessage.Subject = "Recuperacion de cuenta";
+                AlternateView HTMLConImagenes;
+                HTMLConImagenes = AlternateView.CreateAlternateViewFromString(html, null, "text/html");
+                MyMailMessage.AlternateViews.Add(HTMLConImagenes);
+                SmtpClient SMTPServer = new SmtpClient();
+                SMTPServer.Port = 25;
+                SMTPServer.Host = "smtp.gmail.com";
+                SMTPServer.Credentials = new System.Net.NetworkCredential("soportebysuperfitvalerio@gmail.com", "Angelawhite7");
+                SMTPServer.EnableSsl = true;
+                try
+                {
+                    SMTPServer.Send(MyMailMessage);
+                    alertasMdl.Mensaje = succes;
+                    alertasMdl.Result = true;
+                }
+                catch (Exception ex)
+                {
+                    alertasMdl.Mensaje = ex.Message;
+                    alertasMdl.Result = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                alertasMdl.Mensaje = ex.Message;
+                alertasMdl.Result = false;
+            }
+            return alertita = alertasMdl;
+            
+        }
+
+        public AlertasModel EnviarMensaje(string User,string Mensaje,string succes)
+        {
+            AlertasModel alertita = new AlertasModel();
+            try
+            {
+                var accountSid = "ACd6ccd243ec7ba11411f5f8888ef37e53";
+                var authToken = "e8a54699fed75cbcda2cd36d3059a529";
+                TwilioClient.Init(accountSid, authToken);
+
+                var messageOptions = new CreateMessageOptions(
+                    new PhoneNumber("whatsapp:+52" + User));
+                messageOptions.From = new PhoneNumber("whatsapp:+14155238886");
+                messageOptions.Body = Mensaje;
+
+                var message = MessageResource.Create(messageOptions);
+                alertasMdl.Mensaje = succes;
+                alertasMdl.Result = true;
+            }
+            catch (Exception ex)
+            {
+                alertasMdl.Mensaje = ex.Message;
+                alertasMdl.Result = false;
+            }
+            return alertita = alertasMdl;
+        }
+
+        public string GenerarCodigo()
+        {            
+            Random random = new Random();
+            string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            int numero = random.Next(1, 1000);
+            string codigo = string.Empty;
+            for (int i = 1; i <= 5; i++)
+            {
+                int ind = random.Next(alfabeto.Length);
+                codigo += alfabeto[ind];
+            }
+            codigo += numero;
+            return codigo;
+        }
+        #endregion
+
         [HttpPost]
         public ActionResult LoginAdministradorWeb(string User, string Pass)
         {
@@ -462,7 +575,8 @@ namespace SuperfitApi.Controllers
                                             DirectoryInfo di = Directory.CreateDirectory(ruta);
                                             TempData["Ubicacion"] = Clave;
                                             TempData["IdCliente"] = clientes.Id_cliente;
-                                            TempData["IdMedidas"] = asesoria_antropometria.Id;                                    
+                                            TempData["IdMedidas"] = asesoria_antropometria.Id;
+                                            SolicitudRegistro(Registro);
                                             result = "True";
                                         }
                                         else
@@ -542,7 +656,7 @@ namespace SuperfitApi.Controllers
                 }
                 else
                 {
-                    clientes.Foto_perfil = clientes.Foto_perfil + "/";
+                    clientes.Foto_perfil += "/";
                     Db.SaveChanges();
                 }
                 if(fotofrontal != null)
@@ -605,4 +719,5 @@ namespace SuperfitApi.Controllers
             return false;
         }
     }
+ 
 }
