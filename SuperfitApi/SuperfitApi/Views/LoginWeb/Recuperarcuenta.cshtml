@@ -103,9 +103,9 @@
 </body>
 </html>
 <script type="text/javascript">
-        function Enviar() {
+    function Enviar() {        
             var usuario = document.getElementById("cuenta").value;
-            var urlgenerar = '@Url.Action("GeneradorCodigo", "LoginWeb")';
+            var urlgenerar = '@Url.Action("Recuperarcuenta", "LoginWeb")';
             $.ajax({
                 type: "POST",
                 url: urlgenerar,

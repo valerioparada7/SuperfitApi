@@ -34,12 +34,12 @@
     <br />
     <div class="jumbotron">
         <div style="text-align:center;">
-            <img id="perfil" src="https://www.bsite.net/valerioparada/@mes.Cliente.Foto_perfil" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;" />
+            <img id="perfil" src="https://www.bsite.net/valerioparada/@mes.Cliente.Foto_perfil" style="display:inline-block;border-radius: 20px;width:10em;" />
         </div>
         <div style="text-align:center;margin-top:10px" class="col-md-6 offset-md-3">
             <label for="Foto_cliente_perfil" style="cursor:pointer">
                 Actualizar foto de perfil
-                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;;padding: 0.5em 0.6em;"></i>
             </label>
             <input style="display:none" value="Foto perfil" title="Foto perfil" type="file" data-maxsize="4200000" id="Foto_cliente_perfil" class="form-control-file my-2 check-image-size">
         </div>
@@ -325,8 +325,7 @@
     </div>
 </div>
 
-
-<!-- Modal -->
+<!-- Modal para actualizar foto de perfil-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -338,7 +337,7 @@
             </div>
             <div class="modal-body">
                 <div style="text-align:center">
-                    <div id="preview" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                    <div id="preview" style="display:inline-block;border-radius: 20px;;width:25em;"></div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -435,6 +434,7 @@
                 document.getElementById('IdCorreoE').value = data["Correo_electronico"];
                 document.getElementById('IdContraseñaE').value = data["Contraseña"];
                 document.getElementById('IdSexoE').value = data["Sexo"];
+                console.log(data["Sexo"]);
                 $('#ModalEditar').modal('show');
             },
             error: function (xhr, status, error) {

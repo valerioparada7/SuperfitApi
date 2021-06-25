@@ -26,6 +26,7 @@ namespace SuperfitApi.Controllers
         public Mensualidad mensualidad;
         public Asesoria_antropometria asesoria_antropometria;
         public Pagos_mensualidades pagos_Mensualidades;
+        public EnvioNotificaciones envio;
         //modelos
         public ClientesModel clientesMdl;
         public CuestionarioModel cuestionarioMdl;
@@ -47,6 +48,7 @@ namespace SuperfitApi.Controllers
             mensualidad = new Mensualidad();
             asesoria_antropometria = new Asesoria_antropometria();
             pagos_Mensualidades = new Pagos_mensualidades();
+            envio = new EnvioNotificaciones();
             //modelos
             clientesMdl = new ClientesModel();
             cuestionarioMdl = new CuestionarioModel();
@@ -60,7 +62,6 @@ namespace SuperfitApi.Controllers
             listantropometriaMdl = new List<AntropometriaModel>();
         }
         
-
         // GET: ClientesWeb
         public ActionResult Index()
         {
@@ -251,7 +252,23 @@ namespace SuperfitApi.Controllers
                     Mes = fechastring.GetMonthName(listmensualidadMdl[i].Fecha_fin.Month);
                     Dia = fechastring.GetDayName(listmensualidadMdl[i].Fecha_fin.DayOfWeek); 
                     listmensualidadMdl[i].Fechafin = Dia + " " + listmensualidadMdl[i].Fecha_fin.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_fin.Year;
+                    int idmensu = listmensualidadMdl[i].Id_mensualidad;
+                    var pago = Db.Pagos_mensualidades.Where(alitza => alitza.Id_mensualidad == idmensu).FirstOrDefault();
+                    listmensualidadMdl[i].PagoMes = new PagosmensualModel();
+                    if (pago != null)
+                    {
+                        listmensualidadMdl[i].PagoMes.Id_pago = pago.Id_pago;
+                        listmensualidadMdl[i].PagoMes.Ubicacion_imagen_pago = pago.Ubicacion_imagen_pago;
+                    }
+                    else
+                    {
+                        listmensualidadMdl[i].PagoMes.Id_pago = 0;
+                    }
+                    
+
                 }
+
+
             }
             return View(listmensualidadMdl);
         }
@@ -271,7 +288,7 @@ namespace SuperfitApi.Controllers
                     Monto = (decimal)monto,
                     Descripcion = descripcion,
                     Fecha_pago = DateTime.Now,
-                    Ubicacion_imagen_pago = "/Imagenes/Clientes/" + cliente.Clave_cliente + "/" + "Mes:" + Idmes + ":" + imagen.FileName.ToString()
+                    Ubicacion_imagen_pago = "/Imagenes/Clientes/" + cliente.Clave_cliente + "/" + "Mes" + Idmes + "" + imagen.FileName.ToString()
                 };
                 ruta = pagos_Mensualidades.Ubicacion_imagen_pago;
                 Db.Pagos_mensualidades.Add(pagos_Mensualidades);
@@ -279,7 +296,26 @@ namespace SuperfitApi.Controllers
                 {
                     try
                     {
-                        imagen.SaveAs(Server.MapPath("~" + ruta));
+                        DateTimeFormatInfo fechastring = CultureInfo.GetCultureInfo("es-ES").DateTimeFormat;
+                        string Mes = string.Empty, Dia = string.Empty;
+                        Mes = fechastring.GetMonthName(DateTime.Now.Month);
+                        Dia = fechastring.GetDayName(DateTime.Now.DayOfWeek);
+                        string Fecha= Dia + " " + DateTime.Now.Day.ToString() + " de " + Mes + " de " + DateTime.Now.Year;
+                        imagen.SaveAs(Server.MapPath("~" + ruta));                        
+                        Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
+                        string nombre = cliente.Nombres +" "+ cliente.Apellido_paterno + " " + cliente.Apellido_materno;                                               
+                        datoscorreo.Add("@Names", nombre);
+                        datoscorreo.Add("@Email", cliente.Correo_electronico);
+                        datoscorreo.Add("@Phone", cliente.Telefono.ToString());
+                        datoscorreo.Add("@Money", monto.ToString());
+                        datoscorreo.Add("@Date", Fecha);
+                        datoscorreo.Add("@Comments", descripcion);
+                        datoscorreo.Add("@Urlbicacion", ruta);
+                        string plantilla = Server.MapPath("~/Plantillas/Comprobantepago.html");
+                        string succes = "Se envio tu solicitud de pago para la rutina a tu entrenador";
+                        string user = "paradavalerio@gmail.com";
+                        string asunto = "Comprobante de pago";
+                        envio.EnviarCorreo(user, plantilla, datoscorreo, succes, asunto);
                         return true;
                     }
                     catch (Exception ex)

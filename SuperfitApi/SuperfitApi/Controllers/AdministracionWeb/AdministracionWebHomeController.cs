@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.IO;
 using SuperfitApi.Autetication;
 using System.Globalization;
+using System.Net.Mail;
 
 namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 {
@@ -26,7 +27,8 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public Estatus estatus;
         public Rutinas rutina;
         public Detalle_rutina detalle_Rutina;
-        public LoginWebController login;
+        public List<Detalle_rutina> listdetalle_Rutina;
+        public EnvioNotificaciones envio;
         //modelos
         public AlertasModel alertasMdl;
 
@@ -68,7 +70,8 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             ejercicios = new Ejercicios();
             rutina = new Rutinas();
             detalle_Rutina = new Detalle_rutina();
-
+            listdetalle_Rutina = new List<Detalle_rutina>();
+            envio = new EnvioNotificaciones();
             //modelos
             clientesMdl = new ClientesModel();
             cuestionarioMdl = new CuestionarioModel();
@@ -81,6 +84,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             estatusMdl = new EstatusModel();
             antropometriaMdl = new AntropometriaModel();
             detallerutinaMdl = new DetallerutinaModel();
+            
 
             //listas
             listclientesMdl = new List<ClientesModel>();
@@ -655,6 +659,13 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                      Ubicacion_imagen = l.Ubicacion_imagen
                                  }).ToList();
 
+            listrutinasMdl = (from r in Db.Rutinas
+                              select new RutinasModel()
+                              {
+                                  Id_rutina = r.Id_rutina,
+                                  Descripcion = r.Descripcion
+                              }).ToList();
+            ViewBag.ListEjercicios = listrutinasMdl;
             return View(listejerciciosMdl);
         }
 
@@ -677,7 +688,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 Ejercicio = ejerciciosModel.Ejercicio,
                 Descripcion = ejerciciosModel.Descripcion,
                 Posicion = ejerciciosModel.Posicion,
-                Id_rutina = ejerciciosModel.Rutinas.Id_tiporutina,
+                Id_rutina = ejerciciosModel.Rutinas.Id_rutina,
                 Ubicacion_imagen = ""
             };
             Db.Ejercicios.Add(ejercicios);
@@ -737,6 +748,24 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                              }).FirstOrDefault();
 
             return Json(ejerciciosMdl, JsonRequestBehavior.AllowGet);
+        }
+
+        //ejercicios por rutina
+        public JsonResult EjercicioRutina(int Id_rutina)
+        {
+            listejerciciosMdl = (from l in Db.Ejercicios
+                             where l.Id_rutina == Id_rutina
+                             select new EjerciciosModel()
+                             {
+                                 Id_ejercicio = l.Id_ejercicio,
+                                 Clave_ejercicio = l.Clave_ejercicio,
+                                 Ejercicio = l.Ejercicio,
+                                 Descripcion = l.Descripcion,
+                                 Posicion = l.Posicion,
+                                 Ubicacion_imagen = l.Ubicacion_imagen                                 
+                             }).ToList();
+
+            return Json(listejerciciosMdl, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -1009,7 +1038,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             else
             {              
                 for(int i=0;i< listmensualidadMdl.Count; i++)
-                {
+                {                    
                     Mes = fechastring.GetMonthName(listmensualidadMdl[i].Fecha_inicio.Month);
                     Dia = fechastring.GetDayName(listmensualidadMdl[i].Fecha_inicio.DayOfWeek);
                     listmensualidadMdl[i].Fechainicio = Dia + " " + listmensualidadMdl[i].Fecha_inicio.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_inicio.Year;
@@ -1555,36 +1584,32 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                     Db.Detalle_rutina.RemoveRange(detalle);
                     Db.SaveChanges();
                 }
-                foreach (DetallerutinaModel detalle_ in detallerutinaModels)
-                {
-                    detalle_Rutina = new Detalle_rutina
-                    {
-                        Id_mensualidad = detalle_.Mensualidad.Id_mensualidad,
-                        Id_rutina = detalle_.Rutinas.Id_rutina,
-                        Id_ejercicio = detalle_.Ejercicios.Id_ejercicio,
-                        Repeticiones = detalle_.Repeticiones,
-                        Series = detalle_.Series,
-                        Tipo_set = detalle_.Tipo_set,
-                        Id_dia = detalle_.Dias.Id_dia
-                    };
-                    Db.Detalle_rutina.Add(detalle_Rutina);
-                    if (Db.SaveChanges() == 1)
-                    {
-                        result = true;
 
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                listdetalle_Rutina = (from lista in detallerutinaModels
+                                     select new Detalle_rutina()
+                                    {
+                                        Id_mensualidad = lista.Mensualidad.Id_mensualidad,
+                                        Id_rutina = lista.Rutinas.Id_rutina,
+                                        Id_ejercicio = lista.Ejercicios.Id_ejercicio,
+                                        Repeticiones = lista.Repeticiones,
+                                        Series = lista.Series,
+                                        Tipo_set = lista.Tipo_set,
+                                        Id_dia = lista.Dias.Id_dia
+                                    }).ToList();
+
+                Db.Detalle_rutina.AddRange(listdetalle_Rutina);
+                if (Db.SaveChanges() == 1)
+                {
+                    result = true;
+                }
+                else
+                {
+                    return false;
                 }
                 if (cliente != null)
                 {
-                    login.Bienvenida(cliente.Correo_electronico,cliente.Nombres);
+                    Bienvenida(cliente.Correo_electronico,cliente.Nombres);
                 }
-                
-
-
             }
             catch (Exception ex)
             {
@@ -1592,8 +1617,26 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             }
             return result;
         }
-        #endregion
-
+        public AlertasModel Bienvenida(string User, string Name)
+        {
+            try
+            {
+                Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
+                datoscorreo.Add("@Name", Name);
+                string plantilla = Server.MapPath("~/Plantillas/BienvenidaSuperfit.html");
+                string succes = "Se envio la rutina con exito y bienvenida";
+                string asunto = "Rutina personalizada";
+                AlertasModel resultado = envio.EnviarCorreo(User, plantilla, datoscorreo, succes, asunto);
+                alertasMdl = resultado;
+            }
+            catch (Exception ex)
+            {
+                alertasMdl.Result = false;
+                alertasMdl.Mensaje = ex.Message;
+            }
+            return alertasMdl;
+        }
+        #endregion                
 
         #region Entrenamiento en vivo
         public ActionResult Entrenamientoenvivo()
@@ -1601,7 +1644,6 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             return View();
         }
         #endregion
-
 
         //cerrar sesion
         public ActionResult OutWeb()

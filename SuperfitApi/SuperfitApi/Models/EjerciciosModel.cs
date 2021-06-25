@@ -18,6 +18,6 @@ namespace SuperfitApi.Models
         public int Height { get; set; }
         public string Tipo { get; set; }
 
-        public TiporutinaModel Rutinas { get; set; }
+        public RutinasModel Rutinas { get; set; }
     }
 }

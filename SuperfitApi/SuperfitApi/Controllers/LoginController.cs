@@ -11,6 +11,10 @@ using SuperfitApi.Models;
 using System.Web;
 using System.Web.Hosting;
 using System.Drawing;
+using System.Net.Mail;
+using Twilio;
+using Twilio.Types;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace SuperfitApi.Controllers
 {
@@ -22,6 +26,7 @@ namespace SuperfitApi.Controllers
         public Cuestionario cuestionario;
         public Mensualidad mensualidad;
         public Asesoria_antropometria asesoria_antropometria;
+        public EnvioNotificaciones envio;
         //modelos
         public ClientesModel clientesMdl;
         public CuestionarioModel cuestionarioMdl;
@@ -41,12 +46,119 @@ namespace SuperfitApi.Controllers
             cuestionario = new Cuestionario();
             mensualidad = new Mensualidad();
             asesoria_antropometria = new Asesoria_antropometria();
+            envio = new EnvioNotificaciones();
             //modelos
             clientesMdl = new ClientesModel();
             cuestionarioMdl = new CuestionarioModel();
             mensualidadMdl = new MensualidadModel();
             asesoria_antropometriaMdl = new AntropometriaModel();
             alertasMdl = new AlertasModel();
+        }
+        //Recuperar cuenta
+        [HttpPost]
+        [Route("api/Login/Recuperarcuenta")]
+        public AlertasModel Recuperarcuenta(string User)
+        {
+            alertasMdl.Result = false;
+            bool validacion = false;
+            string celortel = string.Empty;
+            string succes = string.Empty;
+            string pass = string.Empty;
+            clientes = new Clientes();
+            try
+            {
+                if (ValidacionUser(User) == true)
+                {
+                    var clientesserch = Db.Clientes.Where(y => y.Correo_electronico == User).FirstOrDefault();
+                    if (clientesserch != null)
+                    {
+                        pass = clientesserch.Contraseña;
+                        celortel = "correo";
+                        validacion = true;
+                        clientes = clientesserch;
+                    }
+                    else
+                    {
+                        alertasMdl.Mensaje = "No se encontro ese usuario con ese correo";
+                        alertasMdl.Result = false;
+                    }
+                }
+                else
+                {
+                    if (ValidarCelular(User) == true)
+                    {
+                        decimal celular = 0;
+                        celular = decimal.Parse(User);
+                        var clientesserch = Db.Clientes.Where(y => y.Telefono == celular).FirstOrDefault();
+                        if (clientesserch != null)
+                        {
+                            pass = clientesserch.Contraseña;
+                            celortel = "cel";
+                            validacion = true;
+                            clientes = clientesserch;
+                        }
+                    }
+                    else
+                    {
+                        alertasMdl.Mensaje = "No se encontro ese usuario con ese numero";
+                        alertasMdl.Result = false;
+                    }
+                }
+
+                if (validacion == true)
+                {
+                    string codigo = envio.GenerarCodigo();
+                    clientes.Contraseña = codigo;
+                    Db.SaveChanges();
+                    if (celortel == "correo")
+                    {
+                        //
+                        Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
+                        datoscorreo.Add("@CodigoRecuperacion", codigo);
+                        string plantilla = HostingEnvironment.MapPath("~/Plantillas/CorreoRecuperacion.html");
+                        succes = "Revisa tu bandeja de correo que proporcionaste para continuar";
+                        string asunto = "Recuperacion de cuenta";
+                        AlertasModel resultado = envio.EnviarCorreo(User, plantilla, datoscorreo, succes,asunto);
+                        if (resultado.Result == false)
+                        {
+                            clientes.Contraseña = pass;
+                            Db.SaveChanges();
+                        }
+                        alertasMdl = resultado;
+                    }
+                    else
+                    {
+                        succes = "Revisa tu whatsapp con el numero proporcionaste para continuar";
+                        string Mensaje = string.Empty;
+                        Mensaje = "Codigo de recuperacion\n";
+                        Mensaje += "Introduce este código autogenerado como contraseña temporal,\ndespues que inicies sesion cambia tu contraseña\n";
+                        Mensaje += codigo;
+                        Mensaje += "\nLos códigos de caducan después de dos horas.\n";
+                        Mensaje += "Ir a Superfit\n";
+                        Mensaje += "https://www.bsite.net/valerioparada";
+                        AlertasModel resultado = envio.EnviarMensaje(User, Mensaje, succes);
+                        if (resultado.Result == false)
+                        {
+                            clientes.Contraseña = pass;
+                            Db.SaveChanges();
+                        }
+                        alertasMdl = resultado;
+                    }
+
+                }
+                else
+                {
+                    alertasMdl.Mensaje = alertasMdl.Mensaje;
+                    alertasMdl.Result = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                alertasMdl.Mensaje = ex.Message;
+                alertasMdl.Result = false;
+            }
+            return alertasMdl;
         }        
         //Loguearse
         [HttpGet]
@@ -508,7 +620,7 @@ namespace SuperfitApi.Controllers
                                                 ImagenPerfil = Registro.Imagenes.ImagenPerfil,
                                                 ImagenPosterior = Registro.Imagenes.ImagenPosterior,
                                             };
-                                            logincontrol.SolicitudRegistro(Registro);
+                                            SolicitudRegistro(Registro);
                                             AlertasModel alert = new AlertasModel();
                                             alert = UpdateImagenes(imagenes,Ubicacion, IdCliente, IdMedidas);
                                             if (alert.Mensaje == "True")
@@ -663,6 +775,38 @@ namespace SuperfitApi.Controllers
             }
             return alertasMdl;
         }
+
+        //Enviar correo
+        public AlertasModel SolicitudRegistro(RegistroCliente registro)
+        {
+            try
+            {
+                string training = Db.Tipo_entrenamiento.Where(y => y.Id_tipo_entrenamiento == registro.Mensualidad.TipoEntrenamiento.Id_TipoEntrenamiento).Select(y => y.Tipo_entrenamientos).FirstOrDefault();
+                string rutine = Db.Tipo_rutina.Where(y => y.Id_tipo_rutina == registro.Mensualidad.Tiporutina.Id_tiporutina).Select(y => y.Descripcion).FirstOrDefault();
+                Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
+                datoscorreo.Add("@Names", registro.Cliente.Nombres);
+                datoscorreo.Add("@Lastname", registro.Cliente.Apellido_paterno);
+                datoscorreo.Add("@OtherLastname", registro.Cliente.Apellido_materno);
+                datoscorreo.Add("@Rutine", rutine);
+                datoscorreo.Add("@Training", training);
+                datoscorreo.Add("@Rolesex", registro.Cliente.Sexo);
+                datoscorreo.Add("@Age", registro.Cliente.Edad.ToString());
+                datoscorreo.Add("@Numberphone", registro.Cliente.Telefono.ToString());
+                datoscorreo.Add("@Email", registro.Cliente.Correo_electronico);
+                string plantilla = HostingEnvironment.MapPath("~/Plantillas/SolicitudRegistro.html");
+                string succes = "Se envio tu solicitud de registro a tu entrenador";
+                string correomio = "paradavalerio@gmail.com";
+                string asunto = "Solicitud de rutina";
+                AlertasModel resultado = envio.EnviarCorreo(correomio, plantilla, datoscorreo, succes, asunto);
+                alertasMdl = resultado;
+            }
+            catch (Exception ex)
+            {
+                alertasMdl.Result = false;
+                alertasMdl.Mensaje = ex.Message;
+            }
+            return alertasMdl;
+        }       
     }
    
 }
