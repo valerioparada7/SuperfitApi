@@ -47,7 +47,7 @@ namespace SuperfitApi.Controllers
             mensualidadMdl = new MensualidadModel();
             asesoria_antropometriaMdl = new AntropometriaModel();
             alertasMdl = new AlertasModel();
-        }
+        }        
         // GET: LoginWeb
         public ActionResult LoginWeb()
         {

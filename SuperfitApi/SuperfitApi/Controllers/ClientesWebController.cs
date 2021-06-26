@@ -257,18 +257,18 @@ namespace SuperfitApi.Controllers
                     listmensualidadMdl[i].PagoMes = new PagosmensualModel();
                     if (pago != null)
                     {
+                        DateTime fecha = (DateTime)pago.Fecha_pago;
+                        Mes = fechastring.GetMonthName(fecha.Month);
+                        Dia = fechastring.GetDayName(fecha.DayOfWeek);
                         listmensualidadMdl[i].PagoMes.Id_pago = pago.Id_pago;
+                        listmensualidadMdl[i].PagoMes.Fechapago= Dia + " " + fecha.Day.ToString() + " de " + Mes + " de " + fecha.Year;
                         listmensualidadMdl[i].PagoMes.Ubicacion_imagen_pago = pago.Ubicacion_imagen_pago;
                     }
                     else
                     {
                         listmensualidadMdl[i].PagoMes.Id_pago = 0;
                     }
-                    
-
                 }
-
-
             }
             return View(listmensualidadMdl);
         }

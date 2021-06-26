@@ -702,7 +702,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         }
 
         [HttpPost]
-        public bool UpImagen(string Tipo, HttpPostedFileBase Imagen)
+        public bool UpImagen(HttpPostedFileBase Imagen)
         {
             string Clave_ejercicio = TempData["Clave_ejercicio"].ToString();
             bool result = false;
@@ -711,24 +711,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             {
                 return true;
             }
-            if (Tipo == "Definicion")
+            ejercicios.Ubicacion_imagen = "/Imagenes/Ejercicios/" + Imagen.FileName.ToString();
+            if (Db.SaveChanges() == 1)
             {
-                ejercicios.Ubicacion_imagen = "/Imagenes/Definicion/" + Imagen.FileName.ToString();
-                if (Db.SaveChanges() == 1)
-                {
-                    Imagen.SaveAs(Server.MapPath("~/Imagenes/Definicion/" + Imagen.FileName.ToString()));
-                    result = true;
-                }
-
-            }
-            if (Tipo == "Volumen")
-            {
-                ejercicios.Ubicacion_imagen = "/Imagenes/Volumen/" + Imagen.FileName.ToString();
-                if (Db.SaveChanges() == 1)
-                {
-                    Imagen.SaveAs(Server.MapPath("~/Imagenes/Volumen/" + Imagen.FileName.ToString()));
-                    result = true;
-                }
+                
+                Imagen.SaveAs(Server.MapPath("~/Imagenes/Ejercicios/" + Imagen.FileName.ToString()));
+                result = true;
             }
             return result;
         }

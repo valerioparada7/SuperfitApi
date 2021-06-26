@@ -34,22 +34,45 @@
                             <td><button type="button" style="border:0px;color:#007bff" class="btn-link" onclick="VerFotosMedidas(@item.Id_mensualidad,@item.Estatus.Id_estatus)">Ver mis medidas y fotos</button></td>
                             <td>@item.Mes.Mes</td>
                             <td>
-                                @item.Estatus.Descripcion
-                                @if (item.Estatus.Id_estatus == 1)
-                                {
-                                    if (item.PagoMes.Id_pago != 0)
-                                    {
-                                        <label>Su pago esta en revison</label>
-                                        <img onclick="Verfotopago('@item.PagoMes.Ubicacion_imagen_pago')" src="https://www.bsite.net/valerioparada/@item.PagoMes.Ubicacion_imagen_pago" width="50" height="50"/>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            @item.Estatus.Descripcion
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    @if ((item.Estatus.Id_estatus == 2 || item.Estatus.Id_estatus == 3) && item.PagoMes.Id_pago != 0)
+                                    { 
+                                        <td>
+                                            <img onclick="Verfotopago('@item.PagoMes.Ubicacion_imagen_pago')" src="https://www.bsite.net/valerioparada/@item.PagoMes.Ubicacion_imagen_pago" width="50" height="50" />
+                                        </td>
+                                        <td>
+                                            @item.PagoMes.Fechapago
+                                        </td>
                                     }
-                                    else
+                                    @if (item.Estatus.Id_estatus == 1)
                                     {
-                                        <button type="button" style="border:0px;color:#007bff" class="btn-link"
-                                                onclick="OpenPago(@item.Id_mensualidad)">
-                                            Subir comoprobante de pago
-                                        </button>
+                                        if (item.PagoMes.Id_pago != 0)
+                                        {
+                                            <td>
+                                                <label>Su pago esta en revison</label>
+                                            </td>
+                                            <td>
+                                                <img onclick="Verfotopago('@item.PagoMes.Ubicacion_imagen_pago')" src="https://www.bsite.net/valerioparada/@item.PagoMes.Ubicacion_imagen_pago" width="50" height="50" />
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <button type="button" style="border:0px;color:#007bff" class="btn-link"
+                                                        onclick="OpenPago(@item.Id_mensualidad)">
+                                                    Subir comoprobante de pago
+                                                </button>
+                                            </td>
+                                        }
                                     }
-                                }
+                                    </tr>
+                                </table>
                             </td>
                             <td>@item.Fechainicio</td>
                             <td>@item.Fechafin</td>

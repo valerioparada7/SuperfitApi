@@ -326,6 +326,22 @@ namespace SuperfitApi.Controllers
                         finalizar = "Tu mes esta por acabar";
                         mensualidadMdl.Estatus.Descripcion = finalizar;
                     }
+                    int idmensu = mensualidadMdl.Id_mensualidad;
+                    var pago = Db.Pagos_mensualidades.Where(alitza => alitza.Id_mensualidad == idmensu).FirstOrDefault();
+                    mensualidadMdl.PagoMes = new PagosmensualModel();
+                    if (pago != null)
+                    {
+                        DateTime fecha = (DateTime)pago.Fecha_pago;
+                        Mes = fechastring.GetMonthName(fecha.Month);
+                        Dia = fechastring.GetDayName(fecha.DayOfWeek);
+                        mensualidadMdl.PagoMes.Id_pago = pago.Id_pago;
+                        mensualidadMdl.PagoMes.Fechapago = Dia + " " + fecha.Day.ToString() + " de " + Mes + " de " + fecha.Year;
+                        mensualidadMdl.PagoMes.Ubicacion_imagen_pago = pago.Ubicacion_imagen_pago;
+                    }
+                    else
+                    {
+                        mensualidadMdl.PagoMes.Id_pago = 0;
+                    }
                 }
                 else
                 {
@@ -428,6 +444,22 @@ namespace SuperfitApi.Controllers
                     Mes = fechastring.GetMonthName(listmensualidadMdl[i].Fecha_fin.Month);
                     Dia = fechastring.GetDayName(listmensualidadMdl[i].Fecha_fin.DayOfWeek);
                     listmensualidadMdl[i].Fechafin = Dia + " " + listmensualidadMdl[i].Fecha_fin.Day.ToString() + " de " + Mes + " de " + listmensualidadMdl[i].Fecha_fin.Year;
+                    int idmensu = listmensualidadMdl[i].Id_mensualidad;
+                    var pago = Db.Pagos_mensualidades.Where(alitza => alitza.Id_mensualidad == idmensu).FirstOrDefault();
+                    listmensualidadMdl[i].PagoMes = new PagosmensualModel();
+                    if (pago != null)
+                    {
+                        DateTime fecha = (DateTime)pago.Fecha_pago;
+                        Mes = fechastring.GetMonthName(fecha.Month);
+                        Dia = fechastring.GetDayName(fecha.DayOfWeek);
+                        listmensualidadMdl[i].PagoMes.Id_pago = pago.Id_pago;
+                        listmensualidadMdl[i].PagoMes.Fechapago = Dia + " " + fecha.Day.ToString() + " de " + Mes + " de " + fecha.Year;
+                        listmensualidadMdl[i].PagoMes.Ubicacion_imagen_pago = pago.Ubicacion_imagen_pago;
+                    }
+                    else
+                    {
+                        listmensualidadMdl[i].PagoMes.Id_pago = 0;
+                    }
                 }
             }
 
