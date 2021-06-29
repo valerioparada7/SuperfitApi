@@ -469,7 +469,7 @@ namespace SuperfitApi.Controllers
         //Pagar Mensualidad
         [HttpPost]
         [Route("api/Clientes/PagoMes")]
-        public AlertasModel PagoMes(string imagen,int IdCliente, int Idmes, double monto, string descripcion)
+        public AlertasModel PagoMes(Imagenes imagenes, int IdCliente, int Idmes, double monto, string descripcion)
         {
             alertasMdl.Result = false;
             alertasMdl.Mensaje = "Ocurrio un error al enviar sus datos";
@@ -487,7 +487,7 @@ namespace SuperfitApi.Controllers
                         Monto = (decimal)monto,
                         Descripcion = descripcion,
                         Fecha_pago = DateTime.Now,
-                        Ubicacion_imagen_pago = "/Imagenes/Clientes/" + cliente.Clave_cliente + "/" + "Mes:" + Idmes + ":" + "Pago.jpg"
+                        Ubicacion_imagen_pago = "/Imagenes/Clientes/" + cliente.Clave_cliente + "/" + "Mes" + Idmes + "" + "Pago.jpg"
                     };
                     ruta = pagos_Mensualidades.Ubicacion_imagen_pago;
                     Db.Pagos_mensualidades.Add(pagos_Mensualidades);
@@ -495,9 +495,10 @@ namespace SuperfitApi.Controllers
                     {
                         try
                         {
-                            byte[] Foto_frontal = Convert.FromBase64String(imagen);
+                            byte[] Foto_frontal = Convert.FromBase64String(imagenes.ImagenPerfil);
                             using (var ms = new MemoryStream(Foto_frontal, 0, Foto_frontal.Length))
                             {
+                                ruta = HostingEnvironment.MapPath("~/Imagenes/Clientes/" + cliente.Clave_cliente + "/" + "Mes" + Idmes + "" + "Pago.jpg");
                                 Image image = Image.FromStream(ms, true);
                                 image.Save(ruta);
                                 try
@@ -515,7 +516,8 @@ namespace SuperfitApi.Controllers
                                     datoscorreo.Add("@Money", monto.ToString());
                                     datoscorreo.Add("@Date", Fecha);
                                     datoscorreo.Add("@Comments", descripcion);
-                                    datoscorreo.Add("@Urlbicacion", ruta);
+                                    string imagenhtml = "<img src=\"https://www.bsite.net/valerioparada\"" + ruta + " height = \"200\" width = \"200\" />";
+                                    datoscorreo.Add("@Urlbicacion", imagenhtml);
                                     string plantilla = HostingEnvironment.MapPath("~/Plantillas/Comprobantepago.html");
                                     string succes = "Se envio tu solicitud de pago para la rutina a tu entrenador";
                                     string user = "paradavalerio@gmail.com";
@@ -547,6 +549,8 @@ namespace SuperfitApi.Controllers
                 }
                 else
                 {
+                    alertasMdl.Result = true;
+                    alertasMdl.Mensaje = "El estatus no esta en pendiente verifique con su instructror el pago";
                     return alertasMdl;
                 }
             }

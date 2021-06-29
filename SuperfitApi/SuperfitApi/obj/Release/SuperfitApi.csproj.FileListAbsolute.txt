@@ -204,3 +204,10 @@ C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\Super
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.pdb
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Release\SuperfitApi.csprojAssemblyReference.cache
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Twilio.dll
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Twilio.xml

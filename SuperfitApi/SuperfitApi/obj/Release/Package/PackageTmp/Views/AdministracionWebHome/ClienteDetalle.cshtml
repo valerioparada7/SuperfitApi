@@ -174,6 +174,7 @@
                             <th>Tipo rutina</th>
                             <th>Mes</th>
                             <th>Estatus</th>
+                            <th>Comprobante</th>
                             <th>Fecha inicio</th>
                             <th>Fecha fin</th>
                         </tr>
@@ -416,14 +417,14 @@
                                     <div id="columna14">
                                         <div class="row">
                                             <div class="col">
-                                                <div id="previewfrontal" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                                <div id="previewfrontal" width="100" height="100" style="display:inline-block;border-radius: 20px;"></div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <label>Foto frontal</label>
                                                 <label for="Foto_frontal" style="cursor:pointer">
-                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
                                                 </label>
                                                 <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
                                             </div>
@@ -436,14 +437,14 @@
                                     <div id="columna15">
                                         <div class="row">
                                             <div class="col">
-                                                <div id="previewperfil" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                                <div id="previewperfil" width="100" height="100" style="display:inline-block;border-radius: 20px;"></div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <label>Foto perfil</label>
                                                 <label for="Foto_perfil" style="cursor:pointer">
-                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
                                                 </label>
                                                 <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
                                             </div>
@@ -456,14 +457,14 @@
                                     <div id="columna16">
                                         <div class="row">
                                             <div class="col">
-                                                <div id="previewposterior" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                                <div id="previewposterior" width="100" height="100" style="display:inline-block;border-radius: 20px;"></div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <label>Foto posterior</label>
                                                 <label for="Foto_posterior" style="cursor:pointer">
-                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
                                                 </label>
                                                 <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
                                             </div>
@@ -545,14 +546,7 @@
                         <div id="primera" class="col-4">
                             <div class="row">
                                 <div class="col">
-                                    <select class="form-control" id="Rutinas">
-                                    </select>
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col">
-                                    <select class="form-control" id="Dias">
+                                    <select class="form-control" id="RutinasList">
                                     </select>
                                 </div>
                             </div>
@@ -560,6 +554,14 @@
                             <div class="row">
                                 <div class="col">
                                     <select class="form-control" id="Ejercicios">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <select class="form-control" id="Dias">
                                     </select>
                                 </div>
                             </div>
@@ -591,25 +593,7 @@
                         <div id="segunda" class="col-8">
                             <h4>Rutina</h4>
                             <div id="rutinas" class="container" style="overflow-y:auto;height:400px">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed table-striped table-hover" id="ListaEjercicios">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Dia</th>
-                                                <th>Rutina</th>
-                                                <th>Ejercicio</th>
-                                                <th>Series</th>
-                                                <th>Repeticiones</th>
-                                                <th>Set</th>
-                                                <th>Eliminar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="table-responsive" id="tablasacrear">
                                 </div>
                             </div>
                         </div>
@@ -645,6 +629,28 @@
     </div>
 </div>
 
+<!---Modal para ver la foto de pago-->
+<div class="modal" id="fotopaguito" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Imagen del comprobante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div align="center">
+                    <img id="fotitopago" src="" style="width: 25em;" />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
 
@@ -668,7 +674,8 @@
     var urlvercuestionario = '@Url.Action("VerCuestionario", "AdministracionWebHome")';
     var urlmedidas = '@Url.Action("ListAsesoriaantropometria", "ClientesWeb")';
     var urlmedidasreg = '@Url.Action("RegistrarMedidas", "ClientesWeb")';
-    var urlfotos ='@Url.Action("RegistrarFotos", "ClientesWeb")';
+    var urlfotos = '@Url.Action("RegistrarFotos", "ClientesWeb")';
+    var urlverejerciciorutina ='@Url.Action("EjercicioRutina", "AdministracionWebHome")';
 
     //Cliente
     function VerCliente() {
@@ -901,6 +908,7 @@
                     var Tiporutina = data[i].Tiporutina;
                     var Mes = data[i].Mes;
                     var Estatus = data[i].Estatus;
+                    var pago = data[i].PagoMes.Ubicacion_imagen_pago;
                     var html = '';
                     html += '<tr id="fila' + i + '">';
                     html += '<td>' + sum + '</td>';
@@ -909,7 +917,8 @@
                     html += '<td><button type="button" class="btn btn-success" onclick="VerFotosMedidas(' + data[i].Id_mensualidad + ',' + Estatus.Id_estatus + ')">Medidas</button></td>';
                     html += '<td>' + Tiporutina.Tipo + '</td>';
                     html += '<td>'+Mes.Mes+'</td>';
-                    html += '<td>' + Estatus.Descripcion +'</td>';
+                    html += '<td>' + Estatus.Descripcion + '</td>';
+                    html += '<td><img onclick="Verfotopago(' + pago.Ubicacion_imagen_pago + ')" src="https://www.bsite.net/valerioparada/' + pago.Ubicacion_imagen_pago + '" width="50" height="50" /> ';
                     html += '<td>' + data[i].Fechainicio+'</td>';
                     html += '<td>' + data[i].Fechafin + '</td>';
                     html += '</tr>';
@@ -920,7 +929,7 @@
                 }
                 $('#tabladetallemensualidad').DataTable();
                 if (count > 0) {
-                    document.getElementById("nuevamensualdiadbuttonId").style.display = "none";                    
+                    document.getElementById("nuevamensualdiadbuttonId").style.display = "none";
                 }
             },
             error: function (xhr, status, error) {
@@ -943,7 +952,6 @@
             datatype: "json",
             success: function (data) {
                 var Idtipo = data["TipoEntrenamiento"].Id_TipoEntrenamiento;
-                var IdMes = data["Mes"].Id_mes;
                 var IdEstatus = data["Estatus"].Id_estatus;
                 var IdRutina = data["Tiporutina"].Id_tiporutina;
                 document.getElementById("TipoentrenamientolistMensualidad").value = Idtipo;
@@ -1028,6 +1036,11 @@
         });
     }
 
+    //ver foto del pago
+    function Verfotopago(ubicacion) {
+        document.getElementById("fotitopago").src = "https://www.bsite.net/valerioparada/" + ubicacion;
+        $("#fotopaguito").modal('show')
+    }
     function afterFiveSeconds() {
         location.reload();
     }
@@ -1062,9 +1075,9 @@
                     html += '<td><lable>' + data[i].Piernaderecho + ' cm</lable></td>';
                     html += '<td><lable>' + data[i].Pantorrilladerecha + ' cm</lable></td>';
                     html += '<td><lable>' + data[i].Pantorrillaizquierda + ' cm</lable></td>';
-                    html += '<td><img src="' + data[i].Fotofrontal + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
-                    html += '<td><img src="' + data[i].Fotoperfil + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
-                    html += '<td><img src="' + data[i].Fotoposterior + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><img src="' + data[i].Fotofrontal + '" style="display:inline-block;border-radius: 20px;;width:25em;"/></td>';
+                    html += '<td><img src="' + data[i].Fotoperfil + '" style="display:inline-block;border-radius: 20px;;width:25em;"/></td>';
+                    html += '<td><img src="' + data[i].Fotoposterior + '" style="display:inline-block;border-radius: 20px;;width:25em;"/></td>';
                     html += '<td><lable>' + data[i].Fecharegistro + '</lable></td>';
                     html += '</tr>';
                     $('#ListaMedidas tbody').append(html);
@@ -1318,11 +1331,10 @@
     }
 
     function AgregarRutina() {
-
         var ser = $('#Series').val();
         var rep = $('#Repeticiones').val();
         var set = $('#Set').val();
-        var rutina = document.getElementById("Rutinas");
+        var rutina = document.getElementById("RutinasList");
         var dia = document.getElementById("Dias");
         var ejercicio = document.getElementById("Ejercicios");
         if (ser == "" && rep == "" && set == "") {
@@ -1331,9 +1343,9 @@
             document.getElementById("Series").style.borderColor = "red";
         }
 
-        if ($('#Rutinas').val() != null)
+        if ($('#RutinasList').val() != null)
         {
-            if ($('#Ejercicios').val() != null)
+            if ($('#Ejercicios').val() != "")
             {
                 if ($('#Dias').val() != null)
                 {
@@ -1343,21 +1355,24 @@
                         {
                             if (set != "")
                             {
-                                var i = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
+                                var tabladia = $('#Dias').val();
+                                tabladia -= 1;
+                                var i = document.getElementById('ListaEjercicios' + tabladia).getElementsByTagName('tr');
                                 var c = i.length - 1;
 
                                 var html = '';
-                                html += '<tr id="fila' + c + '">';
+                                html += '<tr id="fila' + tabladia + c + '">';
                                 html += '<td><label id="idmensualidad" style="display:none">' + $('#idclienteMensualidadDetalle').val() + '</label>' + c + '</td> ';
-                                html += '<td> <label id="iddia' + c + '" style="display:none">' + $('#Dias').val() + '</label>' + dia.options[dia.selectedIndex].text + '</td> ';
-                                html += '<td> <label id="idrutina' + c + '" style="display:none">' + $('#Rutinas').val() + '</label>' + rutina.options[rutina.selectedIndex].text + '</td> ';
-                                html += '<td> <label id="idejercicio' + c + '" style="display:none">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text + '</td> ';
-                                html += '<td> <label id="idserie' + c + '">' + $('#Series').val() + '</label></td> ';
-                                html += '<td> <label id="idrepeticion' + c + '">' + $('#Repeticiones').val() + '</label></td> ';
-                                html += '<td> <label id="idset' + c + '">' + $('#Set').val() + '</label></td> ';
-                                html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
+                                html += '<td> <label id="iddia' + tabladia + + c + '" style="display:none">' + $('#Dias').val() + '</label>' + dia.options[dia.selectedIndex].text + '</td> ';
+                                html += '<td> <label id="idrutina' + tabladia + + c + '" style="display:none">' + $('#RutinasList').val() + '</label>' + rutina.options[rutina.selectedIndex].text + '</td> ';
+                                html += '<td> <label id="idejercicio' + tabladia + + c + '" style="display:none">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text + '</td> ';
+                                html += '<td> <label id="idserie' + tabladia + + c + '">' + $('#Series').val() + '</label></td> ';
+                                html += '<td> <label id="idrepeticion' + tabladia + + c + '">' + $('#Repeticiones').val() + '</label></td> ';
+                                html += '<td> <label id="idset' + tabladia + + c + '">' + $('#Set').val() + '</label></td> ';
+                                html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + tabladia + c + ')"></button></td>';
                                 html += '</tr>';
-                                $('#ListaEjercicios tbody').append(html);
+                                $('#ListaEjercicios' + tabladia + ' tbody').append(html);
+                                console.log(html);
                                 document.getElementById("Set").value = "";
                                 document.getElementById("Repeticiones").value = "";
                                 document.getElementById("Series").value = "";
@@ -1383,39 +1398,43 @@
             }
         }
         else {
-            document.getElementById("Rutinas").style.borderColor = "red";
+            document.getElementById("RutinasList").style.borderColor = "red";
         }
     }
 
     function EliminaFila(Id) {
-        document.getElementById("fila" + Id).style.display = "none";
+        $("#fila" + Id).remove();
     }
 
     function GuardarRutina() {
         var detallerutinaModels = [];
-        var l = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
+        var l = 0;
+        for (var j = 1; j <= 6; j++) {
+            l += document.getElementById('ListaEjercicios' + j).getElementsByTagName('tr');
+        }
+
         var c = l.length - 2;
         if (c > 0) {
-            for (var i = 1; i <= c; i++) {
-                var fila = document.getElementById("fila" + i).style.display;
-                if (fila != "none") {
+            for (var i = 1; i <= 6; i++) {
+                var row = document.getElementById('ListaEjercicios' + i).getElementsByTagName('tr');
+                var s = row.length - 2;
+                for (var y = 1; y <= s; y++) {
                     var model = {};
                     var Dias = {};
                     var Ejercicios = {};
                     var Mensualidad = {};
                     var Rutinas = {};
-
-                    Dias.Id_dia = document.getElementById("iddia" + i).innerHTML;
-                    Ejercicios.Id_ejercicio = document.getElementById('idejercicio' + i).innerHTML;
+                    Dias.Id_dia = document.getElementById("iddia" + i + y).innerHTML;
+                    Ejercicios.Id_ejercicio = document.getElementById('idejercicio' + y + y).innerHTML;
                     Mensualidad.Id_mensualidad = document.getElementById('idclienteMensualidadDetalle').value;
-                    Rutinas.Id_rutina = document.getElementById('idrutina' + i).innerHTML;
+                    Rutinas.Id_rutina = document.getElementById('idrutina' + i + y).innerHTML;
                     model.Dias = Dias;
                     model.Ejercicios = Ejercicios;
                     model.Mensualidad = Mensualidad;
                     model.Rutinas = Rutinas;
-                    model.Repeticiones = document.getElementById('idrepeticion' + i).innerHTML;
-                    model.Series = document.getElementById('idserie' + i).innerHTML;
-                    model.Tipo_set = document.getElementById('idset' + i).innerHTML;
+                    model.Repeticiones = document.getElementById('idrepeticion' + i + y).innerHTML;
+                    model.Series = document.getElementById('idserie' + i + y).innerHTML;
+                    model.Tipo_set = document.getElementById('idset' + i + y).innerHTML;
                     detallerutinaModels.push(model);
                 }
             }
@@ -1519,15 +1538,25 @@
             $("#Tipoentrenamientolist").append("<option value='" + listaTipoEntrenamiento[l].Id_TipoEntrenamiento + "'>" + listaTipoEntrenamiento[l].Tipo_entrenamiento.toUpperCase() + "</option>");
         }
         for (var l = 0; l < listRutinas.length; l++) {
-            $("#Rutinas").append("<option value='" + listRutinas[l].Id_rutina + "'>" + listRutinas[l].Descripcion.toUpperCase() + "</option>");
+            $("#RutinasList").append("<option value='" + listRutinas[l].Id_rutina + "'>" + listRutinas[l].Descripcion.toUpperCase() + "</option>");
         }
-        for (var l = 0; l < listDias.length; l++) {
+        var html = "";
+        var visible='';
+        for (var l = 1; l < listDias.length; l++) {
             $("#Dias").append("<option value='" + listDias[l].Id_dia + "'>" + listDias[l].Dia.toUpperCase() + "</option>");
+            if (l == 1) {
+                visible = "";
+            }
+            html += '<table class="table table-condensed table-striped table-hover" id="ListaEjercicios' + l +'"'+ visible+'>';
+            html +='<thead><tr><th>#</th><th>Dia</th><th>Rutina</th><th>Ejercicio</th><th>Series</th><th>Repeticiones</th><th>Set</th><th>Eliminar</th>';
+            html += '</tr></thead><tbody><tr></tr></tbody></table>';
+            visible = 'style="display:none"';
         }
+        console.log(html);
+        $("#tablasacrear").append(html)
         for (var l = 0; l < listEjercicios.length; l++) {
             $("#Ejercicios").append("<option value='" + listEjercicios[l].Id_ejercicio + "'>" + listEjercicios[l].Ejercicio.toUpperCase() + "</option>");
         }
-
         //
         for (var k = 0; k < listaEstatus.length; k++) {
             $("#EstatusMensualidad").append("<option value='" + listaEstatus[k].Id_estatus + "'>" + listaEstatus[k].Descripcion.toUpperCase() + "</option>");
@@ -1541,8 +1570,124 @@
         for (var l = 0; l < listaTipoEntrenamiento.length; l++) {
             $("#TipoentrenamientolistMensualidad").append("<option value='" + listaTipoEntrenamiento[l].Id_TipoEntrenamiento + "'>" + listaTipoEntrenamiento[l].Tipo_entrenamiento.toUpperCase() + "</option>");
         }
+        Asignarejercicio();
 
     }
+
+    function Asignarejercicio() {
+        var id = document.getElementById("RutinasList").value;
+        $.ajax({
+            url: urlverejerciciorutina,
+            type: "GET",
+            data: { "Id_rutina": id },
+            datatype: "json",
+            success: function (data) {
+                $("#Ejercicios").empty();
+                var listEjercicios = data;
+                console.log(listEjercicios);
+                if (listEjercicios.length > 0) {
+                    for (var l = 0; l < listEjercicios.length; l++) {
+                        $("#Ejercicios").append("<option value='" + listEjercicios[l].Id_ejercicio + "'>" + listEjercicios[l].Ejercicio.toUpperCase() + "</option>");
+                    }
+                }
+                else {
+                    $("#Ejercicios").append("<option value=''>No hay ejercicios disponibles para esta rutina</option>");
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+
+        });
+        document.getElementById("Ejercicios").style.borderColor = "gray";
+    }
+
+
+    $("#RutinasList").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: urlverejerciciorutina,
+            type: "GET",
+            data: { "Id_rutina": id },
+            datatype: "json",
+            success: function (data) {
+                $("#Ejercicios").empty();
+                var listEjercicios = data;
+                console.log(listEjercicios);
+                if (listEjercicios.length > 0) {
+                    for (var l = 0; l < listEjercicios.length; l++) {
+                        $("#Ejercicios").append("<option value='" + listEjercicios[l].Id_ejercicio + "'>" + listEjercicios[l].Ejercicio.toUpperCase() + "</option>");
+                    }
+                }
+                else {
+                    $("#Ejercicios").append("<option value=''>No hay ejercicios disponibles para esta rutina</option>");
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+
+        });
+        document.getElementById("Ejercicios").style.borderColor = "gray";
+    });
+
+    $("#Dias").change(function () {
+        var id = $(this).val();
+        if (id == 2) {
+            document.getElementById("ListaEjercicios1").style.display = "block";
+            document.getElementById("ListaEjercicios2").style.display = "none";
+            document.getElementById("ListaEjercicios3").style.display = "none";
+            document.getElementById("ListaEjercicios4").style.display = "none";
+            document.getElementById("ListaEjercicios5").style.display = "none";
+            document.getElementById("ListaEjercicios6").style.display = "none";
+        }
+        else if (id == 3) {
+            document.getElementById("ListaEjercicios2").style.display = "block";
+            document.getElementById("ListaEjercicios1").style.display = "none";
+            document.getElementById("ListaEjercicios3").style.display = "none";
+            document.getElementById("ListaEjercicios4").style.display = "none";
+            document.getElementById("ListaEjercicios5").style.display = "none";
+            document.getElementById("ListaEjercicios6").style.display = "none";
+        }
+        else if (id == 4) {
+            document.getElementById("ListaEjercicios3").style.display = "block";
+            document.getElementById("ListaEjercicios2").style.display = "none";
+            document.getElementById("ListaEjercicios1").style.display = "none";
+            document.getElementById("ListaEjercicios4").style.display = "none";
+            document.getElementById("ListaEjercicios5").style.display = "none";
+            document.getElementById("ListaEjercicios6").style.display = "none";
+        }
+        else if (id == 5) {
+            document.getElementById("ListaEjercicios4").style.display = "block";
+            document.getElementById("ListaEjercicios2").style.display = "none";
+            document.getElementById("ListaEjercicios3").style.display = "none";
+            document.getElementById("ListaEjercicios1").style.display = "none";
+            document.getElementById("ListaEjercicios5").style.display = "none";
+            document.getElementById("ListaEjercicios6").style.display = "none";
+        }
+        else if(id == 6) {
+            document.getElementById("ListaEjercicios5").style.display = "block";
+            document.getElementById("ListaEjercicios2").style.display = "none";
+            document.getElementById("ListaEjercicios3").style.display = "none";
+            document.getElementById("ListaEjercicios4").style.display = "none";
+            document.getElementById("ListaEjercicios1").style.display = "none";
+            document.getElementById("ListaEjercicios6").style.display = "none";
+        }
+        else {
+            document.getElementById("ListaEjercicios6").style.display = "block";
+            document.getElementById("ListaEjercicios2").style.display = "none";
+            document.getElementById("ListaEjercicios3").style.display = "none";
+            document.getElementById("ListaEjercicios4").style.display = "none";
+            document.getElementById("ListaEjercicios5").style.display = "none";
+            document.getElementById("ListaEjercicios1").style.display = "none";
+        }
+    });
 
     $("#Altura").keyup(function () {
         var value = $(this).val().trim();

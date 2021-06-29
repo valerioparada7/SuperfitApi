@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web;
-
+using WhatsAppApi;
 namespace SuperfitApi.Models
 {
     public class EnvioNotificaciones
@@ -61,26 +63,39 @@ namespace SuperfitApi.Models
         public AlertasModel EnviarMensaje(string User, string Mensaje, string succes)
         {
             AlertasModel alertita = new AlertasModel();
-           /* try
+            alertita.Mensaje = "Ocurrio un error al enviar el mensaje via Whatsapp";
+            alertita.Result = false;
+            try
             {
-                var accountSid = "ACd6ccd243ec7ba11411f5f8888ef37e53";
-                var authToken = "e8a54699fed75cbcda2cd36d3059a529";
-                TwilioClient.Init(accountSid, authToken);
+                WhatsApp whatsApp = new WhatsApp("+5214428802842", "S2pRzjF5WnVcHCwGFkjJuFI2oCM=", "sekhar",false,false);
+                whatsApp.OnConnectSuccess += () =>
+                {
+                    whatsApp.OnLoginSuccess += (phone, data) =>
+                    {
+                        whatsApp.SendMessage(User, Mensaje);
+                        alertita.Mensaje = succes;
+                        alertita.Result = true;
+                    };
 
-                var messageOptions = new CreateMessageOptions(
-                    new PhoneNumber("whatsapp:+52" + User));
-                messageOptions.From = new PhoneNumber("whatsapp:+14155238886");
-                messageOptions.Body = Mensaje;
+                    whatsApp.OnLoginFailed += (data) =>
+                    {
+                        alertita.Mensaje = data;
+                    };
+                    whatsApp.Login();
+                };
 
-                var message = MessageResource.Create(messageOptions);
-                alertasMdl.Mensaje = succes;
-                alertasMdl.Result = true;
+                whatsApp.OnConnectFailed += (ex) =>
+                {
+                    alertita.Mensaje = ex.Message;
+                };
+
+                whatsApp.Connect();
             }
             catch (Exception ex)
             {
-                alertasMdl.Mensaje = ex.Message;
-                alertasMdl.Result = false;
-            }*/
+                alertita.Mensaje = ex.Message;
+                alertita.Result = false;
+            }
             return alertita = alertasMdl;
         }
         public string GenerarCodigo()

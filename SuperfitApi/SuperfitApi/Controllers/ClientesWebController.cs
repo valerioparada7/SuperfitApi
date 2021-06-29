@@ -310,7 +310,8 @@ namespace SuperfitApi.Controllers
                         datoscorreo.Add("@Money", monto.ToString());
                         datoscorreo.Add("@Date", Fecha);
                         datoscorreo.Add("@Comments", descripcion);
-                        datoscorreo.Add("@Urlbicacion", ruta);
+                        string imagenhtml = "<img src=\"https://www.bsite.net/valerioparada\""+ ruta +" height = \"200\" width = \"200\" />";                                                
+                        datoscorreo.Add("@Urlbicacion", imagenhtml);
                         string plantilla = Server.MapPath("~/Plantillas/Comprobantepago.html");
                         string succes = "Se envio tu solicitud de pago para la rutina a tu entrenador";
                         string user = "paradavalerio@gmail.com";

@@ -43,7 +43,7 @@
                         <td>@item.Ejercicio</td>
                         <td>@item.Descripcion</td>
                         <td>@item.Posicion </td>
-                        <td><img src="https://www.bsite.net/valerioparada/@item.Ubicacion_imagen" width="200" height="200"/></td>                        
+                        <td><img src="https://www.bsite.net/valerioparada/@item.Ubicacion_imagen" style="width: 25em;"/></td>                        
                     </tr>
                 }
                 </tbody>
@@ -57,15 +57,15 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Nuevo Ejercicio</h3>
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Nuevo Ejercicio</h3>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>           
             <div class="modal-body">
                 <div class="container">
-                @*@using (Html.BeginForm("AgregarEjercicios", "AdministracionWebHome", FormMethod.Post, new { @id = "formAdd" }))
-                {*@
+                    @*@using (Html.BeginForm("AgregarEjercicios", "AdministracionWebHome", FormMethod.Post, new { @id = "formAdd" }))
+                    {*@
                     <div class="row">
                         <div class="col-md-6">
                             @*@Html.TextBoxFor(Model => ejercicio.Clave_ejercicio,new { @class = "form-control", @id = "IdClaveejercicio" , placeholder = "Clave ejercicio", onkeypress = "style.borderColor='gray'" })*@
@@ -79,17 +79,14 @@
                     <br />
                     <div class="row">
                         <div class="col">
+                            <select class="form-control" id="IdRutinasList">
+                            </select>
+                        </div>
+                        <div class="col">
                             @*@Html.TextBoxFor(Model => ejercicio.Imagen, new { @class = "form-control-file my-2 check-image-size", type = "file", accept = " image/*", style = "background-color:white;color:black;" })*@
                             <input type="file" data-maxsize="4200000" id="IdEjercicioimg" class="form-control-file my-2 check-image-size">
                         </div>
-                        <div class="col">
-                            <select class="form-control" id="IdEjercicioList" >
-                                <option value="Definicion">Definicion</option>
-                                <option value="Volumen">Volumen</option>                                
-                            </select>
-                            @*@Html.DropDownListFor(p =>ejercicio.Tipo, lista as SelectList, new { @class = "form-control", id = "IdEjercicioList" })*@
-                        </div>
-                    </div>
+                    </div>                    
                     <br />
                     <div class="row">
                         <div class="col-md-6">
@@ -101,14 +98,14 @@
                             <textarea type="text" class="form-control" id="IdPosicion" placeholder="Posicion" style="height:200px" onkeypress="style.borderColor='gray'"></textarea>
                         </div>
                     </div>
-                        
-                    <br />    
-                @*}*@
+
+                    <br />
+                    @*}*@
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="Agregar()">Guardar</button>
+                <button type="button" class="color btn btn-primary" onclick="Agregar()">Guardar</button>
             </div>
         </div>
     </div>
@@ -119,7 +116,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Cliente</h3>
+                <h3 class="letracolor modal-title" id="exampleModalLongTitle">Cliente</h3>
                 <h5></h5>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -177,7 +174,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="Editar()">Guardar</button>
+                <button type="button" class="color btn btn-primary" onclick="Editar()">Guardar</button>
             </div>
         </div>
     </div>
@@ -185,12 +182,21 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        cargarCombo();
         $('#tablaejercicios').DataTable();
     });
     var url = '@Url.Action("AgregarEjercicios", "AdministracionWebHome")';
     var urleditar = '@Url.Action("EditarEjercicios", "AdministracionWebHome")';
     var urlup = '@Url.Action("UpImagen", "AdministracionWebHome")';
     var urlupact = '@Url.Action("UpImagenActualizar", "AdministracionWebHome")';
+
+    function cargarCombo() {
+        var lista = @Html.Raw(Json.Encode(ViewBag.ListEjercicios));        
+        for (var i = 0; i < lista.length; i++) {
+            $("#IdRutinasList").append("<option value='" + lista[i].Id_rutina + "'>" + lista[i].Descripcion.toUpperCase() + "</option>");
+        }
+
+    }
 
     function Ver() {
         $('#ModalAgregar').modal('show');
@@ -200,11 +206,13 @@
         var formdata = new FormData();
         var Imagenf = $("#IdEjercicioimg")[0];
         var parametros = {};
+        var Rutinas = {};
+        Rutinas.Id_rutina = $("#IdRutinasList").val();
         parametros.Clave_ejercicio = $("#IdClaveejercicio").val().trim();
         parametros.Ejercicio = $("#IdEjercicio").val().trim();
         parametros.Descripcion = $("#IdDescripcion").val().trim();
-        parametros.Posicion = $("#IdPosicion").val().trim();
-        parametros.Tipo = $("#IdEjercicioList").val().trim();
+        parametros.Posicion = $("#IdPosicion").val().trim();        
+        parametros.Rutinas = Rutinas;
         var model = parametros;
         var file = Imagenf.files[0];
         formdata.append("Tipo", parametros.Tipo);
@@ -313,8 +321,8 @@
     function Editar()
     {
         var formdata = new FormData();
-        var Imagenf = $("#IdEjercicioimgE")[0];        
-        var img = Imagenf.files[0];        
+        var Imagenf = $("#IdEjercicioimgE")[0];
+        var img = Imagenf.files[0];
         var parametros = {};
         parametros.Id_ejercicio = $("#Id_ejercicio").val().trim();
         parametros.Clave_ejercicio = $("#IdClaveejercicioE").val().trim();
@@ -333,7 +341,7 @@
             if (sizeFile > maxSizeFileInput) {
                 alert("Favor de seleccionar un archivo con tamaño no más de " + (maxSizeFileInput / 1000000) + " MB.");
                 return;
-            } 
+            }
         }
         if (parametros.Clave_ejercicio != "")
         {

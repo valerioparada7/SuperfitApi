@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\valerio.parada\Downloads\SuperflifitApiPublicsh</_PublishTargetUrl>
-    <History>True|2021-06-20T04:34:40.6984575Z;True|2021-06-19T00:28:14.6956999-05:00;True|2021-06-18T20:35:52.4577016-05:00;True|2021-06-18T13:27:10.8766095-05:00;True|2021-06-18T01:51:27.1626199-05:00;True|2021-06-13T01:03:17.7505971-05:00;True|2021-06-12T23:55:17.4707359-05:00;True|2021-06-07T22:40:37.6292259-05:00;True|2021-05-08T23:03:03.6841086-05:00;True|2021-05-08T22:39:13.9943872-05:00;True|2021-03-14T16:57:47.1850185-06:00;True|2021-03-12T09:18:56.8913010-06:00;</History>
+    <History>True|2021-06-28T22:13:40.7229280Z;True|2021-06-25T23:20:29.2743979-05:00;True|2021-06-19T23:34:40.6984575-05:00;True|2021-06-19T00:28:14.6956999-05:00;True|2021-06-18T20:35:52.4577016-05:00;True|2021-06-18T13:27:10.8766095-05:00;True|2021-06-18T01:51:27.1626199-05:00;True|2021-06-13T01:03:17.7505971-05:00;True|2021-06-12T23:55:17.4707359-05:00;True|2021-06-07T22:40:37.6292259-05:00;True|2021-05-08T23:03:03.6841086-05:00;True|2021-05-08T22:39:13.9943872-05:00;True|2021-03-14T16:57:47.1850185-06:00;True|2021-03-12T09:18:56.8913010-06:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/HelpPage/HelpPage.css">
@@ -121,6 +121,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>03/11/2021 21:29:56</publishTime>
+    </File>
+    <File Include="bin/Microsoft.IdentityModel.Logging.dll">
+      <publishTime>01/10/2017 15:22:58</publishTime>
+    </File>
+    <File Include="bin/Microsoft.IdentityModel.Tokens.dll">
+      <publishTime>01/10/2017 15:23:02</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>03/11/2021 21:29:56</publishTime>
@@ -276,10 +282,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:56</publishTime>
     </File>
     <File Include="bin/SuperfitApi.dll">
-      <publishTime>06/20/2021 19:40:55</publishTime>
+      <publishTime>06/28/2021 18:46:17</publishTime>
     </File>
     <File Include="bin/SuperfitApi.pdb">
-      <publishTime>06/20/2021 19:40:55</publishTime>
+      <publishTime>06/28/2021 18:46:17</publishTime>
+    </File>
+    <File Include="bin/System.IdentityModel.Tokens.Jwt.dll">
+      <publishTime>01/10/2017 15:23:06</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>03/11/2021 21:29:56</publishTime>
@@ -310,6 +319,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="bin/System.Web.WebPages.Razor.dll">
       <publishTime>03/11/2021 21:29:56</publishTime>
+    </File>
+    <File Include="bin/Twilio.dll">
+      <publishTime>06/16/2021 20:15:22</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>03/11/2021 21:29:56</publishTime>
@@ -1073,6 +1085,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="favicon.ico">
       <publishTime>03/11/2021 21:29:54</publishTime>
     </File>
+    <File Include="fondo3.ico">
+      <publishTime>06/20/2021 21:27:59</publishTime>
+    </File>
     <File Include="fonts/fontawesome-webfont.eot">
       <publishTime>04/02/2021 23:10:07</publishTime>
     </File>
@@ -1109,6 +1124,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Global.asax">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
+    <File Include="Imagenes/superfiticono.jpeg">
+      <publishTime>06/20/2021 21:30:08</publishTime>
+    </File>
     <File Include="Models/Entity/SuperfitEntities.edmx.diagram">
       <publishTime>04/18/2021 16:42:35</publishTime>
     </File>
@@ -1118,8 +1136,17 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Models/SuperflyfitModel.edmx.diagram">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
+    <File Include="Plantillas/BienvenidaSuperfit.html">
+      <publishTime>06/21/2021 23:01:41</publishTime>
+    </File>
+    <File Include="Plantillas/Comprobantepago.html">
+      <publishTime>06/28/2021 18:21:03</publishTime>
+    </File>
     <File Include="Plantillas/CorreoRecuperacion.html">
-      <publishTime>06/20/2021 19:26:46</publishTime>
+      <publishTime>06/21/2021 23:01:36</publishTime>
+    </File>
+    <File Include="Plantillas/SolicitudRegistro.html">
+      <publishTime>06/21/2021 23:01:47</publishTime>
     </File>
     <File Include="Scripts/bootstrap-sortable.js">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -1749,10 +1776,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/04/2021 21:31:23</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminEjerciciosWeb.cshtml">
-      <publishTime>06/19/2021 21:58:02</publishTime>
+      <publishTime>06/23/2021 13:26:33</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminEstatusWeb.cshtml">
-      <publishTime>06/03/2021 17:54:34</publishTime>
+      <publishTime>06/24/2021 19:49:12</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdministracionWebHome.cshtml">
       <publishTime>06/20/2021 17:48:10</publishTime>
@@ -1761,52 +1788,55 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/03/2021 17:55:05</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminRutinasWeb.cshtml">
-      <publishTime>06/03/2021 17:55:20</publishTime>
+      <publishTime>06/21/2021 23:47:30</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminTipoentrenamientoWeb.cshtml">
-      <publishTime>06/03/2021 17:55:37</publishTime>
+      <publishTime>06/21/2021 23:47:14</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminTiporutinaWeb.cshtml">
-      <publishTime>06/03/2021 17:55:55</publishTime>
+      <publishTime>06/21/2021 23:47:00</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/ClienteDetalle.cshtml">
-      <publishTime>06/07/2021 18:08:52</publishTime>
+      <publishTime>06/28/2021 18:44:31</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/Entrenamientoenvivo.cshtml">
       <publishTime>06/05/2021 21:34:48</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Mensualidades.cshtml">
-      <publishTime>06/20/2021 18:32:14</publishTime>
+      <publishTime>06/25/2021 23:00:01</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Perfil.cshtml">
-      <publishTime>06/20/2021 18:31:45</publishTime>
+      <publishTime>06/23/2021 18:45:54</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Rutinas.cshtml">
-      <publishTime>06/19/2021 21:51:33</publishTime>
+      <publishTime>06/23/2021 13:24:19</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Views/LoginWeb/LoginAdministradorWeb.cshtml">
-      <publishTime>06/04/2021 22:17:17</publishTime>
+      <publishTime>06/20/2021 21:33:45</publishTime>
     </File>
     <File Include="Views/LoginWeb/LoginWeb.cshtml">
-      <publishTime>06/04/2021 22:17:10</publishTime>
+      <publishTime>06/23/2021 18:34:14</publishTime>
+    </File>
+    <File Include="Views/LoginWeb/Recuperarcuenta.cshtml">
+      <publishTime>06/23/2021 18:57:15</publishTime>
     </File>
     <File Include="Views/LoginWeb/RegistrarCliente.cshtml">
-      <publishTime>06/13/2021 16:31:04</publishTime>
+      <publishTime>06/23/2021 18:46:46</publishTime>
     </File>
     <File Include="Views/Shared/Diseño.cshtml">
-      <publishTime>06/05/2021 17:29:14</publishTime>
+      <publishTime>06/20/2021 21:33:06</publishTime>
     </File>
     <File Include="Views/Shared/DiseñoAdmin.cshtml">
-      <publishTime>06/05/2021 18:26:50</publishTime>
+      <publishTime>06/20/2021 21:33:11</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>06/20/2021 21:33:22</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/04/2021 23:25:45</publishTime>
+      <publishTime>06/20/2021 21:33:27</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -1815,7 +1845,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/20/2021 19:40:57</publishTime>
+      <publishTime>06/25/2021 23:20:26</publishTime>
     </File>
   </ItemGroup>
 </Project>

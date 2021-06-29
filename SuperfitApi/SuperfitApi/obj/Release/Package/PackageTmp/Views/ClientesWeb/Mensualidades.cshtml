@@ -34,12 +34,45 @@
                             <td><button type="button" style="border:0px;color:#007bff" class="btn-link" onclick="VerFotosMedidas(@item.Id_mensualidad,@item.Estatus.Id_estatus)">Ver mis medidas y fotos</button></td>
                             <td>@item.Mes.Mes</td>
                             <td>
-                                @item.Estatus.Descripcion
-                                @if (item.Estatus.Id_estatus == 1)
-                                {
-                                <button type="button" style="border:0px;color:#007bff" class="btn-link" 
-                                        onclick="OpenPago(@item.Id_mensualidad)">Subir comoprobante de pago</button>                                                        
-                                }
+                                <table>
+                                    <tr>
+                                        <td>
+                                            @item.Estatus.Descripcion
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    @if ((item.Estatus.Id_estatus == 2 || item.Estatus.Id_estatus == 3) && item.PagoMes.Id_pago != 0)
+                                    { 
+                                        <td>
+                                            <img onclick="Verfotopago('@item.PagoMes.Ubicacion_imagen_pago')" src="https://www.bsite.net/valerioparada/@item.PagoMes.Ubicacion_imagen_pago" width="50" height="50" />
+                                        </td>
+                                        <td>
+                                            @item.PagoMes.Fechapago
+                                        </td>
+                                    }
+                                    @if (item.Estatus.Id_estatus == 1)
+                                    {
+                                        if (item.PagoMes.Id_pago != 0)
+                                        {
+                                            <td>
+                                                <label>Su pago esta en revison</label>
+                                            </td>
+                                            <td>
+                                                <img onclick="Verfotopago('@item.PagoMes.Ubicacion_imagen_pago')" src="https://www.bsite.net/valerioparada/@item.PagoMes.Ubicacion_imagen_pago" width="50" height="50" />
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <button type="button" style="border:0px;color:#007bff" class="btn-link"
+                                                        onclick="OpenPago(@item.Id_mensualidad)">
+                                                    Subir comoprobante de pago
+                                                </button>
+                                            </td>
+                                        }
+                                    }
+                                    </tr>
+                                </table>
                             </td>
                             <td>@item.Fechainicio</td>
                             <td>@item.Fechafin</td>
@@ -53,7 +86,7 @@
 </div>
 
 <!--Modal para pagar y subir la foto-->
-<div id="ModalMensualidadPago" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal" id="ModalMensualidadPago" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -63,33 +96,56 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <input type="text" id="Idmensualidadpago" style="display:none" />                    
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" id="monto" class="form-control" placeholder="Monto pagado" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" id="descripcion" class="form-control" placeholder="Descripcion u observaciones" />
-                        </div>
-                    </div>
-                    <div style="text-align:center;margin-top:10px" class="col-md-6 offset-md-3">
-                        <label for="Foto_comprobante" style="cursor:pointer">
-                            Subir foto del comprobante
-                            <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
-                        </label>
-                        <input style="display:none" value="Foto comprobante" title="Foto comprobante" type="file" data-maxsize="4200000" id="Foto_comprobante" class="form-control-file my-2 check-image-size">
-                    </div>
-                    <div style="text-align:center">
-                        <div id="preview" width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                <input type="text" id="Idmensualidadpago" style="display:none" />
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="monto" class="form-control" placeholder="Monto pagado" />
                     </div>
                 </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="descripcion" class="form-control" placeholder="Descripcion u observaciones" />
+                    </div>
+                </div>
+                <br />
+                <div style="text-align:center;margin-top:10px" class="col-md-6 offset-md-3">
+                    <label for="Foto_comprobante" style="cursor:pointer">
+                        Subir foto del comprobante
+                        <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
+                    </label>
+                    <input style="display:none" value="Foto comprobante" title="Foto comprobante" type="file" data-maxsize="4200000" id="Foto_comprobante" class="form-control-file my-2 check-image-size">
+                </div>
+                <div style="text-align:center">
+                    <div id="preview" width="200" height="200" style="display:inline-block;border-radius: 20px;width:25em;"></div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="colorred btn btn-success" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="color btn btn-primary" data-dismiss="modal" onclick="RealizarPago()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!---Modal para ver la foto de pago-->
+<div class="modal" id="fotopaguito"tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Imagen del comprobante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div align="center">
+                    <img id="fotitopago" src="" style="width: 25em;" />
+                </div>
+                
+            </div>
+            <div class="modal-footer">                
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -227,14 +283,14 @@
                                     <div id="columna14">
                                         <div class="row">
                                             <div class="col">
-                                                <div id="previewfrontal" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                                <div id="previewfrontal" width="100" height="100" style="display:inline-block;border-radius: 20px;"></div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <label>Foto frontal</label>
                                                 <label for="Foto_frontal" style="cursor:pointer">
-                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
                                                 </label>
                                                 <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
                                             </div>
@@ -247,14 +303,14 @@
                                     <div id="columna15">
                                         <div class="row">
                                             <div class="col">
-                                                <div id="previewperfil" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                                <div id="previewperfil" width="100" height="100" style="display:inline-block;border-radius: 20px;"></div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <label>Foto perfil</label>
                                                 <label for="Foto_perfil" style="cursor:pointer">
-                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
                                                 </label>
                                                 <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
                                             </div>
@@ -267,14 +323,14 @@
                                     <div id="columna16">
                                         <div class="row">
                                             <div class="col">
-                                                <div id="previewposterior" width="100" height="100" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"></div>
+                                                <div id="previewposterior" width="100" height="100" style="display:inline-block;border-radius: 20px;"></div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <label>Foto posterior</label>
                                                 <label for="Foto_posterior" style="cursor:pointer">
-                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;box-shadow: 0px 0px 2px #888;padding: 0.5em 0.6em;"></i>
+                                                    <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
                                                 </label>
                                                 <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
                                             </div>
@@ -340,7 +396,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#tablamensualidad').DataTable();
+        //$('#tablamensualidad').DataTable();
     });
     var urlmedidas = '@Url.Action("ListAsesoriaantropometria", "ClientesWeb")';
     var urlmedidasreg ='@Url.Action("RegistrarMedidas", "ClientesWeb")';
@@ -469,9 +525,9 @@
                     html += '<td><lable>' + data[i].Piernaderecho + ' cm</lable></td>';
                     html += '<td><lable>' + data[i].Pantorrilladerecha + ' cm</lable></td>';
                     html += '<td><lable>' + data[i].Pantorrillaizquierda + ' cm</lable></td>';
-                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotofrontal + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
-                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotoperfil + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
-                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotoposterior + '"width="200" height="200" style="display:inline-block;border-radius: 20px;box-shadow: 0px 0px 2px #888;"/></td>';
+                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotofrontal + '" style="display:inline-block;border-radius: 20px;width:25em;"/></td>';
+                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotoperfil + '" style="display:inline-block;border-radius: 20px;width:25em;"/></td>';
+                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotoposterior + '" style="display:inline-block;border-radius: 20px;width:25em;"/></td>';
                     html += '<td><lable>' + data[i].Fecharegistro + '</lable></td>';
                     html += '</tr>';
                     $('#ListaMedidas tbody').append(html);
@@ -483,6 +539,11 @@
             }
         });
         $("#ModalMensualidadDetalle").modal("show");
+    }
+
+    function Verfotopago(ubicacion) {
+        document.getElementById("fotitopago").src = "https://www.bsite.net/valerioparada/" + ubicacion;
+        $("#fotopaguito").modal('show')
     }
 
     function RealizarPago() {
@@ -549,6 +610,7 @@
     function OpenPago(Id) {
         document.getElementById("Idmensualidadpago").value = Id;
         $("#ModalMensualidadPago").show();
+        //$("#ModalMensualidadDetalle").modal("show");
     }
 
     function GuardarRutina() {

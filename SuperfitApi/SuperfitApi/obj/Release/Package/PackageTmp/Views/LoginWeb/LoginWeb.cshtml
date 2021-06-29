@@ -8,14 +8,20 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/bundles/datatablescss")
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/fontawesome")
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/popper")
-    @Scripts.Render("~/bundles/chart")
-    @*<link rel="shortcut icon" type="image/png" href="https://scontent.fgdl10-1.fna.fbcdn.net/v/t1.6435-9/180808007_5422339407838671_1700596020277203302_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeEUG9dgR8qfrrmJyTtRWKXW1XHmAJHouv3VceYAkei6_bidts1BsvvpaSWrLhDHhq3tk766oRgc6S9AW2sMd7SO&_nc_ohc=cNs73O1AApcAX8YSVk9&_nc_ht=scontent.fgdl10-1.fna&oh=bf57e05ff2cb4528f3924a626c0791e1&oe=60BA6AC8" />*@
+    @Styles.Render("~/Content/fontawesome")
+    @Styles.Render("~/bundles/datatablescss")
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="shortcut icon" type="image/png" href="https://www.bsite.net/valerioparada/Imagenes/superfiticono.jpeg" style="width: 20em;" />
     <style>
         .login {
             margin-top: 10px;
@@ -51,61 +57,135 @@
             border-color: transparent;
         }
     </style>
+    
 </head>
 <body>
-   <div class="d-flex justify-content-center h-100">
-       <div class="card">
-           <div class="card-header">
-               <div class="col-12 text-center">
-                   <h3 style="color:#007bff">
-                       Superfit
-                   </h3>
-               </div>
-           </div>                  
-       <div class="card-body">
-           @using (Html.BeginForm("LoginWeb", "LoginWeb", FormMethod.Post, new { @id = "FormLogin" }))
-           {     
-           <form>
-               <div class="row">
-                   <div class="col">
-                       @Html.TextBox("User", null, new { @class = "form-control", id = "User", placeholder = "Correo eléctronico o celular", style = "color:black;border-color:#007bff" })
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col">
-                       @Html.TextBox("Pass", null, new { @class = "form-control", id = "Pass", type = "password", placeholder = "Contraseña", style = "color:black;border-color: #007bff" })
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col">
-                       <button type="submit" id="Iniciarsesion" class="form-control btn btn-primary" onclik="document.body.style.cursor='wait';" style= "background-color: #007bff">Iniciar sesión</button>
-                   </div>
-               </div>
-               <div class="login">       
-                       @Html.ActionLink("¿Olvidaste tu contraseña?", "LoginAdministradorWeb", "LoginWeb", new { @class = "btn-link"})                  
-               </div>
-               <hr />
-               <div class="login">
-                       @Html.ActionLink("Registrarse", "RegistrarCliente", "LoginWeb", new { @class = "btn btn-success" })                               
-               </div>
-               <div class="login">
-                       @Html.ActionLink("Soy un administrador", "LoginAdministradorWeb", "LoginWeb", new { @class = "btn-link" })                   
-               </div>
-               <div class="login">
-                       @if (ViewBag.Mensaje != null)
-                       {
-                           <div class="text-danger">
-                               @ViewBag.Mensaje
-                           </div>
-                       }
-               </div>
-           </form>
-           }
-       </div>
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-12 text-center">
+                    <h3 style="color:#007bff">
+                        Superfit
+                    </h3>
+                </div>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("LoginWeb", "LoginWeb", FormMethod.Post, new { @id = "FormLogin" }))
+                {
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                @Html.TextBox("User", null, new { @class = "form-control", id = "User", placeholder = "Correo eléctronico o celular", style = "color:black;border-color:#007bff" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                @Html.TextBox("Pass", null, new { @class = "form-control", id = "Pass", type = "password", placeholder = "Contraseña", style = "color:black;border-color: #007bff" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" id="Iniciarsesion" class="form-control btn btn-primary" onclik="document.body.style.cursor='wait';" style="background-color: #007bff">Iniciar sesión</button>
+                            </div>
+                        </div>
+                        <div class="login">
+                            @Html.ActionLink("¿Olvidaste tu contraseña?", "Recuperarcuenta", "LoginWeb", new { @class = "btn-link" })
+                        </div>
+                        <hr />
+                        <div class="login">
+                            @Html.ActionLink("Registrarse", "RegistrarCliente", "LoginWeb", new { @class = "btn btn-success" })
+                        </div>
+                        <div class="login">
+                            @Html.ActionLink("Soy un administrador", "LoginAdministradorWeb", "LoginWeb", new { @class = "btn-link" })
+                        </div>
+                        <div class="login">
+                            @if (ViewBag.Mensaje != null)
+                            {
+                                <div class="text-danger">
+                                    @ViewBag.Mensaje
+                                </div>
+                            }
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
     </div>
-   </div>
-    <script type="text/javascript">
-        
+    <script type="text/javascript">       
+        function Enviar() {
+            
+            var usuario = document.getElementById("cuenta").value;
+            var urlgenerar = '@Url.Action("GeneradorCodigo", "ClientesWeb")';
+            $.ajax({
+                type: "POST",
+                url: urlgenerar,
+                data: { "user": usuario },
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (valor) {                    
+                    if (data["Result"] == "True") {
+                        alert("Exito");
+                        swal({
+                            title: "Éxito",
+                            text: data.Mensaje,
+                            type: "success"
+                        });
+                    }
+                    else {
+                        alert("Falso");
+                        swal({
+                            title: "Error",
+                            text: data.Mensaje,
+                            type: "warning"
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                    //swal("Warning", "No se realizo la conexion intente de nuevo, warning:" + error +",warning");
+                }
+            });
+        }
     </script>
+    <!--Modal para recuperar cuenta-->
+    <div class="modal" id="ModalRecuperacion" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Recuperacion de cuenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("GeneradorCodigo", "ClientesWeb", FormMethod.Post, new { @id = "FormRecuperacion" }))
+                {
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6>
+                                    Ingresa tu correo electrónico,
+                                    teléfono y te enviaremos un enlace para que recuperes el acceso a tu cuenta.
+                                </h6>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                @Html.TextBox("User", null, new { @class = "form-control", id = "cuenta", placeholder = "Correo eléctronico o celular", style = "color:black;border-color:#007bff" })
+                                @*<input type="text" id="cuenta" class="form-control" placeholder="Correo electronico o Telefono" />*@
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="colorred btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="color btn btn-primary">Aceptar</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+
