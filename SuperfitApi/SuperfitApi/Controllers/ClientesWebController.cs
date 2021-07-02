@@ -10,10 +10,6 @@ using System.IO;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
-using Twilio.Types;
-
 namespace SuperfitApi.Controllers
 {
     [Validation]

@@ -12,9 +12,6 @@ using System.Web;
 using System.Web.Hosting;
 using System.Drawing;
 using System.Net.Mail;
-using Twilio;
-using Twilio.Types;
-using Twilio.Rest.Api.V2010.Account;
 
 namespace SuperfitApi.Controllers
 {
@@ -93,14 +90,20 @@ namespace SuperfitApi.Controllers
                         if (clientesserch != null)
                         {
                             pass = clientesserch.Contraseña;
-                            celortel = "cel";
+                            celortel = "correo";
                             validacion = true;
                             clientes = clientesserch;
+                            User = clientesserch.Correo_electronico;
+                        }
+                        else
+                        {
+                            alertasMdl.Mensaje = "No se encontro ese usuario con ese numero";
+                            alertasMdl.Result = false;
                         }
                     }
                     else
                     {
-                        alertasMdl.Mensaje = "No se encontro ese usuario con ese numero";
+                        alertasMdl.Mensaje = "No se encontro ese usuario con";
                         alertasMdl.Result = false;
                     }
                 }
@@ -116,7 +119,7 @@ namespace SuperfitApi.Controllers
                         Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
                         datoscorreo.Add("@CodigoRecuperacion", codigo);
                         string plantilla = HostingEnvironment.MapPath("~/Plantillas/CorreoRecuperacion.html");
-                        succes = "Revisa tu bandeja de correo que proporcionaste para continuar";
+                        succes = "Revisa tu correo que proporcionaste para continuar";
                         string asunto = "Recuperacion de cuenta";
                         AlertasModel resultado = envio.EnviarCorreo(User, plantilla, datoscorreo, succes,asunto);
                         if (resultado.Result == false)

@@ -13,9 +13,6 @@ using System.Web.Hosting;
 using System.Web.Http;
 using SuperfitApi.Models;
 using SuperfitApi.Models.Entity;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
-using Twilio.Types;
 
 namespace SuperfitApi.Controllers
 {
@@ -178,36 +175,41 @@ namespace SuperfitApi.Controllers
         [Route("api/Clientes/GetDetalleRutinaSets")]
         public List<DetallerutinaModel> GetDetalleRutinaSets(int IdMensualidad,int IdEstatusMes,int IdDIa)
         {
-            listdetallerutinaMdl = (from d in Db.Detalle_rutina
-                                    join m in Db.Mensualidad
-                                   on d.Id_mensualidad equals m.Id_mensualidad
-                                    where m.Id_mensualidad== IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa
-                                    select new DetallerutinaModel()
-                                    {                                        
-                                        Tipo_set = d.Tipo_set                                        
-                                    }).Distinct().ToList();
-
-            foreach(DetallerutinaModel detalle in listdetallerutinaMdl)
+            var mes = Db.Mensualidad.Where(y => y.Id_mensualidad == IdMensualidad).FirstOrDefault();
+            IdEstatusMes = mes.Id_estatus;
+            if (IdEstatusMes == 2 || IdEstatusMes == 4)
             {
-                if (detalle.Tipo_set == 1)
+                listdetallerutinaMdl = (from d in Db.Detalle_rutina
+                                        join m in Db.Mensualidad
+                                       on d.Id_mensualidad equals m.Id_mensualidad
+                                        where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa
+                                        select new DetallerutinaModel()
+                                        {
+                                            Tipo_set = d.Tipo_set
+                                        }).Distinct().ToList();
+
+                foreach (DetallerutinaModel detalle in listdetallerutinaMdl)
                 {
-                    detalle.TipoSet = "Primer set";
-                }
-                else if (detalle.Tipo_set == 2)
-                {
-                    detalle.TipoSet = "Segundo set";
-                }
-                else if (detalle.Tipo_set == 3)
-                {
-                    detalle.TipoSet = "Tercer set";
-                }
-                else if (detalle.Tipo_set == 4)
-                {
-                    detalle.TipoSet = "Cuarto set";
-                }
-                else
-                {
-                    detalle.TipoSet = "Ultimo set";
+                    if (detalle.Tipo_set == 1)
+                    {
+                        detalle.TipoSet = "Primer set";
+                    }
+                    else if (detalle.Tipo_set == 2)
+                    {
+                        detalle.TipoSet = "Segundo set";
+                    }
+                    else if (detalle.Tipo_set == 3)
+                    {
+                        detalle.TipoSet = "Tercer set";
+                    }
+                    else if (detalle.Tipo_set == 4)
+                    {
+                        detalle.TipoSet = "Cuarto set";
+                    }
+                    else
+                    {
+                        detalle.TipoSet = "Ultimo set";
+                    }
                 }
             }
             return listdetallerutinaMdl;
@@ -218,35 +220,40 @@ namespace SuperfitApi.Controllers
         [Route("api/Clientes/GetDetalleRutinaEjercicios")]
         public List<DetallerutinaModel> GetDetalleRutinaEjercicios(int IdMensualidad, int IdEstatusMes, int IdDIa,int TipoSet)
         {
-            listdetallerutinaMdl = (from d in Db.Detalle_rutina
-                                    join e in Db.Ejercicios
-                                    on d.Id_ejercicio equals e.Id_ejercicio
-                                    join m in Db.Mensualidad
-                                    on d.Id_mensualidad equals m.Id_mensualidad
-                                    join r in Db.Rutinas 
-                                    on d.Id_rutina equals r.Id_rutina
-                                    where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa && d.Tipo_set== TipoSet
-                                    select new DetallerutinaModel()
-                                    {      
-                                       Id_detallerutina = d.Id_detalle_rutina,   
-                                       Ejercicios = new EjerciciosModel
-                                       {
-                                           Id_ejercicio=e.Id_ejercicio,
-                                           Clave_ejercicio = e.Clave_ejercicio,
-                                           Ejercicio= e.Ejercicio,
-                                           Descripcion = e.Descripcion,
-                                           Posicion = e.Posicion,
-                                           Ubicacion_imagen=e.Ubicacion_imagen
-                                       },
-                                       Rutinas = new RutinasModel
-                                       {
-                                           Id_rutina=r.Id_rutina,
-                                           Clave_rutina=r.Clave_rutina,
-                                           Descripcion=r.Descripcion
-                                       },
-                                       Repeticiones=d.Repeticiones,
-                                       Series=d.Series
-                                    }).ToList();
+            var mes = Db.Mensualidad.Where(y => y.Id_mensualidad == IdMensualidad).FirstOrDefault();
+            IdEstatusMes = mes.Id_estatus;
+            if (IdEstatusMes == 2 || IdEstatusMes == 4)
+            {
+                listdetallerutinaMdl = (from d in Db.Detalle_rutina
+                                        join e in Db.Ejercicios
+                                        on d.Id_ejercicio equals e.Id_ejercicio
+                                        join m in Db.Mensualidad
+                                        on d.Id_mensualidad equals m.Id_mensualidad
+                                        join r in Db.Rutinas
+                                        on d.Id_rutina equals r.Id_rutina
+                                        where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa && d.Tipo_set == TipoSet
+                                        select new DetallerutinaModel()
+                                        {
+                                            Id_detallerutina = d.Id_detalle_rutina,
+                                            Ejercicios = new EjerciciosModel
+                                            {
+                                                Id_ejercicio = e.Id_ejercicio,
+                                                Clave_ejercicio = e.Clave_ejercicio,
+                                                Ejercicio = e.Ejercicio,
+                                                Descripcion = e.Descripcion,
+                                                Posicion = e.Posicion,
+                                                Ubicacion_imagen = e.Ubicacion_imagen
+                                            },
+                                            Rutinas = new RutinasModel
+                                            {
+                                                Id_rutina = r.Id_rutina,
+                                                Clave_rutina = r.Clave_rutina,
+                                                Descripcion = r.Descripcion
+                                            },
+                                            Repeticiones = d.Repeticiones,
+                                            Series = d.Series
+                                        }).ToList();
+            }
             return listdetallerutinaMdl;
         }
 

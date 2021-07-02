@@ -908,7 +908,9 @@
                     var Tiporutina = data[i].Tiporutina;
                     var Mes = data[i].Mes;
                     var Estatus = data[i].Estatus;
-                    var pago = data[i].PagoMes.Ubicacion_imagen_pago;
+                    var pago = data[i].PagoMes;
+                    var ima = pago.Ubicacion_imagen_pago;
+                    ima = "'" + ima + "'";
                     var html = '';
                     html += '<tr id="fila' + i + '">';
                     html += '<td>' + sum + '</td>';
@@ -918,7 +920,7 @@
                     html += '<td>' + Tiporutina.Tipo + '</td>';
                     html += '<td>'+Mes.Mes+'</td>';
                     html += '<td>' + Estatus.Descripcion + '</td>';
-                    html += '<td><img onclick="Verfotopago(' + pago.Ubicacion_imagen_pago + ')" src="https://www.bsite.net/valerioparada/' + pago.Ubicacion_imagen_pago + '" width="50" height="50" /> ';
+                    html += '<td><img onclick="Verfotopago(' + ima + ')" src="https://www.bsite.net/valerioparada/' + pago.Ubicacion_imagen_pago + '" width="50" height="50" /> ';
                     html += '<td>' + data[i].Fechainicio+'</td>';
                     html += '<td>' + data[i].Fechafin + '</td>';
                     html += '</tr>';

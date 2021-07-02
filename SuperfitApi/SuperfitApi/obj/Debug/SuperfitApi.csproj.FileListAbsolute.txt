@@ -306,8 +306,7 @@ C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\Super
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Microsoft.IdentityModel.Logging.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Microsoft.IdentityModel.Tokens.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Twilio.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Microsoft.IdentityModel.Tokens.xml
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\System.IdentityModel.Tokens.Jwt.xml
-C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\Twilio.xml
-C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\WhatsAppApi.dll
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\RestSharp.dll
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\bin\RestSharp.xml

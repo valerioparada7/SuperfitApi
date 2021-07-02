@@ -543,7 +543,7 @@
 
     function Verfotopago(ubicacion) {
         document.getElementById("fotitopago").src = "https://www.bsite.net/valerioparada/" + ubicacion;
-        $("#fotopaguito").modal('show')
+        $("#fotopaguito").modal('show');
     }
 
     function RealizarPago() {
@@ -608,9 +608,8 @@
     }
 
     function OpenPago(Id) {
-        document.getElementById("Idmensualidadpago").value = Id;
-        $("#ModalMensualidadPago").show();
-        //$("#ModalMensualidadDetalle").modal("show");
+        document.getElementById("Idmensualidadpago").value = Id;        
+        $("#ModalMensualidadPago").modal('show');
     }
 
     function GuardarRutina() {

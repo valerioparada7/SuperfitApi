@@ -9,9 +9,6 @@ using SuperfitApi.Models.Entity;
 using SuperfitApi.Controllers;
 using System.IO;
 using System.Net.Mail;
-using Twilio;
-using Twilio.Types;
-using Twilio.Rest.Api.V2010.Account;
 
 namespace SuperfitApi.Controllers
 {    
@@ -190,14 +187,20 @@ namespace SuperfitApi.Controllers
                         if (clientesserch != null)
                         {
                             pass = clientesserch.Contraseña;
-                            celortel = "cel";
+                            celortel = "correo";
                             validacion = true;
                             clientes = clientesserch;
+                            User = clientesserch.Correo_electronico;
+                        }
+                        else
+                        {
+                            alertasMdl.Mensaje = "No se encontro ese usuario con ese numero";
+                            alertasMdl.Result = false;
                         }
                     }
                     else
                     {
-                        alertasMdl.Mensaje = "No se encontro ese usuario con ese numero";
+                        alertasMdl.Mensaje = "No se encontro ese usuario";
                         alertasMdl.Result = false;
                     }
                 }
@@ -213,7 +216,7 @@ namespace SuperfitApi.Controllers
                         Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
                         datoscorreo.Add("@CodigoRecuperacion", codigo);
                         string plantilla = Server.MapPath("~/Plantillas/CorreoRecuperacion.html");
-                        succes = "Revisa tu bandeja de correo que proporcionaste para continuar";
+                        succes = "Revisa tu correo que proporcionaste para continuar";
                         string asunto = "Recuperar contraseña";
                         AlertasModel resultado = envio.EnviarCorreo(User, plantilla, datoscorreo, succes, asunto);
                         if (resultado.Result == false)
@@ -234,7 +237,7 @@ namespace SuperfitApi.Controllers
                         Mensaje += "Ir a Superfit\n";
                         Mensaje += "https://www.bsite.net/valerioparada";
                         AlertasModel resultado = envio.EnviarMensaje(User, Mensaje, succes);
-                        if (resultado.Result = false)
+                        if (resultado.Result == false)
                         {
                             clientes.Contraseña = pass;
                             Db.SaveChanges();
