@@ -13,8 +13,6 @@ namespace SuperfitApi.Models
     public class EnvioNotificaciones
     {        
         public AlertasModel alertasMdl;
-
-        
         public EnvioNotificaciones()
         {
             alertasMdl = new AlertasModel();
@@ -63,7 +61,6 @@ namespace SuperfitApi.Models
             return alertita = alertasMdl;
 
         }
-
         public AlertasModel EnviarMensaje(string User, string Mensaje, string succes)
         {
             AlertasModel alertita = new AlertasModel();
