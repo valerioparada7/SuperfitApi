@@ -515,7 +515,7 @@ namespace SuperfitApi.Controllers
                 if (IdCliente != 0)
                 {
                     clientes = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
-                    fotoperfil += "/" + clientes.Clave_cliente;
+                    fotoperfil += clientes.Clave_cliente;
                     asesoria_antropometria = new Asesoria_antropometria
                     {
                         Peso = antropometriaModel.Peso,

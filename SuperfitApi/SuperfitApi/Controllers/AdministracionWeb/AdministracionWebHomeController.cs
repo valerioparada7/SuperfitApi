@@ -724,6 +724,8 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public JsonResult EditarEjercicios(int Id_ejercicio)
         {
             ejerciciosMdl = (from l in Db.Ejercicios
+                             join r in Db.Rutinas 
+                             on l.Id_rutina equals r.Id_rutina
                              where l.Id_ejercicio == Id_ejercicio
                              select new EjerciciosModel()
                              {
@@ -732,9 +734,13 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                  Ejercicio = l.Ejercicio,
                                  Descripcion = l.Descripcion,
                                  Posicion = l.Posicion,
-                                 Ubicacion_imagen = l.Ubicacion_imagen
-                             }).FirstOrDefault();
-
+                                 Ubicacion_imagen = l.Ubicacion_imagen,
+                                 Rutinas = new RutinasModel
+                                 {
+                                     Id_rutina = r.Id_rutina,
+                                     Descripcion = r.Descripcion 
+                                 }
+                             }).FirstOrDefault();            
             return Json(ejerciciosMdl, JsonRequestBehavior.AllowGet);
         }
 
@@ -758,8 +764,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
         [HttpPost]
         public bool EditarEjercicios(EjerciciosModel ejerciciosModel)
-        {
-            bool result = false;
+        {            
             if (ejerciciosModel == null)
             {
                 TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
@@ -780,29 +785,34 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                     ejercicios.Ejercicio = ejerciciosModel.Ejercicio;
                     ejercicios.Descripcion = ejerciciosModel.Descripcion;
                     ejercicios.Posicion = ejerciciosModel.Posicion;
+                    ejercicios.Id_rutina  = ejerciciosModel.Rutinas.Id_rutina;
                     Db.SaveChanges();
                     TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
-                    return true;
-                    //if (Db.SaveChanges() == 1)
-                    //{
-
-                    //}
-                    //else
-                    //{
-                    //    TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
-                    //    return false;
-                    //}
+                    return true;                    
                 }
             }
             else
             {
-                return false;
-            }            
-            return result;            
+                if (exercise == null)
+                {
+                    ejercicios.Clave_ejercicio = ejerciciosModel.Clave_ejercicio;
+                    ejercicios.Ejercicio = ejerciciosModel.Ejercicio;
+                    ejercicios.Descripcion = ejerciciosModel.Descripcion;
+                    ejercicios.Posicion = ejerciciosModel.Posicion;
+                    ejercicios.Id_rutina = ejerciciosModel.Rutinas.Id_rutina;
+                    Db.SaveChanges();
+                    TempData["Clave_ejercicio"] = ejerciciosModel.Clave_ejercicio;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }                                  
         }
 
         [HttpPost]
-        public bool UpImagenActualizar(string Tipo, HttpPostedFileBase Imagen)
+        public bool UpImagenActualizar(HttpPostedFileBase Imagen)
         {
             string Clave_ejercicio = TempData["Clave_ejercicio"].ToString();
             bool result = false;
@@ -812,26 +822,13 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 return true;
             }
             var file = Path.Combine(HttpContext.Server.MapPath("~"+ejercicios.Ubicacion_imagen));
-            System.IO.File.Delete(file);
-            if (Tipo == "Definicion")
+            System.IO.File.Delete(file);            
+            ejercicios.Ubicacion_imagen = "/Imagenes/Ejercicios/" + Imagen.FileName.ToString();
+            if (Db.SaveChanges() == 1)
             {
-                ejercicios.Ubicacion_imagen = "/Imagenes/Definicion/" + Imagen.FileName.ToString();
-                if (Db.SaveChanges() == 1)
-                {
-                    Imagen.SaveAs(Server.MapPath("~/Imagenes/Definicion/" + Imagen.FileName.ToString()));
-                    result = true;
-                }
-
-            }
-            if (Tipo == "Volumen")
-            {
-                ejercicios.Ubicacion_imagen = "/Imagenes/Volumen/" + Imagen.FileName.ToString();
-                if (Db.SaveChanges() == 1)
-                {
-                    Imagen.SaveAs(Server.MapPath("~/Imagenes/Volumen/" + Imagen.FileName.ToString()));
-                    result = true;
-                }
-            }
+                Imagen.SaveAs(Server.MapPath("~/Imagenes/Ejercicios/" + Imagen.FileName.ToString()));
+                result = true;
+            }          
             return result;
         }
         #endregion
@@ -1552,7 +1549,8 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                     {
                                         Id_ejercicio = d.Ejercicios.Id_ejercicio,
                                         Descripcion = d.Ejercicios.Descripcion,
-                                        Ejercicio = d.Ejercicios.Ejercicio
+                                        Ejercicio = d.Ejercicios.Ejercicio,
+                                        Ubicacion_imagen = d.Ejercicios.Ubicacion_imagen
                                     },
                                     Dias = new DiasModel
                                     {
@@ -1602,17 +1600,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                     }).ToList();
 
                 Db.Detalle_rutina.AddRange(listdetalle_Rutina);
-                if (Db.SaveChanges() == 1)
-                {
-                    result = true;
-                }
-                else
-                {
-                    return false;
-                }
+                Db.SaveChanges();
+                result = true;
                 if (cliente != null)
                 {
-                    Bienvenida(cliente.Correo_electronico,cliente.Nombres);
+                    AlertasModel resultado = Bienvenida(cliente.Correo_electronico,cliente.Nombres);
+                    result = resultado.Result;
                 }
             }
             catch (Exception ex)

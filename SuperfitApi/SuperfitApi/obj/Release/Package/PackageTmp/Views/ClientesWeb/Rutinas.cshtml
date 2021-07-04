@@ -36,7 +36,6 @@
                         for (int i = 2; i < dias.Length; i++)
                         {
                             <option value="@i">@dias[i]</option>
-
                         }
                     }
                 </select>
@@ -242,8 +241,8 @@
                     html += '<td>' + n + '</td> ';
                     html += '<td>' + diaob.options[diaob.selectedIndex].text+ '</td> ';
                     html += '<td>' + ejercicio.Ejercicio +'</td>';
-                    html += '<td><img class="imagenes" src="https://www.bsite.net/valerioparada/' + ejercicio.Ubicacion_imagen + '" style="width:25em;" /></td>';
-                    html += '<td width=100;><label>' + ejercicio.Descripcion + '</label></td>';
+                    html += '<td><img class="imagenes" src="https://www.bsite.net/valerioparada/' + ejercicio.Ubicacion_imagen + '" style="width:15em;" /></td>';
+                    html += '<td style="text-align:left"><label>' + ejercicio.Descripcion + '</label></td>';
                     html += '<td>' + data[i].Series+'</td> ';
                     html += '<td>' + data[i].Repeticiones+'</td> ';
                     html += '<td> ' + setobt.options[setobt.selectedIndex].text +'</td> ';
@@ -251,7 +250,6 @@
                     $('#ListaEjercicios tbody').append(html);
                     n++;
                 }
-
             }
             else {
 

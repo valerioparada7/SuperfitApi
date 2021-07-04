@@ -169,8 +169,8 @@
                         <tr>
                             <th>#</th>
                             <th>Mensualidad</th>
+                            <th>Rutina</th>
                             <th>Medidas</th>
-                            <th>Detalle rutina</th>
                             <th>Tipo rutina</th>
                             <th>Mes</th>
                             <th>Estatus</th>
@@ -409,6 +409,13 @@
                                     </div>
                                 </center>
                             </div>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                <center>
+                                    <div id="columna17">
+                                        <button type="button" class="color btn btn-primary" onclick="GuardarMedidas()">Guardar</button>
+                                    </div>
+                                </center>
+                            </div>
                         </div>
                         <br />
                         <div class="row" id="fila6">
@@ -426,7 +433,7 @@
                                                 <label for="Foto_frontal" style="cursor:pointer">
                                                     <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
                                                 </label>
-                                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
+                                                <input style="display:none" type="file"  accept="image/*" data-maxsize="4200000" id="Foto_frontal" class="form-control-file my-2 check-image-size">
                                             </div>
                                         </div>
                                     </div>
@@ -446,7 +453,7 @@
                                                 <label for="Foto_perfil" style="cursor:pointer">
                                                     <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
                                                 </label>
-                                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
+                                                <input style="display:none" type="file"  accept="image/*" data-maxsize="4200000" id="Foto_perfil" class="form-control-file my-2 check-image-size">
                                             </div>
                                         </div>
                                     </div>
@@ -466,26 +473,17 @@
                                                 <label for="Foto_posterior" style="cursor:pointer">
                                                     <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
                                                 </label>
-                                                <input style="display:none" type="file" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
+                                                <input style="display:none" type="file"  accept="image/*" data-maxsize="4200000" id="Foto_posterior" class="form-control-file my-2 check-image-size">
                                             </div>
                                         </div>
                                     </div>
                                 </center>
                             </div>
                         </div>
-                        <br />
-                        <div class="row" id="fila7">
-                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                                <center>
-                                    <div id="columna17">
-                                        <button type="button" class="color btn btn-primary" onclick="GuardarMedidas()">Guardar</button>
-                                    </div>
-                                </center>
-                            </div>
-                        </div>
+                        <br />                       
                     </div>
                     <br />
-                    <div id="listamedidas">
+                    <div id="listamedidas" style="overflow-y:auto;height:500px">
                         <div class="row">
                             <div class="col">
                                 <h3>Mis medidas y fotos</h3>
@@ -546,21 +544,6 @@
                         <div id="primera" class="col-4">
                             <div class="row">
                                 <div class="col">
-                                    <select class="form-control" id="RutinasList">
-                                    </select>
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col">
-                                    <select class="form-control" id="Ejercicios">
-                                    </select>
-
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col">
                                     <select class="form-control" id="Dias">
                                     </select>
                                 </div>
@@ -568,19 +551,39 @@
                             <br />
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" id="Repeticiones" class="form-control" placeholder="Repeticiones" onkeypress="style.borderColor='gray'" />
+                                    <select class="form-control" id="RutinasList">
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div>
+                                <div class="row">
+                                    <div class="col">
+                                        <select class="form-control" id="Ejercicios">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div style="text-align:center">
+                                <img src="" id="previewdeejercicio" style="display:inline-block;border-radius: 20px;width:5em;" />
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" id="Repeticiones" class="form-control" placeholder="Repeticiones" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
                                 </div>
                             </div>
                             <br />
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" id="Series" class="form-control" placeholder="Series" onkeypress="style.borderColor='gray'" />
+                                    <input type="text" id="Series" class="form-control" placeholder="Series" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
                                 </div>
                             </div>
                             <br />
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" id="Set" class="form-control" placeholder="Set" onkeypress="style.borderColor='gray'" />
+                                    <input type="text" id="Set" class="form-control" placeholder="Set" onkeypress="style.borderColor='gray'" oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
                                 </div>
                             </div>
                             <br />
@@ -592,7 +595,7 @@
                         </div>
                         <div id="segunda" class="col-8">
                             <h4>Rutina</h4>
-                            <div id="rutinas" class="container" style="overflow-y:auto;height:400px">
+                            <div id="rutinas" class="container" style="overflow-y:auto;height:500px">
                                 <div class="table-responsive" id="tablasacrear">
                                 </div>
                             </div>
@@ -654,14 +657,13 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
+    $(document).ready(function () {        
         VerCliente();
         VerCuestionario();
         VerMensualidades();
-    });
-    $(document).ready(function () {
         CargarCombos();
     });
+    
 
     var url = '@Url.Action("AgregarCliente", "AdministracionWebHome")';
     var urleditar = '@Url.Action("EditarCliente", "AdministracionWebHome")';
@@ -676,7 +678,141 @@
     var urlmedidasreg = '@Url.Action("RegistrarMedidas", "ClientesWeb")';
     var urlfotos = '@Url.Action("RegistrarFotos", "ClientesWeb")';
     var urlverejerciciorutina ='@Url.Action("EjercicioRutina", "AdministracionWebHome")';
+    document.getElementById("Foto_frontal").onchange = function (e) {
+        if (e.target.files[0].type == "image/jpeg" || e.target.files[0].type == "image/gif" ||
+            e.target.files[0].type == "image/png " || e.target.files[0].type == "image/jpg")
+        {
+            if (e.target.files[0].size < 4200000)
+            {
 
+                // Creamos el objeto de la clase FileReader
+                let reader = new FileReader();
+
+                // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+                reader.readAsDataURL(e.target.files[0]);
+
+                // Le decimos que cuando este listo ejecute el código interno
+                reader.onload = function () {
+                    let preview = document.getElementById('previewfrontal'),
+                        image = document.createElement('img');
+
+                    image.src = reader.result;
+                    image.style.width = '15em';
+                    image.style.display = 'inline-block';
+                    image.style.borderRadius = '20px';
+                    image.style.boxShadow = '0px 0px 2px #888';
+                    preview.innerHTML = '';
+                    preview.append(image);
+                };
+            }
+            else {
+                swal({
+                    title: "Warning!",
+                    text: "La imagen es demaciado pesada el tamaño maximo son 3MB",
+                    type: "Warning",
+                    icon: 'warning'
+                });
+            }
+        }
+        else {
+            swal({
+                title: "Warning!",
+                text: "Solo se admiten imagenes como archivos JPG, PNG, GIF,JPGE",
+                type: "Warning",
+                icon: 'warning'
+            });
+        }
+    }
+    //medidas lateral
+    document.getElementById("Foto_perfil").onchange = function (e) {
+        if (e.target.files[0].type == "image/jpeg" || e.target.files[0].type == "image/gif" ||
+            e.target.files[0].type == "image/png " || e.target.files[0].type == "image/jpg")
+        {
+            if (e.target.files[0].size < 4200000)
+            {
+                // Creamos el objeto de la clase FileReader
+                let reader = new FileReader();
+
+                // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+                reader.readAsDataURL(e.target.files[0]);
+
+                // Le decimos que cuando este listo ejecute el código interno
+                reader.onload = function () {
+                    let preview = document.getElementById('previewperfil'),
+                        image = document.createElement('img');
+
+                    image.src = reader.result;
+                    image.style.width = '15em';
+                    image.style.display = 'inline-block';
+                    image.style.borderRadius = '20px';
+                    image.style.boxShadow = '0px 0px 2px #888';
+                    preview.innerHTML = '';
+                    preview.append(image);
+                };
+            }
+            else {
+                swal({
+                    title: "Warning!",
+                    text: "La imagen es demaciado pesada el tamaño maximo son 3MB",
+                    type: "Warning",
+                    icon: 'warning'
+                });
+            }
+        }
+        else {
+            swal({
+                title: "Warning!",
+                text: "Solo se admiten imagenes como archivos JPG, PNG, GIF,JPGE",
+                type: "Warning",
+                icon: 'warning'
+            });
+        }
+    }
+    //medidas traseras
+    document.getElementById("Foto_posterior").onchange = function (e) {
+        if (e.target.files[0].type == "image/jpeg" || e.target.files[0].type == "image/gif" ||
+            e.target.files[0].type == "image/png " || e.target.files[0].type == "image/jpg")
+        {
+            if (e.target.files[0].size < 4200000)
+            {
+                // Creamos el objeto de la clase FileReader
+                let reader = new FileReader();
+
+                // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+                reader.readAsDataURL(e.target.files[0]);
+
+                // Le decimos que cuando este listo ejecute el código interno
+                reader.onload = function () {
+                    let preview = document.getElementById('previewposterior'),
+                        image = document.createElement('img');
+
+                    image.src = reader.result;
+                    image.style.width = '15em';
+                    image.style.display = 'inline-block';
+                    image.style.borderRadius = '20px';
+                    image.style.boxShadow = '0px 0px 2px #888';
+                    preview.innerHTML = '';
+                    preview.append(image);
+                };
+            }
+            else {
+                swal({
+                    title: "Warning!",
+                    text: "La imagen es demaciado pesada el tamaño maximo son 3MB",
+                    type: "Warning",
+                    icon: 'warning'
+                });
+            }
+        }
+        else {
+            swal({
+                title: "Warning!",
+                text: "Solo se admiten imagenes como archivos JPG, PNG, GIF,JPGE",
+                type: "Warning",
+                icon: 'warning'
+            });
+        }
+    }
     //Cliente
     function VerCliente() {
         var Id = @ViewBag.idcliente
@@ -707,6 +843,9 @@
     }
 
     function GuardarCliente() {
+        swal({
+            icon: "https://www.bsite.net/valerioparada/Imagenes/loading.gif"
+        });
         var parametros = {};
         parametros.Id_cliente = $('#idcliente').val().trim();
         parametros.Nombres = $('#IdNombreE').val().trim();
@@ -734,10 +873,20 @@
                                                 data: clientesModel,
                                                 success: function (data) {
                                                     if (data == "True") {
-                                                        location.reload();
+                                                        swal({
+                                                            title: "Registro exitoso!",
+                                                            text: "Se guardaron tus datos correctamente",
+                                                            type: "success"
+                                                        }).then(function () {
+                                                            location.reload();
+                                                        });
                                                     }
                                                     else {
-                                                        location.reload();
+                                                        swal({
+                                                            title: "Warning!",
+                                                            text: "Ocurrio un error al registrar sus datos",
+                                                            icon: "warning"
+                                                        });
                                                     }
                                                 },
                                                 error: function (xhr, status, error) {
@@ -846,6 +995,9 @@
     }
 
     function GuardarCuestionario() {
+        swal({
+            icon: "https://www.bsite.net/valerioparada/Imagenes/loading.gif"
+        });
         var parametros = {};
         var Cliente = {};
         Cliente.Id_cliente = $("#idclientecuestionario").val();
@@ -878,10 +1030,20 @@
             data: modelo,
             success: function (data) {
                 if (data == "True") {
-                    location.reload();
+                    swal({
+                        title: "Registro exitoso!",
+                        text: "Se guardaron tus datos correctamente",
+                        type: "success"
+                    }).then(function () {
+                        location.reload();
+                    });
                 }
                 else {
-                    location.reload();
+                    swal({
+                        title: "Warning!",
+                        text: "Ocurrio un error al registrar sus datos",
+                        icon: "warning"
+                    });
                 }
             },
             error: function (xhr, status, error) {
@@ -961,6 +1123,25 @@
                 document.getElementById("EstatusMensualidad").value = IdEstatus;
                 document.getElementById("TiporutinaMensualidad").value = IdRutina;
                 document.getElementById("mensualidadIdver").value = Id
+
+                var entrena = document.getElementById('TipoentrenamientolistMensualidad');
+                for (var i = 0; i < entrena.length; i++) {
+                    if (entrena[i].value == Idtipo) {
+                        document.getElementById("TipoentrenamientolistMensualidad").selectedIndex = i;
+                    }
+                }
+                var rutina = document.getElementById('TiporutinaMensualidad');
+                for (var i = 0; i < rutina.length; i++) {
+                    if (rutina[i].value == IdRutina) {
+                        document.getElementById("TiporutinaMensualidad").selectedIndex = i;
+                    }
+                }
+                var estatuslist = document.getElementById('EstatusMensualidad');
+                for (var i = 0; i < estatuslist.length; i++) {
+                    if (estatuslist[i].value == IdEstatus) {
+                        document.getElementById("EstatusMensualidad").selectedIndex = i;
+                    }
+                }
                 if (estatus == 3) {
                     document.getElementById("ActualizarEstatusId").style.display = "none";
                 }
@@ -975,6 +1156,9 @@
     }
 
     function GuardarMensualidad() {
+        swal({
+            icon: "https://www.bsite.net/valerioparada/Imagenes/loading.gif"
+        });
         var parametros = {};
         var Tiporutina = {};
         var Mes = {};
@@ -998,10 +1182,20 @@
             data: model,
             success: function (data) {
                 if (data == "True") {
-                    location.reload();
+                    swal({
+                        title: "Registro exitoso!",
+                        text: "Se guardaron tus datos correctamente",
+                        icon: "success"
+                    }).then(function () {
+                        location.reload();
+                    });
                 }
                 else {
-                    location.reload();
+                    swal({
+                        title: "Warning!",
+                        text: "Ocurrio un error al registrar sus datos",
+                        icon: "warning"
+                    });
                 }
             },
             error: function (xhr, status, error) {
@@ -1012,6 +1206,9 @@
     }
 
     function ActualizarEstatus() {
+        swal({
+            icon: "https://www.bsite.net/valerioparada/Imagenes/loading.gif"
+        });
         var tiporutina = document.getElementById("Tiporutina").value;
         var tipoentrenamiento = document.getElementById("Tipoentrenamientolist").value;
         var estatus = document.getElementById("EstatusMensualidad").value;
@@ -1022,13 +1219,20 @@
             data: { "Id_mensualidad": mes, "estatus": estatus, "Id_tipo_entrenamiento": tipoentrenamiento, "Id_tipo_rutina": tiporutina },
             success: function (data) {
                 if (data == "True") {
-                    document.getElementById("MensajeAlerta").innerHTML = 'Actualizacion exitosa';
-                    $('#ModalRespuesta').modal('show');
-                    setTimeout("afterFiveSeconds()", 3000);
+                    swal({
+                        title: "Registro exitoso!",
+                        text: "Se guardaron tus datos correctamente",
+                        type: "success"
+                    }).then(function () {
+                        location.reload();
+                    });
                 }
                 else {
-                    $('#ModalRespuesta').modal('show');
-                    document.getElementById("MensajeAlerta").innerHTML = 'Ocurrio un error verifique su conexion';
+                    swal({
+                        title: "Warning!",
+                        text: "Ocurrio un error al guardar los datos",
+                        icon: "warning"
+                    });
                 }
             },
             error: function (xhr, status, error) {
@@ -1077,9 +1281,9 @@
                     html += '<td><lable>' + data[i].Piernaderecho + ' cm</lable></td>';
                     html += '<td><lable>' + data[i].Pantorrilladerecha + ' cm</lable></td>';
                     html += '<td><lable>' + data[i].Pantorrillaizquierda + ' cm</lable></td>';
-                    html += '<td><img src="' + data[i].Fotofrontal + '" style="display:inline-block;border-radius: 20px;;width:25em;"/></td>';
-                    html += '<td><img src="' + data[i].Fotoperfil + '" style="display:inline-block;border-radius: 20px;;width:25em;"/></td>';
-                    html += '<td><img src="' + data[i].Fotoposterior + '" style="display:inline-block;border-radius: 20px;;width:25em;"/></td>';
+                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotofrontal + '" style="display:inline-block;border-radius: 20px;;width:15em;"/></td>';
+                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotoperfil + '" style="display:inline-block;border-radius: 20px;;width:15em;"/></td>';
+                    html += '<td><img src="https://www.bsite.net/valerioparada/' + data[i].Fotoposterior + '" style="display:inline-block;border-radius: 20px;;width:15em;"/></td>';
                     html += '<td><lable>' + data[i].Fecharegistro + '</lable></td>';
                     html += '</tr>';
                     $('#ListaMedidas tbody').append(html);
@@ -1094,7 +1298,9 @@
     }
 
     function GuardarMedidas() {
-
+        swal({
+            icon: "https://www.bsite.net/valerioparada/Imagenes/loading.gif"
+        });
             var parametros = {};
             var Mensualidad = {};
             var modelo = {};
@@ -1156,7 +1362,7 @@
                                                                                     swal({
                                                                                         title: "Registro exitoso!",
                                                                                         text: "Se guardaron tus datos correctamente",
-                                                                                        type: "success"
+                                                                                        icon: "success"
                                                                                     }).then(function () {
                                                                                         location.reload();
                                                                                     });
@@ -1166,13 +1372,17 @@
                                                                                         swal({
                                                                                             title: "Registro exitoso!",
                                                                                             text: "Se guardaron tus datos correctamente",
-                                                                                            type: "success"
+                                                                                            icon: "success"
                                                                                         }).then(function () {
                                                                                             location.reload();
                                                                                         });
                                                                                     }
                                                                                     else {
-                                                                                        swal("Ocurrio un error!", "Tus medidas seguardaron correctamente,No se guardaron tus fotos correctamente (Error):" + data, "warning");
+                                                                                        swal({
+                                                                                            title: "Ocurrio un error!",
+                                                                                            text: "Tus medidas seguardaron correctamente,No se guardaron tus fotos correctamente (Error):" + data,
+                                                                                            icon: "warning"
+                                                                                        }); 
                                                                                     }
                                                                                 }
                                                                             },
@@ -1263,38 +1473,141 @@
     //Detalle de rutina
     function MensualidadDetalle(Id, estatus) {
         document.getElementById("idclienteMensualidadDetalle").value = Id;
-        var url ='@Url.Action("VerDetalleRutina", "AdministracionWebHome")';
+        var url = '@Url.Action("VerDetalleRutina", "AdministracionWebHome")';
+        $('#ListaEjercicios1 tbody').empty();
+        $('#ListaEjercicios2 tbody').empty();
+        $('#ListaEjercicios3 tbody').empty();
+        $('#ListaEjercicios4 tbody').empty();
+        $('#ListaEjercicios5 tbody').empty();
+        $('#ListaEjercicios6 tbody').empty();
         $.ajax({
             type: "GET",
             url: url,
-            data: { "Id_mensualidad": Id},
+            data: { "Id_mensualidad": Id },
             success: function (data) {
                 var detalle = data;
-                if (detalle.length != 0) {
-                    var f = document.getElementById('ListaEjercicios').getElementsByTagName('tr');
-                    var c = f.length - 1;
+                if (detalle.length > 0) {
+                    //contadores por dia
+                    var d1 = 1, d2 = 1, d3 = 1, d4 = 1, d5 = 1, d6 = 1;
                     for (var i = 0; i < data.length; i++) {
                         var mensualidad = data[i].Mensualidad;
                         var Rutinas = data[i].Rutinas;
                         var Ejercicios = data[i].Ejercicios;
                         var Dias = data[i].Dias;
-                        var html = '';
-                        html += '<tr id="fila' + c + '">';
-                        html += '<td><label id="idmensualidad" style="display:none">' + mensualidad.Id_mensualidad + '</label>' + c + '</td> ';
-                        html += '<td> <label id="iddia' + c + '" style="display:none">' + Dias.Id_dia + '</label>' + Dias.Dia + '</td> ';
-                        html += '<td> <label id="idrutina' + c + '" style="display:none">' + Rutinas.Id_rutina + '</label>' + Rutinas.Descripcion + '</td> ';
-                        html += '<td> <label id="idejercicio' + c + '" style="display:none">' + Ejercicios.Id_ejercicio + '</label>' + Ejercicios.Ejercicio + '</td> ';
-                        html += '<td> <label id="idserie' + c + '">' + data[i].Series + '</label></td> ';
-                        html += '<td> <label id="idrepeticion' + c + '">' + data[i].Repeticiones + '</label></td> ';
-                        html += '<td> <label id="idset' + c + '">' + data[i].Tipo_set + '</label></td> ';
-                        html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + c + ')"></button></td>';
-                        html += '</tr>';
-                        $('#ListaEjercicios tbody').append(html);
-                        c++;
+                        var tabladia = Dias.Id_dia;
+                        tabladia -= 1;
+                        //es lunes
+
+                        if (tabladia == 1) {
+                            var html = '';
+                            html += '<tr id="fila' + tabladia + d1 + '">';
+                            html += '<td><label id="idmensualidad" style="display:none">' + mensualidad.Id_mensualidad + '</label>' + d1 + '</td> ';
+                            html += '<td> <label id="iddia' + tabladia + d1 + '" style="display:none">' + Dias.Id_dia + '</label>' + Dias.Dia + '</td> ';
+                            html += '<td> <label id="idrutina' + tabladia + d1 + '" style="display:none">' + Rutinas.Id_rutina + '</label>' + Rutinas.Descripcion + '</td> ';
+                            html += '<td> <label id="idejercicio' + tabladia + d1 + '" style="display:none">' + Ejercicios.Id_ejercicio + '</label>' + Ejercicios.Ejercicio;
+                            html += '<img src="https://www.bsite.net/valerioparada/' + Ejercicios.Ubicacion_imagen + '" id="img' + tabladia + d1 + '" style="display:inline-block;border-radius:20px;width:5em;"/></td>';
+                            html += '<td> <label id="idserie' + tabladia + d1 + '">' + data[i].Series + '</label></td> ';
+                            html += '<td> <label id="idrepeticion' + tabladia + d1 + '">' + data[i].Repeticiones + '</label></td> ';
+                            html += '<td> <label id="idset' + tabladia + d1 + '">' + data[i].Tipo_set + '</label></td> ';
+                            html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + tabladia + d1 + ')"></button></td>';
+                            html += '</tr>';
+                            $('#ListaEjercicios' + tabladia + ' tbody').append(html);                            
+                            d1++;
+                            
+                        }
+                        //es martes
+                        else if (tabladia == 2) {
+                            var html = '';
+                            html += '<tr id="fila' + tabladia + d2 + '">';
+                            html += '<td><label id="idmensualidad" style="display:none">' + mensualidad.Id_mensualidad + '</label>' + d2 + '</td> ';
+                            html += '<td> <label id="iddia' + tabladia + d2 + '" style="display:none">' + Dias.Id_dia + '</label>' + Dias.Dia + '</td> ';
+                            html += '<td> <label id="idrutina' + tabladia + d2 + '" style="display:none">' + Rutinas.Id_rutina + '</label>' + Rutinas.Descripcion + '</td> ';
+                            html += '<td> <label id="idejercicio' + tabladia + d2 + '" style="display:none">' + Ejercicios.Id_ejercicio + '</label>' + Ejercicios.Ejercicio;
+                            html += '<img src="https://www.bsite.net/valerioparada/' + Ejercicios.Ubicacion_imagen + '" id="img' + tabladia + d2 + '" style="display:inline-block;border-radius:20px;width:5em;" /></td >';
+                            html += '<td> <label id="idserie' + tabladia + d2 + '">' + data[i].Series + '</label></td> ';
+                            html += '<td> <label id="idrepeticion' + tabladia + d2 + '">' + data[i].Repeticiones + '</label></td> ';
+                            html += '<td> <label id="idset' + tabladia + d2 + '">' + data[i].Tipo_set + '</label></td> ';
+                            html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + tabladia + d2 + ')"></button></td>';
+                            html += '</tr>';
+                            $('#ListaEjercicios' + tabladia + ' tbody').append(html);
+                            d2++;
+                        }
+                        //es miercoles
+                        else if (tabladia == 3) {
+                            var html = '';
+                            html += '<tr id="fila' + tabladia + d3 + '">';
+                            html += '<td><label id="idmensualidad" style="display:none">' + mensualidad.Id_mensualidad + '</label>' + d3 + '</td> ';
+                            html += '<td> <label id="iddia' + tabladia + d3 + '" style="display:none">' + Dias.Id_dia + '</label>' + Dias.Dia + '</td> ';
+                            html += '<td> <label id="idrutina' + tabladia + d3 + '" style="display:none">' + Rutinas.Id_rutina + '</label>' + Rutinas.Descripcion + '</td> ';
+                            html += '<td> <label id="idejercicio' + tabladia + d3 + '" style="display:none">' + Ejercicios.Id_ejercicio + '</label>' + Ejercicios.Ejercicio;
+                            html += '<img src="https://www.bsite.net/valerioparada/' + Ejercicios.Ubicacion_imagen + '" id="img' + tabladia + d3 + '" style="display:inline-block;border-radius:20px;width:5em;"/></td >';
+                            html += '<td> <label id="idserie' + tabladia + d3 + '">' + data[i].Series + '</label></td> ';
+                            html += '<td> <label id="idrepeticion' + tabladia + d3 + '">' + data[i].Repeticiones + '</label></td> ';
+                            html += '<td> <label id="idset' + tabladia + d3 + '">' + data[i].Tipo_set + '</label></td> ';
+                            html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + tabladia + d3 + ')"></button></td>';
+                            html += '</tr>';
+                            $('#ListaEjercicios' + tabladia + ' tbody').append(html);
+                            d3++;
+                        }
+                        //es jueves
+                        else if (tabladia == 4) {
+                            var html = '';
+                            html += '<tr id="fila' + tabladia + d4 + '">';
+                            html += '<td><label id="idmensualidad" style="display:none">' + mensualidad.Id_mensualidad + '</label>' + d4 + '</td> ';
+                            html += '<td> <label id="iddia' + tabladia + d4 + '" style="display:none">' + Dias.Id_dia + '</label>' + Dias.Dia + '</td> ';
+                            html += '<td> <label id="idrutina' + tabladia + d4 + '" style="display:none">' + Rutinas.Id_rutina + '</label>' + Rutinas.Descripcion + '</td> ';
+                            html += '<td> <label id="idejercicio' + tabladia + d4 + '" style="display:none">' + Ejercicios.Id_ejercicio + '</label>' + Ejercicios.Ejercicio;
+                            html += '<img src="https://www.bsite.net/valerioparada/' + Ejercicios.Ubicacion_imagen + '" id="img' + tabladia + d4 + '" style="display:inline-block;border-radius:20px;width:5em;"/></td >';
+                            html += '<td> <label id="idserie' + tabladia + d4 + '">' + data[i].Series + '</label></td> ';
+                            html += '<td> <label id="idrepeticion' + tabladia + d4 + '">' + data[i].Repeticiones + '</label></td> ';
+                            html += '<td> <label id="idset' + tabladia + d4 + '">' + data[i].Tipo_set + '</label></td> ';
+                            html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + tabladia + d4 + ')"></button></td>';
+                            html += '</tr>';
+                            $('#ListaEjercicios' + tabladia + ' tbody').append(html);
+                            d4++;
+                        }
+                        //es viernes
+                        else if (tabladia == 5) {
+                            var html = '';
+                            html += '<tr id="fila' + tabladia + d5 + '">';
+                            html += '<td><label id="idmensualidad" style="display:none">' + mensualidad.Id_mensualidad + '</label>' + d4 + '</td> ';
+                            html += '<td> <label id="iddia' + tabladia + d5 + '" style="display:none">' + Dias.Id_dia + '</label>' + Dias.Dia + '</td> ';
+                            html += '<td> <label id="idrutina' + tabladia + d5 + '" style="display:none">' + Rutinas.Id_rutina + '</label>' + Rutinas.Descripcion + '</td> ';
+                            html += '<td> <label id="idejercicio' + tabladia + d5 + '" style="display:none">' + Ejercicios.Id_ejercicio + '</label>' + Ejercicios.Ejercicio;
+                            html += '<img src="https://www.bsite.net/valerioparada/' + Ejercicios.Ubicacion_imagen + '" id="img' + tabladia + d5 + '" style="display:inline-block;border-radius:20px;width:5em;"/></td >';
+                            html += '<td> <label id="idserie' + tabladia + d5 + '">' + data[i].Series + '</label></td> ';
+                            html += '<td> <label id="idrepeticion' + tabladia + d5 + '">' + data[i].Repeticiones + '</label></td> ';
+                            html += '<td> <label id="idset' + tabladia + d5 + '">' + data[i].Tipo_set + '</label></td> ';
+                            html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + tabladia + d5 + ')"></button></td>';
+                            html += '</tr>';
+                            $('#ListaEjercicios' + tabladia + ' tbody').append(html);
+                            d5++;
+                        }
+                        //sabado
+                        else {
+                            var html = '';
+                            html += '<tr id="fila' + tabladia + d6 + '">';
+                            html += '<td><label id="idmensualidad" style="display:none">' + mensualidad.Id_mensualidad + '</label>' + d6 + '</td> ';
+                            html += '<td> <label id="iddia' + tabladia + d6 + '" style="display:none">' + Dias.Id_dia + '</label>' + Dias.Dia + '</td> ';
+                            html += '<td> <label id="idrutina' + tabladia + d6 + '" style="display:none">' + Rutinas.Id_rutina + '</label>' + Rutinas.Descripcion + '</td> ';
+                            html += '<td> <label id="idejercicio' + tabladia + d6 + '" style="display:none">' + Ejercicios.Id_ejercicio + '</label>' + Ejercicios.Ejercicio;
+                            html += '<img src="https://www.bsite.net/valerioparada/' + Ejercicios.Ubicacion_imagen + '" id="img' + tabladia + d6 + '" style="display:inline-block;border-radius:20px;width:5em;"/></td >';
+                            html += '<td> <label id="idserie' + tabladia + d6 + '">' + data[i].Series + '</label></td> ';
+                            html += '<td> <label id="idrepeticion' + tabladia + d6 + '">' + data[i].Repeticiones + '</label></td> ';
+                            html += '<td> <label id="idset' + tabladia + d6 + '">' + data[i].Tipo_set + '</label></td> ';
+                            html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + tabladia + d6 + ')"></button></td>';
+                            html += '</tr>';
+                            $('#ListaEjercicios' + tabladia + ' tbody').append(html);
+                            d6++;
+                        }
                     }
                 }
                 else {
-
+                    swal({
+                        title: "Sin registros!",
+                        text: "No hay rutina asignada",
+                        type: "success"
+                    });
                 }
             },
             error: function (xhr, status, error) {
@@ -1351,30 +1664,30 @@
             {
                 if ($('#Dias').val() != null)
                 {
-                    if (ser != "")
+                    if (rep != "" && rep > 0)
                     {
-                        if (rep != "")
+                        if (ser != "" && ser > 0)
                         {
-                            if (set != "")
+                            if (set != ""&& set > 0)
                             {
                                 var tabladia = $('#Dias').val();
                                 tabladia -= 1;
                                 var i = document.getElementById('ListaEjercicios' + tabladia).getElementsByTagName('tr');
-                                var c = i.length - 1;
-
+                                var c = i.length;
+                                var srcimagen = document.getElementById("previewdeejercicio").src;
                                 var html = '';
                                 html += '<tr id="fila' + tabladia + c + '">';
                                 html += '<td><label id="idmensualidad" style="display:none">' + $('#idclienteMensualidadDetalle').val() + '</label>' + c + '</td> ';
                                 html += '<td> <label id="iddia' + tabladia + + c + '" style="display:none">' + $('#Dias').val() + '</label>' + dia.options[dia.selectedIndex].text + '</td> ';
                                 html += '<td> <label id="idrutina' + tabladia + + c + '" style="display:none">' + $('#RutinasList').val() + '</label>' + rutina.options[rutina.selectedIndex].text + '</td> ';
-                                html += '<td> <label id="idejercicio' + tabladia + + c + '" style="display:none">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text + '</td> ';
+                                html += '<td> <label id="idejercicio' + tabladia + + c + '" style="display:none">' + $('#Ejercicios').val() + '</label>' + ejercicio.options[ejercicio.selectedIndex].text;
+                                html += '<img src="' + srcimagen +'" id="img' + tabladia + c + '" style="display:inline-block;border-radius:20px;width:5em;"/></td>';
                                 html += '<td> <label id="idserie' + tabladia + + c + '">' + $('#Series').val() + '</label></td> ';
                                 html += '<td> <label id="idrepeticion' + tabladia + + c + '">' + $('#Repeticiones').val() + '</label></td> ';
                                 html += '<td> <label id="idset' + tabladia + + c + '">' + $('#Set').val() + '</label></td> ';
                                 html += '<td><button type="button" class="colorred btn btn-danger fa fa-trash" onclick="EliminaFila(' + tabladia + c + ')"></button></td>';
                                 html += '</tr>';
                                 $('#ListaEjercicios' + tabladia + ' tbody').append(html);
-                                console.log(html);
                                 document.getElementById("Set").value = "";
                                 document.getElementById("Repeticiones").value = "";
                                 document.getElementById("Series").value = "";
@@ -1384,11 +1697,11 @@
                             }
                         }
                         else {
-                            document.getElementById("Repeticiones").style.borderColor = "red";
+                            document.getElementById("Series").style.borderColor = "red";
                         }
                     }
                     else {
-                        document.getElementById("Series").style.borderColor = "red";
+                        document.getElementById("Repeticiones").style.borderColor = "red";
                     }
                 }
                 else {
@@ -1408,18 +1721,21 @@
         $("#fila" + Id).remove();
     }
 
-    function GuardarRutina() {
+    function GuardarRutina() { 
+        swal({
+            icon: "https://www.bsite.net/valerioparada/Imagenes/loading.gif"
+        });
         var detallerutinaModels = [];
         var l = 0;
         for (var j = 1; j <= 6; j++) {
             l += document.getElementById('ListaEjercicios' + j).getElementsByTagName('tr');
         }
 
-        var c = l.length - 2;
+        var c = l.length - 2;       
         if (c > 0) {
             for (var i = 1; i <= 6; i++) {
-                var row = document.getElementById('ListaEjercicios' + i).getElementsByTagName('tr');
-                var s = row.length - 2;
+                var row = document.getElementById('ListaEjercicios' + i).getElementsByTagName('tr');               
+                var s = row.length-1;
                 for (var y = 1; y <= s; y++) {
                     var model = {};
                     var Dias = {};
@@ -1427,7 +1743,7 @@
                     var Mensualidad = {};
                     var Rutinas = {};
                     Dias.Id_dia = document.getElementById("iddia" + i + y).innerHTML;
-                    Ejercicios.Id_ejercicio = document.getElementById('idejercicio' + y + y).innerHTML;
+                    Ejercicios.Id_ejercicio = document.getElementById('idejercicio' + i + y).innerHTML;
                     Mensualidad.Id_mensualidad = document.getElementById('idclienteMensualidadDetalle').value;
                     Rutinas.Id_rutina = document.getElementById('idrutina' + i + y).innerHTML;
                     model.Dias = Dias;
@@ -1440,24 +1756,44 @@
                     detallerutinaModels.push(model);
                 }
             }
-            $.ajax({
-                type: "POST",
-                url: urldetallRutina,
-                data: JSON.stringify(detallerutinaModels),
-                contentType: "application/json",
-                success: function (data) {
-                    if (data == "True") {
-                        location.reload();
+
+            if (detallerutinaModels.length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: urldetallRutina,
+                    data: JSON.stringify(detallerutinaModels),
+                    contentType: "application/json",
+                    success: function (data) {
+                        if (data == "True") {
+                            swal({
+                                title: "Registro exitoso!",
+                                text: "Se guardaron tus datos correctamente",
+                                icon: "success"
+                            }).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "Warning!",
+                                text: "Ocurrio un error",
+                                icon: "warning"
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                        alert("Ocurrio un error verifique su conexion");
                     }
-                    else {
-                        location.reload();
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                    alert("Ocurrio un error verifique su conexion");
-                }
-            });
+                });
+            }
+            else {
+                swal({
+                    title: "Warning",
+                    text: "No se detectaron ejercicios por agregar",
+                    icon: "warning"
+                });
+            }
         }
     }
 
@@ -1554,7 +1890,6 @@
             html += '</tr></thead><tbody><tr></tr></tbody></table>';
             visible = 'style="display:none"';
         }
-        console.log(html);
         $("#tablasacrear").append(html)
         for (var l = 0; l < listEjercicios.length; l++) {
             $("#Ejercicios").append("<option value='" + listEjercicios[l].Id_ejercicio + "'>" + listEjercicios[l].Ejercicio.toUpperCase() + "</option>");
@@ -1586,13 +1921,15 @@
             success: function (data) {
                 $("#Ejercicios").empty();
                 var listEjercicios = data;
-                console.log(listEjercicios);
                 if (listEjercicios.length > 0) {
                     for (var l = 0; l < listEjercicios.length; l++) {
                         $("#Ejercicios").append("<option value='" + listEjercicios[l].Id_ejercicio + "'>" + listEjercicios[l].Ejercicio.toUpperCase() + "</option>");
                     }
+                    var src = listEjercicios[0].Ubicacion_imagen;
+                    document.getElementById("previewdeejercicio").src = "https://www.bsite.net/valerioparada/" + src;
                 }
                 else {
+                    document.getElementById("previewdeejercicio").src = "";
                     $("#Ejercicios").append("<option value=''>No hay ejercicios disponibles para esta rutina</option>");
                 }
 
@@ -1607,7 +1944,6 @@
         document.getElementById("Ejercicios").style.borderColor = "gray";
     }
 
-
     $("#RutinasList").change(function () {
         var id = $(this).val();
         $.ajax({
@@ -1618,13 +1954,15 @@
             success: function (data) {
                 $("#Ejercicios").empty();
                 var listEjercicios = data;
-                console.log(listEjercicios);
                 if (listEjercicios.length > 0) {
                     for (var l = 0; l < listEjercicios.length; l++) {
                         $("#Ejercicios").append("<option value='" + listEjercicios[l].Id_ejercicio + "'>" + listEjercicios[l].Ejercicio.toUpperCase() + "</option>");
                     }
+                    var src = listEjercicios[0].Ubicacion_imagen;
+                    document.getElementById("previewdeejercicio").src = "https://www.bsite.net/valerioparada/" + src;
                 }
                 else {
+                    document.getElementById("previewdeejercicio").src = "";
                     $("#Ejercicios").append("<option value=''>No hay ejercicios disponibles para esta rutina</option>");
                 }
 
@@ -1689,6 +2027,31 @@
             document.getElementById("ListaEjercicios5").style.display = "none";
             document.getElementById("ListaEjercicios1").style.display = "none";
         }
+    });
+
+    $("#Ejercicios").change(function () {
+        var Id = $(this).val();
+        var verejerciciourl = '@Url.Action("EditarEjercicios", "AdministracionWebHome")';
+        $.ajax({
+            type: "GET",
+            url: verejerciciourl,
+            data: { "Id_ejercicio": Id },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {  
+                if (data != null)
+                {
+                    document.getElementById('previewdeejercicio').src = "https://www.bsite.net/valerioparada/" + data["Ubicacion_imagen"];                
+                }
+                else{
+                    document.getElementById("previewdeejercicio").src = "";
+                }                
+            },
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                alert("Ocurrio un error verifique su conexion");
+            }
+        });
     });
 
     $("#Altura").keyup(function () {

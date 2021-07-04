@@ -20,7 +20,7 @@
             <button type="button" class="color btn btn-primary" onclick="Ver()">Nuevo ejercicio</button>
         </span>
         <br />
-        <div class="table-responsive">
+        <div class="table-responsive"  style="overflow-y:auto;height:500px;text-align:center;">
             <table class="table table-condensed table-striped table-hover" id="tablaejercicios">
                 <thead>
                     <tr>
@@ -41,9 +41,9 @@
                         <td><button type="button" class="color btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_ejercicio)"></button></td>
                         <td>@item.Clave_ejercicio</td>
                         <td>@item.Ejercicio</td>
-                        <td>@item.Descripcion</td>
-                        <td>@item.Posicion </td>
-                        <td><img src="https://www.bsite.net/valerioparada/@item.Ubicacion_imagen" style="width: 25em;"/></td>                        
+                        <td style="text-align:left">@item.Descripcion</td>
+                        <td style="text-align:left">@item.Posicion </td>
+                        <td><img src="https://www.bsite.net/valerioparada/@item.Ubicacion_imagen" style="width: 15em;"/></td>                        
                     </tr>
                 }
                 </tbody>
@@ -54,7 +54,7 @@
 
 <!--MODAL PARA Agregar--->
 <div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="letracolor modal-title" id="exampleModalLongTitle">Nuevo Ejercicio</h3>
@@ -63,44 +63,44 @@
                 </button>
             </div>           
             <div class="modal-body">
-                <div class="container">
-                    @*@using (Html.BeginForm("AgregarEjercicios", "AdministracionWebHome", FormMethod.Post, new { @id = "formAdd" }))
-                    {*@
+                <div class="container" style="overflow-y:auto;height:750px;text-align:center;">
                     <div class="row">
-                        <div class="col-md-6">
-                            @*@Html.TextBoxFor(Model => ejercicio.Clave_ejercicio,new { @class = "form-control", @id = "IdClaveejercicio" , placeholder = "Clave ejercicio", onkeypress = "style.borderColor='gray'" })*@
+                        <div class="col-md-6">                           
                             <input type="text" class="form-control" id="IdClaveejercicio" placeholder="Clave ejercicio" onkeypress="style.borderColor='gray'" />
                         </div>
-                        <div class="col-md-6">
-                            @*@Html.TextBoxFor(Model => ejercicio.Ejercicio, new { @class = "form-control" ,id = "IdEjercicio" , placeholder = "Ejercicio", onkeypress = "style.borderColor='gray'" })*@
+                        <div class="col-md-6">                            
                             <input type="text" class="form-control" id="IdEjercicio" placeholder="Ejercicio" onkeypress="style.borderColor='gray'" />
                         </div>
                     </div>
                     <br />
                     <div class="row">
-                        <div class="col">
-                            <select class="form-control" id="IdRutinasList">
-                            </select>
-                        </div>
-                        <div class="col">
-                            @*@Html.TextBoxFor(Model => ejercicio.Imagen, new { @class = "form-control-file my-2 check-image-size", type = "file", accept = " image/*", style = "background-color:white;color:black;" })*@
-                            <input type="file" data-maxsize="4200000" id="IdEjercicioimg" class="form-control-file my-2 check-image-size">
-                        </div>
-                    </div>                    
-                    <br />
-                    <div class="row">
-                        <div class="col-md-6">
-                            @*@Html.TextAreaFor(Model => ejercicio.Descripcion, new { @class = "form-control", id = "IdDescripcion", placeholder = "Descripcion" ,style = "height:200px" ,onkeypress = "style.borderColor='gray'" })*@
+                        <div class="col-md-6">                            
                             <textarea type="text" class="form-control" id="IdDescripcion" placeholder="Descripcion" style="height:200px" onkeypress="style.borderColor='gray'"></textarea>
                         </div>
-                        <div class="col-md-6">
-                            @*@Html.TextAreaFor(Model => ejercicio.Posicion, new { @class = "form-control", id = "IdPosicion", placeholder = "Posicion" ,style = "height:200px", onkeypress = "style.borderColor='gray'" })*@
+                        <div class="col-md-6">                            
                             <textarea type="text" class="form-control" id="IdPosicion" placeholder="Posicion" style="height:200px" onkeypress="style.borderColor='gray'"></textarea>
                         </div>
                     </div>
-
                     <br />
-                    @*}*@
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="IdEjercicioimg" style="cursor:pointer">
+                                Foto del ejercicio
+                                <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
+                            </label>
+                            <input style="display:none" value="Foto ejercicio"  title="Foto ejercicio" type="file" accept="image/*,gif*/" data-maxsize="4200000" id="IdEjercicioimg" class="form-control-file my-2 check-image-size">
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control" id="IdRutinasList">
+                            </select>
+                        </div>                        
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6" style="text-align:left">
+                            <div id="preview" style="display:inline-block;border-radius: 20px;width:10em;height:10em"></div>
+                        </div>
+                    </div>                    
                 </div>
             </div>
             <div class="modal-footer">
@@ -113,7 +113,7 @@
 
 <!--MODAL PARA Editar--->
 <div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="letracolor modal-title" id="exampleModalLongTitle">Cliente</h3>
@@ -123,27 +123,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <input id="Id_ejercicio" style="display:none" />
-                    @*@Html.TextBoxFor(p =>ejercicio.Id_ejercicio, new { @id = "Id_ejercicio", style = "display:none" })*@
+                <div class="container" style="overflow-y:auto;height:750px;text-align:center;">
+                    <input id="Id_ejercicio" style="display:none" />                    
                     <div class="row">
-                        <div class="col-md-6">
-                            @*@Html.TextBoxFor(p =>ejercicio.Clave_ejercicio, new { @class = "form-control", @id = "IdClaveejercicioE", placeholder = "Clave ejercicio", onkeypress = "style.borderColor='gray'" })*@
+                        <div class="col-md-6">                            
                             <input type="text" class="form-control" id="IdClaveejercicioE" placeholder="Clave ejercicio" onkeypress="style.borderColor='gray'" />
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="IdEjercicioE" placeholder="Ejercicio" onkeypress="style.borderColor='gray'" />
-                            @*@Html.TextBoxFor(p =>ejercicio.Ejercicio, new { @class = "form-control", id = "IdEjercicioE", placeholder = "Ejercicio", onkeypress = "style.borderColor='gray'" })*@
+                            <input type="text" class="form-control" id="IdEjercicioE" placeholder="Ejercicio" onkeypress="style.borderColor='gray'" />                            
                         </div>
                     </div>
                     <br />
                     <div class="row">
-                        <div class="col-md-6">
-                            @*@Html.TextAreaFor(p =>ejercicio.Descripcion, new { @class = "form-control", id = "IdDescripcionE", placeholder = "Descripcion", style = "height:200px", onkeypress = "style.borderColor='gray'" })*@
+                        <div class="col-md-6">                            
                             <textarea type="text" class="form-control" id="IdDescripcionE" placeholder="Descripcion" style="height:200px" onkeypress="style.borderColor='gray'"></textarea>
                         </div>
-                        <div class="col-md-6">
-                            @*@Html.TextAreaFor(p =>ejercicio.Posicion, new { @class = "form-control", id = "IdPosicionE", placeholder = "Posicion", style = "height:200px", onkeypress = "style.borderColor='gray'" })*@
+                        <div class="col-md-6">                            
                             <textarea type="text" class="form-control" id="IdPosicionE" placeholder="Posicion" style="height:200px" onkeypress="style.borderColor='gray'"></textarea>
                         </div>
                     </div>
@@ -151,21 +146,28 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col">
-                                    <input type="file" data-maxsize="4200000" id="IdEjercicioimgE" class="form-control-file my-2 check-image-size" name="fileImage">
+                                <div class="col-md-6">
+                                    <h6>Ejercicio actual</h6>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="IdEjercicioimgE" style="cursor:pointer">
+                                        Foto del ejercicio
+                                        <i class="fa fa-camera" style="display:inline-block;border-radius: 60px;padding: 0.5em 0.6em;"></i>
+                                    </label>
+                                    <input style="display:none" value="Foto ejercicio" title="Foto ejercicio" type="file" accept="image/*,gif*/" data-maxsize="4200000" id="IdEjercicioimgE" class="form-control-file my-2 check-image-size">                                    
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col">
-                                    <img id="Imgsrc" width="150" height="150" />
+                                <div class="col-md-6">
+                                    <img id="Imgsrc" style="display: inline-block; border-radius: 20px;width: 10em;height:10em" />
                                 </div>
-                            </div>
-                            @*@Html.TextBoxFor(p =>ejercicio.Imagen, new { @class = "form-control-file my-2 check-image-size", type = "file", accept = " image/*", style = "background-color:white;color:black;" })*@
+                                <div class="col-md-6" style="text-align:left">
+                                    <div id="previeweditar" style="display:inline-block;border-radius: 20px;width:10em;height:10em"></div>
+                                </div>
+                            </div>                            
                         </div>
                         <div class="col-md-6">
-                            <select class="form-control" id="IdEjercicioListE">
-                                <option value="Definicion">Definicion</option>
-                                <option value="Volumen">Volumen</option>
+                            <select class="form-control" id="IdRutinasListE">
                             </select>
                         </div>
                     </div>
@@ -188,14 +190,107 @@
     var url = '@Url.Action("AgregarEjercicios", "AdministracionWebHome")';
     var urleditar = '@Url.Action("EditarEjercicios", "AdministracionWebHome")';
     var urlup = '@Url.Action("UpImagen", "AdministracionWebHome")';
-    var urlupact = '@Url.Action("UpImagenActualizar", "AdministracionWebHome")';
+    var urlupact = '@Url.Action("UpImagenActualizar", "AdministracionWebHome")';   
+    //var lista = [];
+    document.getElementById("IdEjercicioimgE").onchange = function (e) {
+        if (e.target.files[0].type == "image/jpeg" || e.target.files[0].type == "image/gif" ||
+            e.target.files[0].type == "image/png " || e.target.files[0].type == "image/jpg")
+        {
+            if (e.target.files[0].size < 4200000)
+            {
+                // Creamos el objeto de la clase FileReader
+                let reader = new FileReader();
 
+                // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+                reader.readAsDataURL(e.target.files[0]);
+
+                // Le decimos que cuando este listo ejecute el código interno
+                reader.onload = function () {
+                    let preview = document.getElementById('previeweditar'),
+                        image = document.createElement('img');
+
+                    image.src = reader.result;
+                    image.style.width = '15em';
+                    image.style.display = 'inline-block';
+                    image.style.borderRadius = '20px';
+                    image.style.boxShadow = '0px 0px 2px #888';
+                    preview.innerHTML = '';
+                    preview.append(image);
+                };
+            }
+            else {
+                swal({
+                    title: "Warning!",
+                    text: "La imagen es demaciado pesada el tamaño maximo son 3MB",
+                    type: "Warning",
+                    icon: 'warning'
+                });
+            }
+        }
+        else {
+            swal({
+                title: "Warning!",
+                text: "Solo se admiten imagenes como archivos JPG, PNG, GIF,JPGE",
+                type: "Warning",
+                icon: 'warning'
+            });
+        }                
+    }
+
+    document.getElementById("IdEjercicioimg").onchange = function (e) {
+        console.log(e.target.files[0].type);
+        if (e.target.files[0].type == "image/jpeg" || e.target.files[0].type == "image/gif" ||
+            e.target.files[0].type == "image/png " || e.target.files[0].type == "image/jpg")
+        {
+            if (e.target.files[0].size < 4200000)
+            {
+                // Creamos el objeto de la clase FileReader
+                let reader = new FileReader();
+
+                // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+                reader.readAsDataURL(e.target.files[0]);
+
+                // Le decimos que cuando este listo ejecute el código interno
+                reader.onload = function () {
+                    let preview = document.getElementById('preview'),
+                        image = document.createElement('img');
+
+                    image.src = reader.result;
+                    image.style.width = '15em';
+                    image.style.display = 'inline-block';
+                    image.style.borderRadius = '20px';
+                    image.style.boxShadow = '0px 0px 2px #888';
+                    preview.innerHTML = '';
+                    preview.append(image);
+                };
+            }
+            else {
+                swal({
+                    title: "Warning!",
+                    text: "La imagen es demaciado pesada el tamaño maximo son 3MB",
+                    type: "Warning",
+                    icon: 'warning'
+                });
+            }
+        }
+        else {
+            swal({
+                title: "Warning!",
+                text: "Solo se admiten imagenes como archivos JPG, PNG, GIF,JPGE",
+                type: "Warning",
+                icon: 'warning'
+            });
+        }        
+    }
+    
     function cargarCombo() {
-        var lista = @Html.Raw(Json.Encode(ViewBag.ListEjercicios));        
+        var lista = @Html.Raw(Json.Encode(ViewBag.ListEjercicios));          
         for (var i = 0; i < lista.length; i++) {
             $("#IdRutinasList").append("<option value='" + lista[i].Id_rutina + "'>" + lista[i].Descripcion.toUpperCase() + "</option>");
-        }
-
+        }    
+        for (var i = 0; i < lista.length; i++) {
+            $("#IdRutinasListE").append("<option value='" + lista[i].Id_rutina + "'>" + lista[i].Descripcion.toUpperCase() + "</option>");
+        }  
     }
 
     function Ver() {
@@ -215,17 +310,7 @@
         parametros.Rutinas = Rutinas;
         var model = parametros;
         var file = Imagenf.files[0];
-        formdata.append("Tipo", parametros.Tipo);
-        formdata.append("Imagen", file);
-
-        if (file != undefined) {
-            var maxSizeFileInput = parseInt($("#IdEjercicioimg").data("maxsize"));
-            var sizeFile = Imagenf.files[0].size;
-            if (sizeFile > maxSizeFileInput) {
-                alert("Favor de seleccionar un archivo con tamaño no más de " + (maxSizeFileInput / 1000000) + " MB.");
-                return;
-            }
-        }
+        formdata.append("Imagen", file);       
         if (parametros.Clave_ejercicio != "")
         {
             if (parametros.Ejercicio != "")
@@ -303,12 +388,21 @@
             contentType: "application/json; charset=utf-8",
             datatype: "json",
             success: function (data) {
+                var rutina = data["Rutinas"];               
                 document.getElementById("Id_ejercicio").value = data["Id_ejercicio"];
                 document.getElementById("IdClaveejercicioE").value = data["Clave_ejercicio"];
                 document.getElementById("IdEjercicioE").value = data["Ejercicio"];
                 document.getElementById('IdDescripcionE').value = data["Descripcion"];
-                document.getElementById('IdPosicionE').value = data["Posicion"];
-                document.getElementById('Imgsrc').src = data["Ubicacion_imagen"];
+                document.getElementById('IdPosicionE').value = data["Posicion"];               
+                document.getElementById('Imgsrc').src = "https://www.bsite.net/valerioparada/" + data["Ubicacion_imagen"];                                                
+                var lista = document.getElementById('IdRutinasList');                  
+                for (var i = 0; i < lista.length; i++)
+                {                        
+                    if (lista[i].text == rutina.Descripcion.toUpperCase())
+                    {                        
+                        document.getElementById("IdRutinasListE").selectedIndex = i;
+                    }
+                }  
                 $('#ModalEditar').modal('show');
             },
             error: function (xhr, status, error) {
@@ -320,29 +414,23 @@
 
     function Editar()
     {
+        swal({
+            icon: "https://www.bsite.net/valerioparada/Imagenes/loading.gif"
+        });
         var formdata = new FormData();
         var Imagenf = $("#IdEjercicioimgE")[0];
         var img = Imagenf.files[0];
         var parametros = {};
+        var Rutinas = {};
+        Rutinas.Id_rutina = $("#IdRutinasList").val();
+        parametros.Rutinas = Rutinas;
         parametros.Id_ejercicio = $("#Id_ejercicio").val().trim();
         parametros.Clave_ejercicio = $("#IdClaveejercicioE").val().trim();
         parametros.Ejercicio = $("#IdEjercicioE").val().trim();
         parametros.Descripcion = $("#IdDescripcionE").val().trim();
-        parametros.Posicion = $("#IdPosicionE").val().trim();
-        parametros.Tipo = $("#IdEjercicioListE").val().trim();
+        parametros.Posicion = $("#IdPosicionE").val().trim();        
         var model = parametros;
-
-        formdata.append("Tipo", parametros.Tipo);
         formdata.append("Imagen", img);
-
-        if (img != undefined) {
-            var maxSizeFileInput = parseInt($("#IdEjercicioimgE").data("maxsize"));
-            var sizeFile = Imagenf.files[0].size;
-            if (sizeFile > maxSizeFileInput) {
-                alert("Favor de seleccionar un archivo con tamaño no más de " + (maxSizeFileInput / 1000000) + " MB.");
-                return;
-            }
-        }
         if (parametros.Clave_ejercicio != "")
         {
             if (parametros.Ejercicio != "")
