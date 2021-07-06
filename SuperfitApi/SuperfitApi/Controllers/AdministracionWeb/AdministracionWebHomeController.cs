@@ -18,16 +18,16 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         #region Variables
         public SuperfitEntities Db;
         public Clientes clientes;
-        public Cuestionario cuestionario;
-        public Mensualidad mensualidad;
+        public Cuestionarios cuestionario;
+        public Mensualidades mensualidad;
         public Asesoria_antropometria asesoria_antropometria;
-        public Tipo_rutina tipo_Rutina;
-        public Tipo_entrenamiento tipo_Entrenamiento;
+        public Tipo_rutinas tipo_Rutina;
+        public Tipo_entrenamientos tipo_Entrenamiento;
         public Ejercicios ejercicios;
         public Estatus estatus;
         public Rutinas rutina;
-        public Detalle_rutina detalle_Rutina;
-        public List<Detalle_rutina> listdetalle_Rutina;
+        public Detalle_rutinas detalle_Rutina;
+        public List<Detalle_rutinas> listdetalle_Rutina;
         public EnvioNotificaciones envio;
         //modelos
         public AlertasModel alertasMdl;
@@ -62,15 +62,15 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         {
             Db = new SuperfitEntities();
             clientes = new Clientes();
-            cuestionario = new Cuestionario();
-            mensualidad = new Mensualidad();
+            cuestionario = new Cuestionarios();
+            mensualidad = new Mensualidades();
             asesoria_antropometria = new Asesoria_antropometria();
-            tipo_Rutina = new Tipo_rutina();
-            tipo_Entrenamiento = new Tipo_entrenamiento();
+            tipo_Rutina = new Tipo_rutinas();
+            tipo_Entrenamiento = new Tipo_entrenamientos();
             ejercicios = new Ejercicios();
             rutina = new Rutinas();
-            detalle_Rutina = new Detalle_rutina();
-            listdetalle_Rutina = new List<Detalle_rutina>();
+            detalle_Rutina = new Detalle_rutinas();
+            listdetalle_Rutina = new List<Detalle_rutinas>();
             envio = new EnvioNotificaciones();
             //modelos
             clientesMdl = new ClientesModel();
@@ -124,7 +124,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                    Sexo = l.Sexo
                                }).ToList();
 
-            listmensualidadMdl = (from m in Db.Mensualidad
+            listmensualidadMdl = (from m in Db.Mensualidades
                                   join c in Db.Clientes
                                   on m.Id_cliente equals c.Id_cliente                                  
                                   join es in Db.Estatus
@@ -200,7 +200,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                         {
                             if((mes.Fecha_fin < DateTime.Now) && (mes.Estatus.Id_estatus == 2 || mes.Estatus.Id_estatus == 4))
                             {
-                                mensualidad = Db.Mensualidad.Where(y => y.Id_mensualidad == mes.Id_mensualidad).FirstOrDefault();
+                                mensualidad = Db.Mensualidades.Where(y => y.Id_mensualidad == mes.Id_mensualidad).FirstOrDefault();
                                 if (mensualidad != null)
                                 {
                                     mensualidad.Id_estatus = 3;
@@ -230,10 +230,10 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public void GetList()
         {
             ViewBag.Cliente = (from t in Db.Clientes select new ClientesModel() { Id_cliente = t.Id_cliente, Nombres = t.Nombres + " " + t.Apellido_paterno + " " + t.Apellido_materno }).ToList();
-            ViewBag.Tiporutina = (from t in Db.Tipo_rutina select new TiporutinaModel() { Id_tiporutina = t.Id_tipo_rutina, Descripcion = t.Descripcion }).ToList();
+            ViewBag.Tiporutina = (from t in Db.Tipo_rutinas select new TiporutinaModel() { Id_tiporutina = t.Id_tipo_rutina, Descripcion = t.Descripcion }).ToList();
             ViewBag.Mes = (from t in Db.Meses select new MesesModel() { Id_mes = t.Id_mes, Mes = t.Mes }).ToList();
             ViewBag.Estatus = (from t in Db.Estatus select new EstatusModel() { Id_estatus = t.Id_estatus, Descripcion = t.Descripcion }).ToList();
-            ViewBag.TipoEntrenamiento = (from t in Db.Tipo_entrenamiento select new TipoentrenamientoModel() { Id_TipoEntrenamiento = t.Id_tipo_entrenamiento, Tipo_entrenamiento = t.Tipo_entrenamientos }).ToList();
+            ViewBag.TipoEntrenamiento = (from t in Db.Tipo_entrenamientos select new TipoentrenamientoModel() { Id_TipoEntrenamiento = t.Id_tipo_entrenamiento, Tipo_entrenamiento = t.Tipo_entrenamiento }).ToList();
             ViewBag.Rutinas = (from t in Db.Rutinas select new RutinasModel() { Id_rutina = t.Id_rutina, Descripcion = t.Descripcion }).ToList();
             ViewBag.Dias = (from t in Db.Dias select new DiasModel() { Id_dia = t.Id_dia, Dia = t.Dia }).ToList();
             ViewBag.Ejercicios = (from t in Db.Ejercicios select new EjerciciosModel() { Id_ejercicio = t.Id_ejercicio, Ejercicio = t.Ejercicio }).ToList();
@@ -284,7 +284,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                     Apellido_materno = clientesModel.Apellido_materno,
                     Edad = clientesModel.Edad,
                     Telefono = clientesModel.Telefono == null ? 0 : clientesModel.Telefono,
-                    Correo_electronico = clientesModel.Correo_electronico == null ? "" : clientesModel.Correo_electronico,
+                    Correo_electronico = clientesModel.Correo_electronico == null ? string.Empty : clientesModel.Correo_electronico,
                     Apodo = clientesModel.Apodo == null ? "" : clientesModel.Apodo,
                     Contraseña = clientesModel.Contraseña,
                     Foto_perfil = fotoperfil,
@@ -450,7 +450,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         #region Tiporutina
         public ActionResult AdminTiporutinaWeb()
         {
-            listtiporutinaMdl = (from l in Db.Tipo_rutina
+            listtiporutinaMdl = (from l in Db.Tipo_rutinas
                                  select new TiporutinaModel()
                                  {
                                      Id_tiporutina = l.Id_tipo_rutina,
@@ -465,12 +465,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public bool AgregarTiporutina(TiporutinaModel tiporutinaModel)
         {
             bool result = false;
-            tipo_Rutina = new Tipo_rutina
+            tipo_Rutina = new Tipo_rutinas
             {
                 Descripcion = tiporutinaModel.Descripcion,
                 Tipo = tiporutinaModel.Tipo,
             };
-            Db.Tipo_rutina.Add(tipo_Rutina);
+            Db.Tipo_rutinas.Add(tipo_Rutina);
             if (Db.SaveChanges() == 1)
             {
                 result = true;
@@ -481,7 +481,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
         public JsonResult EditarTiporutina(int Id_tipo_rutina)
         {
-            tiporutinaMdl = (from t in Db.Tipo_rutina
+            tiporutinaMdl = (from t in Db.Tipo_rutinas
                              where t.Id_tipo_rutina == Id_tipo_rutina
                              select new TiporutinaModel()
                              {
@@ -496,7 +496,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         [HttpPost]
         public bool EditarTiporutina(TiporutinaModel tiporutinaModel)
         {
-            tipo_Rutina = Db.Tipo_rutina.Where(t => t.Id_tipo_rutina == tiporutinaModel.Id_tiporutina).FirstOrDefault();
+            tipo_Rutina = Db.Tipo_rutinas.Where(t => t.Id_tipo_rutina == tiporutinaModel.Id_tiporutina).FirstOrDefault();
 
             tipo_Rutina.Descripcion = tiporutinaModel.Descripcion;
             tipo_Rutina.Tipo = tiporutinaModel.Tipo;
@@ -515,12 +515,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         #region Tipoentrenamiento        
         public ActionResult AdminTipoentrenamientoWeb()
         {
-            listtipoentrenamientoMdl = (from l in Db.Tipo_entrenamiento
+            listtipoentrenamientoMdl = (from l in Db.Tipo_entrenamientos
                                         select new TipoentrenamientoModel()
                                         {
                                             Id_TipoEntrenamiento = l.Id_tipo_entrenamiento,
                                             Clave_Entrenamiento = l.Clave_entrenamiento,
-                                            Tipo_entrenamiento = l.Tipo_entrenamientos
+                                            Tipo_entrenamiento = l.Tipo_entrenamiento
                                         }).ToList();
 
             return View(listtipoentrenamientoMdl);
@@ -530,12 +530,12 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public bool AgregarTipoentrenamiento(TipoentrenamientoModel tipoentrenamientoModel)
         {
             bool result = false;
-            tipo_Entrenamiento = new Tipo_entrenamiento
+            tipo_Entrenamiento = new Tipo_entrenamientos
             {
                 Clave_entrenamiento = tipoentrenamientoModel.Clave_Entrenamiento,
-                Tipo_entrenamientos = tipoentrenamientoModel.Tipo_entrenamiento,
+                Tipo_entrenamiento = tipoentrenamientoModel.Tipo_entrenamiento,
             };
-            Db.Tipo_entrenamiento.Add(tipo_Entrenamiento);
+            Db.Tipo_entrenamientos.Add(tipo_Entrenamiento);
             if (Db.SaveChanges() == 1)
             {
                 result = true;
@@ -546,13 +546,13 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
         public JsonResult EditarTipoentrenamiento(int Id_tipo_entrenamiento)
         {
-            tipoentrenamientoMdl = (from l in Db.Tipo_entrenamiento
+            tipoentrenamientoMdl = (from l in Db.Tipo_entrenamientos
                                     where l.Id_tipo_entrenamiento == Id_tipo_entrenamiento
                                     select new TipoentrenamientoModel()
                                     {
                                         Id_TipoEntrenamiento = l.Id_tipo_entrenamiento,
                                         Clave_Entrenamiento = l.Clave_entrenamiento,
-                                        Tipo_entrenamiento = l.Tipo_entrenamientos
+                                        Tipo_entrenamiento = l.Tipo_entrenamiento
                                     }).FirstOrDefault();
 
             return Json(tipoentrenamientoMdl, JsonRequestBehavior.AllowGet);
@@ -561,13 +561,13 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         [HttpPost]
         public bool EditarTipoentrenamiento(TipoentrenamientoModel tipoentrenamientoModel)
         {
-            tipo_Entrenamiento = Db.Tipo_entrenamiento.Where(t => t.Id_tipo_entrenamiento == tipoentrenamientoModel.Id_TipoEntrenamiento).FirstOrDefault();
+            tipo_Entrenamiento = Db.Tipo_entrenamientos.Where(t => t.Id_tipo_entrenamiento == tipoentrenamientoModel.Id_TipoEntrenamiento).FirstOrDefault();
             if (tipo_Entrenamiento == null)
             {
                 return true;
             }
             tipo_Entrenamiento.Clave_entrenamiento = tipoentrenamientoModel.Clave_Entrenamiento;
-            tipo_Entrenamiento.Tipo_entrenamientos = tipoentrenamientoModel.Tipo_entrenamiento;
+            tipo_Entrenamiento.Tipo_entrenamiento = tipoentrenamientoModel.Tipo_entrenamiento;
 
             if (Db.SaveChanges() == 1)
             {
@@ -649,6 +649,8 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public ActionResult AdminEjerciciosWeb()
         {
             listejerciciosMdl = (from l in Db.Ejercicios
+                                 join r in Db.Rutinas
+                                 on l.Id_rutina equals r.Id_rutina
                                  select new EjerciciosModel()
                                  {
                                      Id_ejercicio = l.Id_ejercicio,
@@ -656,7 +658,14 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                      Ejercicio = l.Ejercicio,
                                      Descripcion = l.Descripcion,
                                      Posicion = l.Posicion,
-                                     Ubicacion_imagen = l.Ubicacion_imagen
+                                     Ubicacion_imagen = l.Ubicacion_imagen,
+                                     Rutinas = new RutinasModel()
+                                     {
+                                         Id_rutina = r.Id_rutina,
+                                         Clave_rutina = r.Clave_rutina,
+                                         Descripcion =r.Descripcion
+                                     }
+                                     
                                  }).ToList();
 
             listrutinasMdl = (from r in Db.Rutinas
@@ -896,16 +905,16 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         #region Mensualidad
         public ActionResult AdminMensualidadWeb()
         {
-            listmensualidadMdl = (from m in Db.Mensualidad
+            listmensualidadMdl = (from m in Db.Mensualidades
                                   join c in Db.Clientes
                                   on m.Id_cliente equals c.Id_cliente
-                                  join t in Db.Tipo_rutina
+                                  join t in Db.Tipo_rutinas
                                   on m.Id_tipo_rutina equals t.Id_tipo_rutina
                                   join mes in Db.Meses
                                   on m.Id_mes equals mes.Id_mes
                                   join es in Db.Estatus
                                   on m.Id_estatus equals es.Id_estatus
-                                  join te in Db.Tipo_entrenamiento
+                                  join te in Db.Tipo_entrenamientos
                                   on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento                                 
                                   select new MensualidadModel()
                                   {
@@ -921,7 +930,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                       {
                                           Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
                                           Clave_Entrenamiento = te.Clave_entrenamiento,
-                                          Tipo_entrenamiento = te.Tipo_entrenamientos
+                                          Tipo_entrenamiento = te.Tipo_entrenamiento
                                       },
                                       Mes = new MesesModel
                                       {
@@ -959,16 +968,16 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         {
             DateTimeFormatInfo fechastring = CultureInfo.GetCultureInfo("es-ES").DateTimeFormat;
             string Mes = string.Empty, Dia = string.Empty; 
-            listmensualidadMdl = (from m in Db.Mensualidad
+            listmensualidadMdl = (from m in Db.Mensualidades
                                   join c in Db.Clientes
                                   on m.Id_cliente equals c.Id_cliente
-                                  join t in Db.Tipo_rutina
+                                  join t in Db.Tipo_rutinas
                                   on m.Id_tipo_rutina equals t.Id_tipo_rutina
                                   join mes in Db.Meses
                                   on m.Id_mes equals mes.Id_mes
                                   join es in Db.Estatus
                                   on m.Id_estatus equals es.Id_estatus
-                                  join te in Db.Tipo_entrenamiento
+                                  join te in Db.Tipo_entrenamientos
                                   on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
                                   where m.Id_cliente == Id_cliente
                                   select new MensualidadModel()
@@ -985,7 +994,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                       {
                                           Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
                                           Clave_Entrenamiento = te.Clave_entrenamiento,
-                                          Tipo_entrenamiento = te.Tipo_entrenamientos
+                                          Tipo_entrenamiento = te.Tipo_entrenamiento
                                       },
                                       Mes = new MesesModel
                                       {
@@ -1054,16 +1063,16 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
         public JsonResult VerMensualidadId(int Id_mensualidad)
         {
-            mensualidadMdl = (from m in Db.Mensualidad
+            mensualidadMdl = (from m in Db.Mensualidades
                                   join c in Db.Clientes
                                   on m.Id_cliente equals c.Id_cliente
-                                  join t in Db.Tipo_rutina
+                                  join t in Db.Tipo_rutinas
                                   on m.Id_tipo_rutina equals t.Id_tipo_rutina
                                   join mes in Db.Meses
                                   on m.Id_mes equals mes.Id_mes
                                   join es in Db.Estatus
                                   on m.Id_estatus equals es.Id_estatus
-                                  join te in Db.Tipo_entrenamiento
+                                  join te in Db.Tipo_entrenamientos
                                   on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
                                   where m.Id_mensualidad == Id_mensualidad
                                   select new MensualidadModel()
@@ -1080,7 +1089,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                       {
                                           Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
                                           Clave_Entrenamiento = te.Clave_entrenamiento,
-                                          Tipo_entrenamiento = te.Tipo_entrenamientos
+                                          Tipo_entrenamiento = te.Tipo_entrenamiento
                                       },
                                       Mes = new MesesModel
                                       {
@@ -1128,7 +1137,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public bool ActualizarEstatus(int Id_mensualidad,int estatus,int Id_tipo_entrenamiento,int Id_tipo_rutina)
         {
             bool result = false; 
-            mensualidad = Db.Mensualidad.Where(y => y.Id_mensualidad == Id_mensualidad).FirstOrDefault();
+            mensualidad = Db.Mensualidades.Where(y => y.Id_mensualidad == Id_mensualidad).FirstOrDefault();
             if (mensualidad != null)
             {
                 if(mensualidad.Id_estatus != estatus)
@@ -1186,7 +1195,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
             bool result = false;
             mensualidadModel.Fecha_inicio = DateTime.Now;
             mensualidadModel.Fecha_fin = DateTime.Now.AddDays(30);            
-            mensualidad = new Mensualidad
+            mensualidad = new Mensualidades
             {                
                 Id_cliente = mensualidadModel.Cliente.Id_cliente,
                 Id_tipo_rutina = mensualidadModel.Tiporutina.Id_tiporutina,
@@ -1196,7 +1205,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 Fecha_inicio= mensualidadModel.Fecha_inicio,
                 Fecha_fin= mensualidadModel.Fecha_fin
             };
-            Db.Mensualidad.Add(mensualidad);
+            Db.Mensualidades.Add(mensualidad);
             if (Db.SaveChanges() == 1)
             {
                 result = true;
@@ -1207,16 +1216,16 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
 
         public JsonResult EditarMensualidad(int Id_mensualidad)
         {
-            mensualidadMdl = (from m in Db.Mensualidad
+            mensualidadMdl = (from m in Db.Mensualidades
                               join c in Db.Clientes
                               on m.Id_cliente equals c.Id_cliente
-                              join t in Db.Tipo_rutina
+                              join t in Db.Tipo_rutinas
                               on m.Id_tipo_rutina equals t.Id_tipo_rutina
                               join mes in Db.Meses
                               on m.Id_mes equals mes.Id_mes
                               join es in Db.Estatus
                               on m.Id_estatus equals es.Id_estatus
-                              join te in Db.Tipo_entrenamiento
+                              join te in Db.Tipo_entrenamientos
                               on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
                               select new MensualidadModel()
                               {
@@ -1232,7 +1241,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                   {
                                       Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
                                       Clave_Entrenamiento = te.Clave_entrenamiento,
-                                      Tipo_entrenamiento = te.Tipo_entrenamientos
+                                      Tipo_entrenamiento = te.Tipo_entrenamiento
                                   },
                                   Mes = new MesesModel
                                   {
@@ -1269,7 +1278,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         [HttpPost]
         public bool EditarMensualidad(MensualidadModel mensualidadModel)
         {
-            mensualidad = Db.Mensualidad.Where(t => t.Id_mensualidad == mensualidadModel.Id_mensualidad).FirstOrDefault();
+            mensualidad = Db.Mensualidades.Where(t => t.Id_mensualidad == mensualidadModel.Id_mensualidad).FirstOrDefault();
 
             mensualidad.Id_cliente = mensualidadModel.Cliente.Id_cliente;
             mensualidad.Id_tipo_rutina = mensualidadModel.Tiporutina.Id_tiporutina;
@@ -1428,7 +1437,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public JsonResult VerCuestionario(int Id_cliente)
         {
 
-            cuestionarioMdl = (from c in Db.Cuestionario
+            cuestionarioMdl = (from c in Db.Cuestionarios
                                where c.Id_cliente == Id_cliente
                                select new CuestionarioModel()
                                {
@@ -1466,7 +1475,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         {
             bool result = false;
             var cliente = Db.Clientes.Where(y => y.Id_cliente == cuestionarioModel.Cliente.Id_cliente).FirstOrDefault();
-            cuestionario = new Cuestionario
+            cuestionario = new Cuestionarios
             {            
                 Id_cliente = cuestionarioModel.Cliente.Id_cliente,
                 Clave_cuestionario ="CUES"+ cliente.Clave_cliente,
@@ -1487,7 +1496,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                 Comentarios                     = cuestionarioModel.Comentarios                  ==null ?"" :  cuestionarioModel.Comentarios                  ,
                 Fecha_registro                  =DateTime.Now
             };
-            Db.Cuestionario.Add(cuestionario);
+            Db.Cuestionarios.Add(cuestionario);
             if (Db.SaveChanges() == 1)
             {
                 result = true;
@@ -1499,7 +1508,7 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         public bool ActualizarCuestionario(CuestionarioModel cuestionarioModel)
         {
             bool result = false;
-            cuestionario = Db.Cuestionario.Where(y => y.Id_cuestionario == cuestionarioModel.Id_cuestionario).FirstOrDefault();
+            cuestionario = Db.Cuestionarios.Where(y => y.Id_cuestionario == cuestionarioModel.Id_cuestionario).FirstOrDefault();
             if (cuestionario != null)
             {
                 cuestionario.Padece_enfermedad = cuestionarioModel.Padece_enfermedad == null ? false : cuestionarioModel.Padece_enfermedad;
@@ -1531,14 +1540,14 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         [HttpGet]
         public JsonResult VerDetalleRutina(int Id_mensualidad)
         {
-            listdetallerutinaMdl = (from d in Db.Detalle_rutina
+            listdetallerutinaMdl = (from d in Db.Detalle_rutinas
                                 where d.Id_mensualidad == Id_mensualidad
                                 select new DetallerutinaModel()
                                 {
                                     Id_detallerutina = d.Id_detalle_rutina,
                                     Mensualidad = new MensualidadModel
                                     {
-                                        Id_mensualidad= d.Mensualidad.Id_mensualidad }
+                                        Id_mensualidad= d.Mensualidades.Id_mensualidad }
                                     ,
                                     Rutinas = new RutinasModel
                                     {
@@ -1572,23 +1581,23 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
         
         //Agregar asignar rutina.
         [HttpPost]
-        public bool DetallRutina(List<DetallerutinaModel> detallerutinaModels)
+        public bool DetallRutina(List<DetallerutinaModel> detallerutinaModels,bool enviocorreo)
         {
             bool result = false;
             try
             {                
                 int id = detallerutinaModels[0].Mensualidad.Id_mensualidad;
-                var mes = Db.Mensualidad.Where(p => p.Id_mensualidad == id).FirstOrDefault();
+                var mes = Db.Mensualidades.Where(p => p.Id_mensualidad == id).FirstOrDefault();
                 var cliente = Db.Clientes.Where(y => y.Id_cliente == mes.Id_cliente).FirstOrDefault();
-                List<Detalle_rutina> detalle = Db.Detalle_rutina.Where(p => p.Id_mensualidad == id).ToList();
+                List<Detalle_rutinas> detalle = Db.Detalle_rutinas.Where(p => p.Id_mensualidad == id).ToList();
                 if (detalle.Count > 0)
                 {
-                    Db.Detalle_rutina.RemoveRange(detalle);
+                    Db.Detalle_rutinas.RemoveRange(detalle);
                     Db.SaveChanges();
                 }
 
                 listdetalle_Rutina = (from lista in detallerutinaModels
-                                     select new Detalle_rutina()
+                                     select new Detalle_rutinas()
                                     {
                                         Id_mensualidad = lista.Mensualidad.Id_mensualidad,
                                         Id_rutina = lista.Rutinas.Id_rutina,
@@ -1599,13 +1608,16 @@ namespace SuperfitApi.Controllers.AdministracionWeb.CatalogosWeb
                                         Id_dia = lista.Dias.Id_dia
                                     }).ToList();
 
-                Db.Detalle_rutina.AddRange(listdetalle_Rutina);
+                Db.Detalle_rutinas.AddRange(listdetalle_Rutina);
                 Db.SaveChanges();
                 result = true;
                 if (cliente != null)
                 {
-                    AlertasModel resultado = Bienvenida(cliente.Correo_electronico,cliente.Nombres);
-                    result = resultado.Result;
+                    if (enviocorreo == true)
+                    {
+                        AlertasModel resultado = Bienvenida(cliente.Correo_electronico, cliente.Nombres);
+                        result = resultado.Result;
+                    }
                 }
             }
             catch (Exception ex)

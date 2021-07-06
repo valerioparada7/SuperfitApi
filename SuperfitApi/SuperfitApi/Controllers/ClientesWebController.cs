@@ -18,8 +18,8 @@ namespace SuperfitApi.Controllers
         #region Variables 
         public SuperfitEntities Db;
         public Clientes clientes;
-        public Cuestionario cuestionario;
-        public Mensualidad mensualidad;
+        public Cuestionarios cuestionario;
+        public Mensualidades mensualidad;
         public Asesoria_antropometria asesoria_antropometria;
         public Pagos_mensualidades pagos_Mensualidades;
         public EnvioNotificaciones envio;
@@ -40,8 +40,8 @@ namespace SuperfitApi.Controllers
         {
             Db = new SuperfitEntities ();
             clientes = new Clientes();
-            cuestionario = new Cuestionario();
-            mensualidad = new Mensualidad();
+            cuestionario = new Cuestionarios();
+            mensualidad = new Mensualidades();
             asesoria_antropometria = new Asesoria_antropometria();
             pagos_Mensualidades = new Pagos_mensualidades();
             envio = new EnvioNotificaciones();
@@ -82,15 +82,15 @@ namespace SuperfitApi.Controllers
                                    Foto_perfil = c.Foto_perfil
                                }).FirstOrDefault();
 
-                var list = Db.Mensualidad.Where(p => p.Id_cliente == IdCliente).ToList();
+                var list = Db.Mensualidades.Where(p => p.Id_cliente == IdCliente).ToList();
                 var mensualidad = list.OrderByDescending(p => p.Fecha_fin).FirstOrDefault();
                 if (mensualidad != null)
                 {
                     int id = mensualidad.Id_mensualidad;
-                    mensualidadMdl = (from m in Db.Mensualidad
-                                      join t in Db.Tipo_rutina
+                    mensualidadMdl = (from m in Db.Mensualidades
+                                      join t in Db.Tipo_rutinas
                                       on m.Id_tipo_rutina equals t.Id_tipo_rutina
-                                      join te in Db.Tipo_entrenamiento
+                                      join te in Db.Tipo_entrenamientos
                                       on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
                                       join mes in Db.Meses
                                       on m.Id_mes equals mes.Id_mes
@@ -109,7 +109,7 @@ namespace SuperfitApi.Controllers
                                           {
                                               Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
                                               Clave_Entrenamiento = te.Clave_entrenamiento,
-                                              Tipo_entrenamiento = te.Tipo_entrenamientos
+                                              Tipo_entrenamiento = te.Tipo_entrenamiento
                                           },
                                           Mes = new MesesModel
                                           {
@@ -177,16 +177,16 @@ namespace SuperfitApi.Controllers
             string Mes = string.Empty, Dia = string.Empty;
             string Id = Session["Id_Cliente"].ToString();
             int IdCliente = int.Parse(Id);
-            listmensualidadMdl = (from m in Db.Mensualidad
+            listmensualidadMdl = (from m in Db.Mensualidades
                                   join c in Db.Clientes
                                   on m.Id_cliente equals c.Id_cliente
-                                  join t in Db.Tipo_rutina
+                                  join t in Db.Tipo_rutinas
                                   on m.Id_tipo_rutina equals t.Id_tipo_rutina
                                   join mes in Db.Meses
                                   on m.Id_mes equals mes.Id_mes
                                   join es in Db.Estatus
                                   on m.Id_estatus equals es.Id_estatus
-                                  join te in Db.Tipo_entrenamiento
+                                  join te in Db.Tipo_entrenamientos
                                   on m.Id_tipo_entrenamiento equals te.Id_tipo_entrenamiento
                                   where m.Id_cliente == IdCliente
                                   select new MensualidadModel()
@@ -203,7 +203,7 @@ namespace SuperfitApi.Controllers
                                       {
                                           Id_TipoEntrenamiento = (int)te.Id_tipo_entrenamiento,
                                           Clave_Entrenamiento = te.Clave_entrenamiento,
-                                          Tipo_entrenamiento = te.Tipo_entrenamientos
+                                          Tipo_entrenamiento = te.Tipo_entrenamiento
                                       },
                                       Mes = new MesesModel
                                       {
@@ -275,7 +275,7 @@ namespace SuperfitApi.Controllers
             int IdCliente = int.Parse(Id);
             string ruta = string.Empty;
             var cliente = Db.Clientes.Where(y => y.Id_cliente == IdCliente).FirstOrDefault();
-            var meses = Db.Mensualidad.Where(y => y.Id_mensualidad == Idmes).FirstOrDefault();
+            var meses = Db.Mensualidades.Where(y => y.Id_mensualidad == Idmes).FirstOrDefault();
             if (meses.Id_estatus == 1)
             {
                 pagos_Mensualidades = new Pagos_mensualidades
@@ -381,12 +381,12 @@ namespace SuperfitApi.Controllers
         [HttpGet]
         public JsonResult GetDetalleRutinaSets(int IdMensualidad = 0, int IdEstatusMes = 0, int IdDIa = 0)
         {
-            var mes = Db.Mensualidad.Where(y => y.Id_mensualidad == IdMensualidad).FirstOrDefault();
+            var mes = Db.Mensualidades.Where(y => y.Id_mensualidad == IdMensualidad).FirstOrDefault();
             IdEstatusMes = mes.Id_estatus;
             if (IdEstatusMes == 2 || IdEstatusMes == 4)
             {            
-                listdetallerutinaMdl = (from d in Db.Detalle_rutina
-                                        join m in Db.Mensualidad
+                listdetallerutinaMdl = (from d in Db.Detalle_rutinas
+                                        join m in Db.Mensualidades
                                        on d.Id_mensualidad equals m.Id_mensualidad
                                         where m.Id_mensualidad == IdMensualidad && m.Id_estatus == IdEstatusMes && d.Id_dia == IdDIa
                                         select new DetallerutinaModel()
@@ -395,26 +395,7 @@ namespace SuperfitApi.Controllers
                                         }).Distinct().ToList();
                 foreach (DetallerutinaModel detalle in listdetallerutinaMdl)
                 {
-                    if (detalle.Tipo_set == 1)
-                    {
-                        detalle.TipoSet = "Primer set";
-                    }
-                    else if (detalle.Tipo_set == 2)
-                    {
-                        detalle.TipoSet = "Segundo set";
-                    }
-                    else if (detalle.Tipo_set == 3)
-                    {
-                        detalle.TipoSet = "Tercer set";
-                    }
-                    else if (detalle.Tipo_set == 4)
-                    {
-                        detalle.TipoSet = "Cuarto set";
-                    }
-                    else
-                    {
-                        detalle.TipoSet = "Ultimo set";
-                    }
+                    detalle.TipoSet = "Set "+ detalle.Tipo_set;                    
                 }
             }
             return Json(listdetallerutinaMdl,JsonRequestBehavior.AllowGet);
@@ -424,14 +405,14 @@ namespace SuperfitApi.Controllers
         [HttpGet]
         public JsonResult GetDetalleRutinaEjercicios(int IdMensualidad = 0, int IdEstatusMes = 0, int IdDIa = 0, int TipoSet = 0)
         {
-            var mes = Db.Mensualidad.Where(y => y.Id_mensualidad == IdMensualidad).FirstOrDefault();
+            var mes = Db.Mensualidades.Where(y => y.Id_mensualidad == IdMensualidad).FirstOrDefault();
             IdEstatusMes = mes.Id_estatus;
             if (IdEstatusMes == 2 || IdEstatusMes == 4)
             {
-                listdetallerutinaMdl = (from d in Db.Detalle_rutina
+                listdetallerutinaMdl = (from d in Db.Detalle_rutinas
                                         join e in Db.Ejercicios
                                         on d.Id_ejercicio equals e.Id_ejercicio
-                                        join m in Db.Mensualidad
+                                        join m in Db.Mensualidades
                                         on d.Id_mensualidad equals m.Id_mensualidad
                                         join r in Db.Rutinas
                                         on d.Id_rutina equals r.Id_rutina

@@ -27,17 +27,17 @@ namespace SuperfitApi.Models.Entity
     
         public virtual DbSet<Asesoria_antropometria> Asesoria_antropometria { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
-        public virtual DbSet<Cuestionario> Cuestionario { get; set; }
-        public virtual DbSet<Detalle_rutina> Detalle_rutina { get; set; }
+        public virtual DbSet<Cuestionarios> Cuestionarios { get; set; }
+        public virtual DbSet<Detalle_rutinas> Detalle_rutinas { get; set; }
         public virtual DbSet<Dias> Dias { get; set; }
         public virtual DbSet<Ejercicios> Ejercicios { get; set; }
         public virtual DbSet<Estatus> Estatus { get; set; }
-        public virtual DbSet<Mensualidad> Mensualidad { get; set; }
+        public virtual DbSet<Mensualidades> Mensualidades { get; set; }
         public virtual DbSet<Meses> Meses { get; set; }
         public virtual DbSet<Pagos_mensualidades> Pagos_mensualidades { get; set; }
         public virtual DbSet<Rutinas> Rutinas { get; set; }
-        public virtual DbSet<Tipo_entrenamiento> Tipo_entrenamiento { get; set; }
-        public virtual DbSet<Tipo_rutina> Tipo_rutina { get; set; }
+        public virtual DbSet<Tipo_entrenamientos> Tipo_entrenamientos { get; set; }
+        public virtual DbSet<Tipo_rutinas> Tipo_rutinas { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }

@@ -58,12 +58,13 @@
         }
     </style>
 </head>
-<body>
-    <div style="text-align:left;margin-left:50px;margin-top:10px;">        
+<body style="background: #e9ecef"> 
+    <div style="text-align:left;margin-left:50px;margin-top:10px;">
         <button type="button" style="color:red" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">Salir</button>
     </div>
     <div class="d-flex justify-content-center h-100">
-        <div class="container">
+        <div class="container" style="background:white;border-radius: 20px 20px;margin-bottom:30px">
+            
             <div class="navegador" style="text-align:center">
                 <div id="Datospersonales">
                     <div style="text-align:center;">
@@ -110,7 +111,7 @@
 
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
-                                <input type="email" class="form-control" id="IdCorreo" placeholder="Correo electronico" onkeypress="style.borderColor='gray';"/>
+                                <input type="email" class="form-control" id="IdCorreo" placeholder="Correo electronico" onkeypress="style.borderColor='gray';" />
                             </div>
                         </div>
 
@@ -119,7 +120,7 @@
                                 <input type="password" class="form-control" id="IdContraseña" placeholder="Contraseña" onkeypress="style.borderColor='gray';" />
                             </div>
                         </div>
-                        <div class="row">                            
+                        <div class="row">
                             <div class="col-md-6 offset-md-3">
                                 <select class="form-control" id="IdSexo" name="Sexo" onchange="ValidaSexo()">
                                     <option value="0">Seleccione sexo</option>
@@ -129,9 +130,9 @@
                             </div>
                         </div>
                         <div>
-                            
+
                         </div>
-                        <div class="row">                            
+                        <div class="row">
                             <div class="col-md-6 offset-md-3">
                                 <label>Seleccione foto de perfil</label>
                                 <label for="Foto_cliente_perfil" style="cursor:pointer;margin-left:10px">
@@ -139,13 +140,13 @@
                                 </label>
                                 <input style="display:none" accept="image/*" value="Foto perfil" title="Foto perfil" type="file" data-maxsize="4200000" id="Foto_cliente_perfil" class="form-control-file my-2 check-image-size">
                                 <div style="text-align:center">
-                                    <div id="previewcliente"style="display:inline-block;border-radius: 20px;width:10em;"></div>
+                                    <div id="previewcliente" style="display:inline-block;border-radius: 20px;width:10em;"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="Cuestionario" style="display:none">                  
+                <div id="Cuestionario" style="display:none">
                     <div class="container" style="overflow-y:auto;height:500px;text-align:center;">
                         <h3>Cuestionario</h3>
                         <h4>Marque la casilla en caso de que sea si para cada pregunta</h4>
@@ -386,14 +387,16 @@
             <div class="flechas">
                 <div class="row">
                     <div class="izquierda" style="text-align:left;flex:1;margin-left: 30px;">
-                        <button id="izq" type="button" class="navegadorbtn btn btn-dark" style="display:none" onclick="Atras()">                            
-                        Anterior</button>
+                        <button id="izq" type="button" class="navegadorbtn btn btn-dark" style="display:none" onclick="Atras()">
+                            Anterior
+                        </button>
                     </div>
                     <div class="derecha" style="text-align:right;margin-right: 30px;">
-                        <button id="der" type="button" class="navegadorbtn btn btn-dark" style="display:block" onclick="Siguiente();">                            
-                        Siguiente</button>
+                        <button id="der" type="button" class="navegadorbtn btn btn-dark" style="display:block" onclick="Siguiente();">
+                            Siguiente
+                        </button>
                         <br />
-                        <button  id="btnregistro" type="button" class="btn btn-success" onclick="GuardarRegistro();document.body.style.cursor = 'wait'; document.getElementById('btnregistro').disabled=true;" style="visibility:hidden">Guardar Registro</button>
+                        <button id="btnregistro" type="button" class="btn btn-success" onclick="GuardarRegistro();document.body.style.cursor = 'wait'; document.getElementById('btnregistro').disabled=true;" style="visibility:hidden">Guardar Registro</button>
                     </div>
                 </div>
             </div>

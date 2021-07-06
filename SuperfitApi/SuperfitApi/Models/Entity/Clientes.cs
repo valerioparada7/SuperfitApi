@@ -17,8 +17,8 @@ namespace SuperfitApi.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Clientes()
         {
-            this.Mensualidad = new HashSet<Mensualidad>();
-            this.Cuestionario = new HashSet<Cuestionario>();
+            this.Mensualidades = new HashSet<Mensualidades>();
+            this.Cuestionarios = new HashSet<Cuestionarios>();
         }
     
         public int Id_cliente { get; set; }
@@ -36,8 +36,8 @@ namespace SuperfitApi.Models.Entity
         public string Sexo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mensualidad> Mensualidad { get; set; }
+        public virtual ICollection<Mensualidades> Mensualidades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cuestionario> Cuestionario { get; set; }
+        public virtual ICollection<Cuestionarios> Cuestionarios { get; set; }
     }
 }

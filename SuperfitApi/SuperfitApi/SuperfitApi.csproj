@@ -210,10 +210,10 @@
     <Compile Include="Models\Entity\Clientes.cs">
       <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Cuestionario.cs">
+    <Compile Include="Models\Entity\Cuestionarios.cs">
       <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Detalle_rutina.cs">
+    <Compile Include="Models\Entity\Detalle_rutinas.cs">
       <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Dias.cs">
@@ -225,7 +225,7 @@
     <Compile Include="Models\Entity\Estatus.cs">
       <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Mensualidad.cs">
+    <Compile Include="Models\Entity\Mensualidades.cs">
       <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Meses.cs">
@@ -252,10 +252,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SuperfitModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Tipo_entrenamiento.cs">
+    <Compile Include="Models\Entity\Tipo_entrenamientos.cs">
       <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Tipo_rutina.cs">
+    <Compile Include="Models\Entity\Tipo_rutinas.cs">
       <DependentUpon>SuperfitModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Usuarios.cs">
@@ -276,6 +276,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\animate.min.css" />
+    <Content Include="Content\animated-headline.css" />
     <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -314,8 +316,21 @@
     <Content Include="Content\DataTables-1.10.24\js\jquery.dataTables.js" />
     <Content Include="Content\DataTables-1.10.24\js\jquery.dataTables.min.js" />
     <Content Include="Content\datatables.css" />
+    <Content Include="Content\flaticon.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fontawesome-all.min.css" />
+    <Content Include="Content\gijgo.css" />
+    <Content Include="Content\magnific-popup.css" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\nice-select.css" />
+    <Content Include="Content\owl.carousel.min.css" />
+    <Content Include="Content\price_rangs.css" />
+    <Content Include="Content\responsive.css" />
+    <Content Include="Content\slick.css" />
+    <Content Include="Content\slicknav.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\themify-icons.css" />
     <Content Include="favicon.ico" />
     <Content Include="fondo3.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -351,14 +366,47 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Imagenes\hero.png" />
+    <Content Include="Imagenes\imagen1.jpeg" />
+    <Content Include="Imagenes\imagen2.jpeg" />
+    <Content Include="Imagenes\imagen3.jpeg" />
+    <Content Include="Imagenes\imagen4.jpeg" />
+    <Content Include="Imagenes\imagen5.jpeg" />
+    <Content Include="Imagenes\imagen6.jpeg" />
+    <Content Include="Imagenes\imagen7.jpeg" />
+    <Content Include="Imagenes\superfiticono.jpeg" />
     <EntityDeploy Include="Models\Entity\SuperfitModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SuperfitModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Imagenes\superfiticono.jpeg" />
     <Content Include="Models\Entity\SuperfitModel.edmx.diagram">
       <DependentUpon>SuperfitModel.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\fa-brands-400.eot" />
+    <Content Include="fonts\fa-brands-400.ttf" />
+    <Content Include="fonts\fa-brands-400.woff" />
+    <Content Include="fonts\fa-brands-400.woff2" />
+    <Content Include="fonts\fa-regular-400.eot" />
+    <Content Include="fonts\fa-regular-400.ttf" />
+    <Content Include="fonts\fa-regular-400.woff" />
+    <Content Include="fonts\fa-regular-400.woff2" />
+    <Content Include="fonts\fa-solid-900.eot" />
+    <Content Include="fonts\fa-solid-900.ttf" />
+    <Content Include="fonts\fa-solid-900.woff" />
+    <Content Include="fonts\fa-solid-900.woff2" />
+    <Content Include="fonts\Flaticon.eot" />
+    <Content Include="fonts\Flaticon.ttf" />
+    <Content Include="fonts\Flaticon.woff" />
+    <Content Include="fonts\Flaticon.woff2" />
+    <Content Include="fonts\gijgo-material.eot" />
+    <Content Include="fonts\gijgo-material.ttf" />
+    <Content Include="fonts\gijgo-material.woff" />
+    <Content Include="fonts\themify.eot" />
+    <Content Include="fonts\themify.ttf" />
+    <Content Include="fonts\themify.woff" />
+    <Content Include="fonts\_flaticon.scss" />
+    <Content Include="Content\animated-headline" />
+    <Content Include="Content\style.map" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <Content Include="Models\Entity\SuperfitModel.Context.tt">
@@ -374,7 +422,16 @@
     <Content Include="Plantillas\BienvenidaSuperfit.html" />
     <Content Include="Plantillas\Comprobantepago.html" />
     <Content Include="Plantillas\CorreoRecuperacion.html" />
+    <Content Include="fonts\fa-brands-400.svg" />
+    <Content Include="fonts\fa-regular-400.svg" />
+    <Content Include="fonts\fa-solid-900.svg" />
+    <Content Include="fonts\flaticon.css" />
+    <Content Include="fonts\flaticon.html" />
+    <Content Include="fonts\Flaticon.svg" />
+    <Content Include="fonts\gijgo-material.svg" />
+    <Content Include="fonts\themify.svg" />
     <Content Include="Plantillas\SolicitudRegistro.html" />
+    <Content Include="Scripts\animated.headline.js" />
     <Content Include="Scripts\bootstrap-sortable.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -384,6 +441,7 @@
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\datatables.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -391,11 +449,22 @@
     <Content Include="Scripts\esm\popper.min.js" />
     <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\gijgo.min.js" />
+    <Content Include="Scripts\hover-direction-snake.min.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\jquery.ajaxchimp.min.js" />
+    <Content Include="Scripts\jquery.countdown.min.js" />
+    <Content Include="Scripts\jquery.counterup.min.js" />
     <Content Include="Scripts\jquery.dataTables.multiselect.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.magnific-popup.js" />
+    <Content Include="Scripts\jquery.nice-select.min.js" />
+    <Content Include="Scripts\jquery.paroller.min.js" />
+    <Content Include="Scripts\jquery.slicknav.min.js" />
+    <Content Include="Scripts\jquery.sticky.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -403,16 +472,23 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mail-script.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\one-page-nav-min.js" />
+    <Content Include="Scripts\owl.carousel.min.js" />
+    <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\price-range.js" />
     <Content Include="Scripts\printThis.js" />
+    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
     <Content Include="Scripts\src\methods\destroy.js" />
@@ -480,6 +556,10 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\vendor\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\vendor\modernizr-3.5.0.min.js" />
+    <Content Include="Scripts\waypoints.min.js" />
+    <Content Include="Scripts\wow.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -537,12 +617,14 @@
     <Content Include="Views\ClientesWeb\Mensualidades.cshtml" />
     <Content Include="Views\AdministracionWebHome\Entrenamientoenvivo.cshtml" />
     <Content Include="Views\LoginWeb\Recuperarcuenta.cshtml" />
+    <Content Include="Views\LoginWeb\Inicio.cshtml" />
+    <Content Include="Views\LoginWeb\Plataforma.cshtml" />
+    <Content Include="Views\LoginWeb\Servicio.cshtml" />
+    <Content Include="Views\LoginWeb\CambioFisico.cshtml" />
+    <Content Include="Views\LoginWeb\Contacto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Imagenes\Clientes\" />
-    <Folder Include="Imagenes\Definicion\" />
-    <Folder Include="Imagenes\Volumen\" />
     <Folder Include="Views\Catalogo\" />
   </ItemGroup>
   <ItemGroup>

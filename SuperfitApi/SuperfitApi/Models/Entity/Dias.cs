@@ -17,7 +17,7 @@ namespace SuperfitApi.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Dias()
         {
-            this.Detalle_rutina = new HashSet<Detalle_rutina>();
+            this.Detalle_rutinas = new HashSet<Detalle_rutinas>();
         }
     
         public int Id_dia { get; set; }
@@ -25,6 +25,6 @@ namespace SuperfitApi.Models.Entity
         public string Dia { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Detalle_rutina> Detalle_rutina { get; set; }
+        public virtual ICollection<Detalle_rutinas> Detalle_rutinas { get; set; }
     }
 }

@@ -21,6 +21,6 @@ namespace SuperfitApi.Models.Entity
         public string Descripcion { get; set; }
         public string Ubicacion_imagen_pago { get; set; }
     
-        public virtual Mensualidad Mensualidad { get; set; }
+        public virtual Mensualidades Mensualidades { get; set; }
     }
 }

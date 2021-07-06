@@ -26,6 +26,7 @@
                     <tr>
                         <th>#</th>
                         <th>Editar</th>
+                        <th>Rutina</th>
                         <th>Clave ejercicio</th>
                         <th>Ejercicio</th>
                         <th>Descripcion</th>
@@ -39,6 +40,7 @@
                     <tr>
                         <td>@item.Id_ejercicio</td>
                         <td><button type="button" class="color btn btn-primary fa fa-pencil" onclick="VerEditar(@item.Id_ejercicio)"></button></td>
+                        <td>@item.Rutinas.Descripcion</td>
                         <td>@item.Clave_ejercicio</td>
                         <td>@item.Ejercicio</td>
                         <td style="text-align:left">@item.Descripcion</td>
@@ -422,7 +424,7 @@
         var img = Imagenf.files[0];
         var parametros = {};
         var Rutinas = {};
-        Rutinas.Id_rutina = $("#IdRutinasList").val();
+        Rutinas.Id_rutina = $("#IdRutinasListE").val();
         parametros.Rutinas = Rutinas;
         parametros.Id_ejercicio = $("#Id_ejercicio").val().trim();
         parametros.Clave_ejercicio = $("#IdClaveejercicioE").val().trim();

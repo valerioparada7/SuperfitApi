@@ -200,7 +200,7 @@ namespace SuperfitApi.Controllers.Catalogos
         [Route("api/Catalogo/GetTypeRutines")]
         public List<TiporutinaModel> GetTypeRutines()
         {
-            listtiporutinas = (from r in Db.Tipo_rutina
+            listtiporutinas = (from r in Db.Tipo_rutinas
                            select new TiporutinaModel()
                            {
                                Id_tiporutina = r.Id_tipo_rutina,
@@ -212,7 +212,7 @@ namespace SuperfitApi.Controllers.Catalogos
         [HttpGet]
         public TiporutinaModel GetTypeRutines(int IdTypeRutine)
         {
-            tiporutinas = (from r in Db.Tipo_rutina
+            tiporutinas = (from r in Db.Tipo_rutinas
                                where r.Id_tipo_rutina== IdTypeRutine
                                select new TiporutinaModel()
                                {
@@ -228,25 +228,25 @@ namespace SuperfitApi.Controllers.Catalogos
         [Route("api/Catalogo/GetTypeTraining")]
         public List<TipoentrenamientoModel> GetTypeTraining()
         {
-            listtipoentrena = (from t in Db.Tipo_entrenamiento                       
+            listtipoentrena = (from t in Db.Tipo_entrenamientos                     
                        select new TipoentrenamientoModel()
                        {
                            Id_TipoEntrenamiento=t.Id_tipo_entrenamiento,
                            Clave_Entrenamiento =t.Clave_entrenamiento,
-                           Tipo_entrenamiento=t.Tipo_entrenamientos
+                           Tipo_entrenamiento=t.Tipo_entrenamiento
                        }).ToList();
             return listtipoentrena;
         }
         [HttpGet]
         public TipoentrenamientoModel GetTypeTraining(int IdTypeRutine)
         {
-            tipoentrena = (from t in Db.Tipo_entrenamiento
+            tipoentrena = (from t in Db.Tipo_entrenamientos
                            where t.Id_tipo_entrenamiento == IdTypeRutine
                                select new TipoentrenamientoModel()
                                {
                                    Id_TipoEntrenamiento = t.Id_tipo_entrenamiento,
                                    Clave_Entrenamiento = t.Clave_entrenamiento,
-                                   Tipo_entrenamiento = t.Tipo_entrenamientos
+                                   Tipo_entrenamiento = t.Tipo_entrenamiento
                                }).FirstOrDefault();
             return tipoentrena;
         }

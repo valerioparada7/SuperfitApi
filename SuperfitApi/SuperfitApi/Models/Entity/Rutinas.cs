@@ -17,7 +17,7 @@ namespace SuperfitApi.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Rutinas()
         {
-            this.Detalle_rutina = new HashSet<Detalle_rutina>();
+            this.Detalle_rutinas = new HashSet<Detalle_rutinas>();
             this.Ejercicios = new HashSet<Ejercicios>();
         }
     
@@ -26,7 +26,7 @@ namespace SuperfitApi.Models.Entity
         public string Descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Detalle_rutina> Detalle_rutina { get; set; }
+        public virtual ICollection<Detalle_rutinas> Detalle_rutinas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ejercicios> Ejercicios { get; set; }
     }

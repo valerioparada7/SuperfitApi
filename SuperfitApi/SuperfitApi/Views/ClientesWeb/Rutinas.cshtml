@@ -4,25 +4,30 @@
     Layout = "~/Views/Shared/Diseño.cshtml";
 }
 <style>
-     @@media screen and (min-width:768px) {
+    @@media screen and (min-width:768px) {
         .mobile {
             width: 310px;
-            height:40px;
+            height: 40px;
         }
+
         .imagenes {
             width: 200px;
             height: 200px;
         }
-
     }
-    
-    
-    
 </style>
 <div>
     <div class="row">
         <div class="col">
             <h2 style="text-align:center">Rutina de la semana</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <button type="button" style="background-color:white;border:none;color:#007bff" class="btn btn-primary" data-toggle="modal" data-target="#modalinstrucciones">Instrucciones</button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" style="background-color:white;border:none;color:#007bff" class="btn btn-primary" data-toggle="modal" data-target="#modalestiramientocalentamiento">Estiramiento y calentamiento</button>
         </div>
     </div>
     <br />
@@ -86,6 +91,146 @@
         </div>
     </div>
 </div>
+
+<!---Modal de instrucciones-->
+<div class="modal fade" id="modalinstrucciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Instrucciones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="instruccionescasa">
+                    <p> - Estirar por lo menos 5 minutos cada grupo muscular antes de todo.</p>
+                    <p>- Calentar de 5 a 10 minutos antes de cada rutina de ejercicio.</p>
+                    <p>- Calentamiento para la parte inferior (piernas): ejemplo hacer 20 a 25 sentadillas con tu propio peso o saltar por 2 min la cuerda descansas 1 minuto y lo vuelves hacer hasta completar los 5 a 10 minutos cuando sientas que tu cuerpo ya está sintiéndose activo.</p>
+                    <p>- Calentamiento para la parte superior (brazos, espalda, hombres y pecho): ejemplo puede ser de levantamiento de pesas de 20 repeticiones con un peso super ligero de ½ kg a 1 kg como se muestra en la imagen descansas 1 minuto y lo vuelves hacer hasta completar los 5 a 10 minutos cuando sientas que tu cuerpo ya está sintiéndose activo.</p>            
+                    <p>- Descanso entre ejercicios será de 1 a 2 minutos tomar agua entre descansos de 1 a 3 sorbos sin sobrepasarse.</p>
+                    <p>- Lleva el cronometro de tus descansos con ayuda de un reloj para maximizar tiempos.</p>
+                    <p>- Ocupar botellas de agua de 600militros en caso de no tener pesas pequeñas y de garrafas de 5 litros o 10 litros en el caso de pesas grandes.</p>
+                    <p>- Cuando termines cada set apretar y contraer el musculo correspondiente que estas ejercitando por ejemplo si estas entrenando piernas al terminar tu set apretaras las piernas durante 10 segundos.</p>
+                    <p>- Inhalar por la nariz y exhalar por la boca: inhalar cuando hagas el movimiento hacia arriba y exhalar cuando bajas.</p>    
+                </div>
+                <div class="instruccionesgym" style="display:none">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal para estiramiento y calentamiento-->
+<div class="modal fade" id="modalestiramientocalentamiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Estiramiento y calentamiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="calentamientocasa">
+                    <h3>Estiramiento</h3>
+                    <p>
+                        Tiempo estimado 5 minutos, iniciar de arriba hacia abajo del cuerpo como en las siguientes
+                        imágenes, realizar durante 10 segundos cada estiramiento.
+                    </p>
+                    <div class="row">
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                    </div>
+
+                    <br />
+                    <h3>Calentamiento</h3>
+                    <div class="row">
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                        <div class="col">
+                            <img src="" width="150" height="200" />
+                            <p>Estiramiento de Cuello aun lado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>                
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     var urlsets = '@Url.Action("GetDetalleRutinaSets", "ClientesWeb")';
     var urlejercicios = '@Url.Action("GetDetalleRutinaEjercicios", "ClientesWeb")';
@@ -94,6 +239,14 @@
         Getsets();
     });
 
+    function GymOrHome() {
+        var gymocasa = "";
+        //si es 1 es en casa si es 2 es en gym
+        if (gymocasa == 2) {
+            document.getElementById("instruccionesgym").style.display = "block";
+            document.getElementById("instruccionescasa").style.display = "none";
+        }
+    }
     //int IdMensualidad,int IdEstatusMes,int IdDIa
     $("#dias").change(function () {
         var dia = $(this).val();
@@ -158,7 +311,7 @@
                     html += '<td>' + n + '</td> ';
                     html += '<td>' + diaob.options[diaob.selectedIndex].text+ '</td> ';
                     html += '<td>' + ejercicio.Ejercicio +'</td> ';
-                    html += '<td><img class="imagenes" src="' + ejercicio.Ubicacion_imagen + '" width="200" height="200"/></td>';
+                    html += '<td><img class="imagenes" src="https://www.bsite.net/valerioparada/' + ejercicio.Ubicacion_imagen + '" width="200" height="200"/></td>';
                     html += '<td><label>' + ejercicio.Descripcion + '</label></td>';
                     html += '<td>' + data[i].Series+'</td> ';
                     html += '<td>' + data[i].Repeticiones+'</td> ';

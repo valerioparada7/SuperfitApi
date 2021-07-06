@@ -17,8 +17,8 @@ namespace SuperfitApi.Controllers
         #region Variables 
         public SuperfitEntities  Db;
         public Clientes clientes;
-        public Cuestionario cuestionario;
-        public Mensualidad mensualidad;
+        public Cuestionarios cuestionario;
+        public Mensualidades mensualidad;
         public Asesoria_antropometria asesoria_antropometria;
         public EnvioNotificaciones envio;
         //modelos
@@ -33,8 +33,8 @@ namespace SuperfitApi.Controllers
         {
             Db = new SuperfitEntities();
             clientes = new Clientes();
-            cuestionario = new Cuestionario();
-            mensualidad = new Mensualidad();
+            cuestionario = new Cuestionarios();
+            mensualidad = new Mensualidades();
             asesoria_antropometria = new Asesoria_antropometria();
             envio = new EnvioNotificaciones();
             //modelos
@@ -45,6 +45,27 @@ namespace SuperfitApi.Controllers
             asesoria_antropometriaMdl = new AntropometriaModel();
             alertasMdl = new AlertasModel();
         }        
+        public ActionResult Inicio()
+        {
+            return View();
+        }
+        public ActionResult Plataforma()
+        {
+            return View();
+        }
+        public ActionResult Servicio()
+        {
+            return View();
+        }
+        public ActionResult CambioFisico()
+        {
+            return View();
+        }
+        public ActionResult Contacto()
+        {
+            return View();
+        }
+
         // GET: LoginWeb
         public ActionResult LoginWeb()
         {
@@ -332,8 +353,8 @@ namespace SuperfitApi.Controllers
         //Registrar Cliente
         public ActionResult RegistrarCliente()
         {            
-            ViewBag.Tiporutina = (from t in Db.Tipo_rutina select new TiporutinaModel() { Id_tiporutina = t.Id_tipo_rutina, Descripcion = t.Descripcion }).ToList();
-            ViewBag.TipoEntrenamiento = (from t in Db.Tipo_entrenamiento select new TipoentrenamientoModel() { Id_TipoEntrenamiento = t.Id_tipo_entrenamiento, Tipo_entrenamiento = t.Tipo_entrenamientos }).ToList();
+            ViewBag.Tiporutina = (from t in Db.Tipo_rutinas select new TiporutinaModel() { Id_tiporutina = t.Id_tipo_rutina, Descripcion = t.Descripcion }).ToList();
+            ViewBag.TipoEntrenamiento = (from t in Db.Tipo_entrenamientos select new TipoentrenamientoModel() { Id_TipoEntrenamiento = t.Id_tipo_entrenamiento, Tipo_entrenamiento = t.Tipo_entrenamiento }).ToList();
             return View();
         }
 
@@ -378,7 +399,7 @@ namespace SuperfitApi.Controllers
                             {
                                 Clave = updatecliente.Clave_cliente;
                                 fotoperfil = "/Imagenes/Clientes/" + Clave;
-                                cuestionario = new Cuestionario
+                                cuestionario = new Cuestionarios
                                 {
                                     Id_cliente = clientes.Id_cliente,
                                     Clave_cuestionario = "CUES-" + Clave,
@@ -399,13 +420,13 @@ namespace SuperfitApi.Controllers
                                     Comentarios = Registro.Cuestionario.Comentarios == null ? "" : Registro.Cuestionario.Comentarios,
                                     Fecha_registro = DateTime.Now
                                 };
-                                Db.Cuestionario.Add(cuestionario);                        
+                                Db.Cuestionarios.Add(cuestionario);                        
                                 if (Db.SaveChanges() == 1)
                                 {
                                     Registro.Mensualidad.Fecha_inicio = DateTime.Now;
                                     Registro.Mensualidad.Fecha_fin = DateTime.Now.AddDays(30);
                                     int mes = DateTime.Now.Month;
-                                    mensualidad = new Mensualidad
+                                    mensualidad = new Mensualidades
                                     {
                                         Id_cliente = clientes.Id_cliente,
                                         Id_tipo_rutina = Registro.Mensualidad.Tiporutina.Id_tiporutina,
@@ -415,7 +436,7 @@ namespace SuperfitApi.Controllers
                                         Fecha_inicio = Registro.Mensualidad.Fecha_inicio,
                                         Fecha_fin = Registro.Mensualidad.Fecha_fin
                                     };
-                                    Db.Mensualidad.Add(mensualidad);
+                                    Db.Mensualidades.Add(mensualidad);
                                     if (Db.SaveChanges()==1)
                                     {
                                         asesoria_antropometria = new Asesoria_antropometria
@@ -454,9 +475,9 @@ namespace SuperfitApi.Controllers
                                         else
                                         {
                                             result = "Ocurrio un error al guardar tus medidas reintenta de nuevo y verifica tus datos";
-                                            Db.Mensualidad.Remove(mensualidad);
+                                            Db.Mensualidades.Remove(mensualidad);
                                             Db.SaveChanges();
-                                            Db.Cuestionario.Remove(cuestionario);
+                                            Db.Cuestionarios.Remove(cuestionario);
                                             Db.SaveChanges();
                                             Db.Clientes.Remove(clientes);
                                             Db.SaveChanges();                                     
@@ -465,7 +486,7 @@ namespace SuperfitApi.Controllers
                                     else
                                     {
                                         result = "Ocurrio un error al guardar tu mensualidad reintenta de nuevo y verifica tus datos";
-                                        Db.Cuestionario.Remove(cuestionario);
+                                        Db.Cuestionarios.Remove(cuestionario);
                                         Db.SaveChanges();
                                         Db.Clientes.Remove(clientes);
                                         Db.SaveChanges();
@@ -564,8 +585,8 @@ namespace SuperfitApi.Controllers
         {
             try
             {
-                string training = Db.Tipo_entrenamiento.Where(y => y.Id_tipo_entrenamiento == registro.Mensualidad.TipoEntrenamiento.Id_TipoEntrenamiento).Select(y => y.Tipo_entrenamientos).FirstOrDefault();
-                string rutine = Db.Tipo_rutina.Where(y => y.Id_tipo_rutina == registro.Mensualidad.Tiporutina.Id_tiporutina).Select(y => y.Descripcion).FirstOrDefault();
+                string training = Db.Tipo_entrenamientos.Where(y => y.Id_tipo_entrenamiento == registro.Mensualidad.TipoEntrenamiento.Id_TipoEntrenamiento).Select(y => y.Tipo_entrenamiento).FirstOrDefault();
+                string rutine = Db.Tipo_rutinas.Where(y => y.Id_tipo_rutina == registro.Mensualidad.Tiporutina.Id_tiporutina).Select(y => y.Descripcion).FirstOrDefault();
                 Dictionary<string, string> datoscorreo = new Dictionary<string, string>();
                 datoscorreo.Add("@Names", registro.Cliente.Nombres);
                 datoscorreo.Add("@Lastname", registro.Cliente.Apellido_paterno);
