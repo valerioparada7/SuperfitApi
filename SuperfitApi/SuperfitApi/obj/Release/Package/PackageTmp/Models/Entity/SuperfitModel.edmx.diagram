@@ -4,35 +4,35 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c23f80a2fd3f4de585c2beb70c9b5cc9" Name="Diagram1" ZoomLevel="27">
-        <EntityTypeShape EntityType="superflyfitModel.Asesoria_antropometria" Width="1.5" PointX="18.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Clientes" Width="1.5" PointX="9" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Cuestionario" Width="1.5" PointX="6.25" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Detalle_rutina" Width="1.5" PointX="22" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Dias" Width="1.5" PointX="22.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Ejercicios" Width="1.5" PointX="26.125" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Estatus" Width="1.5" PointX="6.375" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Mensualidad" Width="1.5" PointX="14.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Meses" Width="1.5" PointX="14.625" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Pagos_mensualidades" Width="1.5" PointX="14.25" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Rutinas" Width="1.5" PointX="30.125" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Tipo_entrenamiento" Width="1.5" PointX="10.25" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Tipo_rutina" Width="1.5" PointX="18.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="superflyfitModel.Usuarios" Width="1.5" PointX="4" PointY="1.25" IsExpanded="true" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_mensualidad_Asesoria" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_Cliente" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_Cliente_cuestionario" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_dia" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_ejercicio" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_mensualidad_detalle" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_rutina" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.FK__Ejercicio__Id_ru__03F0984C" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_estatus" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.FK__Mensualid__Id_Ti__70DDC3D8" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_mensualidad" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_mensualidad_pago" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_mes" ManuallyRouted="false" />
-        <AssociationConnector Association="superflyfitModel.fk_Id_tiporutina" ManuallyRouted="false" />
+      <Diagram DiagramId="d7ecf47e640c4ac1beb6bed70c9ccf70" Name="Diagram1">
+        <EntityTypeShape EntityType="SuperfitModel.Asesoria_antropometria" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Clientes" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Cuestionarios" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Detalle_rutinas" Width="1.5" PointX="11.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Dias" Width="1.5" PointX="9" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Ejercicios" Width="1.5" PointX="9" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Estatus" Width="1.5" PointX="3.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Mensualidades" Width="1.5" PointX="6" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Meses" Width="1.5" PointX="3.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Pagos_mensualidades" Width="1.5" PointX="8.25" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Rutinas" Width="1.5" PointX="6.75" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Tipo_entrenamientos" Width="1.5" PointX="3.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Tipo_rutinas" Width="1.5" PointX="3.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperfitModel.Usuarios" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_mensualidad_Asesoria" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_Cliente_cuestionario" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_dia" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_ejercicio" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_mensualidad_detalle" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_rutina" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.FK__Ejercicio__Id_ru__03F0984C" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_estatus" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.FK__Mensualid__Id_Ti__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_mensualidad" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_mensualidad_pago" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_mes" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperfitModel.fk_Id_tiporutina" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

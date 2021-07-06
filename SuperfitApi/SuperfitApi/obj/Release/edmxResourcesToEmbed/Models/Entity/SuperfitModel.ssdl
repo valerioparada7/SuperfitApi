@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="superflyfitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="SuperfitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Asesoria_antropometria">
     <Key>
       <PropertyRef Name="Id" />
@@ -42,7 +42,7 @@
     <Property Name="Foto_perfil" Type="varchar(max)" />
     <Property Name="Sexo" Type="varchar" MaxLength="15" />
   </EntityType>
-  <EntityType Name="Cuestionario">
+  <EntityType Name="Cuestionarios">
     <Key>
       <PropertyRef Name="Id_cuestionario" />
     </Key>
@@ -66,7 +66,7 @@
     <Property Name="Comentarios" Type="varchar(max)" />
     <Property Name="Fecha_registro" Type="datetime" />
   </EntityType>
-  <EntityType Name="Detalle_rutina">
+  <EntityType Name="Detalle_rutinas">
     <Key>
       <PropertyRef Name="Id_detalle_rutina" />
     </Key>
@@ -93,7 +93,7 @@
     </Key>
     <Property Name="Id_ejercicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Clave_ejercicio" Type="varchar" MaxLength="10" Nullable="false" />
-    <Property Name="Ejercicio" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Ejercicio" Type="varchar" MaxLength="100" />
     <Property Name="Descripcion" Type="varchar(max)" />
     <Property Name="Ubicacion_imagen" Type="varchar(max)" />
     <Property Name="Posicion" Type="varchar(max)" />
@@ -106,7 +106,7 @@
     <Property Name="Id_estatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Descripcion" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
-  <EntityType Name="Mensualidad">
+  <EntityType Name="Mensualidades">
     <Key>
       <PropertyRef Name="Id_mensualidad" />
     </Key>
@@ -146,7 +146,7 @@
     <Property Name="Clave_rutina" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Descripcion" Type="varchar" MaxLength="50" />
   </EntityType>
-  <EntityType Name="Tipo_entrenamiento">
+  <EntityType Name="Tipo_entrenamientos">
     <Key>
       <PropertyRef Name="Id_tipo_entrenamiento" />
     </Key>
@@ -154,7 +154,7 @@
     <Property Name="Clave_entrenamiento" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Tipo_entrenamiento" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <EntityType Name="Tipo_rutina">
+  <EntityType Name="Tipo_rutinas">
     <Key>
       <PropertyRef Name="Id_tipo_rutina" />
     </Key>
@@ -187,94 +187,94 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Mensualid__Id_Ti__70DDC3D8">
-    <End Role="Tipo_entrenamiento" Type="Self.Tipo_entrenamiento" Multiplicity="0..1" />
-    <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="*" />
+    <End Role="Tipo_entrenamientos" Type="Self.Tipo_entrenamientos" Multiplicity="0..1" />
+    <End Role="Mensualidades" Type="Self.Mensualidades" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Tipo_entrenamiento">
+      <Principal Role="Tipo_entrenamientos">
         <PropertyRef Name="Id_tipo_entrenamiento" />
       </Principal>
-      <Dependent Role="Mensualidad">
+      <Dependent Role="Mensualidades">
         <PropertyRef Name="Id_tipo_entrenamiento" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_Cliente">
     <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
-    <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="*" />
+    <End Role="Mensualidades" Type="Self.Mensualidades" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Clientes">
         <PropertyRef Name="Id_cliente" />
       </Principal>
-      <Dependent Role="Mensualidad">
+      <Dependent Role="Mensualidades">
         <PropertyRef Name="Id_cliente" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_Cliente_cuestionario">
     <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
-    <End Role="Cuestionario" Type="Self.Cuestionario" Multiplicity="*" />
+    <End Role="Cuestionarios" Type="Self.Cuestionarios" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Clientes">
         <PropertyRef Name="Id_cliente" />
       </Principal>
-      <Dependent Role="Cuestionario">
+      <Dependent Role="Cuestionarios">
         <PropertyRef Name="Id_cliente" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_dia">
     <End Role="Dias" Type="Self.Dias" Multiplicity="1" />
-    <End Role="Detalle_rutina" Type="Self.Detalle_rutina" Multiplicity="*" />
+    <End Role="Detalle_rutinas" Type="Self.Detalle_rutinas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Dias">
         <PropertyRef Name="Id_dia" />
       </Principal>
-      <Dependent Role="Detalle_rutina">
+      <Dependent Role="Detalle_rutinas">
         <PropertyRef Name="Id_dia" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_ejercicio">
     <End Role="Ejercicios" Type="Self.Ejercicios" Multiplicity="1" />
-    <End Role="Detalle_rutina" Type="Self.Detalle_rutina" Multiplicity="*" />
+    <End Role="Detalle_rutinas" Type="Self.Detalle_rutinas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Ejercicios">
         <PropertyRef Name="Id_ejercicio" />
       </Principal>
-      <Dependent Role="Detalle_rutina">
+      <Dependent Role="Detalle_rutinas">
         <PropertyRef Name="Id_ejercicio" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_estatus">
     <End Role="Estatus" Type="Self.Estatus" Multiplicity="1" />
-    <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="*" />
+    <End Role="Mensualidades" Type="Self.Mensualidades" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Estatus">
         <PropertyRef Name="Id_estatus" />
       </Principal>
-      <Dependent Role="Mensualidad">
+      <Dependent Role="Mensualidades">
         <PropertyRef Name="Id_estatus" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_mensualidad">
-    <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="1" />
-    <End Role="Mensualidad1" Type="Self.Mensualidad" Multiplicity="0..1" />
+    <End Role="Mensualidades" Type="Self.Mensualidades" Multiplicity="1" />
+    <End Role="Mensualidades1" Type="Self.Mensualidades" Multiplicity="0..1" />
     <ReferentialConstraint>
-      <Principal Role="Mensualidad">
+      <Principal Role="Mensualidades">
         <PropertyRef Name="Id_mensualidad" />
       </Principal>
-      <Dependent Role="Mensualidad1">
+      <Dependent Role="Mensualidades1">
         <PropertyRef Name="Id_mensualidad" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_mensualidad_Asesoria">
-    <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="1" />
+    <End Role="Mensualidades" Type="Self.Mensualidades" Multiplicity="1" />
     <End Role="Asesoria_antropometria" Type="Self.Asesoria_antropometria" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Mensualidad">
+      <Principal Role="Mensualidades">
         <PropertyRef Name="Id_mensualidad" />
       </Principal>
       <Dependent Role="Asesoria_antropometria">
@@ -283,22 +283,22 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_mensualidad_detalle">
-    <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="1" />
-    <End Role="Detalle_rutina" Type="Self.Detalle_rutina" Multiplicity="*" />
+    <End Role="Mensualidades" Type="Self.Mensualidades" Multiplicity="1" />
+    <End Role="Detalle_rutinas" Type="Self.Detalle_rutinas" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Mensualidad">
+      <Principal Role="Mensualidades">
         <PropertyRef Name="Id_mensualidad" />
       </Principal>
-      <Dependent Role="Detalle_rutina">
+      <Dependent Role="Detalle_rutinas">
         <PropertyRef Name="Id_mensualidad" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_mensualidad_pago">
-    <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="1" />
+    <End Role="Mensualidades" Type="Self.Mensualidades" Multiplicity="1" />
     <End Role="Pagos_mensualidades" Type="Self.Pagos_mensualidades" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Mensualidad">
+      <Principal Role="Mensualidades">
         <PropertyRef Name="Id_mensualidad" />
       </Principal>
       <Dependent Role="Pagos_mensualidades">
@@ -308,110 +308,110 @@
   </Association>
   <Association Name="fk_Id_mes">
     <End Role="Meses" Type="Self.Meses" Multiplicity="1" />
-    <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="*" />
+    <End Role="Mensualidades" Type="Self.Mensualidades" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Meses">
         <PropertyRef Name="Id_mes" />
       </Principal>
-      <Dependent Role="Mensualidad">
+      <Dependent Role="Mensualidades">
         <PropertyRef Name="Id_mes" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_rutina">
     <End Role="Rutinas" Type="Self.Rutinas" Multiplicity="1" />
-    <End Role="Detalle_rutina" Type="Self.Detalle_rutina" Multiplicity="*" />
+    <End Role="Detalle_rutinas" Type="Self.Detalle_rutinas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Rutinas">
         <PropertyRef Name="Id_rutina" />
       </Principal>
-      <Dependent Role="Detalle_rutina">
+      <Dependent Role="Detalle_rutinas">
         <PropertyRef Name="Id_rutina" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_Id_tiporutina">
-    <End Role="Tipo_rutina" Type="Self.Tipo_rutina" Multiplicity="1" />
-    <End Role="Mensualidad" Type="Self.Mensualidad" Multiplicity="*" />
+    <End Role="Tipo_rutinas" Type="Self.Tipo_rutinas" Multiplicity="1" />
+    <End Role="Mensualidades" Type="Self.Mensualidades" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Tipo_rutina">
+      <Principal Role="Tipo_rutinas">
         <PropertyRef Name="Id_tipo_rutina" />
       </Principal>
-      <Dependent Role="Mensualidad">
+      <Dependent Role="Mensualidades">
         <PropertyRef Name="Id_tipo_rutina" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="superflyfitModelStoreContainer">
+  <EntityContainer Name="SuperfitModelStoreContainer">
     <EntitySet Name="Asesoria_antropometria" EntityType="Self.Asesoria_antropometria" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Cuestionario" EntityType="Self.Cuestionario" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Detalle_rutina" EntityType="Self.Detalle_rutina" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cuestionarios" EntityType="Self.Cuestionarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Detalle_rutinas" EntityType="Self.Detalle_rutinas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Dias" EntityType="Self.Dias" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ejercicios" EntityType="Self.Ejercicios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Estatus" EntityType="Self.Estatus" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Mensualidad" EntityType="Self.Mensualidad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mensualidades" EntityType="Self.Mensualidades" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Meses" EntityType="Self.Meses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pagos_mensualidades" EntityType="Self.Pagos_mensualidades" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rutinas" EntityType="Self.Rutinas" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Tipo_entrenamiento" EntityType="Self.Tipo_entrenamiento" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Tipo_rutina" EntityType="Self.Tipo_rutina" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tipo_entrenamientos" EntityType="Self.Tipo_entrenamientos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tipo_rutinas" EntityType="Self.Tipo_rutinas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Ejercicio__Id_ru__03F0984C" Association="Self.FK__Ejercicio__Id_ru__03F0984C">
       <End Role="Rutinas" EntitySet="Rutinas" />
       <End Role="Ejercicios" EntitySet="Ejercicios" />
     </AssociationSet>
     <AssociationSet Name="FK__Mensualid__Id_Ti__70DDC3D8" Association="Self.FK__Mensualid__Id_Ti__70DDC3D8">
-      <End Role="Tipo_entrenamiento" EntitySet="Tipo_entrenamiento" />
-      <End Role="Mensualidad" EntitySet="Mensualidad" />
+      <End Role="Tipo_entrenamientos" EntitySet="Tipo_entrenamientos" />
+      <End Role="Mensualidades" EntitySet="Mensualidades" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_Cliente" Association="Self.fk_Id_Cliente">
       <End Role="Clientes" EntitySet="Clientes" />
-      <End Role="Mensualidad" EntitySet="Mensualidad" />
+      <End Role="Mensualidades" EntitySet="Mensualidades" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_Cliente_cuestionario" Association="Self.fk_Id_Cliente_cuestionario">
       <End Role="Clientes" EntitySet="Clientes" />
-      <End Role="Cuestionario" EntitySet="Cuestionario" />
+      <End Role="Cuestionarios" EntitySet="Cuestionarios" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_dia" Association="Self.fk_Id_dia">
       <End Role="Dias" EntitySet="Dias" />
-      <End Role="Detalle_rutina" EntitySet="Detalle_rutina" />
+      <End Role="Detalle_rutinas" EntitySet="Detalle_rutinas" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_ejercicio" Association="Self.fk_Id_ejercicio">
       <End Role="Ejercicios" EntitySet="Ejercicios" />
-      <End Role="Detalle_rutina" EntitySet="Detalle_rutina" />
+      <End Role="Detalle_rutinas" EntitySet="Detalle_rutinas" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_estatus" Association="Self.fk_Id_estatus">
       <End Role="Estatus" EntitySet="Estatus" />
-      <End Role="Mensualidad" EntitySet="Mensualidad" />
+      <End Role="Mensualidades" EntitySet="Mensualidades" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_mensualidad" Association="Self.fk_Id_mensualidad">
-      <End Role="Mensualidad" EntitySet="Mensualidad" />
-      <End Role="Mensualidad1" EntitySet="Mensualidad" />
+      <End Role="Mensualidades" EntitySet="Mensualidades" />
+      <End Role="Mensualidades1" EntitySet="Mensualidades" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_mensualidad_Asesoria" Association="Self.fk_Id_mensualidad_Asesoria">
-      <End Role="Mensualidad" EntitySet="Mensualidad" />
+      <End Role="Mensualidades" EntitySet="Mensualidades" />
       <End Role="Asesoria_antropometria" EntitySet="Asesoria_antropometria" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_mensualidad_detalle" Association="Self.fk_Id_mensualidad_detalle">
-      <End Role="Mensualidad" EntitySet="Mensualidad" />
-      <End Role="Detalle_rutina" EntitySet="Detalle_rutina" />
+      <End Role="Mensualidades" EntitySet="Mensualidades" />
+      <End Role="Detalle_rutinas" EntitySet="Detalle_rutinas" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_mensualidad_pago" Association="Self.fk_Id_mensualidad_pago">
-      <End Role="Mensualidad" EntitySet="Mensualidad" />
+      <End Role="Mensualidades" EntitySet="Mensualidades" />
       <End Role="Pagos_mensualidades" EntitySet="Pagos_mensualidades" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_mes" Association="Self.fk_Id_mes">
       <End Role="Meses" EntitySet="Meses" />
-      <End Role="Mensualidad" EntitySet="Mensualidad" />
+      <End Role="Mensualidades" EntitySet="Mensualidades" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_rutina" Association="Self.fk_Id_rutina">
       <End Role="Rutinas" EntitySet="Rutinas" />
-      <End Role="Detalle_rutina" EntitySet="Detalle_rutina" />
+      <End Role="Detalle_rutinas" EntitySet="Detalle_rutinas" />
     </AssociationSet>
     <AssociationSet Name="fk_Id_tiporutina" Association="Self.fk_Id_tiporutina">
-      <End Role="Tipo_rutina" EntitySet="Tipo_rutina" />
-      <End Role="Mensualidad" EntitySet="Mensualidad" />
+      <End Role="Tipo_rutinas" EntitySet="Tipo_rutinas" />
+      <End Role="Mensualidades" EntitySet="Mensualidades" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

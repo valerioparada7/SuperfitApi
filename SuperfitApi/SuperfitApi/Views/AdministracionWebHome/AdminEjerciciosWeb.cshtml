@@ -3,13 +3,6 @@
 
 @{
     Layout = "~/Views/Shared/DiseñoAdmin.cshtml";
-    EjerciciosModel ejercicio = new EjerciciosModel();
-    List<SelectListItem> list = new List<SelectListItem>();
-    list.Add(new SelectListItem() { Text = "Definicion" , Value = "Definicion" });
-    list.Add(new SelectListItem() { Text = "Volumen"    , Value = "Volumen" });
-
-    var lista = new SelectList(list, "Text", "Value");
-
 }
 
 <div id="content">

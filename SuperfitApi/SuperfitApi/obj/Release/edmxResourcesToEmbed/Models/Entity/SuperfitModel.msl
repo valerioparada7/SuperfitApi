@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="superflyfitModelStoreContainer" CdmEntityContainer="superflyfitEntities">
+  <EntityContainerMapping StorageEntityContainer="SuperfitModelStoreContainer" CdmEntityContainer="SuperfitEntities2">
     <EntitySetMapping Name="Asesoria_antropometria">
-      <EntityTypeMapping TypeName="superflyfitModel.Asesoria_antropometria">
+      <EntityTypeMapping TypeName="SuperfitModel.Asesoria_antropometria">
         <MappingFragment StoreEntitySet="Asesoria_antropometria">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Id_mensualidad" ColumnName="Id_mensualidad" />
@@ -27,7 +27,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Clientes1">
-      <EntityTypeMapping TypeName="superflyfitModel.Clientes">
+      <EntityTypeMapping TypeName="SuperfitModel.Clientes">
         <MappingFragment StoreEntitySet="Clientes">
           <ScalarProperty Name="Id_cliente" ColumnName="Id_cliente" />
           <ScalarProperty Name="Clave_cliente" ColumnName="Clave_cliente" />
@@ -45,9 +45,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Cuestionarios">
-      <EntityTypeMapping TypeName="superflyfitModel.Cuestionario">
-        <MappingFragment StoreEntitySet="Cuestionario">
+    <EntitySetMapping Name="Cuestionarios1">
+      <EntityTypeMapping TypeName="SuperfitModel.Cuestionarios">
+        <MappingFragment StoreEntitySet="Cuestionarios">
           <ScalarProperty Name="Id_cuestionario" ColumnName="Id_cuestionario" />
           <ScalarProperty Name="Id_cliente" ColumnName="Id_cliente" />
           <ScalarProperty Name="Clave_cuestionario" ColumnName="Clave_cuestionario" />
@@ -70,9 +70,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Detalle_rutina">
-      <EntityTypeMapping TypeName="superflyfitModel.Detalle_rutina">
-        <MappingFragment StoreEntitySet="Detalle_rutina">
+    <EntitySetMapping Name="Detalle_rutinas">
+      <EntityTypeMapping TypeName="SuperfitModel.Detalle_rutinas">
+        <MappingFragment StoreEntitySet="Detalle_rutinas">
           <ScalarProperty Name="Id_detalle_rutina" ColumnName="Id_detalle_rutina" />
           <ScalarProperty Name="Id_mensualidad" ColumnName="Id_mensualidad" />
           <ScalarProperty Name="Id_rutina" ColumnName="Id_rutina" />
@@ -85,7 +85,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Dias1">
-      <EntityTypeMapping TypeName="superflyfitModel.Dias">
+      <EntityTypeMapping TypeName="SuperfitModel.Dias">
         <MappingFragment StoreEntitySet="Dias">
           <ScalarProperty Name="Id_dia" ColumnName="Id_dia" />
           <ScalarProperty Name="Clave_dia" ColumnName="Clave_dia" />
@@ -94,7 +94,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Ejercicios1">
-      <EntityTypeMapping TypeName="superflyfitModel.Ejercicios">
+      <EntityTypeMapping TypeName="SuperfitModel.Ejercicios">
         <MappingFragment StoreEntitySet="Ejercicios">
           <ScalarProperty Name="Id_ejercicio" ColumnName="Id_ejercicio" />
           <ScalarProperty Name="Clave_ejercicio" ColumnName="Clave_ejercicio" />
@@ -107,16 +107,16 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Estatus1">
-      <EntityTypeMapping TypeName="superflyfitModel.Estatus">
+      <EntityTypeMapping TypeName="SuperfitModel.Estatus">
         <MappingFragment StoreEntitySet="Estatus">
           <ScalarProperty Name="Id_estatus" ColumnName="Id_estatus" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Mensualidads">
-      <EntityTypeMapping TypeName="superflyfitModel.Mensualidad">
-        <MappingFragment StoreEntitySet="Mensualidad">
+    <EntitySetMapping Name="Mensualidades1">
+      <EntityTypeMapping TypeName="SuperfitModel.Mensualidades">
+        <MappingFragment StoreEntitySet="Mensualidades">
           <ScalarProperty Name="Id_mensualidad" ColumnName="Id_mensualidad" />
           <ScalarProperty Name="Id_cliente" ColumnName="Id_cliente" />
           <ScalarProperty Name="Id_tipo_rutina" ColumnName="Id_tipo_rutina" />
@@ -129,7 +129,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Meses">
-      <EntityTypeMapping TypeName="superflyfitModel.Meses">
+      <EntityTypeMapping TypeName="SuperfitModel.Meses">
         <MappingFragment StoreEntitySet="Meses">
           <ScalarProperty Name="Id_mes" ColumnName="Id_mes" />
           <ScalarProperty Name="Clave_mes" ColumnName="Clave_mes" />
@@ -138,7 +138,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Pagos_mensualidades">
-      <EntityTypeMapping TypeName="superflyfitModel.Pagos_mensualidades">
+      <EntityTypeMapping TypeName="SuperfitModel.Pagos_mensualidades">
         <MappingFragment StoreEntitySet="Pagos_mensualidades">
           <ScalarProperty Name="Id_pago" ColumnName="Id_pago" />
           <ScalarProperty Name="Id_mensualidad" ColumnName="Id_mensualidad" />
@@ -150,7 +150,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Rutinas1">
-      <EntityTypeMapping TypeName="superflyfitModel.Rutinas">
+      <EntityTypeMapping TypeName="SuperfitModel.Rutinas">
         <MappingFragment StoreEntitySet="Rutinas">
           <ScalarProperty Name="Id_rutina" ColumnName="Id_rutina" />
           <ScalarProperty Name="Clave_rutina" ColumnName="Clave_rutina" />
@@ -158,18 +158,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Tipo_entrenamiento">
-      <EntityTypeMapping TypeName="superflyfitModel.Tipo_entrenamiento">
-        <MappingFragment StoreEntitySet="Tipo_entrenamiento">
+    <EntitySetMapping Name="Tipo_entrenamientos">
+      <EntityTypeMapping TypeName="SuperfitModel.Tipo_entrenamientos">
+        <MappingFragment StoreEntitySet="Tipo_entrenamientos">
           <ScalarProperty Name="Id_tipo_entrenamiento" ColumnName="Id_tipo_entrenamiento" />
           <ScalarProperty Name="Clave_entrenamiento" ColumnName="Clave_entrenamiento" />
-          <ScalarProperty Name="Tipo_entrenamientos" ColumnName="Tipo_entrenamiento" />
+          <ScalarProperty Name="Tipo_entrenamiento" ColumnName="Tipo_entrenamiento" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Tipo_rutina">
-      <EntityTypeMapping TypeName="superflyfitModel.Tipo_rutina">
-        <MappingFragment StoreEntitySet="Tipo_rutina">
+    <EntitySetMapping Name="Tipo_rutinas">
+      <EntityTypeMapping TypeName="SuperfitModel.Tipo_rutinas">
+        <MappingFragment StoreEntitySet="Tipo_rutinas">
           <ScalarProperty Name="Id_tipo_rutina" ColumnName="Id_tipo_rutina" />
           <ScalarProperty Name="Tipo" ColumnName="Tipo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -177,7 +177,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Usuarios1">
-      <EntityTypeMapping TypeName="superflyfitModel.Usuarios">
+      <EntityTypeMapping TypeName="SuperfitModel.Usuarios">
         <MappingFragment StoreEntitySet="Usuarios">
           <ScalarProperty Name="Id_usuario" ColumnName="Id_usuario" />
           <ScalarProperty Name="Clave_usuario" ColumnName="Clave_usuario" />

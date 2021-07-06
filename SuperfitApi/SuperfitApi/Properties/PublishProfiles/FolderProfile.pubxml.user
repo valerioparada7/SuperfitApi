@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\valerio.parada\Downloads\SuperflifitApiPublicsh</_PublishTargetUrl>
-    <History>True|2021-07-03T23:21:53.9375114Z;True|2021-07-01T20:04:46.8299403-05:00;True|2021-06-28T17:13:40.7229280-05:00;True|2021-06-25T23:20:29.2743979-05:00;True|2021-06-19T23:34:40.6984575-05:00;True|2021-06-19T00:28:14.6956999-05:00;True|2021-06-18T20:35:52.4577016-05:00;True|2021-06-18T13:27:10.8766095-05:00;True|2021-06-18T01:51:27.1626199-05:00;True|2021-06-13T01:03:17.7505971-05:00;True|2021-06-12T23:55:17.4707359-05:00;True|2021-06-07T22:40:37.6292259-05:00;True|2021-05-08T23:03:03.6841086-05:00;True|2021-05-08T22:39:13.9943872-05:00;True|2021-03-14T16:57:47.1850185-06:00;True|2021-03-12T09:18:56.8913010-06:00;</History>
+    <History>False|2021-07-06T06:34:11.4890780Z;False|2021-07-06T01:30:13.7805399-05:00;True|2021-07-06T00:58:00.5014847-05:00;True|2021-07-03T18:21:53.9375114-05:00;True|2021-07-01T20:04:46.8299403-05:00;True|2021-06-28T17:13:40.7229280-05:00;True|2021-06-25T23:20:29.2743979-05:00;True|2021-06-19T23:34:40.6984575-05:00;True|2021-06-19T00:28:14.6956999-05:00;True|2021-06-18T20:35:52.4577016-05:00;True|2021-06-18T13:27:10.8766095-05:00;True|2021-06-18T01:51:27.1626199-05:00;True|2021-06-13T01:03:17.7505971-05:00;True|2021-06-12T23:55:17.4707359-05:00;True|2021-06-07T22:40:37.6292259-05:00;True|2021-05-08T23:03:03.6841086-05:00;True|2021-05-08T22:39:13.9943872-05:00;True|2021-03-14T16:57:47.1850185-06:00;True|2021-03-12T09:18:56.8913010-06:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/HelpPage/HelpPage.css">
@@ -285,10 +285,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:56</publishTime>
     </File>
     <File Include="bin/SuperfitApi.dll">
-      <publishTime>07/03/2021 19:10:09</publishTime>
+      <publishTime>07/06/2021 01:36:21</publishTime>
     </File>
     <File Include="bin/SuperfitApi.pdb">
-      <publishTime>07/03/2021 19:10:09</publishTime>
+      <publishTime>07/06/2021 01:36:21</publishTime>
     </File>
     <File Include="bin/System.IdentityModel.Tokens.Jwt.dll">
       <publishTime>01/10/2017 15:23:06</publishTime>
@@ -329,8 +329,17 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="bin/WebGrease.dll">
       <publishTime>03/11/2021 21:29:56</publishTime>
     </File>
+    <File Include="Content/animate.min.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/animated-headline">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/animated-headline.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
     <File Include="Content/bootstrap-chosen.css">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/05/2021 22:01:57</publishTime>
     </File>
     <File Include="Content/bootstrap-chosen.less">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -339,31 +348,31 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.css">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 06:25:04</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.css.map">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.min.css">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 06:25:04</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.min.css.map">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.css">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 06:25:04</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.css.map">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.min.css">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 06:25:04</publishTime>
     </File>
     <File Include="Content/bootstrap-reboot.min.css.map">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
     </File>
     <File Include="Content/bootstrap-sortable.css">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:04</publishTime>
     </File>
     <File Include="Content/bootstrap-theme.css">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -378,16 +387,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
-      <publishTime>05/07/2021 14:28:42</publishTime>
+      <publishTime>07/06/2021 06:25:04</publishTime>
     </File>
     <File Include="Content/bootstrap.css.map">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
-      <publishTime>05/07/2021 13:26:04</publishTime>
+      <publishTime>07/06/2021 06:25:04</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css.map">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
     </File>
     <File Include="Content/build.scss">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -409,6 +418,93 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Content/component-custom-switch.min.css">
       <publishTime>03/11/2021 21:29:53</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.bootstrap.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.bootstrap.min.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.bootstrap4.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.bootstrap4.min.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.foundation.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.foundation.min.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.jqueryui.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.jqueryui.min.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.semanticui.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/dataTables.semanticui.min.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/jquery.dataTables.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/css/jquery.dataTables.min.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/images/sort_asc.png">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/images/sort_asc_disabled.png">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/images/sort_both.png">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/images/sort_desc.png">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/images/sort_desc_disabled.png">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.bootstrap.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.bootstrap.min.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.bootstrap4.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.bootstrap4.min.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.foundation.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.foundation.min.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.jqueryui.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.jqueryui.min.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.semanticui.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/dataTables.semanticui.min.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/jquery.dataTables.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/DataTables-1.10.22/js/jquery.dataTables.min.js">
+      <publishTime>07/06/2021 01:35:50</publishTime>
     </File>
     <File Include="Content/DataTables-1.10.24/css/dataTables.bootstrap.css">
       <publishTime>06/04/2021 23:10:46</publishTime>
@@ -498,7 +594,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/04/2021 23:10:46</publishTime>
     </File>
     <File Include="Content/datatables.css">
-      <publishTime>06/04/2021 23:10:55</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
     </File>
     <File Include="Content/DataTables/css/autoFill.bootstrap.css">
       <publishTime>04/19/2021 15:55:47</publishTime>
@@ -1067,17 +1163,62 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/DataTables1.10.22/js/jquery.dataTables.min.js">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
+    <File Include="Content/flaticon.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
     <File Include="Content/font-awesome.css">
-      <publishTime>04/02/2021 23:10:07</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
     </File>
     <File Include="Content/font-awesome.min.css">
-      <publishTime>04/02/2021 23:10:07</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/fontawesome-all.min.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/gijgo.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
     </File>
     <File Include="Content/jquery.dataTables.multiselect.css">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
+    <File Include="Content/magnific-popup.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/main.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/nice-select.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/owl.carousel.min.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/price_rangs.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/responsive.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
     <File Include="Content/Site.css">
-      <publishTime>05/07/2021 14:27:05</publishTime>
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/slick.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/slicknav.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/style.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/style.map">
+      <publishTime>07/05/2021 22:29:23</publishTime>
+    </File>
+    <File Include="Content/sweetalert.css">
+      <publishTime>07/06/2021 01:35:50</publishTime>
+    </File>
+    <File Include="Content/themify-icons.css">
+      <publishTime>07/05/2021 22:29:23</publishTime>
     </File>
     <File Include="Content/_component-custom-switch.scss">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -1091,23 +1232,101 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="fondo3.ico">
       <publishTime>06/20/2021 21:27:59</publishTime>
     </File>
+    <File Include="fonts/fa-brands-400.eot">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/fa-brands-400.svg">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/fa-brands-400.ttf">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/fa-brands-400.woff">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/fa-brands-400.woff2">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/fa-regular-400.eot">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/fa-regular-400.svg">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/fa-regular-400.ttf">
+      <publishTime>07/05/2021 22:22:05</publishTime>
+    </File>
+    <File Include="fonts/fa-regular-400.woff">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/fa-regular-400.woff2">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/fa-solid-900.eot">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/fa-solid-900.svg">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/fa-solid-900.ttf">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/fa-solid-900.woff">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/fa-solid-900.woff2">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/flaticon.css">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/Flaticon.eot">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/flaticon.html">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/Flaticon.svg">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/Flaticon.ttf">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/Flaticon.woff">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/Flaticon.woff2">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
     <File Include="fonts/fontawesome-webfont.eot">
-      <publishTime>04/02/2021 23:10:07</publishTime>
+      <publishTime>07/06/2021 06:25:10</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.svg">
-      <publishTime>04/02/2021 23:10:07</publishTime>
+      <publishTime>07/06/2021 06:25:10</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.ttf">
-      <publishTime>04/02/2021 23:10:07</publishTime>
+      <publishTime>07/06/2021 06:25:10</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.woff">
-      <publishTime>04/02/2021 23:10:07</publishTime>
+      <publishTime>07/06/2021 06:25:10</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.woff2">
-      <publishTime>04/02/2021 23:10:07</publishTime>
+      <publishTime>07/06/2021 06:25:10</publishTime>
     </File>
     <File Include="fonts/FontAwesome.otf">
-      <publishTime>04/02/2021 23:10:07</publishTime>
+      <publishTime>07/06/2021 06:25:10</publishTime>
+    </File>
+    <File Include="fonts/gijgo-material.eot">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/gijgo-material.svg">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/gijgo-material.ttf">
+      <publishTime>07/05/2021 22:22:06</publishTime>
+    </File>
+    <File Include="fonts/gijgo-material.woff">
+      <publishTime>07/05/2021 22:22:07</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
       <publishTime>02/12/2021 17:34:26</publishTime>
@@ -1124,8 +1343,47 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="fonts/glyphicons-halflings-regular.woff2">
       <publishTime>02/12/2021 17:34:25</publishTime>
     </File>
+    <File Include="fonts/themify.eot">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/themify.svg">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/themify.ttf">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/themify.woff">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
+    <File Include="fonts/_flaticon.scss">
+      <publishTime>07/05/2021 22:22:07</publishTime>
+    </File>
     <File Include="Global.asax">
       <publishTime>03/11/2021 21:29:53</publishTime>
+    </File>
+    <File Include="Imagenes/hero.png">
+      <publishTime>07/06/2021 00:43:04</publishTime>
+    </File>
+    <File Include="Imagenes/imagen1.jpeg">
+      <publishTime>07/06/2021 00:41:53</publishTime>
+    </File>
+    <File Include="Imagenes/imagen2.jpeg">
+      <publishTime>07/06/2021 00:41:53</publishTime>
+    </File>
+    <File Include="Imagenes/imagen3.jpeg">
+      <publishTime>07/06/2021 00:41:54</publishTime>
+    </File>
+    <File Include="Imagenes/imagen4.jpeg">
+      <publishTime>07/06/2021 00:41:54</publishTime>
+    </File>
+    <File Include="Imagenes/imagen5.jpeg">
+      <publishTime>07/06/2021 00:41:54</publishTime>
+    </File>
+    <File Include="Imagenes/imagen6.jpeg">
+      <publishTime>07/06/2021 00:41:54</publishTime>
+    </File>
+    <File Include="Imagenes/imagen7.jpeg">
+      <publishTime>07/06/2021 00:41:54</publishTime>
     </File>
     <File Include="Imagenes/superfiticono.jpeg">
       <publishTime>06/20/2021 21:30:08</publishTime>
@@ -1134,7 +1392,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/18/2021 16:42:35</publishTime>
     </File>
     <File Include="Models/Entity/SuperfitModel.edmx.diagram">
-      <publishTime>06/20/2021 17:43:15</publishTime>
+      <publishTime>07/05/2021 15:26:46</publishTime>
     </File>
     <File Include="Models/SuperflyfitModel.edmx.diagram">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -1151,35 +1409,38 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Plantillas/SolicitudRegistro.html">
       <publishTime>06/21/2021 23:01:47</publishTime>
     </File>
+    <File Include="Scripts/animated.headline.js">
+      <publishTime>07/05/2021 22:21:30</publishTime>
+    </File>
     <File Include="Scripts/bootstrap-sortable.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js">
-      <publishTime>04/02/2021 23:10:48</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js.map">
-      <publishTime>04/02/2021 23:10:47</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.min.js">
-      <publishTime>04/02/2021 23:10:47</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.min.js.map">
-      <publishTime>04/02/2021 23:10:47</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
-      <publishTime>04/02/2021 23:10:47</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js.map">
-      <publishTime>04/02/2021 23:10:47</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
-      <publishTime>04/02/2021 23:10:47</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js.map">
-      <publishTime>04/02/2021 23:10:47</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/Chart.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/Chart.min.js">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -1190,8 +1451,11 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Scripts/chosen.jquery.min.js">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
+    <File Include="Scripts/contact.js">
+      <publishTime>07/05/2021 22:26:04</publishTime>
+    </File>
     <File Include="Scripts/datatables.js">
-      <publishTime>06/04/2021 23:11:06</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/DataTables/autoFill.bootstrap.js">
       <publishTime>04/19/2021 15:55:45</publishTime>
@@ -1422,31 +1686,37 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/19/2021 15:55:44</publishTime>
     </File>
     <File Include="Scripts/esm/popper-utils.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/esm/popper-utils.js.map">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/esm/popper-utils.min.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/esm/popper-utils.min.js.map">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/esm/popper.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/esm/popper.js.map">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/esm/popper.min.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/esm/popper.min.js.map">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
+    </File>
+    <File Include="Scripts/gijgo.min.js">
+      <publishTime>07/05/2021 22:21:30</publishTime>
+    </File>
+    <File Include="Scripts/hover-direction-snake.min.js">
+      <publishTime>07/05/2021 22:21:30</publishTime>
     </File>
     <File Include="Scripts/index.js.flow">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery-3.4.1.js">
       <publishTime>02/12/2021 17:34:26</publishTime>
@@ -1467,46 +1737,79 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/12/2021 17:34:26</publishTime>
     </File>
     <File Include="Scripts/jquery-3.5.1.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery-3.5.1.min.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery-3.5.1.min.map">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery-3.5.1.slim.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery-3.5.1.slim.min.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery-3.5.1.slim.min.map">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery.ajaxchimp.min.js">
+      <publishTime>07/05/2021 22:21:30</publishTime>
+    </File>
+    <File Include="Scripts/jquery.countdown.min.js">
+      <publishTime>07/05/2021 22:21:30</publishTime>
+    </File>
+    <File Include="Scripts/jquery.counterup.min.js">
+      <publishTime>07/05/2021 22:21:30</publishTime>
     </File>
     <File Include="Scripts/jquery.dataTables.multiselect.js">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
+    <File Include="Scripts/jquery.form.js">
+      <publishTime>07/05/2021 22:21:30</publishTime>
+    </File>
+    <File Include="Scripts/jquery.magnific-popup.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
+    <File Include="Scripts/jquery.nice-select.min.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
+    <File Include="Scripts/jquery.paroller.min.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
+    <File Include="Scripts/jquery.slicknav.min.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
+    <File Include="Scripts/jquery.sticky.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
     <File Include="Scripts/jquery.unobtrusive-ajax.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.min.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
+    </File>
+    <File Include="Scripts/mail-script.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
+    <File Include="Scripts/main.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.8.3.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/moment-with-locales.js">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -1518,37 +1821,49 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Scripts/moment.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/moment.min.js">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/moment.min.js.map">
-      <publishTime>03/11/2021 21:29:53</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
+    </File>
+    <File Include="Scripts/one-page-nav-min.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
+    <File Include="Scripts/owl.carousel.min.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
+    <File Include="Scripts/plugins.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
     </File>
     <File Include="Scripts/popper-utils.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/popper-utils.js.map">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/popper-utils.min.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/popper-utils.min.js.map">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/popper.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/popper.js.map">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/popper.min.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/popper.min.js.map">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
+    </File>
+    <File Include="Scripts/price-range.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
     </File>
     <File Include="Scripts/printThis.js">
       <publishTime>03/11/2021 21:29:53</publishTime>
@@ -1556,221 +1871,236 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Scripts/README.md">
       <publishTime>04/02/2021 23:10:46</publishTime>
     </File>
+    <File Include="Scripts/slick.min.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
     <File Include="Scripts/src/index.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/methods/defaults.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/methods/destroy.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/methods/disableEventListeners.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/methods/enableEventListeners.js">
-      <publishTime>04/02/2021 23:10:46</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/methods/placements.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/methods/update.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/applyStyle.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/arrow.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/computeStyle.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/flip.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/hide.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/index.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/inner.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/keepTogether.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/offset.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/preventOverflow.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/modifiers/shift.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/clockwise.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/computeAutoPlacement.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/debounce.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/find.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/findCommonOffsetParent.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/findIndex.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getBordersSize.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getBoundaries.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getBoundingClientRect.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getClientRect.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getFixedPositionOffsetParent.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getOffsetParent.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getOffsetRect.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getOffsetRectRelativeToArbitraryNode.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getOppositePlacement.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getOppositeVariation.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getOuterSizes.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getParentNode.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getPopperOffsets.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getReferenceNode.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getReferenceOffsets.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getRoot.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getRoundedOffsets.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getScroll.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getScrollParent.js">
-      <publishTime>04/02/2021 23:10:45</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getStyleComputedProperty.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getSupportedPropertyName.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getViewportOffsetRectRelativeToArtbitraryNode.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getWindow.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/getWindowSizes.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/includeScroll.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/index.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/isBrowser.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/isFixed.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/isFunction.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/isIE.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/isModifierEnabled.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/isModifierRequired.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/isNumeric.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/isOffsetContainer.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/removeEventListeners.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/runModifiers.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/setAttributes.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/setStyles.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/src/utils/setupEventListeners.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/umd/popper-utils.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/umd/popper-utils.js.map">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/umd/popper-utils.min.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/umd/popper-utils.min.js.map">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/umd/popper.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/umd/popper.js.flow">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/umd/popper.js.map">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/umd/popper.min.js">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
     </File>
     <File Include="Scripts/umd/popper.min.js.map">
-      <publishTime>04/02/2021 23:10:44</publishTime>
+      <publishTime>07/06/2021 06:25:26</publishTime>
+    </File>
+    <File Include="Scripts/vendor/jquery-1.12.4.min.js">
+      <publishTime>07/05/2021 22:21:30</publishTime>
+    </File>
+    <File Include="Scripts/vendor/modernizr-3.5.0.min.js">
+      <publishTime>07/05/2021 22:21:30</publishTime>
+    </File>
+    <File Include="Scripts/waypoints.min.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
+    </File>
+    <File Include="Scripts/wow.min.js">
+      <publishTime>07/05/2021 22:21:29</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminAsesoriaantropometriaWeb.cshtml">
       <publishTime>04/19/2021 13:42:29</publishTime>
@@ -1779,7 +2109,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/04/2021 21:31:23</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminEjerciciosWeb.cshtml">
-      <publishTime>07/03/2021 18:57:41</publishTime>
+      <publishTime>07/06/2021 01:32:55</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/AdminEstatusWeb.cshtml">
       <publishTime>06/24/2021 19:49:12</publishTime>
@@ -1800,40 +2130,55 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/21/2021 23:47:00</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/ClienteDetalle.cshtml">
-      <publishTime>07/03/2021 18:19:02</publishTime>
+      <publishTime>07/05/2021 15:51:19</publishTime>
     </File>
     <File Include="Views/AdministracionWebHome/Entrenamientoenvivo.cshtml">
       <publishTime>06/05/2021 21:34:48</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Mensualidades.cshtml">
-      <publishTime>07/03/2021 18:18:15</publishTime>
+      <publishTime>07/06/2021 01:17:55</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Perfil.cshtml">
       <publishTime>07/03/2021 18:04:38</publishTime>
     </File>
     <File Include="Views/ClientesWeb/Rutinas.cshtml">
-      <publishTime>07/03/2021 18:43:01</publishTime>
+      <publishTime>07/05/2021 17:13:55</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
+    <File Include="Views/LoginWeb/CambioFisico.cshtml">
+      <publishTime>07/05/2021 23:57:52</publishTime>
+    </File>
+    <File Include="Views/LoginWeb/Contacto.cshtml">
+      <publishTime>07/06/2021 00:02:19</publishTime>
+    </File>
+    <File Include="Views/LoginWeb/Inicio.cshtml">
+      <publishTime>07/06/2021 01:22:30</publishTime>
+    </File>
     <File Include="Views/LoginWeb/LoginAdministradorWeb.cshtml">
-      <publishTime>07/03/2021 14:44:04</publishTime>
+      <publishTime>07/05/2021 23:39:47</publishTime>
     </File>
     <File Include="Views/LoginWeb/LoginWeb.cshtml">
-      <publishTime>06/23/2021 18:34:14</publishTime>
+      <publishTime>07/05/2021 23:59:32</publishTime>
+    </File>
+    <File Include="Views/LoginWeb/Plataforma.cshtml">
+      <publishTime>07/06/2021 00:00:15</publishTime>
     </File>
     <File Include="Views/LoginWeb/Recuperarcuenta.cshtml">
       <publishTime>07/01/2021 19:52:38</publishTime>
     </File>
     <File Include="Views/LoginWeb/RegistrarCliente.cshtml">
-      <publishTime>07/03/2021 18:11:45</publishTime>
+      <publishTime>07/05/2021 18:30:44</publishTime>
+    </File>
+    <File Include="Views/LoginWeb/Servicio.cshtml">
+      <publishTime>07/05/2021 23:57:52</publishTime>
     </File>
     <File Include="Views/Shared/Diseño.cshtml">
-      <publishTime>07/03/2021 12:29:25</publishTime>
+      <publishTime>07/06/2021 01:18:25</publishTime>
     </File>
     <File Include="Views/Shared/DiseñoAdmin.cshtml">
-      <publishTime>06/20/2021 21:33:11</publishTime>
+      <publishTime>07/06/2021 00:41:55</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>06/20/2021 21:33:22</publishTime>
@@ -1848,7 +2193,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/11/2021 21:29:53</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/01/2021 20:04:44</publishTime>
+      <publishTime>07/06/2021 00:57:58</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -4,24 +4,24 @@
  *
  * To rebuild or modify this file with the latest versions of the included
  * software please visit:
- *   https://datatables.net/download/#dt/dt-1.10.24
+ *   https://datatables.net/download/#dt/dt-1.10.22
  *
  * Included libraries:
- *   DataTables 1.10.24
+ *   DataTables 1.10.22
  */
 
-/*! DataTables 1.10.24
- * ©2008-2021 SpryMedia Ltd - datatables.net/license
+/*! DataTables 1.10.22
+ * ©2008-2020 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     DataTables
  * @description Paginate, search and order HTML tables
- * @version     1.10.24
+ * @version     1.10.22
  * @file        jquery.dataTables.js
  * @author      SpryMedia Ltd
  * @contact     www.datatables.net
- * @copyright   Copyright 2008-2021 SpryMedia Ltd.
+ * @copyright   Copyright 2008-2020 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license
@@ -1100,8 +1100,6 @@
 						_fnLanguageCompat( json );
 						_fnCamelToHungarian( defaults.oLanguage, json );
 						$.extend( true, oLanguage, json );
-			
-						_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
 						_fnInitialise( oSettings );
 					},
 					error: function () {
@@ -1110,9 +1108,6 @@
 					}
 				} );
 				bInitHandedOff = true;
-			}
-			else {
-				_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
 			}
 			
 			/*
@@ -2780,7 +2775,7 @@
 				for ( var i=0, iLen=a.length-1 ; i<iLen ; i++ )
 				{
 					// Protect against prototype pollution
-					if (a[i] === '__proto__' || a[i] === 'constructor') {
+					if (a[i] === '__proto__') {
 						throw new Error('Cannot set prototype values');
 					}
 	
@@ -3162,7 +3157,7 @@
 				cells.push( nTd );
 	
 				// Need to create the HTML if new, or if a rendering function is defined
-				if ( create || ((oCol.mRender || oCol.mData !== i) &&
+				if ( create || ((!nTrIn || oCol.mRender || oCol.mData !== i) &&
 					 (!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
 				)) {
 					nTd.innerHTML = _fnGetCellData( oSettings, iRow, i, 'display' );
@@ -3194,6 +3189,10 @@
 	
 			_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [nTr, rowData, iRow, cells] );
 		}
+	
+		// Remove once webkit bug 131819 and Chromium bug 365619 have been resolved
+		// and deployed
+		row.nTr.setAttribute( 'role', 'row' );
 	}
 	
 	
@@ -9547,7 +9546,7 @@
 	 *  @type string
 	 *  @default Version number
 	 */
-	DataTable.version = "1.10.24";
+	DataTable.version = "1.10.22";
 
 	/**
 	 * Private data store, containing all of the settings objects that are
@@ -11474,7 +11473,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
+				"sNext": "Siguiente",
 	
 	
 				/**
@@ -11497,7 +11496,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				"sPrevious": "Anterior"
 			},
 	
 			/**
@@ -11520,7 +11519,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			"sEmptyTable": "No se encuentran Registros",
 	
 	
 			/**
@@ -11552,7 +11551,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "Mostrando _START_ de _END_ de _TOTAL_ Registros",
 	
 	
 			/**
@@ -11595,7 +11594,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			"sInfoFiltered": "(Filtrado de _MAX_ Registros)",
 	
 	
 			/**
@@ -11713,7 +11712,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "Mostrando _MENU_ Registros",
 	
 	
 			/**
@@ -11737,7 +11736,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLoadingRecords": "Loading...",
+			"sLoadingRecords": "Cargando...",
 	
 	
 			/**
@@ -11758,7 +11757,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sProcessing": "Processing...",
+			"sProcessing": "Trabajando...",
 	
 	
 			/**
@@ -11793,7 +11792,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Buscar:",
 	
 	
 			/**
@@ -13971,7 +13970,7 @@
 		 *
 		 *  @type string
 		 */
-		build:"dt/dt-1.10.24",
+		build:"dt/dt-1.10.22",
 	
 	
 		/**
@@ -14499,8 +14498,8 @@
 		"sSortAsc": "sorting_asc",
 		"sSortDesc": "sorting_desc",
 		"sSortable": "sorting", /* Sortable in both directions */
-		"sSortableAsc": "sorting_desc_disabled",
-		"sSortableDesc": "sorting_asc_disabled",
+		"sSortableAsc": "sorting_asc_disabled",
+		"sSortableDesc": "sorting_desc_disabled",
 		"sSortableNone": "sorting_disabled",
 		"sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */
 	
@@ -14941,6 +14940,7 @@
 	
 					cell
 						.removeClass(
+							column.sSortingClass +' '+
 							classes.sSortAsc +' '+
 							classes.sSortDesc
 						)

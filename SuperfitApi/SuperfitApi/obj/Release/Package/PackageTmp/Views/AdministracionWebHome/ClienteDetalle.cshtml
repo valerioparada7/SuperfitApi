@@ -591,6 +591,10 @@
                                 <div class="col">
                                     <button type="button" id="AgregarRutina" class="btn btn-success" onclick="AgregarRutina()">Agregar a la rutina</button>
                                 </div>
+                                <div class="col-md-5">
+                                    <label>Enviar correo</label>
+                                    <input type="checkbox" id="enviocorreoId" checked />
+                                </div>
                             </div>
                         </div>
                         <div id="segunda" class="col-8">
@@ -1725,7 +1729,7 @@
         swal({
             icon: "https://www.bsite.net/valerioparada/Imagenes/loading.gif"
         });
-        var detallerutinaModels = [];
+        var detallerutinas = [];
         var l = 0;
         for (var j = 1; j <= 6; j++) {
             l += document.getElementById('ListaEjercicios' + j).getElementsByTagName('tr');
@@ -1753,16 +1757,17 @@
                     model.Repeticiones = document.getElementById('idrepeticion' + i + y).innerHTML;
                     model.Series = document.getElementById('idserie' + i + y).innerHTML;
                     model.Tipo_set = document.getElementById('idset' + i + y).innerHTML;
-                    detallerutinaModels.push(model);
+                    detallerutinas.push(model);
                 }
             }
 
-            if (detallerutinaModels.length > 0) {
+            if (detallerutinas.length > 0) {
+                var enviar = document.getElementById("enviocorreoId").checked;
+                var modelo = JSON.stringify(detallerutinas);
                 $.ajax({
                     type: "POST",
                     url: urldetallRutina,
-                    data: JSON.stringify(detallerutinaModels),
-                    contentType: "application/json",
+                    data: { "detallerutinaModels": detallerutinas, "enviocorreo": enviar },                                              
                     success: function (data) {
                         if (data == "True") {
                             swal({
@@ -1776,14 +1781,17 @@
                         else {
                             swal({
                                 title: "Warning!",
-                                text: "Ocurrio un error",
+                                text: "Ocurrio un error no se registro correctamente",
                                 icon: "warning"
                             });
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                        alert("Ocurrio un error verifique su conexion");
+                        swal({
+                            title: "Warning!",
+                            text: "Ocurrio un error",
+                            icon: "warning"
+                        });
                     }
                 });
             }
