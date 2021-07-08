@@ -309,3 +309,4 @@ C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\Super
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.csproj.CopyComplete
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.dll
 C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.pdb
+C:\Users\valerio.parada\Documents\Visual Studio 2019\Proyectos\SuperfitApi\SuperfitApi\SuperfitApi\obj\Debug\SuperfitApi.csprojAssemblyReference.cache

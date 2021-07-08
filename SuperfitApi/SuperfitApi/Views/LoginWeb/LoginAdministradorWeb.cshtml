@@ -13,7 +13,7 @@
     @Styles.Render("~/Content/fontawesome")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
-<link rel="shortcut icon" type="image/png" href="https://www.bsite.net/valerioparada/Imagenes/superfiticono.jpeg" />
+<link rel="shortcut icon" type="image/png" href="https://superflyfit.000webhostapp.com/imagenes/superfiticono.jpeg" />
     <style>
         .login {
             margin-top: 10px;
@@ -51,6 +51,33 @@
     </style>
 </head>
 <body>
+    <header>
+        <nav class="navbar navbar-expand-lg" style="background-color:#007bff">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler btn btn-outline-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><i class="fa fa-navicon"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="@Url.Action("Inicio", "LoginWeb", null, null)">
+                            <span class="menu-collapsed text-white">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="@Url.Action("RegistrarCliente", "LoginWeb", null, null)">
+                            <span class="menu-collapsed text-white">Registrarse</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="@Url.Action("LoginWeb", "LoginWeb", null, null)">
+                            <span class="menu-collapsed text-white">Inicio sesión</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
@@ -79,7 +106,7 @@
                                 <button type="submit" id="Iniciarsesion" class="form-control btn btn-primary" style="background-color: #007bff">Iniciar sesión</button>
                             </div>
                         </div>
-                        <hr />                        
+                        <hr />
                         <div class="login">
                             @Html.ActionLink("Soy un cliente", "LoginWeb", "LoginWeb", new { @class = "btn-link" })
                         </div>

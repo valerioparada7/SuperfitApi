@@ -49,22 +49,6 @@ namespace SuperfitApi.Controllers
         {
             return View();
         }
-        public ActionResult Plataforma()
-        {
-            return View();
-        }
-        public ActionResult Servicio()
-        {
-            return View();
-        }
-        public ActionResult CambioFisico()
-        {
-            return View();
-        }
-        public ActionResult Contacto()
-        {
-            return View();
-        }
 
         // GET: LoginWeb
         public ActionResult LoginWeb()
@@ -530,7 +514,7 @@ namespace SuperfitApi.Controllers
         {
             string result = "1";
             try
-            {
+            {                
                 string ubicacion = string.Empty, idcliente = string.Empty, medidas = string.Empty;
                 int clienteid = 0, medidasid = 0;
                 ubicacion = TempData["Ubicacion"].ToString();

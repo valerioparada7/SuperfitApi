@@ -536,10 +536,6 @@
     <Content Include="Views\AdministracionWebHome\Entrenamientoenvivo.cshtml" />
     <Content Include="Views\LoginWeb\Recuperarcuenta.cshtml" />
     <Content Include="Views\LoginWeb\Inicio.cshtml" />
-    <Content Include="Views\LoginWeb\Plataforma.cshtml" />
-    <Content Include="Views\LoginWeb\Servicio.cshtml" />
-    <Content Include="Views\LoginWeb\CambioFisico.cshtml" />
-    <Content Include="Views\LoginWeb\Contacto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
